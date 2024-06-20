@@ -1,0 +1,164 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure all history is fetched
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Test project
+        run: npm test
+#
+#  version-bump:
+#    needs: build
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [20]
+#
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Build project
+#        run: npm run build
+#
+#      - name: Commit changes
+#        run: |
+#          git config --global user.name "github-actions[bot]"
+#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#          git add .
+#          git commit -m "CI: Commit changes [skip ci]" || echo "No changes to commit"
+#
+#      - name: Bump version and push tag
+#        id: bump_version
+#        env:
+#          PAT: ${{ secrets.PAT }}
+#        run: |
+#          git config --global user.name "github-actions[bot]"
+#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#          git checkout -b version-bump-branch
+#          npm version patch -m "CI: Bump version to %s [skip ci]"
+#          git pull --rebase origin version-bump-branch || git pull --rebase origin main
+#          git push https://${{ secrets.PAT }}@github.com/${{ github.repository }} version-bump-branch
+#
+#      - name: Create pull request
+#        uses: peter-evans/create-pull-request@v6
+#        with:
+#          token: ${{ secrets.PAT }}
+#          branch: version-bump-branch
+#          title: "CI: Bump version"
+#          body: "Automated version bump by GitHub Actions."
+#          base: main
+#
+#      - name: Automerge
+#        uses: reitermarkus/automerge@v2
+#        with:
+#          token: ${{ secrets.PAT }}
+#          merge-method: squash
+#          do-not-merge-labels: never-merge
+#          pull-request: ${{ github.event.inputs.pull-request }}
+#          review: ${{ github.event.inputs.review }}
+#
+#  release:
+#    needs: version-bump
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [20]
+#
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Build the project
+#        run: npm run build
+#
+#      - name: Check if tag exists
+#        id: tag_exists
+#        run: |
+#          if git rev-parse "v${{ steps.bump_version.outputs.new_version }}" >/dev/null 2>&1; then
+#            echo "tag_exists=true" >> $GITHUB_ENV
+#          else
+#            echo "tag_exists=false" >> $GITHUB_ENV
+#          fi
+#
+#      - name: Delete existing tag
+#        if: env.tag_exists == 'true'
+#        run: |
+#          git push --delete origin "v${{ steps.bump_version.outputs.new_version }}"
+#          git tag -d "v${{ steps.bump_version.outputs.new_version }}"
+#
+#      - name: Create GitHub release
+#        if: env.tag_exists == 'false'
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: v${{ steps.bump_version.outputs.new_version }}
+#          release_name: Release ${{ steps.bump_version.outputs.new_version }}
+#          draft: false
+#          prerelease: false
+#
+#      - name: Upload release assets
+#        if: env.tag_exists == 'false'
+#        uses: actions/upload-release-asset@v1
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: |
+#            dist/**
+#            package.json
+#            README.md
+#            LICENSE
+#          asset_name: dist.zip
+#          asset_content_type: application/zip
