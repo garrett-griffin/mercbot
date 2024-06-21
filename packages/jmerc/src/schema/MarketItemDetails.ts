@@ -1,0 +1,16 @@
+import { z } from 'zod';
+import { MarketItemSchema } from './MarketItemSchema';
+import { ItemOrderSchema } from './ItemOrderSchema';
+import {ItemEnumSchema} from "./enums/ItemEnumSchema";
+
+export const MarketItemDetailsSchema = z.object({
+    id: z.number(),
+    product: ItemEnumSchema,
+    asset: ItemEnumSchema,
+    currency: z.string(),
+    bids: z.array(ItemOrderSchema),
+    asks: z.array(ItemOrderSchema),
+    data: MarketItemSchema
+});
+
+export type MarketItemDetailsType = z.infer<typeof MarketItemDetailsSchema>;
