@@ -1,0 +1,9 @@
+{
+    "projects": {
+        "frontend": {
+            "projectSettings": {
+                "rootDirectory": "packages/frontend"
+            }
+        }
+    }
+}
