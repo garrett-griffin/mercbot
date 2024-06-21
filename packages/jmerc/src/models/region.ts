@@ -1,29 +1,13 @@
-import { RegionSchema } from '../schema/RegionSchema';
-import { LocationSchema, LocationType } from '../schema/LocationSchema';
+import { RegionSchema, RegionType } from '../schema/RegionSchema';
 
-export class Region {
-    id: number;
-    name: string;
-    description: string | null;
-    center: LocationType | null;
-    size: number | null;
+export class Region implements RegionType {
+    constructor(data: RegionType) {
+        Object.assign(this, data);
+    }
 
     static validate(data: unknown): Region {
         try {
-            return RegionSchema.parse(data);
-        } catch (errors) {
-            throw new Error('Validation failed: ' + errors);
-        }
-    }
-}
-
-export class Location {
-    x: number;
-    y: number;
-
-    static validate(data: unknown): Location {
-        try {
-            return LocationSchema.parse(data);
+            return new Region(RegionSchema.parse(data));
         } catch (errors) {
             throw new Error('Validation failed: ' + errors);
         }

@@ -1,6 +1,6 @@
-import { TurnSchema } from '../schema/TurnSchema';
+import { TurnSchema, TurnType } from '../schema/TurnSchema';
 
-export class Turn {
+export class Turn implements TurnType {
     turn: number;
     month?: string;
     year?: number;
