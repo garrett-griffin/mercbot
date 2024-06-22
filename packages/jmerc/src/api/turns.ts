@@ -1,10 +1,9 @@
 import BaseAPI from './baseAPI';
+import { apiRoutes } from "./api-routes";
 import { Turn } from '../models/turn';
 
 class TurnsAPI extends BaseAPI {
-    static rootUrl(): string {
-        return 'api/clock'; // Adjust if the endpoint is different
-    }
+    endpoint: string = apiRoutes.turn;
 
     /**
      * Get the current turn data.

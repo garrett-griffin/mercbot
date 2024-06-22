@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
+import { apiUrl } from "./api-routes";
 import TurnsAPI from './turns';
 import PlayerAPI from './players';
-import TownsAPI from './towns';
+import { TownsAPI } from './towns';
 
 /**
  * Client for interacting with the Mercatorio API.
@@ -11,6 +12,7 @@ class Client {
     private token: string;
     private baseUrl: string;
     private session: AxiosInstance;
+    endpoint: string;
 
     /**
      * Creates an instance of Client.
@@ -18,7 +20,7 @@ class Client {
      * @param token - The API token.
      * @param baseUrl - The base URL for the API.
      */
-    constructor(user: string, token: string, baseUrl: string = 'https://play.mercatorio.io/') {
+    constructor(user: string, token: string, baseUrl: string = apiUrl) {
         this.user = user;
         this.token = token;
         this.baseUrl = baseUrl;
@@ -35,12 +37,11 @@ class Client {
 
     /**
      * Makes a GET request.
-     * @param endpoint - The API endpoint.
      * @returns The response data.
      */
-    async get(endpoint: string): Promise<object> {
+    async get(): Promise<object> {
         try {
-            const response = await this.session.get(endpoint);
+            const response = await this.session.get(this.endpoint);
             return response.data;
         } catch (error) {
             throw new Error(`GET ${endpoint} failed: ${(error as Error).message}`);

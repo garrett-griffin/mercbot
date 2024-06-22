@@ -1,6 +1,6 @@
 import Client from './client';
 
-class BaseAPI {
+abstract class BaseAPI {
     private client: Client;
 
     /**

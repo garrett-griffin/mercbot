@@ -1,12 +1,13 @@
 import BaseAPI from './baseAPI';
-import { Town, TownData, TownMarket, TownMarketItemDetails } from '../models/towns';
+import { apiRoutes } from "./api-routes";
+import { Town, TownData, Market, MarketItemDetails } from '../models/towns';
 import { Item, ItemTrade, ItemTradeResult } from '../models/common';
 import { BuySellOrderFailedException } from '../utils/';
 import { convertFloatsToStrings } from '../utils/';
 
 class TownsAPI extends BaseAPI {
     static rootUrl(): string {
-        return 'api/towns';
+        return apiRoutes.towns;
     }
 
     async initCache(): Promise<void> {
@@ -20,7 +21,8 @@ class TownsAPI extends BaseAPI {
     async getAll(): Promise<Town[]> {
         try {
             const response = await super.get(TownsAPI.rootUrl());
-            return response.map((townData: any) => Town.modelValidate(townData));
+            const data = await response.json(); // Extract JSON data
+            return data.map((townData: any) => Town.validate(townData));
         } catch (error) {
             throw new Error(`Failed to fetch towns: ${(error as Error).message}`);
         }

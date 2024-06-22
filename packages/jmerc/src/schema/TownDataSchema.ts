@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { LocationSchema } from './LocationSchema';
-import { TownDomainSchema } from './TownDomainSchema';
+import { TileSchema } from './TileSchema';
 import { CommonersSchema } from './CommonersSchema';
 import { TownGovernmentSchema } from './TownGovernmentSchema';
 import { TownChurchSchema } from './TownChurchSchema';
@@ -12,7 +12,7 @@ export const TownDataSchema = z.object({
     location: LocationSchema,
     region: z.number(),
     center_ids: z.array(z.number()),
-    domain: z.record(z.string(), TownDomainSchema),
+    domain: z.record(z.string(), TileSchema),
     household_ids: z.array(z.string()),
     commoners: CommonersSchema,
     government: TownGovernmentSchema,
