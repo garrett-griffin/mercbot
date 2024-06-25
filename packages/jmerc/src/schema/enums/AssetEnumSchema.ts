@@ -9,4 +9,4 @@ export const AssetEnumSchema = z.enum([
     "tumbrel",
 ]);
 
-export type AssetEnum = z.infer<typeof AssetEnumSchema>;
+export type AssetEnumType = z.infer<typeof AssetEnumSchema>;

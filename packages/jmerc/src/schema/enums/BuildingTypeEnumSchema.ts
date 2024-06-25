@@ -79,4 +79,4 @@ export const BuildingTypeEnumSchema = z.enum([
     "windmill"
 ]);
 
-export type BuildingTypeEnum = z.infer<typeof BuildingTypeEnumSchema>;
+export type BuildingTypeEnumType = z.infer<typeof BuildingTypeEnumSchema>;

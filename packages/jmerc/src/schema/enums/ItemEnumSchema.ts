@@ -101,4 +101,4 @@ export const ItemEnumSchema = z.enum([
     "yarn"
 ]);
 
-export type ItemEnum = z.infer<typeof ItemEnumSchema>;
+export type ItemEnumType = z.infer<typeof ItemEnumSchema>;

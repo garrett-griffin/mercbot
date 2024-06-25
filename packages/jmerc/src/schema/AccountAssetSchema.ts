@@ -12,4 +12,4 @@ export const AccountAssetSchema = z.object({
     unit_cost: z.number().optional()
 });
 
-export type InventoryAccountAssetType = z.infer<typeof AccountAssetSchema>;
+export type AccountAssetType = z.infer<typeof AccountAssetSchema>;

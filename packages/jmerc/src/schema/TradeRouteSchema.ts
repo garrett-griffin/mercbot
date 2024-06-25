@@ -22,4 +22,4 @@ export const TradeRouteSchema = z.object({
     previous_flows: z.record(ItemEnumSchema, FlowSchema)
 });
 
-export type TransportRouteType = z.infer<typeof TradeRouteSchema>;
+export type TradeRouteType = z.infer<typeof TradeRouteSchema>;

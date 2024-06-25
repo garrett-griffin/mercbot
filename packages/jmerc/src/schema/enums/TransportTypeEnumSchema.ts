@@ -8,4 +8,4 @@ export const TransportTypeEnumSchema = z.enum([
     "tumbrel"
 ]);
 
-export type TransportTypeEnum = z.infer<typeof TransportTypeEnumSchema>;
+export type TransportTypeEnumType = z.infer<typeof TransportTypeEnumSchema>;

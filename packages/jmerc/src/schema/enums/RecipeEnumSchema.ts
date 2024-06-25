@@ -344,4 +344,4 @@ export const RecipeEnumSchema = z.enum([
     "yoke ox 3 (manure)"
 ]);
 
-export type RecipeEnum = z.infer<typeof RecipeEnumSchema>;
+export type RecipeEnumType = z.infer<typeof RecipeEnumSchema>;

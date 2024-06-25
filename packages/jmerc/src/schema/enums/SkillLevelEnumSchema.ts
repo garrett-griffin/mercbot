@@ -7,4 +7,4 @@ export const SkillLevelEnumSchema = z.enum([
     "9999"
 ]);
 
-export type SkillLevelEnum = z.infer<typeof SkillLevelEnumSchema>;
+export type SkillLevelEnumType = z.infer<typeof SkillLevelEnumSchema>;

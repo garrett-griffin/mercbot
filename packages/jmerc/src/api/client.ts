@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from 'axios';
-import { apiUrl } from "./api-routes";
+import axios, {AxiosInstance} from 'axios';
+import {apiUrl} from "./api-routes";
 import TurnsAPI from './turns';
 import PlayerAPI from './players';
 import TownsAPI from './towns';
@@ -56,8 +56,7 @@ class Client {
      */
     async patch(endpoint: string, data: object): Promise<object> {
         try {
-            const response = await this.session.patch(endpoint, data);
-            return response.data;
+            return await this.session.patch(endpoint, data);
         } catch (error) {
             throw new Error(`PATCH ${endpoint} failed: ${(error as Error).message}`);
         }

@@ -10,4 +10,4 @@ export const SkillEnumSchema = z.enum([
     "weaponry"
 ]);
 
-export type SkillEnum = z.infer<typeof SkillEnumSchema>;
+export type SkillEnumType = z.infer<typeof SkillEnumSchema>;

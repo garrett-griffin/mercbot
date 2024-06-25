@@ -6,4 +6,4 @@ export const ItemTypeEnumSchema = z.enum([
     "special"
 ]);
 
-export type ItemTypeEnum = z.infer<typeof ItemTypeEnumSchema>;
+export type ItemTypeEnumType = z.infer<typeof ItemTypeEnumSchema>;

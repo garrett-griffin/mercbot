@@ -35,4 +35,4 @@ export const BuildingUpgradeTypeEnumSchema = z.enum([
     "weaponsrack"
 ]);
 
-export type BuildingUpgradeTypeEnum = z.infer<typeof BuildingUpgradeTypeEnumSchema>;
+export type BuildingUpgradeTypeEnumType = z.infer<typeof BuildingUpgradeTypeEnumSchema>;

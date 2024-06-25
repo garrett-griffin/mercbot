@@ -5,4 +5,4 @@ export const ClimateEnumSchema = z.enum([
     "warm"
 ]);
 
-export type ClimateEnum = z.infer<typeof ClimateEnumSchema>;
+export type ClimateEnumType = z.infer<typeof ClimateEnumSchema>;
