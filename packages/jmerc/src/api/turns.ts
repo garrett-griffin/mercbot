@@ -11,7 +11,7 @@ class TurnsAPI extends BaseAPI {
      */
     async get(): Promise<Turn> {
         try {
-            const response = await super.get(TurnsAPI.rootUrl());
+            const response = await super.get();
             return Turn.validate(response);
         } catch (error) {
             throw new Error(`Failed to fetch turn data: ${(error as Error).message}`);

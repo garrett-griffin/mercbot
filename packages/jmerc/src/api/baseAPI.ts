@@ -2,6 +2,7 @@ import Client from './client';
 
 abstract class BaseAPI {
     private client: Client;
+    endpoint: string;
 
     /**
      * Creates an instance of BaseAPI.
@@ -16,8 +17,8 @@ abstract class BaseAPI {
      * @param endpoint - The API endpoint.
      * @returns The response data.
      */
-    async get(endpoint: string): Promise<object> {
-        return this.client.get(endpoint);
+    async get(endpoint: string = this.endpoint): Promise<object> {
+        return this.client.get(this.endpoint);
     }
 
     /**

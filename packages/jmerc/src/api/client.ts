@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { apiUrl } from "./api-routes";
 import TurnsAPI from './turns';
 import PlayerAPI from './players';
-import { TownsAPI } from './towns';
+import TownsAPI from './towns';
 
 /**
  * Client for interacting with the Mercatorio API.
@@ -39,16 +39,16 @@ class Client {
      * Makes a GET request.
      * @returns The response data.
      */
-    async get(): Promise<object> {
+    async get(endpoint: string): Promise<object> {
         try {
-            const response = await this.session.get(this.endpoint);
+            const response = await this.session.get(endpoint);
             return response.data;
         } catch (error) {
             throw new Error(`GET ${endpoint} failed: ${(error as Error).message}`);
         }
     }
 
-    /**
+    /**-
      * Makes a PATCH request.
      * @param endpoint - The API endpoint.
      * @param data - The data to send.

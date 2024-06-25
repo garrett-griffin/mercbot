@@ -7,11 +7,9 @@ export const staticUrl = rootUrl + 'static/js/';
 export const apiRoutes = {
     turn: `clock`,
     towns: `towns`,
-    townData: {
-        get: z.object({
-            url: `${apiUrl}/towns/:id/data`,
-            method: 'GET',
-        }),
-    },
+    townData: `towns/:id/data`,
+    marketData: `towns/:id/marketdata`,
+    marketItem: `towns/:id/markets/:item`,
+    regions: 'map/regions',
     // Add more routes here
 };

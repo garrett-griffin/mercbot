@@ -1,11 +1,10 @@
 import BaseAPI from './baseAPI';
+import { apiRoutes } from "./api-routes";
 import { Region } from '../models/region';
 import { RegionType } from '../schema/RegionSchema';
 
 class RegionAPI extends BaseAPI {
-    static rootUrl(): string {
-        return 'api/map/regions';
-    }
+    endpoint: string = apiRoutes.regions;
 
     /**
      * Get a list of all regions in the game.
@@ -13,8 +12,8 @@ class RegionAPI extends BaseAPI {
      */
     async getAll(): Promise<RegionType[]> {
         try {
-            const response = await super.get(RegionAPI.rootUrl()) as unknown[];
-            return response.map((regionData: unknown) => Region.validate(regionData));
+            const response = await super.get() as unknown[];
+            return response.map((regionData: unknown) => Region.validate(regionData) as RegionType);
         } catch (error) {
             throw new Error(`Failed to fetch regions: ${(error as Error).message}`);
         }

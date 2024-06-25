@@ -1,14 +1,11 @@
 import BaseAPI from './baseAPI';
 import { apiRoutes } from "./api-routes";
 import { Town, TownData, Market, MarketItemDetails } from '../models/towns';
-import { Item, ItemTrade, ItemTradeResult } from '../models/common';
-import { BuySellOrderFailedException } from '../utils/';
-import { convertFloatsToStrings } from '../utils/';
+import { ItemEnum } from "../schema/enums/ItemEnumSchema";
 
 class TownsAPI extends BaseAPI {
-    static rootUrl(): string {
-        return apiRoutes.towns;
-    }
+
+    endpoint: string = apiRoutes.towns;
 
     async initCache(): Promise<void> {
         // Implement cache initialization if needed
@@ -20,9 +17,8 @@ class TownsAPI extends BaseAPI {
      */
     async getAll(): Promise<Town[]> {
         try {
-            const response = await super.get(TownsAPI.rootUrl());
-            const data = await response.json(); // Extract JSON data
-            return data.map((townData: any) => Town.validate(townData));
+            const response = await super.get() as unknown[];
+            return response.map((townData: unknown) => Town.validate(townData) as Town);
         } catch (error) {
             throw new Error(`Failed to fetch towns: ${(error as Error).message}`);
         }
@@ -35,8 +31,8 @@ class TownsAPI extends BaseAPI {
      */
     async getTown(id: number): Promise<Town> {
         try {
-            const response = await super.get(`${TownsAPI.rootUrl()}/${id}`);
-            return Town.modelValidate(response);
+            const response = await super.get(apiRoutes.townData.replace(':id', id.toString()));
+            return TownData.validate(response);
         } catch (error) {
             throw new Error(`Failed to fetch town data for ID ${id}: ${(error as Error).message}`);
         }
@@ -47,10 +43,10 @@ class TownsAPI extends BaseAPI {
      * @param id - The ID of the town.
      * @returns The market data for the town.
      */
-    async getMarketData(id: number): Promise<TownMarket> {
+    async getMarketData(id: number): Promise<Market> {
         try {
-            const response = await super.get(`${TownsAPI.rootUrl()}/${id}/marketdata`);
-            return TownMarket.modelValidate(response);
+            const response = await super.get(apiRoutes.marketData.replace(':id', id.toString()));
+            return Market.validate(response);
         } catch (error) {
             throw new Error(`Failed to fetch market data for town ID ${id}: ${(error as Error).message}`);
         }
@@ -62,11 +58,14 @@ class TownsAPI extends BaseAPI {
      * @param item - The item to get the overview for.
      * @returns The market overview for the town.
      */
-    async getMarketItem(townId: number, item: Item): Promise<TownMarketItemDetails> {
+    async getMarketItem(townId: number, item: ItemEnum): Promise<MarketItemDetails> {
         try {
-            const response = await super.get(`${TownsAPI.rootUrl()}/${townId}/markets/${item.value}`);
-            return TownMarketItemDetails.modelValidate(response);
+            const response = await super.get(apiRoutes.marketItem.replace(':id', townId.toString()).replace(':item', item.toString()));
+            return MarketItemDetails.validate(response);
         } catch (error) {
-            throw new Error(`Failed to fetch market item data for town ID ${townId} and item ${item.name}: ${(error as Error).message}`);
+            throw new Error(`Failed to fetch market item data for town ID ${townId} and item ${item}: ${(error as Error).message}`);
         }
     }
+}
+
+export default TownsAPI;
