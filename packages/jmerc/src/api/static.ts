@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import BaseAPI from './baseAPI';
-import Client from './client';
+import Client from '../client';
 import { staticUrl, rootUrl } from "./api-routes";
 import { Building } from '../models/building'
 import { LRUCache } from "lru-cache";

@@ -30,6 +30,10 @@ export class ItemTrade extends BaseModel implements ItemTradeType {
 
 export class ItemTradeResult extends BaseModel implements ItemTradeResultType {
     static schema = ItemTradeResultSchema;
+
+    settlements: ItemTradeSettlement[] | null;
+    order_id: number | null;
+    embedded: Record<string, any>;
 }
 
 export class ItemTradeSettlement extends BaseModel implements ItemTradeSettlementType {

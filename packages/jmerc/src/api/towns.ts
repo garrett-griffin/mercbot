@@ -4,8 +4,6 @@ import { apiRoutes } from "./api-routes";
 import { Town, TownData } from '../models/town';
 import { Market, MarketItemDetails } from '../models/market';
 import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
-import {Item} from "../models/item";
-import { ItemTypeEnumType } from "../schema/enums/ItemTypeEnumSchema";
 import {ItemTrade, ItemTradeResult} from "../models/itemTrade";
 import { convertFloatsToStrings, BuySellOrderFailedException } from '../utils'
 
@@ -20,7 +18,7 @@ class TownsAPI extends BaseAPI {
     async getAll(): Promise<Town[]> {
         try {
             const response = await super.get() as unknown[];
-            return response.map((townData: unknown) => Town.validate(townData) as Town);
+            return response.map((townData: unknown) => Town.validate(townData) as unknown as Town);
         } catch (error) {
             throw new Error(`Failed to fetch towns: ${(error as Error).message}`);
         }
@@ -31,7 +29,7 @@ class TownsAPI extends BaseAPI {
      * @param id - The ID of the town.
      * @returns The data for the town.
      */
-    async get({ id }: { endpoint?: string, id?: number, item?: string } = {}): Promise<Town> {
+    async get({ id }: { endpoint?: string, id?: number, item?: string } = {}): Promise<TownData> {
         try {
             const response = await super.get({ endpoint: apiRoutes.townData, id });
             return TownData.validate(response);
@@ -45,7 +43,7 @@ class TownsAPI extends BaseAPI {
      * @param id - The ID of the town.
      * @returns The data for the town.
      */
-    async getTown(id: number): Promise<Town> {
+    async getTown(id: number): Promise<TownData> {
         return await this.get({id});
     }
 
@@ -54,7 +52,7 @@ class TownsAPI extends BaseAPI {
      * @param id - The ID of the town.
      * @returns The data for the town.
      */
-    async getTownData(id: number): Promise<Town> {
+    async getTownData(id: number): Promise<TownData> {
         return await this.get({id});
     }
 
@@ -88,7 +86,7 @@ class TownsAPI extends BaseAPI {
     }
 
     async sendBuyOrder(
-        item: ItemTypeEnumType,
+        item: ItemEnumType,
         id: number,
         expectedBalance: number,
         operation: string,
@@ -101,7 +99,7 @@ class TownsAPI extends BaseAPI {
     }
 
     async sendSellOrder(
-        item: ItemTypeEnumType,
+        item: ItemEnumType,
         id: number,
         expectedBalance: number,
         operation: string,
@@ -114,7 +112,7 @@ class TownsAPI extends BaseAPI {
     }
 
     async _sendOrder(
-        item: ItemTypeEnumType,
+        item: ItemEnumType,
         id: number,
         expectedBalance: number,
         operation: string,

@@ -11,6 +11,23 @@ export class Manager extends BaseModel implements ManagerType {
     private _sellPrice: number | null;
     private _sellVolume: number | null;
 
+    constructor(data: {
+        buyPrice?: number | null,
+        buyVolume?: number | null,
+        capacity?: number | null,
+        maxHolding?: number | null,
+        sellPrice?: number | null,
+        sellVolume?: number | null,
+    }) {
+        super();
+        this.buyPrice = data.buyPrice;
+        this.buyVolume = data.buyVolume;
+        this.capacity = data.capacity;
+        this.maxHolding = data.maxHolding;
+        this.sellPrice = data.sellPrice;
+        this.sellVolume = data.sellVolume;
+    }
+
     get buyPrice(): number | null {
         return this._buyPrice;
     }

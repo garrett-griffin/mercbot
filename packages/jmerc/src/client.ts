@@ -1,8 +1,15 @@
 import axios, {AxiosInstance} from 'axios';
-import {apiUrl} from "./api-routes";
-import TurnsAPI from './turns';
-import PlayerAPI from './players';
-import TownsAPI from './towns';
+import {apiRoutes, apiUrl} from "./api/api-routes";
+import TurnsAPI from './api/turns';
+import PlayerAPI from './api/players';
+import TownsAPI from './api/towns';
+import BuildingsAPI from './api/buildings';
+import BusinessesAPI from './api/businesses';
+import RegionsAPI from './api/regions';
+import StaticAPI from './api/static';
+import TransportsAPI from './api/transports';
+import {RecipeEnumType} from "./schema/enums/RecipeEnumSchema";
+import {Town} from "./models/town";
 
 /**
  * Client for interacting with the Mercatorio API.
@@ -13,6 +20,14 @@ class Client {
     private baseUrl: string;
     private session: AxiosInstance;
     endpoint: string;
+    buildingsApi: BuildingsAPI;
+    businessesApi: BusinessesAPI;
+    regionsApi: RegionsAPI;
+    playerApi: PlayerAPI;
+    staticApi: StaticAPI;
+    townsApi: TownsAPI;
+    transportsApi: TransportsAPI;
+
 
     /**
      * Creates an instance of Client.
@@ -33,6 +48,14 @@ class Client {
                 'Accept': 'application/json'
             }
         });
+
+        this.buildingsApi = new BuildingsAPI(this);
+        this.businessesApi = new BusinessesAPI(this);
+        this.regionsApi = new RegionsAPI(this);
+        this.playerApi = new PlayerAPI(this);
+        this.staticApi = new StaticAPI(this);
+        this.townsApi = new TownsAPI(this);
+        this.transportsApi = new TransportsAPI(this);
     }
 
     /**
@@ -114,9 +137,13 @@ class Client {
         return new TownsAPI(this);
     }
 
-    async getTowns(): Promise<object[]> {
+    async getTowns(filter: string[] = []): Promise<Town[]> {
         const townsAPI = new TownsAPI(this);
-        return await townsAPI.getAll();
+        const towns = await townsAPI.getAll();
+        const tasks = towns
+            .filter(town => !filter.length || filter.includes(town.name))
+            .map(town => this.getTown(town.id));
+        return await Promise.all(tasks) as Town[];
     }
 
     /**
@@ -128,6 +155,36 @@ class Client {
         const townsAPI = new TownsAPI(this);
         return await townsAPI.getTown(id);
     }
+
+    // async getBuildingOperation(player: Player, buildingId: number): Promise<BuildingOperation> {
+    //     const buildingOperation = new BuildingOperation(this, player, buildingId);
+    //     await buildingOperation.load();
+    //     return buildingOperation;
+    // }
+
+    // async getOperation(player: Player, buildingOperation: BuildingOperation, operation: Operation): Promise<Operation> {
+    //     const op = new Operation(this, player, buildingOperation, operation);
+    //     await op.load();
+    //     return op;
+    // }
+
+    // async recipe(recipe: RecipeEnumType): Promise<Recipe> {
+    //     const r = new Recipe(this, recipe);
+    //     await r.load();
+    //     return r;
+    // }
+
+    // async storehouse(player: Player): Promise<Storehouse> {
+    //     const storehouse = new Storehouse(this, player);
+    //     await storehouse.load();
+    //     return storehouse;
+    // }
+
+    // async transport(player: Player, id: number): Promise<Transport> {
+    //     const transport = new Transport(this, player, id);
+    //     await transport.load();
+    //     return transport;
+    // }
 }
 
 export default Client;
