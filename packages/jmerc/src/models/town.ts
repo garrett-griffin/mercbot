@@ -50,5 +50,6 @@ export class TownDemand extends BaseModel implements TownDemandType {
 
 export class TownDemandCategory extends BaseModel implements TownDemandCategoryType {
     static schema = TownDemandCategorySchema;
+    name: string;
     products: TownDemand[];
 }

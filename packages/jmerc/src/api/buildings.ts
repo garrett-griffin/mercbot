@@ -7,6 +7,7 @@ import { ItemTypeEnumType } from "../schema/enums/ItemTypeEnumSchema";
 import { SetManagerFailedException, convertFloatsToStrings } from "../utils";
 import { pickBy } from 'lodash';
 import * as _ from 'lodash';
+import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 
 class BuildingsAPI extends BaseAPI {
 
@@ -38,7 +39,7 @@ class BuildingsAPI extends BaseAPI {
         }
     }
 
-    async setManager(id: number, item: ItemTypeEnumType, manager: Manager): Promise<Building> {
+    async setManager(id: number, item: ItemEnumType, manager: Manager): Promise<Building> {
         try {
             const json = convertFloatsToStrings(pickBy(manager, _.identity));
             const response: ResponseObject = await super.patch({ endpoint: apiRoutes.buildingSetManager, id, item, data: json });

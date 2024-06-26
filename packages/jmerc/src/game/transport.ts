@@ -1,26 +1,25 @@
 import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
-import { Inventory } from './Inventory';
-import { InventoryAccountAsset } from './InventoryAccountAsset';
-import { Town } from './Town';
+import { Inventory } from '../models/inventory';
+import { Town } from './town';
 import {Market, MarketItem, MarketItemDetails} from '../models/market';
 import { TradeRoute } from '../models/transport';
-import { Exports, Export } from './exports';
+import { Exports, Export } from './Exports';
 import { Imports, Import } from './imports';
 import Client from '../client';
 import { Player } from './Player';
 import { Transport as TransportModel } from '../models/transport'
 import { ItemTradeResult } from "../models/itemTrade";
-import { Account } from "../models/account";
+import { Account, AccountAsset } from "../models/account";
 import { Manager } from "../models/manager";
 
-class Transport {
+export class Transport {
     id: number;
     town: Town | null;
     exports: Exports;
     imports: Imports;
     inventory: Inventory;
     route: TradeRoute;
-    private data: TransportModel;
+    data: TransportModel;
     _client: Client;
     player: Player;
 
@@ -28,7 +27,7 @@ class Transport {
         return this.town !== null;
     }
 
-    get market(): Market | Record<ItemEnumType, MarketItem> | null {
+    get market(): Record<ItemEnumType, MarketItem> | null {
         if (this.docked) {
             return this.town.market;
         } else {
@@ -41,9 +40,9 @@ class Transport {
         this.player = player;
         this.data = await client.transportsApi.get({id: this.id});
         if (this.data.route) {
-            this.town = await client.getTown(this.data.route.remote_town);
+            const data = await client.townsApi.getTown(this.data.route.remote_town);
         }
-        this._load_imports_exports();
+        this.loadImportsExports();
     }
 
     async buy(item: ItemEnumType, volume: number, price: number): Promise<ItemTradeResult> {
@@ -84,7 +83,7 @@ class Transport {
         if (buyVolume !== undefined) manager.buyVolume = buyVolume;
         if (sellPrice !== undefined) manager.sellPrice = sellPrice;
         if (sellVolume !== undefined) manager.sellVolume = sellVolume;
-        this.updateRoute(await this._client.transports_api.setManager(this.id, item, manager));
+        this.updateRoute(await this._client.transportsApi.setManager(this.id, item, manager));
     }
 
     async sell(item: ItemEnumType, volume: number, price: number): Promise<ItemTradeResult> {
@@ -101,10 +100,10 @@ class Transport {
         if (!this.docked) {
             throw new Error('The transport must be docked to set a manager.');
         }
-        this.updateRoute(await this._client.transports_api.setManager(this.id, item, manager));
+        this.updateRoute(await this._client.transportsApi.setManager(this.id, item, manager));
     }
 
-    updateRoute(route: TransportRoute): void {
+    updateRoute(route: TradeRoute): void {
         this.data.route = route;
         this.loadImportsExports();
     }
@@ -115,10 +114,10 @@ class Transport {
                 const asset = this.route.account.assets[item];
                 const flow = this.data.route.current_flows[item];
                 if (this.route.managers[item].buyVolume) {
-                    this.imports[item] = new Import(asset, flow, item, this.route.managers[item], this.town, this);
+                    this.imports[item] = new Import(asset, flow, item as ItemEnumType, this.route.managers[item], this.town, this);
                 }
                 if (this.route.managers[item].sellVolume) {
-                    this.exports[item] = new Export(asset, flow, item, this.route.managers[item], this.town, this);
+                    this.exports[item] = new Export(asset, flow, item as ItemEnumType, this.route.managers[item], this.town, this);
                 }
             }
         }
@@ -149,16 +148,16 @@ class TransportList extends Array<Transport> {
 
 class TownItem {
     item: ItemEnumType;
-    asset: InventoryAccountAsset;
+    marketItem: MarketItem;
     town: Town;
 
-    constructor(item: ItemEnumType, asset: InventoryAccountAsset, town: Town) {
+    constructor(item: ItemEnumType, marketItem: MarketItem, town: Town) {
         this.item = item;
-        this.asset = asset;
+        this.marketItem = marketItem;
         this.town = town;
     }
 
-    fetchDetails(): TownMarketItemDetails {
+    fetchDetails(): MarketItemDetails {
         return this.town.fetchMarketItem(this.item);
     }
 }

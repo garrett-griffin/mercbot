@@ -7,13 +7,13 @@ import { TownData, TownDemand } from "../models/town";
 import { ItemTradeResult } from "../models/itemTrade";
 
 export class Town {
-    private _client: Client;
-    private _market: Market;
-    private data: TownData;
+    _client: Client;
+    _market: Market;
+    data: TownData;
 
-    constructor(client: Client, public id: number) {
+    constructor(client: Client, public id: number, data: TownData = null) {
         this._client = client;
-        this.data = null;
+        this.data = data;
     }
 
     async load(): Promise<void> {
@@ -29,9 +29,7 @@ export class Town {
         return this.data!.commoners.demands;
     }
 
-    get market(): {
-        [key: string]: MarketItem;
-    } {
+    get market(): Record<ItemEnumType, MarketItem> {
         return this._market.markets;
     }
 

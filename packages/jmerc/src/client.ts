@@ -9,7 +9,9 @@ import RegionsAPI from './api/regions';
 import StaticAPI from './api/static';
 import TransportsAPI from './api/transports';
 import {RecipeEnumType} from "./schema/enums/RecipeEnumSchema";
-import {Town} from "./models/town";
+import { Town } from "./game/town";
+import { Player } from "./game/player";
+import { BuildingOperation, Operation } from "./game/operation"
 
 /**
  * Client for interacting with the Mercatorio API.
@@ -151,9 +153,9 @@ class Client {
      * @param id - The ID of the town.
      * @returns The data for the town.
      */
-    async getTown(id: number): Promise<object> {
-        const townsAPI = new TownsAPI(this);
-        return await townsAPI.getTown(id);
+    async getTown(id: number): Promise<Town> {
+        const data = await this.townsApi.getTown(id);
+        return new Town(this, id, data);
     }
 
     // async getBuildingOperation(player: Player, buildingId: number): Promise<BuildingOperation> {
@@ -162,11 +164,11 @@ class Client {
     //     return buildingOperation;
     // }
 
-    // async getOperation(player: Player, buildingOperation: BuildingOperation, operation: Operation): Promise<Operation> {
-    //     const op = new Operation(this, player, buildingOperation, operation);
-    //     await op.load();
-    //     return op;
-    // }
+    async getOperation(player: Player, buildingOperation: BuildingOperation, operation: Operation): Promise<Operation> {
+        const op = new Operation(this, player, buildingOperation, operation);
+        await op.load();
+        return op;
+    }
 
     // async recipe(recipe: RecipeEnumType): Promise<Recipe> {
     //     const r = new Recipe(this, recipe);

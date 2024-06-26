@@ -13,6 +13,7 @@ import {Account} from "./account";
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {Manager} from "./manager";
 import {Flow} from "./flow";
+import {Path} from "./path";
 
 export class Transport extends BaseModel implements TransportType {
     static schema = TransportSchema;
@@ -59,12 +60,23 @@ export class TradeRoute extends BaseModel implements TradeRouteType {
 
 export class TransportCargo extends BaseModel implements TransportCargoType {
     static schema = TransportCargoSchema;
+
+    reference: string;
+    inventory: Inventory | null;
 }
 
 export class TransportJourney extends BaseModel implements TransportJourneyType {
     static schema = TransportJourneySchema;
+
+    category: string;
+    start_town_id: number;
+    distance: number;
+    moves: number;
+    legs: TransportJourneyLeg[];
 }
 
 export class TransportJourneyLeg extends BaseModel implements TransportJourneyLegType {
     static schema = TransportJourneyLegSchema;
+
+    path: Path[];
 }

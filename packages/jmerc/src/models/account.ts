@@ -1,9 +1,17 @@
 import { BaseModel } from './BaseModel';
 import { AccountSchema, AccountType } from '../schema/AccountSchema';
 import { AccountAssetSchema, AccountAssetType } from '../schema/AccountAssetSchema';
+import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 
 export class Account extends BaseModel implements AccountType {
     static schema = AccountSchema;
+
+    assets: Map<ItemEnumType, AccountAsset>;
+    id: string;
+    master_id: string | null;
+    name: string | null;
+    owner_id: number;
+    sponsor_id: string | null;
 }
 
 export class AccountAsset extends BaseModel implements AccountAssetType {

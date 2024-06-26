@@ -2,11 +2,11 @@ import BaseAPI from './baseAPI';
 import { ResponseObject } from "./baseAPI";
 import { apiRoutes } from "./api-routes";
 import {Transport, TradeRoute} from '../models/transport';
-import { ItemTypeEnumType } from "../schema/enums/ItemTypeEnumSchema";
 import { Manager } from "../models/manager";
 import { SetManagerFailedException, convertFloatsToStrings } from "../utils";
 import { pickBy } from 'lodash';
 import * as _ from 'lodash';
+import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 
 class TransportsAPI extends BaseAPI {
 
@@ -33,7 +33,7 @@ class TransportsAPI extends BaseAPI {
      * @param manager - The manager to set.
      * @returns The transport route with the manager set.
      */
-    async setManager(id: number, item: ItemTypeEnumType, manager: Manager): Promise<TradeRoute> {
+    async setManager(id: number, item: ItemEnumType, manager: Manager): Promise<TradeRoute> {
         const json = convertFloatsToStrings(pickBy(manager, _.identity));
         const response: ResponseObject = await super.patch({ endpoint: apiRoutes.transportManager, id, item, data: json });
         if (response.status == 200) {

@@ -4,8 +4,8 @@ import { DeliveryCostSchema } from './DeliveryCostSchema';
 import { LocationSchema } from './LocationSchema';
 import { ProducerSchema } from './ProducerSchema';
 import { BuildingStorageSchema } from './BuildingStorageSchema';
-import { BuildingTypeSchema } from './BuildingTypeSchema';
 import { BuildingUpgradeTypeEnumSchema } from './enums/BuildingUpgradeTypeEnumSchema';
+import {BuildingTypeEnumSchema} from "./enums/BuildingTypeEnumSchema";
 
 export const BuildingSchema = z.object({
     capacity: z.number().optional(),
@@ -21,7 +21,7 @@ export const BuildingSchema = z.object({
     storage: BuildingStorageSchema.optional(),
     sublocation: LocationSchema.optional(),
     town_id: z.number(),
-    type: BuildingTypeSchema,
+    type: BuildingTypeEnumSchema,
     upgrades: z.array(BuildingUpgradeTypeEnumSchema).optional()
 });
 

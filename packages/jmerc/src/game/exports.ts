@@ -1,18 +1,26 @@
-import { common } from './common';
 import { AccountAsset } from "../models/account";
 import { Flow } from "../models/flow";
 import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
-import { Town } from './Town';
+import { Town } from './town';
 import { Transport } from './Transport';
 import { Manager } from "../models/manager";
 
 export class Export {
     asset: AccountAsset;
-    flow: common.Flow;
+    flow: Flow;
     item: ItemEnumType;
     manager: Manager;
     town: Town;
     transport: Transport;
+
+    constructor(asset: AccountAsset, flow: Flow, item: ItemEnumType, manager: Manager, town: Town, transport: Transport) {
+        this.asset = asset;
+        this.flow = flow;
+        this.item = item;
+        this.manager = manager;
+        this.town = town;
+        this.transport = transport;
+    }
 
     get market_data() {
         return this.town.market[this.item];
@@ -63,11 +71,11 @@ export class Exports extends Object {
         this.data = data;
     }
 
-    get(key: common.Item): Export | undefined {
+    get(key: ItemEnumType): Export | undefined {
         return this.data[key];
     }
 
-    set(key: common.Item, value: Export) {
+    set(key: ItemEnumType, value: Export) {
         this.data[key] = value;
     }
 
@@ -132,7 +140,7 @@ export class ExportsList extends Array<Export> {
 export class ExportsSummed extends Object {
     private data: { [key: string]: ExportsList };
 
-    constructor(data: { [key: string]: ExportsList }) {
+    constructor(data: { [key: string]: ExportsList } = {}) {
         super();
         this.data = data;
     }

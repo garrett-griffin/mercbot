@@ -1,9 +1,9 @@
 import { Player as PlayerModel, Household, Sustenance } from '../models/player';
-import { Businesses } from '../models/business';
+import { Business } from '../models/business';
 import { Building } from './Building';
 import { BuildingsList } from './BuildingsList';
 import { ExportsList, ExportsSummed } from './Exports';
-import { ImportsList, ImportsSummed } from './Imports';
+import {Imports, ImportsList, ImportsSummed} from './Imports';
 import { BuildingOperation, BuildingOperationsDict } from './BuildingOperation';
 import { Town } from './Town';
 import { Transport, TransportList } from './Transport';
@@ -12,7 +12,7 @@ import { Common } from '../models/Common';
 
 interface PlayerType {
     buildings: BuildingsList;
-    business: Businesses.Business;
+    business: Business;
     data: PlayerModel;
     exports: ExportsSummed;
     imports: ImportsSummed;
@@ -22,7 +22,15 @@ interface PlayerType {
 }
 
 export class Player {
-    private _client: Client;
+    _client: Client;
+    exports: ExportsSummed;
+    imports: ImportsSummed;
+    data: PlayerModel;
+    business: Business;
+    town: Town;
+    operations: BuildingOperationsDict;
+    buildings: BuildingsList;
+    transports: TransportList;
 
     constructor(client: Client) {
         this._client = client;
@@ -33,11 +41,11 @@ export class Player {
     async load() {
         this.data = await this._client.playerApi.get();
         this.business = await this._client.businessesApi.get(
-            this.data.household.businessIds[0]
+            this.data.household.business_ids[0]
         );
-        this.town = await this._client.town(this.data.household.townId);
+        this.town = await this._client.town(this.data.household.town_id);
 
-        const tasks = [];
+        let tasks = [];
         for (const operation of this.data.household.operations) {
             const id = parseInt(operation.split('/')[1]);
             tasks.push(this._client.buildingOperation(this, id));
@@ -52,13 +60,13 @@ export class Player {
             )
         );
 
-        const tasks = [];
+        tasks = [];
         for (const id of this.business.buildingIds) {
             tasks.push(this._client.building(this, id));
         }
         this.buildings = new BuildingsList(await Promise.all(tasks));
 
-        const tasks = [];
+        tasks = [];
         if (this.business.transportIds) {
             for (const id of this.business.transportIds) {
                 tasks.push(this._client.transport(this, id));

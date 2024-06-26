@@ -1,7 +1,6 @@
 // imports.ts
-
 import { Town } from './town';
-import { Transport } from './transport';
+import { Transport } from './Transport';
 import {AccountAsset} from "../models/account";
 import {Flow} from "../models/flow";
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
@@ -14,6 +13,15 @@ export class Import {
     manager: Manager
     town: Town;
     transport: Transport;
+
+    constructor(asset: AccountAsset, flow: Flow, item: ItemEnumType, manager: Manager, town: Town, transport: Transport) {
+        this.asset = asset;
+        this.flow = flow;
+        this.item = item;
+        this.manager = manager;
+        this.town = town;
+        this.transport = transport;
+    }
 
     get cost() {
         return this.manager.maxBuyPrice;
@@ -51,8 +59,8 @@ export class Import {
         return await this.town.fetchMarketItem(this.item);
     }
 
-    async patchManager(args: { [key: string]: any }) {
-        await this.transport.patchManager(this.item, args);
+    async patchManager(buyPrice?: number, buyVolume?: number, sellPrice?: number, sellVolume?: number) {
+        await this.transport.patchManager(this.item, buyPrice, buyVolume, sellPrice, sellVolume);
     }
 }
 
@@ -124,7 +132,7 @@ export class ImportsList extends Array<Import> {
     }
 
     byTownId(id: number): ImportsList {
-        return new ImportsList(...this.data.filter((imp) => imp.town.data.id === id));
+        return new ImportsList(...this.data.filter((imp) => +imp.town.data.id === id));
     }
 
     byTownName(name: string): ImportsList {
@@ -135,7 +143,7 @@ export class ImportsList extends Array<Import> {
 export class ImportsSummed extends Object {
     private data: { [key: string]: ImportsList };
 
-    constructor(data: { [key: string]: ImportsList }) {
+    constructor(data: { [key: string]: ImportsList } = {}) {
         super();
         this.data = data;
     }
@@ -178,7 +186,7 @@ export class ImportsSummed extends Object {
     byTownId(id: number): ImportsSummed {
         return new ImportsSummed(
             Object.entries(this.data).reduce((acc, [item, imps]) => {
-                if (imps[0].town.data.id === id) {
+                if (+imps[0].town.data.id === id) { // Convert to number using +
                     acc[item] = imps;
                 }
                 return acc;
@@ -186,7 +194,7 @@ export class ImportsSummed extends Object {
         );
     }
 
-    ByTownName(name: string): ImportsSummed {
+    byTownName(name: string): ImportsSummed {
         return new ImportsSummed(
             Object.entries(this.data).reduce((acc, [item, imps]) => {
                 if (imps[0].town.data.name === name) {

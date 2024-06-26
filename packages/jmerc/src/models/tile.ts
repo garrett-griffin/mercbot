@@ -5,5 +5,7 @@ import { Structure } from './structure';
 export class Tile extends BaseModel implements TileType {
     static schema = TileSchema;
 
-    structure: Structure;
+    owner_id: string | null;
+    structure: Structure | null;
+    ask_price: string | null;
 }

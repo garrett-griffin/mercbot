@@ -38,4 +38,7 @@ export class ItemTradeResult extends BaseModel implements ItemTradeResultType {
 
 export class ItemTradeSettlement extends BaseModel implements ItemTradeSettlementType {
     static schema = ItemTradeSettlementSchema;
+
+    volume: number;
+    price: number;
 }

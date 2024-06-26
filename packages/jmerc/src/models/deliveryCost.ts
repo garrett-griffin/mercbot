@@ -3,4 +3,7 @@ import { DeliveryCostSchema, DeliveryCostType } from '../schema/DeliveryCostSche
 
 export class DeliveryCost extends BaseModel implements DeliveryCostType {
     static schema = DeliveryCostSchema;
+
+    land_distance: number;
+    ferry_fee: number | null;
 }
