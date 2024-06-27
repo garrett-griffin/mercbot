@@ -6,7 +6,7 @@ import { TradeRoute } from '../models/transport';
 import { Exports, Export } from './Exports';
 import { Imports, Import } from './imports';
 import Client from '../client';
-import { Player } from './Player';
+import { Player } from './player';
 import { Transport as TransportModel } from '../models/transport'
 import { ItemTradeResult } from "../models/itemTrade";
 import { Account, AccountAsset } from "../models/account";
@@ -23,6 +23,12 @@ export class Transport {
     _client: Client;
     player: Player;
 
+    constructor(client: Client, player: Player, id: number) {
+        this._client = client;
+        this.player = player;
+        this.id = id;
+    }
+
     get docked(): boolean {
         return this.town !== null;
     }
@@ -35,12 +41,10 @@ export class Transport {
         }
     }
 
-    async load(client: Client, player: Player): Promise<void> {
-        this._client = client;
-        this.player = player;
-        this.data = await client.transportsApi.get({id: this.id});
+    async load(): Promise<void> {
+        this.data = await this._client.transportsApi.get({id: this.id});
         if (this.data.route) {
-            const data = await client.townsApi.getTown(this.data.route.remote_town);
+            const data = await this._client.townsApi.getTown(this.data.route.remote_town);
         }
         this.loadImportsExports();
     }
@@ -51,7 +55,7 @@ export class Transport {
         }
         const expectedBalance = this.player.storehouse.items[item].balance;
         const result = await this.town.buy(item, expectedBalance, `route/${this.id}`, volume, price);
-        this.player.storehouse.update_account(Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
+        this.player.storehouse.updateAccount(await Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
         return result;
     }
 
@@ -92,7 +96,7 @@ export class Transport {
         }
         const expectedBalance = this.player.storehouse.items[item].balance;
         const result = await this.town.sell(item, expectedBalance, `route/${this.id}`, volume, price);
-        this.player.storehouse.update_account(Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
+        this.player.storehouse.updateAccount(await Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
         return result;
     }
 
@@ -124,7 +128,7 @@ export class Transport {
     }
 }
 
-class TransportList extends Array<Transport> {
+export class TransportList extends Array<Transport> {
     byTownName(name: string): TransportList {
         const transports: TransportList = new TransportList();
         for (const transport of this) {
@@ -146,7 +150,7 @@ class TransportList extends Array<Transport> {
     }
 }
 
-class TownItem {
+export class TownItem {
     item: ItemEnumType;
     marketItem: MarketItem;
     town: Town;
@@ -157,7 +161,7 @@ class TownItem {
         this.town = town;
     }
 
-    fetchDetails(): MarketItemDetails {
+    fetchDetails(): Promise<MarketItemDetails> {
         return this.town.fetchMarketItem(this.item);
     }
 }

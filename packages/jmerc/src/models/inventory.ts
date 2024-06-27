@@ -11,11 +11,11 @@ export class Inventory extends BaseModel implements InventoryType {
     account: Account;
     assets: AccountAsset[];
     capacity: number;
-    managers: Record<ItemEnumType, Manager> | null;
+    managers: Map<ItemEnumType, Manager> | null;
     previous_flows: Record<ItemEnumType, Flow> | null;
     reserved: number | null;
 
-    get items(): Record<ItemEnumType, AccountAsset> {
+    get items(): Map<ItemEnumType, AccountAsset> {
         return this.account.assets;
     }
 }

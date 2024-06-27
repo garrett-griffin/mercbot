@@ -11,8 +11,11 @@ import {ItemTradeResultType} from "../schema/ItemTradeResultSchema";
 import { ExportsList } from './Exports'
 import { ImportsList } from './imports'
 import { BuildingTypeEnum} from "../models/enums/buildingTypeEnum";
+import {MarketItem, MarketItemDetails} from "../models/market";
+import {ItemTradeResult} from "../models/itemTrade";
+import {Item} from "../models/item";
 
-class Storehouse {
+export class Storehouse {
     _client: Client;
     player: Player;
     items: Map<ItemEnumType, StorehouseItem>;
@@ -50,19 +53,21 @@ class Storehouse {
         return this.data.previous_flows;
     }
 
-    async buy(item: Item, volume: number, price: number) {
+    async buy(item: ItemEnumType, volume: number, price: number) {
         const result = await this.player.town.buy(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-        this.updateAccount(Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]));
+        const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+        this.updateAccount(validatedAccount);
         return result;
     }
 
-    async patchManager(item: Item, data: any) {
+    async patchManager(item: ItemEnumType, data: any) {
         await this.data.patchManager(item, data);
     }
 
-    async sell(item: Item, volume: number, price: number) {
+    async sell(item: ItemEnumType, volume: number, price: number) {
         const result = await this.player.town.sell(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-        this.updateAccount(Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]));
+        const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+        this.updateAccount(validatedAccount);
         return result;
     }
 
@@ -118,5 +123,126 @@ export class StorehouseItem {
         this.storehouse = storehouse;
     }
 
-    
+
+    get averageCost(): number {
+        let totalCost = 0;
+        let totalVolume = 0;
+        if (this.produced) {
+            totalCost += this.productionCost;
+            totalVolume += this.produced;
+        }
+        if (this.imported) {
+            totalCost += this.importCostFlowed;
+            totalVolume += this.imported;
+        }
+        if (this.purchased) {
+            totalCost += this.purchasedCost;
+            totalVolume += this.purchased;
+        }
+        return totalCost / totalVolume || 0;
+    }
+
+    get balance(): number {
+        return this.asset.balance;
+    }
+
+    get capacity(): number {
+        return this.asset.capacity;
+    }
+
+    get consumed(): number {
+        return this.flow ? this.flow.consumption : 0;
+    }
+
+    get consumptionCost(): number {
+        return (this.consumed * this.averageCost) || 0;
+    }
+
+    get exported(): number {
+        return this.flow ? this.flow.export || 0 : 0;
+    }
+
+    get exportValue(): number {
+        return this.exports.value;
+    }
+
+    get exportValueFlowed(): number {
+        return this.exports.valueFlowed;
+    }
+
+    get exportVolume(): number {
+        return this.exports.volume;
+    }
+
+    get exportVolumeFlowed(): number {
+        return this.exports.volumeFlowed;
+    }
+
+    get imported(): number {
+        return this.flow ? this.flow.imported || 0 : 0;
+    }
+
+    get importCost(): number {
+        return this.imports.cost;
+    }
+
+    get importCostFlowed(): number {
+        return this.imports.costFlowed;
+    }
+
+    get importVolume(): number {
+        return this.imports.volume;
+    }
+
+    get importVolumeFlowed(): number {
+        return this.imports.volumeFlowed;
+    }
+
+    get marketData(): MarketItem {
+        return this.storehouse.player.town.item(this.item);
+    }
+
+    get sold(): number {
+        return this.flow ? this.flow.sale || 0 : 0;
+    }
+
+    get saleValue(): number {
+        return this.sold * this.asset.sale_price;
+    }
+
+    get produced(): number {
+        return this.flow ? this.flow.production : 0;
+    }
+
+    get productionCost(): number {
+        return this.flow ? this.flow.production_cost || 0 : 0;
+    }
+
+    get purchased(): number {
+        return this.flow ? this.flow.purchase || 0 : 0;
+    }
+
+    get purchasedCost(): number {
+        return this.purchased * this.asset.purchase_price;
+    }
+
+    buy(volume: number, price: number): Promise<ItemTradeResult> {
+        return this.storehouse.buy(this.item, volume, price);
+    }
+
+    fetchMarketDetails(): Promise<MarketItemDetails> {
+        return this.storehouse.player.town.fetchMarketItem(this.item);
+    }
+
+    patchManager(data: any): Promise<void> {
+        return this.storehouse.patchManager(this.item, data);
+    }
+
+    sell(volume: number, price: number): Promise<ItemTradeResult> {
+        return this.storehouse.sell(this.item, volume, price);
+    }
+
+    setManager(manager: Manager): Promise<void> {
+        return this.storehouse.setManager(this.item, manager);
+    }
 }

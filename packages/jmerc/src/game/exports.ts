@@ -58,8 +58,8 @@ export class Export {
         await this.transport.sell(this.item, volume, price);
     }
 
-    async patchManager(args: { [key: string]: any }) {
-        await this.transport.patchManager(this.item, args);
+    async patchManager(buyPrice?: number, buyVolume?: number, sellPrice?: number, sellVolume?: number) {
+        await this.transport.patchManager(this.item, buyPrice, buyVolume, sellPrice, sellVolume);
     }
 }
 
@@ -127,11 +127,12 @@ export class ExportsList extends Array<Export> {
     get volumeFlowed() {
         return this.data.reduce((acc, exp) => acc + exp.volumeFlowed, 0);
     }
+
     byTownId(id: number) {
-        return new ExportsList(...this.data.filter((exp) => exp.town.data.id === id));
+        return new ExportsList(...this.data.filter((exp) => +exp.town.data.id === id));
     }
 
-    byTownName(name: number) {
+    byTownName(name: string) {
         return new ExportsList(...this.data.filter((exp) => exp.town.data.name === name));
     }
 
@@ -186,7 +187,7 @@ export class ExportsSummed extends Object {
 
     byTownId(id: number): ExportsSummed {
         const data = Object.entries(this.data).reduce((acc, [item, exps]) => {
-            if (exps[0].town.data.id === id) {
+            if (+exps[0].town.data.id === id) {
                 acc[item] = exps;
             }
             return acc;

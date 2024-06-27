@@ -1,14 +1,15 @@
 import { Player as PlayerModel, Household, Sustenance } from '../models/player';
 import { Business } from '../models/business';
-import { Building } from './Building';
-import { BuildingsList } from './BuildingsList';
-import { ExportsList, ExportsSummed } from './Exports';
-import {Imports, ImportsList, ImportsSummed} from './Imports';
-import { BuildingOperation, BuildingOperationsDict } from './BuildingOperation';
-import { Town } from './Town';
-import { Transport, TransportList } from './Transport';
-import { Client } from '../client/Client';
-import { Common } from '../models/Common';
+import { Building, BuildingsList } from './Building';
+import {Export, ExportsList, ExportsSummed} from './Exports';
+import {Import, Imports, ImportsList, ImportsSummed} from './imports';
+import { BuildingOperation, BuildingOperationsDict } from './operation';
+import { Town } from './town';
+import { Transport, TransportList } from './transport';
+import Client from "../client";
+import {Storehouse} from "./storehouse";
+import {AssetEnum} from "../models/enums/assetEnum";
+import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 
 interface PlayerType {
     buildings: BuildingsList;
@@ -31,6 +32,7 @@ export class Player {
     operations: BuildingOperationsDict;
     buildings: BuildingsList;
     transports: TransportList;
+    storehouse: Storehouse;
 
     constructor(client: Client) {
         this._client = client;
@@ -41,14 +43,14 @@ export class Player {
     async load() {
         this.data = await this._client.playerApi.get();
         this.business = await this._client.businessesApi.get(
-            this.data.household.business_ids[0]
+            { id: +this.data.household.business_ids[0] }
         );
-        this.town = await this._client.town(this.data.household.town_id);
+        this.town = await this._client.getTown(this.data.household.town_id);
 
         let tasks = [];
         for (const operation of this.data.household.operations) {
             const id = parseInt(operation.split('/')[1]);
-            tasks.push(this._client.buildingOperation(this, id));
+            tasks.push(this._client.getBuildingOperation(this, id));
         }
 
         this.operations = new BuildingOperationsDict(
@@ -60,39 +62,41 @@ export class Player {
             )
         );
 
-        tasks = [];
-        for (const id of this.business.buildingIds) {
-            tasks.push(this._client.building(this, id));
+        let buildingTasks: Promise<Building>[] = [];
+        for (const id of this.business.building_ids) {
+            buildingTasks.push(this._client.getBuilding(this, id));
         }
-        this.buildings = new BuildingsList(await Promise.all(tasks));
+        this.buildings = new BuildingsList(...await Promise.all(buildingTasks));
 
-        tasks = [];
-        if (this.business.transportIds) {
-            for (const id of this.business.transportIds) {
-                tasks.push(this._client.transport(this, id));
+        let transportTasks: Promise<Transport>[] = [];
+        if (this.business.transport_ids) {
+            for (const id of this.business.transport_ids) {
+                transportTasks.push(this._client.getTransport(this, id));
             }
         }
-        this.transports = new TransportList(await Promise.all(tasks));
+        this.transports = new TransportList(...await Promise.all(transportTasks));
 
         for (const transport of this.transports) {
             for (const item in transport.exports) {
+                const exportItem: Export = transport.exports[item];
                 if (!this.exports[item]) {
-                    this.exports[item] = new ExportsList([transport.exports[item]]);
+                    this.exports[item] = new ExportsList(...[exportItem]);
                 } else {
-                    this.exports[item].push(transport.exports[item]);
+                    this.exports[item].push(exportItem);
                 }
             }
 
             for (const item in transport.imports) {
+                const importItem: Import = transport.imports[item];
                 if (!this.imports[item]) {
-                    this.imports[item] = new ImportsList([transport.imports[item]]);
+                    this.imports[item] = new ImportsList(...[importItem]);
                 } else {
-                    this.imports[item].push(transport.imports[item]);
+                    this.imports[item].push(importItem);
                 }
             }
         }
 
-        this.storehouse = await this._client.storehouse(this);
+        this.storehouse = await this._client.getStorehouse(this);
     }
 
     get household() {
@@ -100,7 +104,7 @@ export class Player {
     }
 
     get money() {
-        return this.business.account.assets.get(Common.Asset.Money).balance;
+        return this.business.account.assets.get(AssetEnum.Money).balance;
     }
 
     get prestige() {
@@ -123,11 +127,11 @@ export class Player {
         return Array.from(this.data.household.sustenance.inventory.managers.keys());
     }
 
-    sustenanceItemConsumption(item) {
-        return this.data.household.sustenance.inventory.previousFlows[item].consumption;
+    sustenanceItemConsumption(item: ItemEnumType) {
+        return this.data.household.sustenance.inventory.previous_flows[item].consumption;
     }
 
-    sustenanceItemCost(item) {
+    sustenanceItemCost(item: ItemEnumType) {
         return (
             this.sustenanceItemConsumption(item) *
             this.storehouse.items[item].averageCost

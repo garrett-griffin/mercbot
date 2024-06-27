@@ -7,8 +7,8 @@ import {Flow} from "../models/flow";
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
 import { Operation as OperationModel } from "../models/operation";
-import Buildings from "../api/buildings";
 import {Ingredient} from "../models/recipe";
+import {Recipe} from "./recipe";
 
 // Define the BuildingOperation class
 export class BuildingOperation {
@@ -30,13 +30,7 @@ export class BuildingOperation {
             this.operations = new OperationsList(
                 ...(await Promise.all(
                     this.data.operations.map((operation) => {
-                        const op = new Operation(
-                            this._client,
-                            this.player,
-                            this,
-                            operation
-                        );
-                        return this._client.getOperation(this.player, this, op);
+                        return this._client.getOperation(this.player, this, operation);
                     })
                 ))
             );
@@ -55,7 +49,7 @@ export class BuildingOperation {
 }
 
 // Define the BuildingOperationList class
-class BuildingOperationList extends Array<BuildingOperation> {
+export class BuildingOperationList extends Array<BuildingOperation> {
     byBuildingId(buildingId: number): BuildingOperation {
         return this.find((o) => o.buildingId === buildingId);
     }
@@ -82,7 +76,7 @@ class BuildingOperationList extends Array<BuildingOperation> {
 }
 
 // Define the BuildingOperationsDict class
-class BuildingOperationsDict extends Map<number, BuildingOperation> {
+export class BuildingOperationsDict extends Map<number, BuildingOperation> {
     byBuildingType(buildingType: BuildingTypeEnumType): OperationsList {
         return new OperationsList(
             ...Array.from(this.values()).flatMap((buildingOperation) =>
@@ -135,10 +129,10 @@ export class Operation {
     }
 
     async load(): Promise<void> {
-        const recipes = await this.client.staticApi.getRecipes();
+        const recipes = await this._client.staticApi.getRecipes();
         for (const recipe of recipes) {
             if (recipe.name === this.data.recipe) {
-                this.recipe = await this.client.recipe(recipe);
+                this.recipe = await this._client.getRecipe(recipe);
                 break;
             }
         }
@@ -176,30 +170,30 @@ export class Operation {
 }
 
 // Define the OperationsList class
-class OperationsList extends Array<Operation> {
-    get inputs(): Map<common.Item, number> {
+export class OperationsList extends Array<Operation> {
+    get inputs(): Map<ItemEnumType, number> {
         const inputs = new Map();
-        for (const operation of this) {
-            for (const [item, amount] of operation.inputs) {
+        this.forEach((operation) => {
+            operation.inputs.forEach((amount, item) => {
                 inputs.set(item, (inputs.get(item) || 0) + amount);
-            }
-        }
+            });
+        });
         return inputs;
     }
 
-    get outputs(): Map<common.Item, number> {
+    get outputs(): Map<ItemEnumType, number> {
         const outputs = new Map();
-        for (const operation of this) {
-            for (const [item, amount] of operation.outputs) {
+        this.forEach((operation) => {
+            operation.outputs.forEach((amount, item) => {
                 outputs.set(item, (outputs.get(item) || 0) + amount);
-            }
-        }
+            });
+        });
         return outputs;
     }
 
     byBuildingId(buildingId: number): OperationsList {
         return new OperationsList(
-            this.filter((operation) => operation.buildingId === buildingId)
+            ...this.filter((operation) => operation.buildingId === buildingId)
         );
     }
 }

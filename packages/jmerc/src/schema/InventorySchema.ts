@@ -7,7 +7,7 @@ import { FlowSchema } from './FlowSchema';
 export const InventorySchema = z.object({
     account: AccountSchema,
     capacity: z.number(),
-    managers: z.record(ItemEnumSchema, ManagerSchema).optional(),
+    managers: z.map(ItemEnumSchema, ManagerSchema).optional(),
     previous_flows: z.record(ItemEnumSchema, FlowSchema).optional().default({}),
     reserved: z.number().optional(),
 });

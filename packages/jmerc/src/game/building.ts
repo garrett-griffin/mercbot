@@ -1,5 +1,4 @@
 import { Building as BuildingModel } from '../models/building';
-import { Recipe } from './Recipe';
 import Client from "../client";
 import { Player } from './player';
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
@@ -30,7 +29,7 @@ export class Building {
 
     get flows() {
         if (this.buildingOperation && this.buildingOperation.totalFlow) {
-            return this.buildingOperation.data.totalFlow;
+            return this.buildingOperation.data.total_flow;
         } else if (this.operation) {
             return this.operation.data.flows;
         } else {
@@ -126,24 +125,9 @@ export class Building {
         Object.assign(this, updatedObject);
     }
 
-    async calculateCurrentLaborNeeded() {
-        if (this.production) {
-            const recipe = new Recipe(this._client, this.production.recipe);
-            await recipe.load();
-            if (recipe) {
-                const inventory_assets = this.items || (this.data && this.data.producer ? this.data.producer.inventory.account.assets : []);
-                const inventory_managers = this.data && this.data.storage ? this.data.storage.inventory.managers : (this.data && this.data.producer ? this.data.producer.inventory.managers : []);
-
-                return recipe.calculate_target_labor(this.targetProduction, inventory_assets, inventory_managers);
-            }
-        }
-
-        return 0.0;
-    }
-
 }
 
-class BuildingsList extends Array<Building> {
+export class BuildingsList extends Array<Building> {
     byId(id: number) {
         return this.find((building) => building.id === id);
     }

@@ -12,6 +12,12 @@ import {RecipeEnumType} from "./schema/enums/RecipeEnumSchema";
 import { Town } from "./game/town";
 import { Player } from "./game/player";
 import { BuildingOperation, Operation } from "./game/operation"
+import {Recipe} from "./game/recipe";
+import {Recipe as RecipeModel} from "./models/recipe"
+import {Building} from "./game/Building";
+import {Transport} from "./game/Transport";
+import {Storehouse} from "./game/storehouse";
+import { Operation as OperationModel } from "./models/operation"
 
 /**
  * Client for interacting with the Mercatorio API.
@@ -158,35 +164,50 @@ class Client {
         return new Town(this, id, data);
     }
 
-    // async getBuildingOperation(player: Player, buildingId: number): Promise<BuildingOperation> {
-    //     const buildingOperation = new BuildingOperation(this, player, buildingId);
-    //     await buildingOperation.load();
-    //     return buildingOperation;
-    // }
+    async getBuilding(player: Player, id: number): Promise<Building> {
+        /**
+         * Get a building by its ID.
+         *
+         * @param player - The player.
+         * @param id - The ID of the building.
+         *
+         * @returns The building with the given ID.
+         */
+        const b = new Building(this, player, id);
+        await b.load();
 
-    async getOperation(player: Player, buildingOperation: BuildingOperation, operation: Operation): Promise<Operation> {
+        return b;
+    }
+
+    async getBuildingOperation(player: Player, buildingId: number): Promise<BuildingOperation> {
+        const buildingOperation = new BuildingOperation(this, player, buildingId);
+        await buildingOperation.load();
+        return buildingOperation;
+    }
+
+    async getOperation(player: Player, buildingOperation: BuildingOperation, operation: OperationModel): Promise<Operation> {
         const op = new Operation(this, player, buildingOperation, operation);
         await op.load();
         return op;
     }
 
-    // async recipe(recipe: RecipeEnumType): Promise<Recipe> {
-    //     const r = new Recipe(this, recipe);
-    //     await r.load();
-    //     return r;
-    // }
+    async getRecipe(recipe: RecipeModel): Promise<Recipe> {
+        const r = new Recipe(this, recipe);
+        await r.load();
+        return r;
+    }
 
-    // async storehouse(player: Player): Promise<Storehouse> {
-    //     const storehouse = new Storehouse(this, player);
-    //     await storehouse.load();
-    //     return storehouse;
-    // }
+    async getStorehouse(player: Player): Promise<Storehouse> {
+        const storehouse = new Storehouse(this, player);
+        await storehouse.load();
+        return storehouse;
+    }
 
-    // async transport(player: Player, id: number): Promise<Transport> {
-    //     const transport = new Transport(this, player, id);
-    //     await transport.load();
-    //     return transport;
-    // }
+    async getTransport(player: Player, id: number): Promise<Transport> {
+        const transport = new Transport(this, player, id);
+        await transport.load();
+        return transport;
+    }
 }
 
 export default Client;
