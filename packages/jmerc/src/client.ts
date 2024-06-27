@@ -14,15 +14,15 @@ import { Player } from "./game/player";
 import { BuildingOperation, Operation } from "./game/operation"
 import {Recipe} from "./game/recipe";
 import {Recipe as RecipeModel} from "./models/recipe"
-import {Building} from "./game/Building";
-import {Transport} from "./game/Transport";
+import {Building} from "./game/building";
+import {Transport} from "./game/transport";
 import {Storehouse} from "./game/storehouse";
 import { Operation as OperationModel } from "./models/operation"
 
 /**
  * Client for interacting with the Mercatorio API.
  */
-class Client {
+export class Client {
     private user: string;
     private token: string;
     private baseUrl: string;
@@ -72,6 +72,7 @@ class Client {
      */
     async get(endpoint: string): Promise<object> {
         try {
+            console.log(endpoint);
             const response = await this.session.get(endpoint);
             return response.data;
         } catch (error) {
@@ -191,8 +192,8 @@ class Client {
         return op;
     }
 
-    async getRecipe(recipe: RecipeModel): Promise<Recipe> {
-        const r = new Recipe(this, recipe);
+    async getRecipe(options: {recipe?: RecipeModel, recipeName?: RecipeEnumType}): Promise<Recipe> {
+        const r = new Recipe({ client: this, recipe: options.recipe, recipeName: options.recipeName});
         await r.load();
         return r;
     }

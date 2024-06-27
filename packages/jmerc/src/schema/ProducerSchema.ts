@@ -8,10 +8,10 @@ export const ProducerSchema = z.object({
     limited: z.boolean(),
     manager: z.string(),
     previous_operation: OperationSchema,
-    provider_id: z.number().optional(),
+    provider_id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),
     recipe: RecipeEnumSchema,
     reference: z.string(),
-    target: z.number().optional()
+    target: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional()
 });
 
 export type ProducerType = z.infer<typeof ProducerSchema>;

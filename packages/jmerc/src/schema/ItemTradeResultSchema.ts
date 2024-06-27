@@ -3,7 +3,7 @@ import { ItemTradeSettlementSchema } from './ItemTradeSettlementSchema';
 
 export const ItemTradeResultSchema = z.object({
     settlements: z.array(ItemTradeSettlementSchema).optional(),
-    order_id: z.number().optional(),
+    order_id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),
     embedded: z.record(z.string(), z.any()).optional().default({})
 });
 

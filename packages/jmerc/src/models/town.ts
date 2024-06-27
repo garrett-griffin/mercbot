@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { TownSchema, TownType } from '../schema/TownSchema';
 import { TownDataSchema, TownDataType } from '../schema/TownDataSchema';
 import {TownDemandCategorySchema, TownDemandCategoryType} from "../schema/TownDemandCategorySchema";

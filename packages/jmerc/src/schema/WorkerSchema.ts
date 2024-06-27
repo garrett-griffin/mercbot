@@ -3,9 +3,9 @@ import { SkillEnumSchema } from './enums/SkillEnumSchema';
 
 export const WorkerSchema = z.object({
     assignment: z.string(),
-    capacity: z.number(),
+    capacity: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     name: z.string(),
-    skills: z.record(SkillEnumSchema, z.number()), // Using z.record to define a dictionary with Skill as key and float as value
+    skills: z.record(SkillEnumSchema, z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()])),
 });
 
 export type WorkerType = z.infer<typeof WorkerSchema>;

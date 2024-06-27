@@ -10,14 +10,14 @@ export const TownDataSchema = z.object({
     id: z.string(),
     name: z.string(),
     location: LocationSchema,
-    region: z.number(),
-    center_ids: z.array(z.number()),
+    region: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
+    center_ids: z.array(z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()])),
     domain: z.record(z.string(), TileSchema),
     household_ids: z.array(z.string()),
     commoners: CommonersSchema,
     government: TownGovernmentSchema,
     church: TownChurchSchema,
-    navigation_zones: z.record(z.number(), z.number()),
+    navigation_zones: z.record(z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]), z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()])),
     culture: TownCultureSchema
 });
 

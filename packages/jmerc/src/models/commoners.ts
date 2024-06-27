@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { TownDemandCategory, TownDemand } from './town';
 import { CommonersSchema, CommonersType } from "../schema/CommonersSchema";
 

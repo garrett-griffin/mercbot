@@ -9,21 +9,21 @@ import { TradeRouteSchema } from './TradeRouteSchema';
 import { TransportJourneySchema } from './TransportJourneySchema';
 
 export const TransportSchema = z.object({
-    id: z.number(),
+    id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     reference: z.string(),
     type: TransportTypeSchema,
-    size: z.number(),
+    size: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     name: z.string(),
-    owner_id: z.number(),
-    hometown_id: z.number(),
+    owner_id: z.string(),
+    hometown_id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     location: LocationSchema,
     domain: z.array(LocationSchema).optional(),
-    capacity: z.number(),
-    fish_quantity: z.number().optional(),
+    capacity: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
+    fish_quantity: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),
     inventory: InventorySchema,
     cargo: TransportCargoSchema.optional(),
     previous_operations: OperationSchema.optional(),
-    provider_id: z.number().optional(),
+    provider_id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),
     producer: ProducerSchema.optional(),
     route: TradeRouteSchema.optional(),
     journey: TransportJourneySchema

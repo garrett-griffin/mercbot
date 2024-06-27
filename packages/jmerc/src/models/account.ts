@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { AccountSchema, AccountType } from '../schema/AccountSchema';
 import { AccountAssetSchema, AccountAssetType } from '../schema/AccountAssetSchema';
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
@@ -10,7 +10,7 @@ export class Account extends BaseModel implements AccountType {
     id: string;
     master_id: string | null;
     name: string | null;
-    owner_id: number;
+    owner_id: string;
     sponsor_id: string | null;
 }
 

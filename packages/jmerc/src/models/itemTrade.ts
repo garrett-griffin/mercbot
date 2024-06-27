@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { ItemTradeSchema, ItemTradeType } from '../schema/ItemTradeSchema';
 import {ItemTradeResultSchema, ItemTradeResultType} from "../schema/ItemTradeResultSchema";
 import {ItemTradeSettlementSchema, ItemTradeSettlementType} from "../schema/ItemTradeSettlementSchema";

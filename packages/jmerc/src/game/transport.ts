@@ -3,7 +3,7 @@ import { Inventory } from '../models/inventory';
 import { Town } from './town';
 import {Market, MarketItem, MarketItemDetails} from '../models/market';
 import { TradeRoute } from '../models/transport';
-import { Exports, Export } from './Exports';
+import { Exports, Export } from './exports';
 import { Imports, Import } from './imports';
 import Client from '../client';
 import { Player } from './player';

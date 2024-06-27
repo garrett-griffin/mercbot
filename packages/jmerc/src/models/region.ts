@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { RegionSchema, RegionType } from '../schema/RegionSchema';
 import { Location} from "./location";
 

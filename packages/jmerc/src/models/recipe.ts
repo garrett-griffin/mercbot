@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { RecipeSchema, RecipeType } from '../schema/RecipeSchema';
 import { IngredientSchema, IngredientType } from '../schema/IngredientSchema';
 import {RecipeEnumType} from "../schema/enums/RecipeEnumSchema";

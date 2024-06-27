@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { MarketSchema, MarketType } from '../schema/MarketSchema';
 import { MarketItemDetailsSchema, MarketItemDetailsType } from '../schema/MarketItemDetailsSchema';
 import { MarketItemSchema, MarketItemType } from "../schema/MarketItemSchema";

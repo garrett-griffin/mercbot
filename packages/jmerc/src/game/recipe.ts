@@ -4,18 +4,37 @@ import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {ItemEnum} from "../models/enums/itemEnum";
 import {AccountAsset} from "../models/account";
 import {Manager} from "../models/manager";
+import {RecipeEnumType} from "../schema/enums/RecipeEnumSchema";
 
 export class Recipe {
+    name: string;
     data: RecipeModel;
     _client: Client;
 
-    constructor(client: Client, recipe: RecipeModel) {
-        this._client = client;
-        this.data = recipe;
+    constructor(options: {
+        client: Client;
+        recipe?: RecipeModel;
+        recipeName?: RecipeEnumType;
+    }) {
+        this._client = options.client;
+        if (options.recipe) {
+            this.data = options.recipe;
+        }
+        if (options.recipeName) {
+            this.name = options.recipeName;
+        }
     }
 
     async load(): Promise<void> {
-        // Loads the data for the recipe
+        if(!this.data && this.name) {
+            const recipes = await this._client.staticApi.getRecipes();
+            for (const recipe of recipes) {
+                if (recipe.name === this.name) {
+                    this.data = recipe;
+                    break;
+                }
+            }
+        }
     }
 
     get inputs(): Map<ItemEnumType, Ingredient> {

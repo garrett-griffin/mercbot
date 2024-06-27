@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { BuildingSchema, BuildingType } from '../schema/BuildingSchema';
 import { BuildingConstructionSchema, BuildingConstructionType } from '../schema/BuildingConstructionSchema';
 import { BuildingStorageSchema, BuildingStorageType } from '../schema/BuildingStorageSchema';
@@ -22,7 +22,7 @@ export class Building extends BaseModel implements BuildingType {
     id: number;
     land: Location[] | null;
     name: string;
-    owner_id: number;
+    owner_id: string;
     producer: Producer | null;
     provider_id: number | null;
     size: number | null;

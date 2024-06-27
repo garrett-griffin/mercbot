@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { TileSchema, TileType } from '../schema/TileSchema';
 import { Structure } from './structure';
 

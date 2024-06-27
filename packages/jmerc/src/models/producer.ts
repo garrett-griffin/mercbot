@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { ProducerSchema, ProducerType } from '../schema/ProducerSchema';
 import { Inventory } from './inventory';
 import { Operation } from './operation';

@@ -4,7 +4,7 @@ import { ItemOrderSchema } from './ItemOrderSchema';
 import {ItemEnumSchema} from "./enums/ItemEnumSchema";
 
 export const MarketItemDetailsSchema = z.object({
-    id: z.number(),
+    id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     product: ItemEnumSchema,
     asset: ItemEnumSchema,
     currency: z.string(),

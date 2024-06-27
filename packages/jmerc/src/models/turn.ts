@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { TurnSchema, TurnType } from '../schema/TurnSchema';
 
 export class Turn extends BaseModel implements TurnType {

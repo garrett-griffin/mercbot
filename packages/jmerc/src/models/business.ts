@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { BusinessSchema, BusinessType } from '../schema/BusinessSchema';
 import { BusinessBuildingSchema, BusinessBuildingType } from '../schema/BusinessBuildingSchema';
 import {Account} from "./account";
@@ -15,7 +15,7 @@ export class Business extends BaseModel implements BusinessType {
     contract_ids: string[] | null;
     id: number;
     name: string;
-    owner_id: number;
+    owner_id: string;
     transport_ids: number[] | null;
 
 }

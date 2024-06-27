@@ -2,7 +2,7 @@ import { AccountAsset } from "../models/account";
 import { Flow } from "../models/flow";
 import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
 import { Town } from './town';
-import { Transport } from './Transport';
+import { Transport } from './transport';
 import { Manager } from "../models/manager";
 
 export class Export {

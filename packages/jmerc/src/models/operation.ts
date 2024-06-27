@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { OperationSchema, OperationType } from '../schema/OperationSchema';
 import { RecipeEnumType } from '../schema/enums/RecipeEnumSchema';
 import { DeliveryCost } from './deliveryCost';

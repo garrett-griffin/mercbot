@@ -6,11 +6,11 @@ import { IngredientSchema } from './IngredientSchema';
 
 export const RecipeSchema = z.object({
     name: RecipeEnumSchema,
-    tier: z.number(),
+    tier: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     building: BuildingTypeEnumSchema,
-    size: z.number(),
+    size: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     product_class: SkillEnumSchema.optional().describe('class'),
-    points: z.number().optional(),
+    points: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),
     inputs: z.array(IngredientSchema).optional().default([]),
     outputs: z.array(IngredientSchema).optional().default([])
 });

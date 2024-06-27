@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { NotificationSettingsSchema } from './NotificationSettingsSchema';
 
 export const SettingsSchema = z.object({
-    sound_volume: z.number(),
+    sound_volume: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     notifications: NotificationSettingsSchema,
     commoners_splash: z.boolean(),
     construction_splash: z.boolean(),

@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { ItemSchema, ItemType } from '../schema/ItemSchema';
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {ItemTypeEnumType} from "../schema/enums/ItemTypeEnumSchema";

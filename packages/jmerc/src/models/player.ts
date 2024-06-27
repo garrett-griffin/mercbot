@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { PlayerSchema, PlayerType } from '../schema/PlayerSchema';
 import { HouseholdSchema, HouseholdType } from '../schema/HouseholdSchema';
 import { PrestigeImpactSchema, PrestigeImpactType } from '../schema/PrestigeImpactSchema';

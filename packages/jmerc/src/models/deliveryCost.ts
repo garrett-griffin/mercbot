@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { DeliveryCostSchema, DeliveryCostType } from '../schema/DeliveryCostSchema';
 
 export class DeliveryCost extends BaseModel implements DeliveryCostType {

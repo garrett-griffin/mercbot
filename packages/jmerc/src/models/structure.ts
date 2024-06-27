@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { StructureSchema, StructureType } from '../schema/StructureSchema';
 import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
 

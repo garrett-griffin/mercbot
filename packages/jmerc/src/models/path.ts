@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { PathSchema, PathType } from '../schema/PathSchema';
 
 export class Path extends BaseModel implements PathType {

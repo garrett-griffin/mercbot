@@ -4,6 +4,8 @@ import { Player } from './player';
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {Manager} from "../models/manager";
 import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
+import {Recipe} from "./recipe";
+import {AccountAsset} from "../models/account";
 
 export class Building {
     _client: Client;
@@ -123,6 +125,40 @@ export class Building {
     async setTargetProduction(target: number, autoset_buying: boolean = true, autoset_selling: boolean = true) {
         const updatedObject = await this._client.buildingsApi.setProductionTargetMultiplier(this.id, target, autoset_buying, autoset_selling);
         Object.assign(this, updatedObject);
+    }
+
+    async calculateCurrentLaborNeed(): Promise<number> {
+        /* Calculates the current labor need based on the building's production recipe.
+        Returns:
+          number: The labor required for the target multiplier.
+        */
+        if (this.production) {
+            const recipe = new Recipe({ client: this._client, recipeName: this.production.recipe });
+            await recipe.load();
+            if (recipe) {
+                let inventoryAssets: Map<ItemEnumType, AccountAsset>;
+                if (this.items) {
+                    inventoryAssets = this.items;
+                } else if (this.data && this.data.producer) {
+                    inventoryAssets = this.data.producer.inventory.account.assets;
+                }
+
+                let inventoryManagers: Map<ItemEnumType, Manager>;
+                if (this.data && this.data.storage) {
+                    inventoryManagers = this.data.storage.inventory.managers;
+                } else if (this.data && this.data.producer) {
+                    inventoryManagers = this.data.producer.inventory.managers;
+                }
+
+                return recipe.calculateTargetLabor(
+                    this.targetProduction,
+                    Object.fromEntries(inventoryAssets),
+                    Object.fromEntries(inventoryManagers)
+                );
+            }
+        }
+
+        return 0.0;
     }
 
 }

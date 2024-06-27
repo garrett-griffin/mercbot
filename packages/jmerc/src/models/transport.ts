@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { TransportSchema, TransportType } from '../schema/TransportSchema';
 import { TradeRouteSchema, TradeRouteType } from '../schema/TradeRouteSchema';
 import { TransportCargoSchema, TransportCargoType } from '../schema/TransportCargoSchema';
@@ -23,7 +23,7 @@ export class Transport extends BaseModel implements TransportType {
     type: TransportTypeType;
     size: number;
     name: string;
-    owner_id: number;
+    owner_id: string;
     hometown_id: number;
     location: Location;
     domain: Location[] | null;

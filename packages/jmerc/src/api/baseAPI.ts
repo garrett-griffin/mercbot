@@ -52,10 +52,10 @@ abstract class BaseAPI {
             url = endpoint;
         }
         if(id) {
-            url.replace(':id', id.toString());
+            url = url.replace(':id', id.toString());
         }
         if(item) {
-            url.replace(':item', item);
+            url = url.replace(':item', item);
         }
         return this.client.get(url);
     }
@@ -74,10 +74,10 @@ abstract class BaseAPI {
             url = endpoint;
         }
         if(id) {
-            url.replace(':id', id.toString());
+            url = url.replace(':id', id.toString());
         }
         if(item) {
-            url.replace(':item', item);
+            url = url.replace(':item', item);
         }
         return this.client.post(url, data);
     }
@@ -94,10 +94,10 @@ abstract class BaseAPI {
             url = endpoint;
         }
         if(id) {
-            url.replace(':id', id.toString());
+            url = url.replace(':id', id.toString());
         }
         if(item) {
-            url.replace(':item', item);
+            url = url.replace(':item', item);
         }
         return this.client.put(url, data);
     }
@@ -114,10 +114,10 @@ abstract class BaseAPI {
             url = endpoint;
         }
         if(id) {
-            url.replace(':id', id.toString());
+            url = url.replace(':id', id.toString());
         }
         if(item) {
-            url.replace(':item', item);
+            url = url.replace(':item', item);
         }
         return this.client.patch(url, data);
     }

@@ -2,7 +2,7 @@
 import { BuildingOperation as BuildingOperationModel } from "../models/building";
 import Client from "../client";
 import {Player} from "./player";
-import {Building} from "./Building";
+import {Building} from "./building";
 import {Flow} from "../models/flow";
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
@@ -132,7 +132,7 @@ export class Operation {
         const recipes = await this._client.staticApi.getRecipes();
         for (const recipe of recipes) {
             if (recipe.name === this.data.recipe) {
-                this.recipe = await this._client.getRecipe(recipe);
+                this.recipe = await this._client.getRecipe({ recipe });
                 break;
             }
         }

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "module": "NodeNext", // Add this line
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist", // Add this to specify the output directory
+    "rootDir": ".", // Add this to specify the root directory
+    "forceConsistentCasingInFileNames": true
+  }
+}

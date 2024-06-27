@@ -4,10 +4,10 @@ import { BuildingUpgradeTypeEnumSchema } from './enums/BuildingUpgradeTypeEnumSc
 
 export const BuildingConstructionEffortSchema = z.object({
     inventory: InventorySchema,
-    progress: z.number(),
+    progress: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     reference: z.string(),
     stage: z.string(),
-    time: z.number().optional(),
+    time: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),
     upgrade_type: BuildingUpgradeTypeEnumSchema.optional()
 });
 

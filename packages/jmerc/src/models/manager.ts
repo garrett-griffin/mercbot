@@ -1,4 +1,4 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from './baseModel';
 import { ManagerSchema, ManagerType } from '../schema/ManagerSchema';
 
 export class Manager extends BaseModel implements ManagerType {

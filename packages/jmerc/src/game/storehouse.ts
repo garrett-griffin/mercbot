@@ -1,6 +1,6 @@
 // Storehouse.ts
 import Client from "../client";
-import {Building} from './Building'
+import {Building} from './building'
 import { Player } from "./player";
 import {Flow} from "../models/flow";
 import {Account, AccountAsset} from "../models/account";
@@ -8,7 +8,7 @@ import {Manager} from "../models/manager";
 import {ItemEnum} from "../models/enums/itemEnum";
 import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {ItemTradeResultType} from "../schema/ItemTradeResultSchema";
-import { ExportsList } from './Exports'
+import { ExportsList } from './exports'
 import { ImportsList } from './imports'
 import { BuildingTypeEnum} from "../models/enums/buildingTypeEnum";
 import {MarketItem, MarketItemDetails} from "../models/market";

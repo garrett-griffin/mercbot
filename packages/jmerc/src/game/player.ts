@@ -1,7 +1,7 @@
 import { Player as PlayerModel, Household, Sustenance } from '../models/player';
 import { Business } from '../models/business';
-import { Building, BuildingsList } from './Building';
-import {Export, ExportsList, ExportsSummed} from './Exports';
+import { Building, BuildingsList } from './building';
+import {Export, ExportsList, ExportsSummed} from './exports';
 import {Import, Imports, ImportsList, ImportsSummed} from './imports';
 import { BuildingOperation, BuildingOperationsDict } from './operation';
 import { Town } from './town';
