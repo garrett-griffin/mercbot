@@ -7,11 +7,13 @@ import { OperationSchema } from './OperationSchema';
 import { ProducerSchema } from './ProducerSchema';
 import { TradeRouteSchema } from './TradeRouteSchema';
 import { TransportJourneySchema } from './TransportJourneySchema';
+import {TransportTypeEnum} from "../models/enums/transportTypeEnum";
+import {TransportTypeEnumSchema} from "./enums/TransportTypeEnumSchema";
 
 export const TransportSchema = z.object({
     id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     reference: z.string(),
-    type: TransportTypeSchema,
+    type: TransportTypeEnumSchema,
     size: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     name: z.string(),
     owner_id: z.string(),

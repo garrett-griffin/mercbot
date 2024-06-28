@@ -72,7 +72,6 @@ export class Client {
      */
     async get(endpoint: string): Promise<object> {
         try {
-            console.log(endpoint);
             const response = await this.session.get(endpoint);
             return response.data;
         } catch (error) {

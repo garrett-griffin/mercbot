@@ -17,7 +17,7 @@ var apiRoutes = {
   producer: `buildings/:id/producer`,
   regions: `map/regions`,
   towns: `towns`,
-  townData: `towns/:id/data`,
+  townData: `towns/:id`,
   transports: `transports/:id`,
   transportManager: `transports/:id/route/inventory/item`,
   turn: `clock`
@@ -48,10 +48,10 @@ var BaseAPI = class {
       url = endpoint;
     }
     if (id) {
-      url.replace(":id", id.toString());
+      url = url.replace(":id", id.toString());
     }
     if (item) {
-      url.replace(":item", item);
+      url = url.replace(":item", item);
     }
     return this.client.get(url);
   }
@@ -69,10 +69,10 @@ var BaseAPI = class {
       url = endpoint;
     }
     if (id) {
-      url.replace(":id", id.toString());
+      url = url.replace(":id", id.toString());
     }
     if (item) {
-      url.replace(":item", item);
+      url = url.replace(":item", item);
     }
     return this.client.post(url, data);
   }
@@ -88,10 +88,10 @@ var BaseAPI = class {
       url = endpoint;
     }
     if (id) {
-      url.replace(":id", id.toString());
+      url = url.replace(":id", id.toString());
     }
     if (item) {
-      url.replace(":item", item);
+      url = url.replace(":item", item);
     }
     return this.client.put(url, data);
   }
@@ -107,10 +107,10 @@ var BaseAPI = class {
       url = endpoint;
     }
     if (id) {
-      url.replace(":id", id.toString());
+      url = url.replace(":id", id.toString());
     }
     if (item) {
-      url.replace(":item", item);
+      url = url.replace(":item", item);
     }
     return this.client.patch(url, data);
   }
@@ -122,9 +122,13 @@ var BaseModel = class {
   static schema;
   static async validate(data) {
     try {
-      return await this.schema.parse(data);
+      if (Array.isArray(data)) {
+        return await Promise.all(data.map((item) => this.schema.parse(item)));
+      } else {
+        return await this.schema.parse(data);
+      }
     } catch (errors) {
-      throw new Error("Validation failed: " + errors);
+      throw new Error("Validation failed: " + errors + " - data: " + JSON.stringify(data));
     }
   }
 };
@@ -132,9 +136,9 @@ var BaseModel = class {
 // src/schema/TurnSchema.ts
 import { z } from "zod";
 var TurnSchema = z.object({
-  turn: z.number(),
+  turn: z.union([z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
   month: z.string().optional(),
-  year: z.number().optional()
+  year: z.union([z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional()
 });
 
 // src/models/turn.ts
@@ -173,7 +177,7 @@ import { z as z12 } from "zod";
 import { z as z2 } from "zod";
 var PrestigeImpactSchema = z2.object({
   factor: z2.string(),
-  impact: z2.number()
+  impact: z2.union([z2.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z2.number()])
 });
 
 // src/schema/WorkerSchema.ts
@@ -194,10 +198,9 @@ var SkillEnumSchema = z3.enum([
 // src/schema/WorkerSchema.ts
 var WorkerSchema = z4.object({
   assignment: z4.string(),
-  capacity: z4.number(),
+  capacity: z4.union([z4.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z4.number()]),
   name: z4.string(),
-  skills: z4.record(SkillEnumSchema, z4.number())
-  // Using z.record to define a dictionary with Skill as key and float as value
+  skills: z4.record(SkillEnumSchema, z4.union([z4.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z4.number()]))
 });
 
 // src/schema/SustenanceSchema.ts
@@ -315,62 +318,62 @@ import { z as z7 } from "zod";
 // src/schema/AccountAssetSchema.ts
 import { z as z6 } from "zod";
 var AccountAssetSchema = z6.object({
-  balance: z6.number(),
-  capacity: z6.number().optional(),
-  purchase: z6.number().optional(),
-  purchase_price: z6.number().optional(),
-  reserved: z6.number(),
-  reserved_capacity: z6.number().optional(),
-  sale: z6.number().optional(),
-  sale_price: z6.number().optional(),
-  unit_cost: z6.number().optional()
+  balance: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]),
+  capacity: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]).optional(),
+  purchase: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]).optional(),
+  purchase_price: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]).optional(),
+  reserved: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]),
+  reserved_capacity: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]).optional(),
+  sale: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]).optional(),
+  sale_price: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]).optional(),
+  unit_cost: z6.union([z6.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z6.number()]).optional()
 });
 
 // src/schema/AccountSchema.ts
 var AccountSchema = z7.object({
-  assets: z7.map(ItemEnumSchema, AccountAssetSchema),
+  assets: z7.object({}).transform((obj) => new Map(Object.entries(obj))).transform((map) => z7.map(ItemEnumSchema, AccountAssetSchema).parse(map)),
   id: z7.string(),
   master_id: z7.string().optional(),
   name: z7.string().optional(),
-  owner_id: z7.number(),
+  owner_id: z7.string(),
   sponsor_id: z7.string().optional()
 });
 
 // src/schema/ManagerSchema.ts
 import { z as z8 } from "zod";
 var ManagerSchema = z8.object({
-  buy_price: z8.number().optional(),
-  buy_volume: z8.number().optional(),
-  capacity: z8.number().optional(),
-  max_holding: z8.number().optional(),
-  sell_price: z8.number().optional(),
-  sell_volume: z8.number().optional()
+  buy_price: z8.union([z8.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z8.number()]).optional(),
+  buy_volume: z8.union([z8.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z8.number()]).optional(),
+  capacity: z8.union([z8.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z8.number()]).optional(),
+  max_holding: z8.union([z8.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z8.number()]).optional(),
+  sell_price: z8.union([z8.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z8.number()]).optional(),
+  sell_volume: z8.union([z8.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z8.number()]).optional()
 });
 
 // src/schema/FlowSchema.ts
 import { z as z9 } from "zod";
 var FlowSchema = z9.object({
-  consumption: z9.number().optional().default(0),
-  expiration: z9.number().optional().default(0),
-  export: z9.number().optional(),
-  imported: z9.number().optional().nullable().default(null).describe("import"),
-  production: z9.number().optional().default(0),
-  production_cost: z9.number().optional().default(0),
-  purchase: z9.number().optional(),
-  purchase_cost: z9.number().optional().default(0),
-  resident: z9.number().optional(),
-  sale: z9.number().optional(),
-  sale_value: z9.number().optional().default(0),
-  shortfall: z9.number().optional().default(0)
+  consumption: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().default(String(0)),
+  expiration: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().default(String(0)),
+  export: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional(),
+  imported: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().nullable().default(null).describe("import"),
+  production: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().default(String(0)),
+  production_cost: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().default(String(0)),
+  purchase: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional(),
+  purchase_cost: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().default(String(0)),
+  resident: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional(),
+  sale: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional(),
+  sale_value: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().default(String(0)),
+  shortfall: z9.union([z9.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z9.number()]).optional().default(String(0))
 });
 
 // src/schema/InventorySchema.ts
 var InventorySchema = z10.object({
   account: AccountSchema,
-  capacity: z10.number(),
-  managers: z10.map(ItemEnumSchema, ManagerSchema).optional(),
+  capacity: z10.union([z10.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z10.number()]),
+  managers: z10.object({}).transform((obj) => new Map(Object.entries(obj))).optional().transform((map) => z10.map(ItemEnumSchema, ManagerSchema).parse(map)).optional(),
   previous_flows: z10.record(ItemEnumSchema, FlowSchema).optional().default({}),
-  reserved: z10.number().optional()
+  reserved: z10.union([z10.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z10.number()]).optional()
 });
 
 // src/schema/SustenanceSchema.ts
@@ -384,16 +387,16 @@ var SustenanceSchema = z11.object({
 var HouseholdSchema = z12.object({
   id: z12.string(),
   name: z12.string(),
-  town_id: z12.number(),
+  town_id: z12.union([z12.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z12.number()]),
   portrait: z12.string(),
   gender: z12.string(),
   account_id: z12.string(),
   business_ids: z12.array(z12.string()),
-  prestige: z12.number(),
+  prestige: z12.union([z12.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z12.number()]),
   prestige_impacts: z12.array(PrestigeImpactSchema).optional(),
   workers: z12.array(WorkerSchema),
   operations: z12.array(z12.string()),
-  caps: z12.record(z12.string(), z12.number()),
+  caps: z12.record(z12.string(), z12.union([z12.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z12.number()])),
   sustenance: SustenanceSchema
 });
 
@@ -404,12 +407,12 @@ import { z as z14 } from "zod";
 import { z as z13 } from "zod";
 var NotificationSettingsSchema = z13.object({
   discord: z13.boolean(),
-  mutes: z13.array(z13.string()).optional().default([])
+  mutes: z13.nullable(z13.array(z13.string())).optional().default([])
 });
 
 // src/schema/SettingsSchema.ts
 var SettingsSchema = z14.object({
-  sound_volume: z14.number(),
+  sound_volume: z14.union([z14.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z14.number()]),
   notifications: NotificationSettingsSchema,
   commoners_splash: z14.boolean(),
   construction_splash: z14.boolean(),
@@ -464,16 +467,16 @@ import { z as z17 } from "zod";
 // src/schema/LocationSchema.ts
 import { z as z16 } from "zod";
 var LocationSchema = z16.object({
-  x: z16.number(),
-  y: z16.number()
+  x: z16.union([z16.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z16.number()]),
+  y: z16.union([z16.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z16.number()])
 });
 
 // src/schema/TownSchema.ts
 var TownSchema = z17.object({
-  id: z17.number(),
+  id: z17.union([z17.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z17.number()]),
   name: z17.string(),
   location: LocationSchema,
-  region: z17.number(),
+  region: z17.union([z17.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z17.number()]),
   capital: z17.boolean().default(false)
 });
 
@@ -591,10 +594,10 @@ import { z as z22 } from "zod";
 import { z as z21 } from "zod";
 var TownDemandSchema = z21.object({
   product: ItemEnumSchema,
-  bonus: z21.number().default(0),
-  desire: z21.number().default(0),
-  request: z21.number().default(0),
-  result: z21.number().default(0)
+  bonus: z21.union([z21.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z21.number()]).default(String(0)),
+  desire: z21.union([z21.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z21.number()]).default(String(0)),
+  request: z21.union([z21.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z21.number()]).default(String(0)),
+  result: z21.union([z21.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z21.number()]).default(String(0))
 });
 
 // src/schema/TownDemandCategorySchema.ts
@@ -606,8 +609,8 @@ var TownDemandCategorySchema = z22.object({
 // src/schema/CommonersSchema.ts
 var CommonersSchema = z23.object({
   account_id: z23.string(),
-  count: z23.number(),
-  migration: z23.number(),
+  count: z23.union([z23.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z23.number()]),
+  migration: z23.union([z23.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z23.number()]),
   sustenance: z23.array(TownDemandCategorySchema)
 });
 
@@ -617,9 +620,9 @@ import { z as z25 } from "zod";
 // src/schema/TownGovernmentTaxesSchema.ts
 import { z as z24 } from "zod";
 var TownGovernmentTaxesSchema = z24.object({
-  land_tax: z24.number().optional().default(0),
-  structure_tax: z24.number().optional().default(0),
-  ferry_fees: z24.number().optional().default(0)
+  land_tax: z24.union([z24.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z24.number()]).optional().default(String(0)),
+  structure_tax: z24.union([z24.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z24.number()]).optional().default(String(0)),
+  ferry_fees: z24.union([z24.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z24.number()]).optional().default(String(0))
 });
 
 // src/schema/TownGovernmentSchema.ts
@@ -632,13 +635,13 @@ var TownGovernmentSchema = z25.object({
 // src/schema/TownChurchSchema.ts
 import { z as z26 } from "zod";
 var TownChurchSchema = z26.object({
-  project_ids: z26.array(z26.string()).optional()
+  project_ids: z26.array(z26.string()).optional().nullable()
 });
 
 // src/schema/TownCultureSchema.ts
 import { z as z27 } from "zod";
 var TownCultureSchema = z27.object({
-  special_market_pressure: z27.record(z27.number(), z27.number()).optional()
+  special_market_pressure: z27.record(z27.union([z27.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z27.number()]), z27.union([z27.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z27.number()])).optional()
 });
 
 // src/schema/TownDataSchema.ts
@@ -646,14 +649,14 @@ var TownDataSchema = z28.object({
   id: z28.string(),
   name: z28.string(),
   location: LocationSchema,
-  region: z28.number(),
-  center_ids: z28.array(z28.number()),
+  region: z28.union([z28.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z28.number()]),
+  center_ids: z28.array(z28.union([z28.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z28.number()])),
   domain: z28.record(z28.string(), TileSchema),
   household_ids: z28.array(z28.string()),
   commoners: CommonersSchema,
   government: TownGovernmentSchema,
   church: TownChurchSchema,
-  navigation_zones: z28.record(z28.number(), z28.number()),
+  navigation_zones: z28.record(z28.union([z28.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z28.number()]), z28.union([z28.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z28.number()])),
   culture: TownCultureSchema
 });
 
@@ -688,22 +691,22 @@ import { z as z30 } from "zod";
 // src/schema/MarketItemSchema.ts
 import { z as z29 } from "zod";
 var MarketItemSchema = z29.object({
-  price: z29.number().optional().default(0),
-  last_price: z29.number().optional().default(0),
-  average_price: z29.number().optional().default(0),
-  moving_average: z29.number().optional().default(0),
-  highest_bid: z29.number().optional().default(0),
-  lowest_ask: z29.number().optional().default(0),
-  volume: z29.number(),
-  volume_prev_12: z29.number().optional().default(0),
-  bid_volume_10: z29.number().optional().default(0),
-  ask_volume_10: z29.number().optional().default(0)
+  price: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  last_price: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  average_price: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  moving_average: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  highest_bid: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  lowest_ask: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  volume: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]),
+  volume_prev_12: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  bid_volume_10: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0)),
+  ask_volume_10: z29.union([z29.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z29.number()]).optional().default(String(0))
 });
 
 // src/schema/MarketSchema.ts
 var MarketSchema = z30.object({
   markets: z30.record(ItemEnumSchema, MarketItemSchema),
-  ts: z30.number().describe("_ts")
+  _ts: z30.union([z30.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z30.number()]).describe("_ts")
 });
 
 // src/schema/MarketItemDetailsSchema.ts
@@ -712,13 +715,13 @@ import { z as z32 } from "zod";
 // src/schema/ItemOrderSchema.ts
 import { z as z31 } from "zod";
 var ItemOrderSchema = z31.object({
-  volume: z31.number(),
-  price: z31.number()
+  volume: z31.union([z31.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z31.number()]),
+  price: z31.union([z31.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z31.number()])
 });
 
 // src/schema/MarketItemDetailsSchema.ts
 var MarketItemDetailsSchema = z32.object({
-  id: z32.number(),
+  id: z32.union([z32.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z32.number()]),
   product: ItemEnumSchema,
   asset: ItemEnumSchema,
   currency: z32.string(),
@@ -731,7 +734,7 @@ var MarketItemDetailsSchema = z32.object({
 var Market = class extends BaseModel {
   static schema = MarketSchema;
   markets;
-  ts;
+  _ts;
 };
 var MarketItemDetails = class extends BaseModel {
   static schema = MarketItemDetailsSchema;
@@ -748,10 +751,10 @@ var MarketItemDetails = class extends BaseModel {
 import { z as z33 } from "zod";
 var ItemTradeSchema = z33.object({
   direction: z33.string(),
-  expected_balance: z33.number(),
+  expected_balance: z33.union([z33.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z33.number()]),
   operation: z33.string(),
-  price: z33.number(),
-  volume: z33.number()
+  price: z33.union([z33.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z33.number()]),
+  volume: z33.union([z33.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z33.number()])
 });
 
 // src/schema/ItemTradeResultSchema.ts
@@ -760,14 +763,14 @@ import { z as z35 } from "zod";
 // src/schema/ItemTradeSettlementSchema.ts
 import { z as z34 } from "zod";
 var ItemTradeSettlementSchema = z34.object({
-  volume: z34.number(),
-  price: z34.number()
+  volume: z34.union([z34.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z34.number()]),
+  price: z34.union([z34.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z34.number()])
 });
 
 // src/schema/ItemTradeResultSchema.ts
 var ItemTradeResultSchema = z35.object({
   settlements: z35.array(ItemTradeSettlementSchema).optional(),
-  order_id: z35.number().optional(),
+  order_id: z35.union([z35.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z35.number()]).optional(),
   embedded: z35.record(z35.string(), z35.any()).optional().default({})
 });
 
@@ -837,7 +840,7 @@ var TownsAPI = class extends baseAPI_default {
   async getAll() {
     try {
       const response = await super.get();
-      return response.map((townData) => Town.validate(townData));
+      return Town.validate(response);
     } catch (error) {
       throw new Error(`Failed to fetch towns: ${error.message}`);
     }
@@ -947,18 +950,18 @@ import { z as z43 } from "zod";
 // src/schema/BuildingConstructionSchema.ts
 import { z as z36 } from "zod";
 var BuildingConstructionSchema = z36.object({
-  range: z36.number().optional(),
-  size: z36.number().optional(),
-  discount: z36.number().optional(),
-  time: z36.number(),
-  materials: z36.record(ItemEnumSchema, z36.number())
+  range: z36.union([z36.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z36.number()]).optional(),
+  size: z36.union([z36.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z36.number()]).optional(),
+  discount: z36.union([z36.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z36.number()]).optional(),
+  time: z36.union([z36.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z36.number()]),
+  materials: z36.record(ItemEnumSchema, z36.union([z36.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z36.number()]))
 });
 
 // src/schema/DeliveryCostSchema.ts
 import { z as z37 } from "zod";
 var DeliveryCostSchema = z37.object({
-  land_distance: z37.number(),
-  ferry_fee: z37.number().optional()
+  land_distance: z37.union([z37.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z37.number()]),
+  ferry_fee: z37.union([z37.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z37.number()]).optional()
 });
 
 // src/schema/ProducerSchema.ts
@@ -1315,14 +1318,14 @@ var RecipeEnumSchema = z38.enum([
 
 // src/schema/OperationSchema.ts
 var OperationSchema = z39.object({
-  target: z39.number(),
-  production: z39.number().optional(),
-  provision: z39.number().optional(),
+  target: z39.union([z39.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z39.number()]),
+  production: z39.union([z39.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z39.number()]).optional(),
+  provision: z39.union([z39.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z39.number()]).optional(),
   reference: z39.string().optional(),
   recipe: RecipeEnumSchema.optional(),
-  volume: z39.number().optional(),
-  tax_rate: z39.number().optional(),
-  tax: z39.number().optional(),
+  volume: z39.union([z39.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z39.number()]).optional(),
+  tax_rate: z39.union([z39.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z39.number()]).optional(),
+  tax: z39.union([z39.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z39.number()]).optional(),
   delivery_cost: DeliveryCostSchema.optional(),
   flows: z39.record(ItemEnumSchema, FlowSchema).optional()
 });
@@ -1333,10 +1336,10 @@ var ProducerSchema = z40.object({
   limited: z40.boolean(),
   manager: z40.string(),
   previous_operation: OperationSchema,
-  provider_id: z40.number().optional(),
+  provider_id: z40.union([z40.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z40.number()]).optional(),
   recipe: RecipeEnumSchema,
   reference: z40.string(),
-  target: z40.number().optional()
+  target: z40.union([z40.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z40.number()]).optional()
 });
 
 // src/schema/BuildingStorageSchema.ts
@@ -1386,19 +1389,20 @@ var BuildingUpgradeTypeEnumSchema = z42.enum([
 
 // src/schema/BuildingSchema.ts
 var BuildingSchema = z43.object({
-  capacity: z43.number().optional(),
-  construction: BuildingConstructionSchema.optional(),
-  delivery_cost: DeliveryCostSchema,
-  id: z43.number(),
+  capacity: z43.union([z43.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z43.number()]).optional(),
+  construction: BuildingConstructionSchema.optional().nullable(),
+  delivery_cost: DeliveryCostSchema.optional(),
+  id: z43.union([z43.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z43.number()]),
   land: z43.array(LocationSchema).optional(),
-  name: z43.string(),
-  owner_id: z43.number(),
+  location: LocationSchema.optional(),
+  name: z43.string().optional(),
+  owner_id: z43.string().optional(),
   producer: ProducerSchema.optional(),
-  provider_id: z43.number().optional(),
-  size: z43.number().optional(),
+  provider_id: z43.union([z43.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z43.number()]).optional(),
+  size: z43.union([z43.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z43.number()]).optional(),
   storage: BuildingStorageSchema.optional(),
   sublocation: LocationSchema.optional(),
-  town_id: z43.number(),
+  town_id: z43.union([z43.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z43.number()]).optional(),
   type: BuildingTypeEnumSchema,
   upgrades: z43.array(BuildingUpgradeTypeEnumSchema).optional()
 });
@@ -1408,6 +1412,49 @@ import { z as z44 } from "zod";
 var BuildingOperationSchema = z44.object({
   total_flow: z44.record(ItemEnumSchema, FlowSchema).optional(),
   operations: z44.array(OperationSchema).optional()
+});
+
+// src/schema/BuildingTypeSchema.ts
+import { z as z49 } from "zod";
+
+// src/schema/BuildingRequirementsSchema.ts
+import { z as z47 } from "zod";
+
+// src/schema/TileRequirementSchema.ts
+import { z as z45 } from "zod";
+var TileRequirementSchema = z45.object({
+  min: z45.union([z45.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z45.number()]).optional(),
+  max: z45.union([z45.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z45.number()]).optional()
+});
+
+// src/schema/enums/ClimateEnumSchema.ts
+import { z as z46 } from "zod";
+var ClimateEnumSchema = z46.enum([
+  "cold",
+  "warm"
+]);
+
+// src/schema/BuildingRequirementsSchema.ts
+var BuildingRequirementsSchema = z47.object({
+  fertility: TileRequirementSchema.optional(),
+  forest: TileRequirementSchema.optional(),
+  climate: ClimateEnumSchema.optional()
+});
+
+// src/schema/BuildingUpgradeSchema.ts
+import { z as z48 } from "zod";
+var BuildingUpgradeSchema = z48.object({
+  type: BuildingUpgradeTypeEnumSchema,
+  construction: BuildingConstructionSchema
+});
+
+// src/schema/BuildingTypeSchema.ts
+var BuildingTypeSchema = z49.object({
+  type: BuildingTypeEnumSchema,
+  supports_boost: z49.boolean().optional().default(false),
+  requires: BuildingRequirementsSchema,
+  construction: BuildingConstructionSchema.optional(),
+  upgrades: z49.array(BuildingUpgradeSchema).optional().default([])
 });
 
 // src/models/building.ts
@@ -1433,6 +1480,14 @@ var BuildingOperation = class extends BaseModel {
   static schema = BuildingOperationSchema;
   total_flow;
   operations;
+};
+var BuildingType = class extends BaseModel {
+  static schema = BuildingTypeSchema;
+  type;
+  supports_boost;
+  requires;
+  construction;
+  upgrades;
 };
 
 // src/api/buildings.ts
@@ -1487,23 +1542,23 @@ var BuildingsAPI = class extends baseAPI_default {
 var buildings_default = BuildingsAPI;
 
 // src/schema/BusinessSchema.ts
-import { z as z45 } from "zod";
-var BusinessSchema = z45.object({
+import { z as z50 } from "zod";
+var BusinessSchema = z50.object({
   account: AccountSchema,
-  account_id: z45.string(),
-  building_ids: z45.array(z45.number()),
-  buildings: z45.array(BuildingSchema),
-  contract_ids: z45.array(z45.string()).optional().nullable(),
-  id: z45.number(),
-  name: z45.string(),
-  owner_id: z45.number(),
-  transport_ids: z45.array(z45.number()).optional().nullable()
+  account_id: z50.string(),
+  building_ids: z50.array(z50.union([z50.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z50.number()])).optional(),
+  buildings: z50.array(BuildingSchema).optional(),
+  contract_ids: z50.array(z50.string()).optional().nullable(),
+  id: z50.union([z50.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z50.number()]),
+  name: z50.string(),
+  owner_id: z50.string(),
+  transport_ids: z50.array(z50.union([z50.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z50.number()])).optional().nullable()
 });
 
 // src/schema/BusinessBuildingSchema.ts
-import { z as z46 } from "zod";
-var BusinessBuildingSchema = z46.object({
-  id: z46.number(),
+import { z as z51 } from "zod";
+var BusinessBuildingSchema = z51.object({
+  id: z51.union([z51.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z51.number()]),
   type: BuildingTypeEnumSchema
 });
 
@@ -1541,14 +1596,13 @@ var BusinessesAPI = class extends baseAPI_default {
 var businesses_default = BusinessesAPI;
 
 // src/schema/RegionSchema.ts
-import { z as z47 } from "zod";
-var RegionSchema = z47.object({
-  id: z47.number(),
-  // Adjust type as necessary, e.g., z.string() or z.number()
-  name: z47.string(),
-  description: z47.string().optional(),
+import { z as z52 } from "zod";
+var RegionSchema = z52.object({
+  id: z52.union([z52.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z52.number()]),
+  name: z52.string(),
+  description: z52.string().optional(),
   center: LocationSchema.optional(),
-  size: z47.number().optional()
+  size: z52.union([z52.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z52.number()]).optional()
 });
 
 // src/models/region.ts
@@ -1584,32 +1638,32 @@ import axios from "axios";
 import { LRUCache } from "lru-cache";
 
 // src/schema/ItemSchema.ts
-import { z as z50 } from "zod";
+import { z as z55 } from "zod";
 
 // src/schema/enums/ItemTypeEnumSchema.ts
-import { z as z48 } from "zod";
-var ItemTypeEnumSchema = z48.enum([
+import { z as z53 } from "zod";
+var ItemTypeEnumSchema = z53.enum([
   "commodity",
   "service",
   "special"
 ]);
 
 // src/schema/ItemPriceSchema.ts
-import { z as z49 } from "zod";
-var ItemPriceSchema = z49.object({
-  low: z49.number().optional(),
-  typical: z49.number(),
-  high: z49.number().optional()
+import { z as z54 } from "zod";
+var ItemPriceSchema = z54.object({
+  low: z54.union([z54.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z54.number()]).optional(),
+  typical: z54.union([z54.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z54.number()]),
+  high: z54.union([z54.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z54.number()]).optional()
 });
 
 // src/schema/ItemSchema.ts
-var ItemSchema = z50.object({
+var ItemSchema = z55.object({
   name: ItemEnumSchema,
   type: ItemTypeEnumSchema,
-  unit: z50.string(),
-  weight: z50.number().optional(),
-  tier: z50.number(),
-  classes: z50.array(SkillEnumSchema).optional().default([]),
+  unit: z55.string(),
+  weight: z55.union([z55.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z55.number()]).optional(),
+  tier: z55.union([z55.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z55.number()]),
+  classes: z55.array(SkillEnumSchema).optional().default([]),
   price: ItemPriceSchema
 });
 
@@ -1626,25 +1680,25 @@ var Item = class extends BaseModel {
 };
 
 // src/schema/RecipeSchema.ts
-import { z as z52 } from "zod";
+import { z as z57 } from "zod";
 
 // src/schema/IngredientSchema.ts
-import { z as z51 } from "zod";
-var IngredientSchema = z51.object({
+import { z as z56 } from "zod";
+var IngredientSchema = z56.object({
   product: ItemEnumSchema,
-  amount: z51.number()
+  amount: z56.union([z56.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z56.number()])
 });
 
 // src/schema/RecipeSchema.ts
-var RecipeSchema = z52.object({
+var RecipeSchema = z57.object({
   name: RecipeEnumSchema,
-  tier: z52.number(),
+  tier: z57.union([z57.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z57.number()]),
   building: BuildingTypeEnumSchema,
-  size: z52.number(),
+  size: z57.union([z57.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z57.number()]),
   product_class: SkillEnumSchema.optional().describe("class"),
-  points: z52.number().optional(),
-  inputs: z52.array(IngredientSchema).optional().default([]),
-  outputs: z52.array(IngredientSchema).optional().default([])
+  points: z57.union([z57.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z57.number()]).optional(),
+  inputs: z57.array(IngredientSchema).optional().default([]),
+  outputs: z57.array(IngredientSchema).optional().default([])
 });
 
 // src/models/recipe.ts
@@ -1661,14 +1715,66 @@ var Recipe = class extends BaseModel {
 };
 
 // src/schema/TransportSchema.ts
-import { z as z60 } from "zod";
+import { z as z64 } from "zod";
 
-// src/schema/TransportTypeSchema.ts
-import { z as z54 } from "zod";
+// src/schema/TransportCargoSchema.ts
+import { z as z58 } from "zod";
+var TransportCargoSchema = z58.object({
+  reference: z58.string(),
+  inventory: InventorySchema.optional()
+});
+
+// src/schema/TradeRouteSchema.ts
+import { z as z59 } from "zod";
+var TradeRouteSchema = z59.object({
+  id: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  reference: z59.string(),
+  local_town: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  remote_town: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  capacity: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  reserved_import: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  reserved_export: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  distance: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  moves: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  provider_id: z59.union([z59.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z59.number()]),
+  account_id: z59.string(),
+  account: AccountSchema,
+  managers: z59.record(ItemEnumSchema, ManagerSchema),
+  current_flows: z59.record(ItemEnumSchema, FlowSchema),
+  previous_flows: z59.record(ItemEnumSchema, FlowSchema)
+});
+
+// src/schema/TransportJourneySchema.ts
+import { z as z62 } from "zod";
+
+// src/schema/TransportJourneyLegSchema.ts
+import { z as z61 } from "zod";
+
+// src/schema/PathSchema.ts
+import { z as z60 } from "zod";
+var PathSchema = z60.object({
+  x: z60.union([z60.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z60.number()]),
+  y: z60.union([z60.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z60.number()]),
+  c: z60.union([z60.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z60.number()])
+});
+
+// src/schema/TransportJourneyLegSchema.ts
+var TransportJourneyLegSchema = z61.object({
+  path: z61.array(PathSchema)
+});
+
+// src/schema/TransportJourneySchema.ts
+var TransportJourneySchema = z62.object({
+  category: z62.string(),
+  start_town_id: z62.union([z62.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z62.number()]),
+  distance: z62.union([z62.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z62.number()]),
+  moves: z62.union([z62.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z62.number()]),
+  legs: z62.array(TransportJourneyLegSchema)
+});
 
 // src/schema/enums/TransportTypeEnumSchema.ts
-import { z as z53 } from "zod";
-var TransportTypeEnumSchema = z53.enum([
+import { z as z63 } from "zod";
+var TransportTypeEnumSchema = z63.enum([
   "cog",
   "handcart",
   "hulk",
@@ -1676,95 +1782,41 @@ var TransportTypeEnumSchema = z53.enum([
   "tumbrel"
 ]);
 
-// src/schema/TransportTypeSchema.ts
-var TransportTypeSchema = z54.object({
-  type: TransportTypeEnumSchema,
-  category: z54.number(),
-  tier: z54.number(),
-  capacity: z54.number(),
-  speed: z54.number(),
-  journey_duration: z54.number().optional(),
-  effective_days: z54.number().optional(),
-  operating_costs: z54.record(ItemEnumSchema, z54.number()),
-  catches: z54.string().optional(),
-  fishing_range: z54.number().optional()
-});
-
-// src/schema/TransportCargoSchema.ts
-import { z as z55 } from "zod";
-var TransportCargoSchema = z55.object({
-  reference: z55.string(),
-  inventory: InventorySchema.optional()
-});
-
-// src/schema/TradeRouteSchema.ts
-import { z as z56 } from "zod";
-var TradeRouteSchema = z56.object({
-  id: z56.number(),
-  reference: z56.string(),
-  local_town: z56.number(),
-  remote_town: z56.number(),
-  capacity: z56.number(),
-  reserved_import: z56.number(),
-  reserved_export: z56.number(),
-  distance: z56.number(),
-  moves: z56.number(),
-  provider_id: z56.number(),
-  account_id: z56.string(),
-  account: AccountSchema,
-  managers: z56.record(ItemEnumSchema, ManagerSchema),
-  current_flows: z56.record(ItemEnumSchema, FlowSchema),
-  previous_flows: z56.record(ItemEnumSchema, FlowSchema)
-});
-
-// src/schema/TransportJourneySchema.ts
-import { z as z59 } from "zod";
-
-// src/schema/TransportJourneyLegSchema.ts
-import { z as z58 } from "zod";
-
-// src/schema/PathSchema.ts
-import { z as z57 } from "zod";
-var PathSchema = z57.object({
-  x: z57.number(),
-  y: z57.number(),
-  c: z57.number()
-});
-
-// src/schema/TransportJourneyLegSchema.ts
-var TransportJourneyLegSchema = z58.object({
-  path: z58.array(PathSchema)
-});
-
-// src/schema/TransportJourneySchema.ts
-var TransportJourneySchema = z59.object({
-  category: z59.string(),
-  start_town_id: z59.number(),
-  distance: z59.number(),
-  moves: z59.number(),
-  legs: z59.array(TransportJourneyLegSchema)
-});
-
 // src/schema/TransportSchema.ts
-var TransportSchema = z60.object({
-  id: z60.number(),
-  reference: z60.string(),
-  type: TransportTypeSchema,
-  size: z60.number(),
-  name: z60.string(),
-  owner_id: z60.number(),
-  hometown_id: z60.number(),
+var TransportSchema = z64.object({
+  id: z64.union([z64.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z64.number()]),
+  reference: z64.string(),
+  type: TransportTypeEnumSchema,
+  size: z64.union([z64.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z64.number()]),
+  name: z64.string(),
+  owner_id: z64.string(),
+  hometown_id: z64.union([z64.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z64.number()]),
   location: LocationSchema,
-  domain: z60.array(LocationSchema).optional(),
-  capacity: z60.number(),
-  fish_quantity: z60.number().optional(),
+  domain: z64.array(LocationSchema).optional(),
+  capacity: z64.union([z64.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z64.number()]),
+  fish_quantity: z64.union([z64.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z64.number()]).optional(),
   inventory: InventorySchema,
   cargo: TransportCargoSchema.optional(),
   previous_operations: OperationSchema.optional(),
-  provider_id: z60.number().optional(),
+  provider_id: z64.union([z64.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z64.number()]).optional(),
   producer: ProducerSchema.optional(),
   route: TradeRouteSchema.optional(),
   journey: TransportJourneySchema
+});
+
+// src/schema/TransportTypeSchema.ts
+import { z as z65 } from "zod";
+var TransportTypeSchema = z65.object({
+  type: TransportTypeEnumSchema,
+  category: z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()]),
+  tier: z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()]),
+  capacity: z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()]),
+  speed: z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()]),
+  journey_duration: z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()]).optional(),
+  effective_days: z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()]).optional(),
+  operating_costs: z65.record(ItemEnumSchema, z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()])),
+  catches: z65.string().optional(),
+  fishing_range: z65.union([z65.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z65.number()]).optional()
 });
 
 // src/models/transport.ts
@@ -1807,6 +1859,19 @@ var TradeRoute = class extends BaseModel {
   current_flows;
   previous_flows;
 };
+var TransportType = class extends BaseModel {
+  static schema = TransportTypeSchema;
+  type;
+  category;
+  tier;
+  capacity;
+  speed;
+  journey_duration;
+  effective_days;
+  operating_costs;
+  catches;
+  fishing_range;
+};
 
 // src/api/static.ts
 var StaticAPI = class extends baseAPI_default {
@@ -1818,7 +1883,7 @@ var StaticAPI = class extends baseAPI_default {
   }
   async getBuildings() {
     const data = await this._get();
-    return data["Gm"].map((item) => Building.validate(item));
+    return data["Gm"].map((item) => BuildingType.validate(item));
   }
   async getItems() {
     const data = await this._get();
@@ -1830,7 +1895,7 @@ var StaticAPI = class extends baseAPI_default {
   }
   async getTransport() {
     const data = await this._get();
-    return data["g$"].map((item) => Transport.validate(item));
+    return data["g$"].map((item) => TransportType.validate(item));
   }
   async _get() {
     if (this.cache.has("staticData")) {
@@ -2125,7 +2190,7 @@ var Recipe2 = class {
 };
 
 // src/game/building.ts
-var Building2 = class {
+var Building3 = class {
   _client;
   _id;
   id;
@@ -2474,7 +2539,7 @@ var Manager = class extends BaseModel {
 };
 
 // src/game/transport.ts
-var Transport2 = class {
+var Transport3 = class {
   id;
   town;
   exports;
@@ -2886,7 +2951,7 @@ var Client = class {
     return new Town2(this, id, data);
   }
   async getBuilding(player, id) {
-    const b = new Building2(this, player, id);
+    const b = new Building3(this, player, id);
     await b.load();
     return b;
   }
@@ -2911,7 +2976,7 @@ var Client = class {
     return storehouse;
   }
   async getTransport(player, id) {
-    const transport = new Transport2(this, player, id);
+    const transport = new Transport3(this, player, id);
     await transport.load();
     return transport;
   }

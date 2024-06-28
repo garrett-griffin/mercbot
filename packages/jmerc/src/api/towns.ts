@@ -18,7 +18,7 @@ class TownsAPI extends BaseAPI {
     async getAll(): Promise<Town[]> {
         try {
             const response = await super.get() as unknown[];
-            return response.map((townData: unknown) => Town.validate(townData) as unknown as Town);
+            return Town.validate(response);
         } catch (error) {
             throw new Error(`Failed to fetch towns: ${(error as Error).message}`);
         }

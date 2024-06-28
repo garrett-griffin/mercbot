@@ -2,11 +2,11 @@ import axios, { AxiosInstance } from 'axios';
 import BaseAPI from './baseAPI';
 import Client from '../client';
 import { staticUrl, rootUrl } from "./api-routes";
-import { Building } from '../models/building'
+import {Building, BuildingType} from '../models/building'
 import { LRUCache } from "lru-cache";
 import { Item } from '../models/item';
 import { Recipe } from '../models/recipe';
-import { Transport } from '../models/transport';
+import {Transport, TransportType} from '../models/transport';
 
 class StaticAPI extends BaseAPI {
     endpoint: string = staticUrl;
@@ -19,7 +19,7 @@ class StaticAPI extends BaseAPI {
 
     async getBuildings(): Promise<Building[]> {
         const data = await this._get();
-        return data['Gm'].map(item => Building.validate(item));
+        return data['Gm'].map(item => BuildingType.validate(item));
     }
 
     async getItems(): Promise<Item[]> {
@@ -34,7 +34,7 @@ class StaticAPI extends BaseAPI {
 
     async getTransport(): Promise<Transport[]> {
         const data = await this._get();
-        return data['g$'].map(item => Transport.validate(item));
+        return data['g$'].map(item => TransportType.validate(item));
     }
 
     async _get(): Promise<object> {

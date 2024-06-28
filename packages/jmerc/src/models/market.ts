@@ -9,9 +9,9 @@ export class Market extends BaseModel implements MarketType {
     static schema = MarketSchema;
 
     markets: Record<ItemEnumType, MarketItem>;
-    ts: number;
+    _ts: number;
 }
-export class MarketItem extends BaseModel implements MarketItemType {
+export class    MarketItem extends BaseModel implements MarketItemType {
     static schema = MarketItemSchema;
 
     price: number | null;

@@ -7,7 +7,6 @@
   "license": "ISC",
   "main": "index.js",
   "directories": {
-    "lib": "lib",
     "test": "test"
   },
   "repository": {

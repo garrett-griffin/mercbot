@@ -21,7 +21,6 @@ class BuildingsAPI extends BaseAPI {
     async get({ id }: { endpoint?: string, id?: number, item?: string } = {}): Promise<Building> {
         try {
             const response = await super.get({ id });
-            console.log(response);
             return Building.validate(response);
         } catch (error) {
             throw new Error(`Failed to fetch building with ID ${id}: ${(error as Error).message}`);

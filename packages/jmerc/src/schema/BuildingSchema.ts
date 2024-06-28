@@ -13,6 +13,7 @@ export const BuildingSchema = z.object({
     delivery_cost: DeliveryCostSchema.optional(),
     id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),
     land: z.array(LocationSchema).optional(),
+    location: LocationSchema.optional(),
     name: z.string().optional(),
     owner_id: z.string().optional(),
     producer: ProducerSchema.optional(),

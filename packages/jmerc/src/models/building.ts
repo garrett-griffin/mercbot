@@ -1,5 +1,5 @@
 import { BaseModel } from './baseModel';
-import { BuildingSchema, BuildingType } from '../schema/BuildingSchema';
+import { BuildingSchema, BuildingType as BuildingSchemaType } from '../schema/BuildingSchema';
 import { BuildingConstructionSchema, BuildingConstructionType } from '../schema/BuildingConstructionSchema';
 import { BuildingStorageSchema, BuildingStorageType } from '../schema/BuildingStorageSchema';
 import { BuildingOperationSchema, BuildingOperationType } from '../schema/BuildingOperationSchema';
@@ -12,8 +12,11 @@ import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {Inventory} from "./inventory";
 import {Flow} from "./flow";
 import {Operation} from "./operation";
+import {BuildingTypeSchema, BuildingTypeType} from "../schema/BuildingTypeSchema";
+import {BuildingRequirementsType} from "../schema/BuildingRequirementsSchema";
+import {BuildingUpgradeType} from "../schema/BuildingUpgradeSchema";
 
-export class Building extends BaseModel implements BuildingType {
+export class Building extends BaseModel implements BuildingSchemaType {
     static schema = BuildingSchema;
 
     capacity: number | null;
@@ -56,6 +59,14 @@ export class BuildingOperation extends BaseModel implements BuildingOperationTyp
 
     total_flow: Record<ItemEnumType, Flow> | null;
     operations: Operation[] | null;
+}
 
+export class BuildingType extends BaseModel implements BuildingTypeType {
+    static schema = BuildingTypeSchema;
 
+    type: BuildingTypeEnumType;
+    supports_boost: boolean;
+    requires: BuildingRequirementsType;
+    construction: BuildingConstructionType | null;
+    upgrades: BuildingUpgradeType[];
 }

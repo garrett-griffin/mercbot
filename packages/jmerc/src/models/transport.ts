@@ -1,10 +1,10 @@
 import { BaseModel } from './baseModel';
-import { TransportSchema, TransportType } from '../schema/TransportSchema';
+import { TransportSchema, TransportType as TransportSchemaType } from '../schema/TransportSchema';
 import { TradeRouteSchema, TradeRouteType } from '../schema/TradeRouteSchema';
 import { TransportCargoSchema, TransportCargoType } from '../schema/TransportCargoSchema';
 import { TransportJourneySchema, TransportJourneyType } from '../schema/TransportJourneySchema';
 import { TransportJourneyLegSchema, TransportJourneyLegType } from '../schema/TransportJourneyLegSchema';
-import {TransportTypeType} from "../schema/TransportTypeSchema";
+import {TransportTypeSchema, TransportTypeType} from "../schema/TransportTypeSchema";
 import { Location } from './location';
 import {Inventory} from "./inventory";
 import {Operation} from "./operation";
@@ -14,13 +14,14 @@ import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {Manager} from "./manager";
 import {Flow} from "./flow";
 import {Path} from "./path";
+import {TransportTypeEnumType} from "../schema/enums/TransportTypeEnumSchema";
 
-export class Transport extends BaseModel implements TransportType {
+export class Transport extends BaseModel implements TransportSchemaType {
     static schema = TransportSchema;
 
     id: number;
     reference: string;
-    type: TransportTypeType;
+    type: TransportTypeEnumType;
     size: number;
     name: string;
     owner_id: string;
@@ -79,4 +80,19 @@ export class TransportJourneyLeg extends BaseModel implements TransportJourneyLe
     static schema = TransportJourneyLegSchema;
 
     path: Path[];
+}
+
+export class TransportType extends BaseModel implements TransportTypeType {
+    static schema = TransportTypeSchema;
+
+    type: TransportTypeEnumType;
+    category: number;
+    tier: number;
+    capacity: number;
+    speed: number;
+    journey_duration: number | null;
+    effective_days: number | null;
+    operating_costs: Record<ItemEnumType, number>;
+    catches: string | null;
+    fishing_range: number | null;
 }

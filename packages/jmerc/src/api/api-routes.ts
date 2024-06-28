@@ -16,7 +16,7 @@ export const apiRoutes = {
     producer: `buildings/:id/producer`,
     regions: `map/regions`,
     towns: `towns`,
-    townData: `towns/:id/data`,
+    townData: `towns/:id`,
     transports: `transports/:id`,
     transportManager: `transports/:id/route/inventory/item`,
     turn: `clock`,
