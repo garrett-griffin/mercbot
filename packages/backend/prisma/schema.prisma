@@ -10,506 +10,547 @@ generator client {
 }
 
 model User {
-  pk            Int          @id @default(autoincrement())
-  email         String       @unique
-  password      String
-  gameAccounts  GameAccount[]
+  pk           Int           @id @default(autoincrement())
+  email        String        @unique
+  password     String
+  gameAccounts GameAccount[]
 }
 
 model Site {
-  pk            Int          @id @default(autoincrement())
-  name          String
-  url           String
-  seasons       Season[]
+  pk      Int      @id @default(autoincrement())
+  name    String
+  url     String
+  seasons Season[]
 }
 
 model Season {
-  pk            Int          @id @default(autoincrement())
-  number        Int
-  siteId        Int
-  site          Site         @relation(fields: [siteId], references: [pk])
-  gameAccounts  GameAccount[]
-  turns         Turn[]
+  pk           Int           @id @default(autoincrement())
+  number       Int
+  siteId       Int
+  site         Site          @relation(fields: [siteId], references: [pk])
+  gameAccounts GameAccount[]
+  turns        Turn[]
 }
 
 model GameAccount {
-  pk            Int          @id @default(autoincrement())
-  apiUser       String
-  apiToken      String
-  userId        Int
-  user          User         @relation(fields: [userId], references: [pk])
-  seasonId      Int
-  season        Season       @relation(fields: [seasonId], references: [pk])
-  players       Player[]
-  accounts      Account[]
+  pk       Int       @id @default(autoincrement())
+  apiUser  String
+  apiToken String
+  userId   Int
+  user     User      @relation(fields: [userId], references: [pk])
+  seasonId Int
+  season   Season    @relation(fields: [seasonId], references: [pk])
+  players  Player[]
+  accounts Account[]
 }
 
 model Turn {
-  pk            Int          @id @default(autoincrement())
-  turn          Float
-  month         String?
-  year          Float?
-  seasonId      Int
-  season        Season       @relation(fields: [seasonId], references: [pk])
+  pk       Int     @id @default(autoincrement())
+  turn     Float
+  month    String?
+  year     Float?
+  seasonId Int
+  season   Season  @relation(fields: [seasonId], references: [pk])
 }
 
 model Player {
-  pk            Int          @id @default(autoincrement())
+  pk            Int         @id @default(autoincrement())
   username      String
   householdId   Int
-  household     Household     @relation(fields: [householdId], references: [pk])
+  household     Household?
   discordId     String?
   active        Boolean
   gameAccountId Int
-  gameAccount   GameAccount  @relation(fields: [gameAccountId], references: [pk])
+  gameAccount   GameAccount @relation(fields: [gameAccountId], references: [pk])
   settings      Settings[]
   accounts      Account[]
   buildings     Building[]
+  businesses    Business[]
 }
 
 model Settings {
-  pk                    Int          @id @default(autoincrement())
-  soundVolume           Float
-  notificationsId       Int
-  notifications         NotificationSettings @relation(fields: [notificationsId], references: [pk])
-  commonersSplash       Boolean
-  constructionSplash    Boolean
-  landPurchaseSplash    Boolean
-  operationsSplash      Boolean
-  productionSplash      Boolean
-  recipesSplash         Boolean
-  sustenanceSplash      Boolean
-  tradingSplash         Boolean
-  tradeConfigSplash     Boolean
-  welcomeSplash         Boolean
-  firstBuildingSplash   Boolean
-  warehouseSplash       Boolean
-  playerId              Int
-  player                Player       @relation(fields: [playerId], references: [pk])
+  pk                  Int                  @id @default(autoincrement())
+  soundVolume         Float
+  notificationsId     Int
+  notifications       NotificationSettings @relation(fields: [notificationsId], references: [pk])
+  commonersSplash     Boolean
+  constructionSplash  Boolean
+  landPurchaseSplash  Boolean
+  operationsSplash    Boolean
+  productionSplash    Boolean
+  recipesSplash       Boolean
+  sustenanceSplash    Boolean
+  tradingSplash       Boolean
+  tradeConfigSplash   Boolean
+  welcomeSplash       Boolean
+  firstBuildingSplash Boolean
+  warehouseSplash     Boolean
+  playerId            Int
+  player              Player               @relation(fields: [playerId], references: [pk])
 }
 
 model NotificationSettings {
-  pk                    Int          @id @default(autoincrement())
-  discord               Boolean
-  mutes                 String[]
-  settings              Settings[]
+  pk       Int        @id @default(autoincrement())
+  discord  Boolean
+  mutes    String[]
+  settings Settings[]
 }
 
 model Account {
-  pk            Int          @id @default(autoincrement())
-  id            String       @unique
+  pk            Int            @id @default(autoincrement())
+  id            String         @unique
   masterId      String?
   name          String?
   ownerId       Int
-  owner         Player       @relation(fields: [ownerId], references: [pk])
+  owner         Player         @relation(fields: [ownerId], references: [pk])
   sponsorId     String?
   gameAccountId Int
-  gameAccount   GameAccount  @relation(fields: [gameAccountId], references: [pk])
+  gameAccount   GameAccount    @relation(fields: [gameAccountId], references: [pk])
   assets        AccountAsset[]
+  businesses    Business[]
+  commoners     Commoners[]
+  inventories   Inventory[]
+  tradeRoutes   TradeRoute[]
 }
 
 model AccountAsset {
-  pk             Int     @id @default(autoincrement())
-  balance        Float
-  capacity       Float?
-  purchase       Float?
-  purchasePrice  Float?
-  reserved       Float
+  pk               Int     @id @default(autoincrement())
+  balance          Float
+  capacity         Float?
+  purchase         Float?
+  purchasePrice    Float?
+  reserved         Float
   reservedCapacity Float?
-  sale           Float?
-  salePrice      Float?
-  unitCost       Float?
-  accountId      Int
-  account        Account @relation(fields: [accountId], references: [pk])
+  sale             Float?
+  salePrice        Float?
+  unitCost         Float?
+  accountId        Int
+  account          Account @relation(fields: [accountId], references: [pk])
 }
 
 model Building {
-  pk                   Int       @id @default(autoincrement())
+  pk                   Int                          @id @default(autoincrement())
   capacity             Float?
   constructionId       Int?
-  construction         BuildingConstruction? @relation(fields: [constructionId], references: [pk])
+  construction         BuildingConstruction?
   deliveryCostId       Int?
-  deliveryCost         DeliveryCost? @relation(fields: [deliveryCostId], references: [pk])
-  id                   Float     @unique
-  land                 Location[] @relation("BuildingLand")
+  deliveryCost         DeliveryCost?
+  id                   Float                        @unique
+  land                 Location[]                   @relation("BuildingLand")
   name                 String?
   ownerId              Int?
-  owner                Player?    @relation(fields: [ownerId], references: [pk])
+  owner                Player?                      @relation(fields: [ownerId], references: [pk])
   producerId           Int?
-  producer             Producer? @relation(fields: [producerId], references: [pk])
+  producer             Producer?                    @relation(fields: [producerId], references: [pk])
   providerId           Float?
   size                 Float?
   storageId            Int?
   storage              BuildingStorage?
-  sublocationId        Int?
-  sublocation          Location? @relation("BuildingSublocation", fields: [sublocationId], references: [pk])
+  sublocationId        Int?                         @unique
+  sublocation          Location?                    @relation("BuildingSublocation", fields: [sublocationId], references: [pk])
   townId               Float?
   typeId               Int
-  type                 BuildingType @relation(fields: [typeId], references: [pk])
+  type                 BuildingType                 @relation(fields: [typeId], references: [pk])
   constructionEfforts  BuildingConstructionEffort[]
   operations           BuildingOperation[]
   requirements         BuildingRequirement[]
   buildingRequirements BuildingRequirements[]
+  businessId           Int?
+  business             Business?                    @relation(fields: [businessId], references: [pk])
+  flows                Flow[]
+  ops                  Operation[]
 }
 
 model BuildingConstructionEffort {
-  pk            Int     @id @default(autoincrement())
-  inventoryId   Int
-  inventory     Inventory @relation(fields: [inventoryId], references: [pk])
-  progress      Float
-  reference     String
-  stage         String
-  time          Float?
-  upgradeType   String?
-  buildingId    Int
-  building      Building @relation(fields: [buildingId], references: [pk])
+  pk          Int       @id @default(autoincrement())
+  inventoryId Int
+  inventory   Inventory @relation(fields: [inventoryId], references: [pk])
+  progress    Float
+  reference   String
+  stage       String
+  time        Float?
+  upgradeType String?
+  buildingId  Int
+  building    Building  @relation(fields: [buildingId], references: [pk])
 }
 
 model BuildingConstruction {
-  pk            Int     @id @default(autoincrement())
-  range         Float?
-  size          Float?
-  discount      Float?
-  time          Float
-  materials     Json
-  buildingId    Int
-  building      Building
+  pk               Int               @id @default(autoincrement())
+  range            Float?
+  size             Float?
+  discount         Float?
+  time             Float
+  materials        Json
+  buildingId       Int               @unique
+  building         Building          @relation(fields: [buildingId], references: [pk])
+  buildingTypes    BuildingType[]
+  buildingUpgrades BuildingUpgrade[]
 }
 
 model BuildingOperation {
-  pk           Int       @id @default(autoincrement())
-  buildingId   Int
-  building     Building  @relation(fields: [buildingId], references: [pk])
-  totalFlow    BuildingOperationFlow[]
-  operations   Operation[]
+  pk         Int                     @id @default(autoincrement())
+  buildingId Int
+  building   Building                @relation(fields: [buildingId], references: [pk])
+  totalFlow  BuildingOperationFlow[]
+  operations Operation[]
 }
 
 model BuildingOperationFlow {
-  pk                 Int          @id @default(autoincrement())
+  pk                  Int               @id @default(autoincrement())
   buildingOperationId Int
-  buildingOperation  BuildingOperation @relation(fields: [buildingOperationId], references: [pk])
-  flowId             Int
-  flow               Flow         @relation(fields: [flowId], references: [pk])
-  key                String
+  buildingOperation   BuildingOperation @relation(fields: [buildingOperationId], references: [pk])
+  flowId              Int
+  flow                Flow              @relation(fields: [flowId], references: [pk])
+  key                 String
 }
 
 model BuildingRequirement {
-  pk            Int     @id @default(autoincrement())
-  center        Boolean @default(false)
-  climate       String?
-  min           Float?
-  resource      String?
-  buildingId    Int
-  building      Building @relation(fields: [buildingId], references: [pk])
+  pk         Int      @id @default(autoincrement())
+  center     Boolean  @default(false)
+  climate    String?
+  min        Float?
+  resource   String?
+  buildingId Int
+  building   Building @relation(fields: [buildingId], references: [pk])
 }
 
 model BuildingRequirements {
-  pk            Int     @id @default(autoincrement())
-  fertilityId   Int?
+  pk            Int              @id @default(autoincrement())
+  fertilityId   Int?             @unique
   fertility     TileRequirement? @relation("BuildingRequirementsFertility", fields: [fertilityId], references: [pk])
-  forestId      Int?
+  forestId      Int?             @unique
   forest        TileRequirement? @relation("BuildingRequirementsForest", fields: [forestId], references: [pk])
   climate       String?
   buildingId    Int
-  building      Building @relation(fields: [buildingId], references: [pk])
+  building      Building         @relation(fields: [buildingId], references: [pk])
+  buildingTypes BuildingType[]
 }
 
 model BuildingStorage {
-  pk            Int     @id @default(autoincrement())
-  inventoryId   Int
-  inventory     Inventory @relation(fields: [inventoryId], references: [pk])
-  operations    String[]
-  reference     String
-  buildingId    Int
-  building      Building @relation(fields: [buildingId], references: [pk])
+  pk          Int       @id @default(autoincrement())
+  inventoryId Int
+  inventory   Inventory @relation(fields: [inventoryId], references: [pk])
+  operations  String[]
+  reference   String
+  buildingId  Int       @unique
+  building    Building  @relation(fields: [buildingId], references: [pk])
 }
 
 model BuildingType {
-  pk              Int      @id @default(autoincrement())
-  type            String
-  supportsBoost   Boolean  @default(false)
-  requiresId      Int
-  requires        BuildingRequirements @relation(fields: [requiresId], references: [pk])
-  constructionId  Int?
-  construction    BuildingConstruction? @relation(fields: [constructionId], references: [pk])
-  upgrades        BuildingUpgrade[]
+  pk             Int                   @id @default(autoincrement())
+  type           String
+  supportsBoost  Boolean               @default(false)
+  requiresId     Int
+  requires       BuildingRequirements  @relation(fields: [requiresId], references: [pk])
+  constructionId Int?
+  construction   BuildingConstruction? @relation(fields: [constructionId], references: [pk])
+  upgrades       BuildingUpgrade[]
+  buildings      Building[]
 }
 
 model BuildingUpgrade {
-  pk              Int     @id @default(autoincrement())
-  type            String
-  constructionId  Int
-  construction    BuildingConstruction @relation(fields: [constructionId], references: [pk])
-  buildingTypeId  Int
-  buildingType    BuildingType @relation(fields: [buildingTypeId], references: [pk])
+  pk             Int                  @id @default(autoincrement())
+  type           String
+  constructionId Int
+  construction   BuildingConstruction @relation(fields: [constructionId], references: [pk])
+  buildingTypeId Int
+  buildingType   BuildingType         @relation(fields: [buildingTypeId], references: [pk])
 }
 
 model BusinessBuilding {
-  pk              Int     @id @default(autoincrement())
-  id              Float
-  type            String
+  pk   Int    @id @default(autoincrement())
+  id   Float
+  type String
 }
 
 model Business {
-  pk              Int     @id @default(autoincrement())
-  accountId       Int
-  account         Account @relation(fields: [accountId], references: [pk])
-  accountIdStr    String
-  buildingIds     Float[]
-  buildings       Building[]
-  contractIds     String[]
-  id              Float
-  name            String
-  ownerId         Int
-  owner           Player @relation(fields: [ownerId], references: [pk])
-  transportIds    Float[]
+  pk           Int        @id @default(autoincrement())
+  accountId    Int
+  account      Account    @relation(fields: [accountId], references: [pk])
+  accountIdStr String
+  buildingIds  Float[]
+  buildings    Building[]
+  contractIds  String[]
+  id           Float
+  name         String
+  ownerId      Int
+  owner        Player     @relation(fields: [ownerId], references: [pk])
+  transportIds Float[]
 }
 
 model Commoners {
-  pk              Int     @id @default(autoincrement())
-  accountId       String
-  count           Float
-  migration       Float
-  sustenanceId    Int
-  sustenance      TownDemandCategory @relation(fields: [sustenanceId], references: [pk])
-  accountRefId    Int
-  accountRef      Account @relation(fields: [accountRefId], references: [pk])
+  pk           Int                @id @default(autoincrement())
+  accountId    String
+  count        Float
+  migration    Float
+  sustenanceId Int
+  sustenance   TownDemandCategory @relation(fields: [sustenanceId], references: [pk])
+  accountRefId Int
+  accountRef   Account            @relation(fields: [accountRefId], references: [pk])
+  townDatas    TownData[]
 }
 
 model DeliveryCost {
-  pk             Int     @id @default(autoincrement())
-  landDistance   Float
-  ferryFee       Float?
-  buildingId     Int
-  building       Building
+  pk           Int         @id @default(autoincrement())
+  landDistance Float
+  ferryFee     Float?
+  buildingId   Int         @unique
+  building     Building    @relation(fields: [buildingId], references: [pk])
+  operations   Operation[]
 }
 
 model Flow {
-  pk               Int     @id @default(autoincrement())
-  consumption      Float   @default(0.0)
-  expiration       Float   @default(0.0)
-  export           Float?
-  imported         Float?  @default(0.0)
-  production       Float   @default(0.0)
-  productionCost   Float   @default(0.0)
-  purchase         Float?
-  purchaseCost     Float   @default(0.0)
-  resident         Float?
-  sale             Float?
-  saleValue        Float   @default(0.0)
-  shortfall        Float   @default(0.0)
-  buildingId       Int
-  building         Building @relation(fields: [buildingId], references: [pk])
+  pk                     Int                     @id @default(autoincrement())
+  consumption            Float                   @default(0.0)
+  expiration             Float                   @default(0.0)
+  export                 Float?
+  imported               Float?                  @default(0.0)
+  production             Float                   @default(0.0)
+  productionCost         Float                   @default(0.0)
+  purchase               Float?
+  purchaseCost           Float                   @default(0.0)
+  resident               Float?
+  sale                   Float?
+  saleValue              Float                   @default(0.0)
+  shortfall              Float                   @default(0.0)
+  buildingId             Int
+  building               Building                @relation(fields: [buildingId], references: [pk])
+  buildingOperationFlows BuildingOperationFlow[]
+  operationFlows         OperationFlow[]
+  tradeRouteFlows        TradeRouteFlow[]
 }
 
 model Household {
-  pk               Int     @id @default(autoincrement())
-  id               String  @unique
-  name             String
-  townId           Float
-  portrait         String
-  gender           String
-  accountId        String
-  businessIds      String[]
-  prestige         Float
-  prestigeImpacts  PrestigeImpact[]
-  workers          Worker[]
-  operations       String[]
-  caps             Json
-  sustenanceId     Int
-  sustenance       Sustenance @relation(fields: [sustenanceId], references: [pk])
-  playerId         Int
-  player           Player
+  pk              Int              @id @default(autoincrement())
+  id              String           @unique
+  name            String
+  townId          Float
+  portrait        String
+  gender          String
+  accountId       String
+  businessIds     String[]
+  prestige        Float
+  prestigeImpacts PrestigeImpact[]
+  workers         Worker[]
+  operations      String[]
+  caps            Json
+  sustenanceId    Int
+  sustenance      Sustenance       @relation(fields: [sustenanceId], references: [pk])
+  playerId        Int              @unique
+  player          Player           @relation(fields: [playerId], references: [pk])
 }
 
 model Ingredient {
-  pk          Int      @id @default(autoincrement())
-  product     String
-  amount      Float
-  inputRecipe Recipe?  @relation("RecipeInputs")
-  outputRecipe Recipe? @relation("RecipeOutputs")
+  pk           Int     @id @default(autoincrement())
+  product      String
+  amount       Float
+  inputRecipe  Recipe? @relation("RecipeInputs", fields: [pk], references: [pk], map: "inputRecipe_fk")
+  outputRecipe Recipe? @relation("RecipeOutputs", fields: [pk], references: [pk], map: "outputRecipe_fk")
 }
 
 model Inventory {
-  pk             Int     @id @default(autoincrement())
-  accountId      Int
-  account        Account @relation(fields: [accountId], references: [pk])
-  capacity       Float
-  managers       Json?
-  previousFlows  Json?
-  reserved       Float?
+  pk                          Int                          @id @default(autoincrement())
+  accountId                   Int
+  account                     Account                      @relation(fields: [accountId], references: [pk])
+  capacity                    Float
+  managers                    Json?
+  previousFlows               Json?
+  reserved                    Float?
+  buildingConstructionEfforts BuildingConstructionEffort[]
+  buildingStorages            BuildingStorage[]
+  producers                   Producer[]
+  sustenances                 Sustenance[]
+  transportCargos             TransportCargo[]
+  transports                  Transport[]
 }
 
 model ItemOrder {
-  pk     Int     @id @default(autoincrement())
-  volume Float
-  price  Float
+  pk               Int               @id @default(autoincrement())
+  volume           Float
+  price            Float
+  itemTradeResults ItemTradeResult[]
 }
 
 model ItemPrice {
-  pk       Int     @id @default(autoincrement())
-  low      Float?
-  typical  Float
-  high     Float?
+  pk      Int    @id @default(autoincrement())
+  low     Float?
+  typical Float
+  high    Float?
+  items   Item[]
 }
 
 model Item {
-  pk       Int      @id @default(autoincrement())
-  name     String
-  type     String
-  unit     String
-  weight   Float?
-  tier     Float
-  classes  Json?
-  priceId  Int
-  price    ItemPrice @relation(fields: [priceId], references: [pk])
+  pk      Int       @id @default(autoincrement())
+  name    String
+  type    String
+  unit    String
+  weight  Float?
+  tier    Float
+  classes Json?
+  priceId Int
+  price   ItemPrice @relation(fields: [priceId], references: [pk])
 }
 
 model ItemTradeResult {
-  pk            Int     @id @default(autoincrement())
-  settlements   Json?
-  orderId       Int?
-  order         ItemOrder? @relation(fields: [orderId], references: [pk])
-  embedded      Json?
+  pk                   Int                   @id @default(autoincrement())
+  settlements          Json?
+  orderId              Int?
+  order                ItemOrder?            @relation(fields: [orderId], references: [pk])
+  embedded             Json?
+  itemTradeSettlements ItemTradeSettlement[]
 }
 
 model ItemTradeSettlement {
-  pk             Int     @id @default(autoincrement())
-  volume         Float
-  price          Float
-  tradeResultId  Int
-  tradeResult    ItemTradeResult @relation(fields: [tradeResultId], references: [pk])
+  pk            Int             @id @default(autoincrement())
+  volume        Float
+  price         Float
+  tradeResultId Int
+  tradeResult   ItemTradeResult @relation(fields: [tradeResultId], references: [pk])
 }
 
 model Location {
-  pk           Int       @id @default(autoincrement())
-  x            Float
-  y            Float
-  buildingLand Building[] @relation("BuildingLand")
-  buildingSublocation Building? @relation("BuildingSublocation")
+  pk                  Int         @id @default(autoincrement())
+  x                   Float
+  y                   Float
+  buildingLand        Building[]  @relation("BuildingLand")
+  buildingSublocation Building?   @relation("BuildingSublocation")
+  regions             Region[]
+  towns               Town[]
+  townDatas           TownData[]
+  transports          Transport[]
 }
 
 model Manager {
-  pk         Int     @id @default(autoincrement())
-  buyPrice   Float?
-  buyVolume  Float?
-  capacity   Float?
-  maxHolding Float?
-  sellPrice  Float?
-  sellVolume Float?
+  pk                 Int                 @id @default(autoincrement())
+  buyPrice           Float?
+  buyVolume          Float?
+  capacity           Float?
+  maxHolding         Float?
+  sellPrice          Float?
+  sellVolume         Float?
+  tradeRouteManagers TradeRouteManager[]
 }
 
 model MarketItemDetails {
-  pk         Int       @id @default(autoincrement())
-  id         Float
-  product    String
-  asset      String
-  currency   String
-  bids       Json
-  asks       Json
-  dataId     Int
-  data       MarketItem @relation(fields: [dataId], references: [pk])
+  pk       Int        @id @default(autoincrement())
+  id       Float
+  product  String
+  asset    String
+  currency String
+  bids     Json
+  asks     Json
+  dataId   Int
+  data     MarketItem @relation(fields: [dataId], references: [pk])
 }
 
 model MarketItem {
-  pk              Int     @id @default(autoincrement())
-  price           Float   @default(0.0)
-  lastPrice       Float   @default(0.0)
-  averagePrice    Float   @default(0.0)
-  movingAverage   Float   @default(0.0)
-  highestBid      Float   @default(0.0)
-  lowestAsk       Float   @default(0.0)
-  volume          Float
-  volumePrev12    Float   @default(0)
-  bidVolume10     Float   @default(0)
-  askVolume10     Float   @default(0)
+  pk                Int                 @id @default(autoincrement())
+  price             Float               @default(0.0)
+  lastPrice         Float               @default(0.0)
+  averagePrice      Float               @default(0.0)
+  movingAverage     Float               @default(0.0)
+  highestBid        Float               @default(0.0)
+  lowestAsk         Float               @default(0.0)
+  volume            Float
+  volumePrev12      Float               @default(0)
+  bidVolume10       Float               @default(0)
+  askVolume10       Float               @default(0)
+  marketItemDetails MarketItemDetails[]
+  marketMappings    MarketMapping[]
 }
 
 model Market {
-  pk        Int     @id @default(autoincrement())
-  ts        Float
-  markets   MarketMapping[]
+  pk      Int             @id @default(autoincrement())
+  ts      Float
+  markets MarketMapping[]
 }
 
 model MarketMapping {
-  pk        Int     @id @default(autoincrement())
-  marketId  Int
-  market    Market  @relation(fields: [marketId], references: [pk])
-  key       String
-  itemId    Int
-  item      MarketItem @relation(fields: [itemId], references: [pk])
+  pk       Int        @id @default(autoincrement())
+  marketId Int
+  market   Market     @relation(fields: [marketId], references: [pk])
+  key      String
+  itemId   Int
+  item     MarketItem @relation(fields: [itemId], references: [pk])
 }
 
 model Operation {
-  pk           Int       @id @default(autoincrement())
-  buildingId   Int
-  building     Building  @relation(fields: [buildingId], references: [pk])
-  target       Float
-  production   Float?
-  provision    Float?
-  reference    String?
-  recipe       String?
-  volume       Float?
-  taxRate      Float?
-  tax          Float?
-  deliveryCost Int?
-  deliveryCostRel DeliveryCost? @relation(fields: [deliveryCost], references: [pk])
-  flows        OperationFlow[]
+  pk                 Int                 @id @default(autoincrement())
+  buildingId         Int
+  building           Building            @relation(fields: [buildingId], references: [pk])
+  target             Float
+  production         Float?
+  provision          Float?
+  reference          String?
+  recipe             String?
+  volume             Float?
+  taxRate            Float?
+  tax                Float?
+  deliveryCost       Int?
+  deliveryCostRel    DeliveryCost?       @relation(fields: [deliveryCost], references: [pk])
+  flows              OperationFlow[]
+  buildingOperations BuildingOperation[]
+  producers          Producer[]
+  transports         Transport[]
 }
 
 model OperationFlow {
-  pk           Int       @id @default(autoincrement())
-  operationId  Int
-  operation    Operation @relation(fields: [operationId], references: [pk])
-  key          String
-  flowId       Int
-  flow         Flow      @relation(fields: [flowId], references: [pk])
+  pk          Int       @id @default(autoincrement())
+  operationId Int
+  operation   Operation @relation(fields: [operationId], references: [pk])
+  key         String
+  flowId      Int
+  flow        Flow      @relation(fields: [flowId], references: [pk])
 }
 
 model Path {
-  pk           Int     @id @default(autoincrement())
-  x            Float
-  y            Float
-  c            Float
-  legId        Int
-  leg          TransportJourneyLeg @relation(fields: [legId], references: [pk])
+  pk    Int                 @id @default(autoincrement())
+  x     Float
+  y     Float
+  c     Float
+  legId Int
+  leg   TransportJourneyLeg @relation(fields: [legId], references: [pk])
 }
 
 model PrestigeImpact {
-  pk     Int     @id @default(autoincrement())
-  factor String
-  impact Float
+  pk          Int       @id @default(autoincrement())
+  factor      String
+  impact      Float
+  householdId Int
+  household   Household @relation(fields: [householdId], references: [pk])
 }
 
 model Producer {
-  pk                 Int        @id @default(autoincrement())
-  inventoryId        Int
-  inventory          Inventory  @relation(fields: [inventoryId], references: [pk])
-  limited            Boolean
-  manager            String
+  pk                  Int         @id @default(autoincrement())
+  inventoryId         Int
+  inventory           Inventory   @relation(fields: [inventoryId], references: [pk])
+  limited             Boolean
+  manager             String
   previousOperationId Int
-  previousOperation  Operation  @relation(fields: [previousOperationId], references: [pk])
-  providerId         Float?
-  recipe             String
-  reference          String
-  target             Float?
+  previousOperation   Operation   @relation(fields: [previousOperationId], references: [pk])
+  providerId          Float?
+  recipe              String
+  reference           String
+  target              Float?
+  buildings           Building[]
+  transports          Transport[]
 }
 
 model Recipe {
-  pk            Int     @id @default(autoincrement())
-  name          String
-  tier          Float
-  building      String
-  size          Float
-  productClass  String?
-  points        Float?
-  inputs        Ingredient[] @relation("RecipeInputs")
-  outputs       Ingredient[] @relation("RecipeOutputs")
+  pk           Int          @id @default(autoincrement())
+  name         String
+  tier         Float
+  building     String
+  size         Float
+  productClass String?
+  points       Float?
+  inputs       Ingredient[] @relation("RecipeInputs")
+  outputs      Ingredient[] @relation("RecipeOutputs")
 }
 
 model Region {
-  pk          Int      @id @default(autoincrement())
-  id          Float    @unique
+  pk          Int       @id @default(autoincrement())
+  id          Float     @unique
   name        String
   description String?
   centerId    Int?
@@ -518,57 +559,63 @@ model Region {
 }
 
 model Structure {
-  pk    Int     @id @default(autoincrement())
-  id    String  @unique
+  pk    Int            @id @default(autoincrement())
+  id    String         @unique
   type  String
   tags  StructureTag[]
+  tiles Tile[]
 }
 
 model StructureTag {
   pk          Int       @id @default(autoincrement())
   structureId Int
-  structure   Structure  @relation(fields: [structureId], references: [pk])
+  structure   Structure @relation(fields: [structureId], references: [pk])
   tagId       Int
-  tag         Tag        @relation(fields: [tagId], references: [pk])
+  tag         Tag       @relation(fields: [tagId], references: [pk])
 }
 
 model Tag {
-  pk    Int    @id @default(autoincrement())
-  name  String @unique
+  pk            Int            @id @default(autoincrement())
+  name          String         @unique
+  structureTags StructureTag[]
 }
 
 model Sustenance {
-  pk          Int     @id @default(autoincrement())
+  pk          Int         @id @default(autoincrement())
   reference   String
   inventoryId Int
-  inventory   Inventory @relation(fields: [inventoryId], references: [pk])
+  inventory   Inventory   @relation(fields: [inventoryId], references: [pk])
   providerId  String?
+  households  Household[]
 }
 
 model TileRequirement {
-  pk                      Int                   @id @default(autoincrement())
-  min                     Float?
-  max                     Float?
+  pk                            Int                   @id @default(autoincrement())
+  min                           Float?
+  max                           Float?
   fertilityBuildingRequirements BuildingRequirements? @relation("BuildingRequirementsFertility")
-  forestBuildingRequirements BuildingRequirements? @relation("BuildingRequirementsForest")
+  forestBuildingRequirements    BuildingRequirements? @relation("BuildingRequirementsForest")
 }
 
 model Tile {
-  pk           Int       @id @default(autoincrement())
-  ownerId      String?
-  structureId  Int?
-  structure    Structure? @relation(fields: [structureId], references: [pk])
-  askPrice     String?
+  pk              Int              @id @default(autoincrement())
+  ownerId         String?
+  structureId     Int?
+  structure       Structure?       @relation(fields: [structureId], references: [pk])
+  askPrice        String?
+  townDataDomains TownDataDomain[]
 }
 
 model TownChurch {
-  pk          Int      @id @default(autoincrement())
-  projectIds  String[]
+  pk         Int        @id @default(autoincrement())
+  projectIds String[]
+  townDatas  TownData[]
 }
 
 model TownCulture {
-  pk                     Int     @id @default(autoincrement())
-  specialMarketPressure  Json?
+  pk                    Int        @id @default(autoincrement())
+  specialMarketPressure Json?
+  townDatas             TownData[]
 }
 
 model Town {
@@ -582,101 +629,111 @@ model Town {
 }
 
 model TownData {
-  pk              Int       @id @default(autoincrement())
-  id              String    @unique
+  pk              Int              @id @default(autoincrement())
+  id              String           @unique
   name            String
   locationId      Int
-  location        Location  @relation(fields: [locationId], references: [pk])
+  location        Location         @relation(fields: [locationId], references: [pk])
   region          Float
   centerIds       Float[]
   householdIds    String[]
   commonersId     Int
-  commoners       Commoners @relation(fields: [commonersId], references: [pk])
+  commoners       Commoners        @relation(fields: [commonersId], references: [pk])
   governmentId    Int
-  government      TownGovernment @relation(fields: [governmentId], references: [pk])
+  government      TownGovernment   @relation(fields: [governmentId], references: [pk])
   churchId        Int
-  church          TownChurch @relation(fields: [churchId], references: [pk])
+  church          TownChurch       @relation(fields: [churchId], references: [pk])
   navigationZones Json
   cultureId       Int
-  culture         TownCulture @relation(fields: [cultureId], references: [pk])
+  culture         TownCulture      @relation(fields: [cultureId], references: [pk])
   domain          TownDataDomain[]
 }
 
 model TownDataDomain {
-  pk          Int       @id @default(autoincrement())
-  townDataId  Int
-  townData    TownData  @relation(fields: [townDataId], references: [pk])
-  key         String
-  tileId      Int
-  tile        Tile      @relation(fields: [tileId], references: [pk])
+  pk         Int      @id @default(autoincrement())
+  townDataId Int
+  townData   TownData @relation(fields: [townDataId], references: [pk])
+  key        String
+  tileId     Int
+  tile       Tile     @relation(fields: [tileId], references: [pk])
 }
 
 model TownDemandCategory {
-  pk        Int     @id @default(autoincrement())
+  pk        Int          @id @default(autoincrement())
   name      String
   products  TownDemand[]
+  commoners Commoners[]
 }
 
 model TownDemand {
-  pk       Int    @id @default(autoincrement())
-  product  String
-  bonus    Float  @default(0.0)
-  desire   Float  @default(0.0)
-  request  Float  @default(0.0)
-  result   Float  @default(0.0)
+  pk                   Int                  @id @default(autoincrement())
+  product              String
+  bonus                Float                @default(0.0)
+  desire               Float                @default(0.0)
+  request              Float                @default(0.0)
+  result               Float                @default(0.0)
+  townDemandCategories TownDemandCategory[]
+  townGovernments      TownGovernment[]
 }
 
 model TownGovernment {
-  pk             Int       @id @default(autoincrement())
-  accountId      String
-  demands        TownDemand[]
+  pk               Int                 @id @default(autoincrement())
+  accountId        String
+  demands          TownDemand[]
   taxesCollectedId Int
-  taxesCollected TownGovernmentTaxes @relation(fields: [taxesCollectedId], references: [pk])
+  taxesCollected   TownGovernmentTaxes @relation(fields: [taxesCollectedId], references: [pk])
+  townDatas        TownData[]
 }
 
 model TownGovernmentTaxes {
-  pk            Int     @id @default(autoincrement())
-  landTax       Float   @default(0.0)
-  structureTax  Float   @default(0.0)
-  ferryFees     Float   @default(0.0)
+  pk              Int              @id @default(autoincrement())
+  landTax         Float            @default(0.0)
+  structureTax    Float            @default(0.0)
+  ferryFees       Float            @default(0.0)
+  townGovernments TownGovernment[]
 }
+
 model TradeRoute {
-  pk             Int      @id @default(autoincrement())
-  id             Float    @unique
-  reference      String
-  localTown      Float
-  remoteTown     Float
-  capacity       Float
-  reservedImport Float
-  reservedExport Float
-  distance       Float
-  moves          Float
-  providerId     Float
-  accountId      String
-  accountIdRef   Int
-  account        Account  @relation(fields: [accountIdRef], references: [pk])
-  managers       TradeRouteManager[]
-  currentFlows   TradeRouteFlow[] @relation("CurrentTradeRouteFlows")
-  previousFlows  TradeRouteFlow[] @relation("PreviousTradeRouteFlows")
+  pk              Int                 @id @default(autoincrement())
+  id              Float               @unique
+  reference       String
+  localTown       Float
+  remoteTown      Float
+  capacity        Float
+  reservedImport  Float
+  reservedExport  Float
+  distance        Float
+  moves           Float
+  providerId      Float
+  accountId       String
+  accountIdRef    Int
+  account         Account             @relation(fields: [accountIdRef], references: [pk])
+  managers        TradeRouteManager[]
+  currentFlows    TradeRouteFlow[]    @relation("CurrentTradeRouteFlows")
+  previousFlows   TradeRouteFlow[]    @relation("PreviousTradeRouteFlows")
+  tradeRouteFlows TradeRouteFlow[]
+  transports      Transport[]
 }
 
 model TradeRouteManager {
-  pk             Int       @id @default(autoincrement())
-  tradeRouteId   Int
-  tradeRoute     TradeRoute @relation(fields: [tradeRouteId], references: [pk])
-  key            String
-  managerId      Int
-  manager        Manager    @relation(fields: [managerId], references: [pk])
+  pk           Int        @id @default(autoincrement())
+  tradeRouteId Int
+  tradeRoute   TradeRoute @relation(fields: [tradeRouteId], references: [pk])
+  key          String
+  managerId    Int
+  manager      Manager    @relation(fields: [managerId], references: [pk])
 }
 
 model TradeRouteFlow {
-  pk             Int       @id @default(autoincrement())
-  tradeRouteId   Int
-  tradeRoute     TradeRoute @relation(fields: [tradeRouteId], references: [pk])
-  key            String
-  flowId         Int
-  flow           Flow       @relation(fields: [flowId], references: [pk])
-  flowType       FlowType
+  pk                 Int        @id @default(autoincrement())
+  tradeRouteId       Int
+  tradeRoute         TradeRoute @relation(fields: [tradeRouteId], references: [pk], map: "tradeRouteFlow_tradeRouteId_fkey_unique1")
+  key                String
+  flowId             Int
+  flow               Flow       @relation(fields: [flowId], references: [pk])
+  flowType           FlowType
+  tradeRouteCurrent  TradeRoute @relation(fields: [tradeRouteId], references: [pk], name: "CurrentTradeRouteFlows", map: "tradeRouteFlow_tradeRouteId_fkey_unique2")
+  tradeRoutePrevious TradeRoute @relation(fields: [tradeRouteId], references: [pk], name: "PreviousTradeRouteFlows", map: "tradeRouteFlow_tradeRouteId_fkey_unique3")
 }
 
 enum FlowType {
@@ -685,58 +742,61 @@ enum FlowType {
 }
 
 model TransportCargo {
-  pk          Int      @id @default(autoincrement())
+  pk          Int         @id @default(autoincrement())
   reference   String
   inventoryId Int?
-  inventory   Inventory? @relation(fields: [inventoryId], references: [pk])
+  inventory   Inventory?  @relation(fields: [inventoryId], references: [pk])
+  transports  Transport[]
 }
 
 model TransportJourneyLeg {
-  pk    Int    @id @default(autoincrement())
-  paths Path[]
+  pk                Int                @id @default(autoincrement())
+  paths             Path[]
+  transportJourneys TransportJourney[]
 }
 
 model TransportJourney {
-  pk           Int                     @id @default(autoincrement())
-  category     String
-  startTownId  Float
-  distance     Float
-  moves        Float
-  legs         TransportJourneyLeg[]
+  pk          Int                   @id @default(autoincrement())
+  category    String
+  startTownId Float
+  distance    Float
+  moves       Float
+  legs        TransportJourneyLeg[]
+  transports  Transport[]
 }
 
 model Transport {
-  pk                 Int                     @id @default(autoincrement())
-  id                 Float                   @unique
-  reference          String
-  typeId             Int
-  type               TransportType           @relation(fields: [typeId], references: [pk])
-  size               Float
-  name               String
-  ownerId            String
-  hometownId         Float
-  locationId         Int
-  location           Location                @relation(fields: [locationId], references: [pk])
-  domain             Json?
-  capacity           Float
-  fishQuantity       Float?
-  inventoryId        Int
-  inventory          Inventory               @relation(fields: [inventoryId], references: [pk])
-  cargoId            Int?
-  cargo              TransportCargo?         @relation(fields: [cargoId], references: [pk])
-  previousOperations Int?
-  previousOperationsRel Operation?           @relation(fields: [previousOperations], references: [pk])
-  providerId         Float?
-  producerId         Int?
-  producer           Producer?               @relation(fields: [producerId], references: [pk])
-  routeId            Int?
-  route              TradeRoute?             @relation(fields: [routeId], references: [pk])
-  journeyId          Int
-  journey            TransportJourney        @relation(fields: [journeyId], references: [pk])
+  pk                    Int              @id @default(autoincrement())
+  id                    Float            @unique
+  reference             String
+  typeId                Int
+  type                  TransportType    @relation(fields: [typeId], references: [pk])
+  size                  Float
+  name                  String
+  ownerId               String
+  hometownId            Float
+  locationId            Int
+  location              Location         @relation(fields: [locationId], references: [pk])
+  domain                Json?
+  capacity              Float
+  fishQuantity          Float?
+  inventoryId           Int
+  inventory             Inventory        @relation(fields: [inventoryId], references: [pk])
+  cargoId               Int?
+  cargo                 TransportCargo?  @relation(fields: [cargoId], references: [pk])
+  previousOperations    Int?
+  previousOperationsRel Operation?       @relation(fields: [previousOperations], references: [pk])
+  providerId            Float?
+  producerId            Int?
+  producer              Producer?        @relation(fields: [producerId], references: [pk])
+  routeId               Int?
+  route                 TradeRoute?      @relation(fields: [routeId], references: [pk])
+  journeyId             Int
+  journey               TransportJourney @relation(fields: [journeyId], references: [pk])
 }
 
 model TransportType {
-  pk              Int     @id @default(autoincrement())
+  pk              Int         @id @default(autoincrement())
   type            String
   category        Float
   tier            Float
@@ -747,22 +807,23 @@ model TransportType {
   operatingCosts  Json
   catches         String?
   fishingRange    Float?
+  transports      Transport[]
 }
 
 model Worker {
-  pk          Int    @id @default(autoincrement())
+  pk          Int           @id @default(autoincrement())
   assignment  String
   capacity    Float
   name        String
   skills      WorkerSkill[]
   householdId Int
-  household   Household @relation(fields: [householdId], references: [pk])
+  household   Household     @relation(fields: [householdId], references: [pk])
 }
 
 model WorkerSkill {
-  pk        Int    @id @default(autoincrement())
-  workerId  Int
-  worker    Worker @relation(fields: [workerId], references: [pk])
-  skill     String
-  value     Float
+  pk       Int    @id @default(autoincrement())
+  workerId Int
+  worker   Worker @relation(fields: [workerId], references: [pk])
+  skill    String
+  value    Float
 }
