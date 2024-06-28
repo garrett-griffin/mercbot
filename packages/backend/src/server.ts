@@ -1,27 +1,47 @@
-import express from 'express';
+import express, { Application, Request, Response } from 'express';
+import passport from 'passport';
+import cors from 'cors';
+import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
 import { Queue, Worker } from 'bullmq';
+import authRoutes from './routes/auth';
 
-const app = express();
+dotenv.config();
+
+import './config/passportConfig';
+
+const app: Application = express();
 const prisma = new PrismaClient();
+const port: string | number = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(passport.initialize());
+
+// Set up CORS to allow requests from your frontend
+app.use(cors({
+    origin: ['http://localhost:3001', 'http://localhost:5173', 'http://192.168.4.164:5173'], // Replace with the URL of your frontend
+    credentials: true,
+}));
+
+
+app.use('/api/auth', authRoutes);
 
 // Use the user routes
 //app.use('/users', userRoutes);
 
 // Example background job queue
-//const queue = new Queue('example-queue');
-
-// app.post('/enqueue', async (req, res) => {
+// const queue = new Queue('example-queue');
+//
+// app.post('/enqueue', async (req: Request, res: Response) => {
 //     await queue.add('example-job', { message: 'Hello, world!' });
 //     res.status(200).send('Job enqueued');
 // });
 
 // Worker to process background jobs
-//const worker = new Worker('example-queue', exampleJob);
+// const worker = new Worker('example-queue', exampleJob);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`MercBot backend listening at http://localhost:${port}`);
 });
+
+export default app;
