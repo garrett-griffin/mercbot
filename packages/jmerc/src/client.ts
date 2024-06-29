@@ -136,9 +136,10 @@ export class Client {
         return new PlayerAPI(this);
     }
 
-    async getPlayer(): Promise<object> {
-        const playerAPI = new PlayerAPI(this);
-        return await playerAPI.get();
+    async getPlayer(): Promise<Player> {
+        const p = new Player(this);
+        await p.load();
+        return p;
     }
 
     get Towns(): TownsAPI {

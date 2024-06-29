@@ -114,7 +114,7 @@ export class Transport {
 
     loadImportsExports(): void {
         if (this.docked) {
-            for (const item in this.route.managers) {
+            for (const item in this.route?.managers) {
                 const asset = this.route.account.assets[item];
                 const flow = this.data.route.current_flows[item];
                 if (this.route.managers[item].buyVolume) {

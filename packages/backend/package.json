@@ -50,5 +50,8 @@
     "ts-node-dev": "^2.0.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2"
+  },
+  "paths": {
+    "models": ["packages/models/dist/index"]
   }
 }

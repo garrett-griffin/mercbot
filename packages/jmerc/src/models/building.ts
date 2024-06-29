@@ -1,20 +1,20 @@
 import { BaseModel } from './baseModel';
-import { BuildingSchema, BuildingType as BuildingSchemaType } from '../schema/BuildingSchema';
-import { BuildingConstructionSchema, BuildingConstructionType } from '../schema/BuildingConstructionSchema';
-import { BuildingStorageSchema, BuildingStorageType } from '../schema/BuildingStorageSchema';
-import { BuildingOperationSchema, BuildingOperationType } from '../schema/BuildingOperationSchema';
+import { BuildingSchema, BuildingType as BuildingSchemaType } from '../schema';
+import { BuildingConstructionSchema, BuildingConstructionType } from '../schema';
+import { BuildingStorageSchema, BuildingStorageType } from '../schema';
+import { BuildingOperationSchema, BuildingOperationType } from '../schema';
 import {DeliveryCost} from "./deliveryCost";
 import {Producer} from "./producer";
-import {BuildingUpgradeTypeEnumType} from "../schema/enums/BuildingUpgradeTypeEnumSchema";
+import {BuildingUpgradeTypeEnumType} from "../schema/enums";
 import { Location } from "./location";
-import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
+import {BuildingTypeEnumType} from "../schema/enums";
+import {ItemEnumType} from "../schema/enums";
 import {Inventory} from "./inventory";
 import {Flow} from "./flow";
 import {Operation} from "./operation";
-import {BuildingTypeSchema, BuildingTypeType} from "../schema/BuildingTypeSchema";
-import {BuildingRequirementsType} from "../schema/BuildingRequirementsSchema";
-import {BuildingUpgradeType} from "../schema/BuildingUpgradeSchema";
+import {BuildingTypeSchema, BuildingTypeType} from "../schema";
+import {BuildingRequirementsType} from "../schema";
+import {BuildingUpgradeType} from "../schema";
 
 export class Building extends BaseModel implements BuildingSchemaType {
     static schema = BuildingSchema;
@@ -57,7 +57,7 @@ export class BuildingStorage extends BaseModel implements BuildingStorageType {
 export class BuildingOperation extends BaseModel implements BuildingOperationType {
     static schema = BuildingOperationSchema;
 
-    total_flow: Record<ItemEnumType, Flow> | null;
+    total_flow: Map<ItemEnumType, Flow> | null;
     operations: Operation[] | null;
 }
 

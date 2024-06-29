@@ -579,7 +579,6 @@ declare const PlayerSchema: z.ZodObject<{
     }>;
     active: z.ZodBoolean;
 }, "strip", z.ZodTypeAny, {
-    username?: string;
     household?: {
         id?: string;
         name?: string;
@@ -650,6 +649,7 @@ declare const PlayerSchema: z.ZodObject<{
             provider_id?: string;
         };
     };
+    username?: string;
     discord_id?: string;
     settings?: {
         sound_volume?: number;
@@ -672,7 +672,6 @@ declare const PlayerSchema: z.ZodObject<{
     };
     active?: boolean;
 }, {
-    username?: string;
     household?: {
         id?: string;
         name?: string;
@@ -726,6 +725,7 @@ declare const PlayerSchema: z.ZodObject<{
             provider_id?: string;
         };
     };
+    username?: string;
     discord_id?: string;
     settings?: {
         sound_volume?: string | number;
@@ -2672,7 +2672,6 @@ declare class Player$1 extends BaseModel implements PlayerType {
         }>;
         active: zod.ZodBoolean;
     }, "strip", zod.ZodTypeAny, {
-        username?: string;
         household?: {
             id?: string;
             name?: string;
@@ -2743,6 +2742,7 @@ declare class Player$1 extends BaseModel implements PlayerType {
                 provider_id?: string;
             };
         };
+        username?: string;
         discord_id?: string;
         settings?: {
             sound_volume?: number;
@@ -2765,7 +2765,6 @@ declare class Player$1 extends BaseModel implements PlayerType {
         };
         active?: boolean;
     }, {
-        username?: string;
         household?: {
             id?: string;
             name?: string;
@@ -2819,6 +2818,7 @@ declare class Player$1 extends BaseModel implements PlayerType {
                 provider_id?: string;
             };
         };
+        username?: string;
         discord_id?: string;
         settings?: {
             sound_volume?: string | number;
@@ -3706,11 +3706,11 @@ declare const TownDataSchema: z.ZodObject<{
             tags: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "strip", z.ZodTypeAny, {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         }, {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         }>>;
         ask_price: z.ZodOptional<z.ZodString>;
@@ -3718,7 +3718,7 @@ declare const TownDataSchema: z.ZodObject<{
         owner_id?: string;
         structure?: {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         };
         ask_price?: string;
@@ -3726,7 +3726,7 @@ declare const TownDataSchema: z.ZodObject<{
         owner_id?: string;
         structure?: {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         };
         ask_price?: string;
@@ -3886,20 +3886,20 @@ declare const TownDataSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     id?: string;
     name?: string;
+    church?: {
+        project_ids?: string[];
+    };
     location?: {
         x?: number;
         y?: number;
     };
     region?: number;
-    church?: {
-        project_ids?: string[];
-    };
     center_ids?: number[];
     domain?: Record<string, {
         owner_id?: string;
         structure?: {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         };
         ask_price?: string;
@@ -3942,20 +3942,20 @@ declare const TownDataSchema: z.ZodObject<{
 }, {
     id?: string;
     name?: string;
+    church?: {
+        project_ids?: string[];
+    };
     location?: {
         x?: string | number;
         y?: string | number;
     };
     region?: string | number;
-    church?: {
-        project_ids?: string[];
-    };
     center_ids?: (string | number)[];
     domain?: Record<string, {
         owner_id?: string;
         structure?: {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         };
         ask_price?: string;
@@ -4335,11 +4335,11 @@ declare const TileSchema: z.ZodObject<{
         tags: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, "strip", z.ZodTypeAny, {
         id?: string;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         tags?: string[];
     }, {
         id?: string;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         tags?: string[];
     }>>;
     ask_price: z.ZodOptional<z.ZodString>;
@@ -4347,7 +4347,7 @@ declare const TileSchema: z.ZodObject<{
     owner_id?: string;
     structure?: {
         id?: string;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         tags?: string[];
     };
     ask_price?: string;
@@ -4355,7 +4355,7 @@ declare const TileSchema: z.ZodObject<{
     owner_id?: string;
     structure?: {
         id?: string;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         tags?: string[];
     };
     ask_price?: string;
@@ -4368,11 +4368,11 @@ declare const StructureSchema: z.ZodObject<{
     tags: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
 }, "strip", z.ZodTypeAny, {
     id?: string;
-    type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
     tags?: string[];
 }, {
     id?: string;
-    type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
     tags?: string[];
 }>;
 type StructureType = z.infer<typeof StructureSchema>;
@@ -4387,11 +4387,11 @@ declare class Structure extends BaseModel implements StructureType {
         tags: zod.ZodOptional<zod.ZodArray<zod.ZodString, "many">>;
     }, "strip", zod.ZodTypeAny, {
         id?: string;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         tags?: string[];
     }, {
         id?: string;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         tags?: string[];
     }>;
     id: string;
@@ -4408,11 +4408,11 @@ declare class Tile extends BaseModel implements TileType {
             tags: zod.ZodOptional<zod.ZodArray<zod.ZodString, "many">>;
         }, "strip", zod.ZodTypeAny, {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         }, {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         }>>;
         ask_price: zod.ZodOptional<zod.ZodString>;
@@ -4420,7 +4420,7 @@ declare class Tile extends BaseModel implements TileType {
         owner_id?: string;
         structure?: {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         };
         ask_price?: string;
@@ -4428,7 +4428,7 @@ declare class Tile extends BaseModel implements TileType {
         owner_id?: string;
         structure?: {
             id?: string;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             tags?: string[];
         };
         ask_price?: string;
@@ -4503,11 +4503,11 @@ declare class TownData extends BaseModel implements TownDataType {
                 tags: zod.ZodOptional<zod.ZodArray<zod.ZodString, "many">>;
             }, "strip", zod.ZodTypeAny, {
                 id?: string;
-                type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+                type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
                 tags?: string[];
             }, {
                 id?: string;
-                type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+                type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
                 tags?: string[];
             }>>;
             ask_price: zod.ZodOptional<zod.ZodString>;
@@ -4515,7 +4515,7 @@ declare class TownData extends BaseModel implements TownDataType {
             owner_id?: string;
             structure?: {
                 id?: string;
-                type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+                type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
                 tags?: string[];
             };
             ask_price?: string;
@@ -4523,7 +4523,7 @@ declare class TownData extends BaseModel implements TownDataType {
             owner_id?: string;
             structure?: {
                 id?: string;
-                type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+                type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
                 tags?: string[];
             };
             ask_price?: string;
@@ -4683,20 +4683,20 @@ declare class TownData extends BaseModel implements TownDataType {
     }, "strip", zod.ZodTypeAny, {
         id?: string;
         name?: string;
+        church?: {
+            project_ids?: string[];
+        };
         location?: {
             x?: number;
             y?: number;
         };
         region?: number;
-        church?: {
-            project_ids?: string[];
-        };
         center_ids?: number[];
         domain?: Record<string, {
             owner_id?: string;
             structure?: {
                 id?: string;
-                type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+                type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
                 tags?: string[];
             };
             ask_price?: string;
@@ -4739,20 +4739,20 @@ declare class TownData extends BaseModel implements TownDataType {
     }, {
         id?: string;
         name?: string;
+        church?: {
+            project_ids?: string[];
+        };
         location?: {
             x?: string | number;
             y?: string | number;
         };
         region?: string | number;
-        church?: {
-            project_ids?: string[];
-        };
         center_ids?: (string | number)[];
         domain?: Record<string, {
             owner_id?: string;
             structure?: {
                 id?: string;
-                type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+                type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
                 tags?: string[];
             };
             ask_price?: string;
@@ -5004,6 +5004,7 @@ declare const MarketItemDetailsSchema: z.ZodObject<{
         ask_volume_10?: string | number;
     }>;
 }, "strip", z.ZodTypeAny, {
+    id?: number;
     data?: {
         price?: number;
         last_price?: number;
@@ -5016,7 +5017,6 @@ declare const MarketItemDetailsSchema: z.ZodObject<{
         bid_volume_10?: number;
         ask_volume_10?: number;
     };
-    id?: number;
     product?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
     asset?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
     currency?: string;
@@ -5029,6 +5029,7 @@ declare const MarketItemDetailsSchema: z.ZodObject<{
         volume?: number;
     }[];
 }, {
+    id?: string | number;
     data?: {
         price?: string | number;
         last_price?: string | number;
@@ -5041,7 +5042,6 @@ declare const MarketItemDetailsSchema: z.ZodObject<{
         bid_volume_10?: string | number;
         ask_volume_10?: string | number;
     };
-    id?: string | number;
     product?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
     asset?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
     currency?: string;
@@ -5280,6 +5280,7 @@ declare class MarketItemDetails extends BaseModel implements MarketItemDetailsTy
             ask_volume_10?: string | number;
         }>;
     }, "strip", zod.ZodTypeAny, {
+        id?: number;
         data?: {
             price?: number;
             last_price?: number;
@@ -5292,7 +5293,6 @@ declare class MarketItemDetails extends BaseModel implements MarketItemDetailsTy
             bid_volume_10?: number;
             ask_volume_10?: number;
         };
-        id?: number;
         product?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
         asset?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
         currency?: string;
@@ -5305,6 +5305,7 @@ declare class MarketItemDetails extends BaseModel implements MarketItemDetailsTy
             volume?: number;
         }[];
     }, {
+        id?: string | number;
         data?: {
             price?: string | number;
             last_price?: string | number;
@@ -5317,7 +5318,6 @@ declare class MarketItemDetails extends BaseModel implements MarketItemDetailsTy
             bid_volume_10?: string | number;
             ask_volume_10?: string | number;
         };
-        id?: string | number;
         product?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
         asset?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
         currency?: string;
@@ -5338,6 +5338,27 @@ declare class MarketItemDetails extends BaseModel implements MarketItemDetailsTy
     asks: ItemOrderType[];
     data: MarketItem;
 }
+
+declare const ItemTradeSchema: z.ZodObject<{
+    direction: z.ZodString;
+    expected_balance: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    operation: z.ZodString;
+    price: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    volume: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+}, "strip", z.ZodTypeAny, {
+    price?: number;
+    volume?: number;
+    direction?: string;
+    expected_balance?: number;
+    operation?: string;
+}, {
+    price?: string | number;
+    volume?: string | number;
+    direction?: string;
+    expected_balance?: string | number;
+    operation?: string;
+}>;
+type ItemTradeType = z.infer<typeof ItemTradeSchema>;
 
 declare const ItemTradeResultSchema: z.ZodObject<{
     settlements: z.ZodOptional<z.ZodArray<z.ZodObject<{
@@ -5381,6 +5402,33 @@ declare const ItemTradeSettlementSchema: z.ZodObject<{
 }>;
 type ItemTradeSettlementType = z.infer<typeof ItemTradeSettlementSchema>;
 
+declare class ItemTrade extends BaseModel implements ItemTradeType {
+    direction: string;
+    expectedBalance: number;
+    operation: string;
+    price: number;
+    volume: number;
+    constructor(direction: string, expectedBalance: number, operation: string, price: number, volume: number);
+    static schema: zod.ZodObject<{
+        direction: zod.ZodString;
+        expected_balance: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        operation: zod.ZodString;
+        price: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        volume: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+    }, "strip", zod.ZodTypeAny, {
+        price?: number;
+        volume?: number;
+        direction?: string;
+        expected_balance?: number;
+        operation?: string;
+    }, {
+        price?: string | number;
+        volume?: string | number;
+        direction?: string;
+        expected_balance?: string | number;
+        operation?: string;
+    }>;
+}
 declare class ItemTradeResult extends BaseModel implements ItemTradeResultType {
     static schema: zod.ZodObject<{
         settlements: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
@@ -6217,7 +6265,7 @@ declare const BuildingSchema: z.ZodObject<{
     upgrades: z.ZodOptional<z.ZodArray<z.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>, "many">>;
 }, "strip", z.ZodTypeAny, {
     id?: number;
-    type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
     capacity?: number;
     name?: string;
     owner_id?: string;
@@ -6378,7 +6426,7 @@ declare const BuildingSchema: z.ZodObject<{
     upgrades?: ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
 }, {
     id?: string | number;
-    type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
     capacity?: string | number;
     name?: string;
     owner_id?: string;
@@ -6504,7 +6552,7 @@ declare const BuildingSchema: z.ZodObject<{
     };
     upgrades?: ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
 }>;
-type BuildingType = z.infer<typeof BuildingSchema>;
+type BuildingType$1 = z.infer<typeof BuildingSchema>;
 
 declare const BuildingConstructionSchema: z.ZodObject<{
     range: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
@@ -6774,20 +6822,7 @@ declare const BuildingStorageSchema: z.ZodObject<{
 type BuildingStorageType = z.infer<typeof BuildingStorageSchema>;
 
 declare const BuildingOperationSchema: z.ZodObject<{
-    total_flow: z.ZodOptional<z.ZodRecord<z.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, z.ZodObject<{
-        consumption: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
-        expiration: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
-        export: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
-        imported: z.ZodDefault<z.ZodNullable<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>>;
-        production: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
-        production_cost: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
-        purchase: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
-        purchase_cost: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
-        resident: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
-        sale: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
-        sale_value: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
-        shortfall: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
-    }, "strip", z.ZodTypeAny, {
+    total_flow: z.ZodEffects<z.ZodEffects<z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>, Map<string, unknown>, {}>, Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
         purchase?: number;
         sale?: number;
         consumption?: number;
@@ -6800,21 +6835,8 @@ declare const BuildingOperationSchema: z.ZodObject<{
         resident?: number;
         sale_value?: number;
         shortfall?: number;
-    }, {
-        purchase?: string | number;
-        sale?: string | number;
-        consumption?: string | number;
-        expiration?: string | number;
-        export?: string | number;
-        imported?: string | number;
-        production?: string | number;
-        production_cost?: string | number;
-        purchase_cost?: string | number;
-        resident?: string | number;
-        sale_value?: string | number;
-        shortfall?: string | number;
-    }>>>;
-    operations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+    }>, {}>;
+    operations: z.ZodNullable<z.ZodOptional<z.ZodArray<z.ZodObject<{
         target: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
         production: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
         provision: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
@@ -6927,7 +6949,7 @@ declare const BuildingOperationSchema: z.ZodObject<{
             sale_value?: string | number;
             shortfall?: string | number;
         }>>;
-    }>, "many">>;
+    }>, "many">>>;
 }, "strip", z.ZodTypeAny, {
     operations?: {
         production?: number;
@@ -6957,7 +6979,7 @@ declare const BuildingOperationSchema: z.ZodObject<{
             shortfall?: number;
         }>>;
     }[];
-    total_flow?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+    total_flow?: Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
         purchase?: number;
         sale?: number;
         consumption?: number;
@@ -6970,7 +6992,7 @@ declare const BuildingOperationSchema: z.ZodObject<{
         resident?: number;
         sale_value?: number;
         shortfall?: number;
-    }>>;
+    }>;
 }, {
     operations?: {
         production?: string | number;
@@ -7000,20 +7022,7 @@ declare const BuildingOperationSchema: z.ZodObject<{
             shortfall?: string | number;
         }>>;
     }[];
-    total_flow?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
-        purchase?: string | number;
-        sale?: string | number;
-        consumption?: string | number;
-        expiration?: string | number;
-        export?: string | number;
-        imported?: string | number;
-        production?: string | number;
-        production_cost?: string | number;
-        purchase_cost?: string | number;
-        resident?: string | number;
-        sale_value?: string | number;
-        shortfall?: string | number;
-    }>>;
+    total_flow?: {};
 }>;
 type BuildingOperationType = z.infer<typeof BuildingOperationSchema>;
 
@@ -8161,7 +8170,264 @@ declare class Producer extends BaseModel implements ProducerType {
 declare const BuildingUpgradeTypeEnumSchema: z.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>;
 type BuildingUpgradeTypeEnumType = z.infer<typeof BuildingUpgradeTypeEnumSchema>;
 
-declare class Building$1 extends BaseModel implements BuildingType {
+declare const BuildingTypeSchema: z.ZodObject<{
+    type: z.ZodEnum<["apothecary", "bakery", "bloomery", "boardinghouse", "brewery", "brickworks", "butchery", "carpentry", "cartshed", "cathedral", "center", "ceramic kiln", "chandlery", "chapel", "charcoal hut", "charcoal kiln", "church", "clay pit", "copper mine", "coppersmith", "cottage", "dairy", "dye boiler", "dyeworks", "farmstead", "fisher", "fishing shack", "flax farm", "foundry", "glass blower", "glass house", "gold mine", "grain farm", "guardhouse", "herb garden", "hjell", "household", "hunting lodge", "iron mine", "jeweller", "lead mine", "leatherworks", "logging camp", "markethall", "malthouse", "mansion", "mint", "net maker", "outpost", "park", "pasture", "quarry", "retting pit", "ropewalk", "sail loft", "saltery", "salt mine", "sawmill", "sewing shop", "shipyard", "smithy", "smokery", "spinnery", "stable", "storehouse", "square", "tannery", "tar kiln", "toolworks", "townhall", "townhouse", "townroad", "vignoble", "warehouse", "weavery", "windmill"]>;
+    supports_boost: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+    requires: z.ZodObject<{
+        fertility: z.ZodOptional<z.ZodObject<{
+            min: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            max: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        }, "strip", z.ZodTypeAny, {
+            min?: number;
+            max?: number;
+        }, {
+            min?: string | number;
+            max?: string | number;
+        }>>;
+        forest: z.ZodOptional<z.ZodObject<{
+            min: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            max: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        }, "strip", z.ZodTypeAny, {
+            min?: number;
+            max?: number;
+        }, {
+            min?: string | number;
+            max?: string | number;
+        }>>;
+        climate: z.ZodOptional<z.ZodEnum<["cold", "warm"]>>;
+    }, "strip", z.ZodTypeAny, {
+        fertility?: {
+            min?: number;
+            max?: number;
+        };
+        forest?: {
+            min?: number;
+            max?: number;
+        };
+        climate?: "cold" | "warm";
+    }, {
+        fertility?: {
+            min?: string | number;
+            max?: string | number;
+        };
+        forest?: {
+            min?: string | number;
+            max?: string | number;
+        };
+        climate?: "cold" | "warm";
+    }>;
+    construction: z.ZodOptional<z.ZodObject<{
+        range: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        size: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        discount: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        time: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+        materials: z.ZodRecord<z.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    }, "strip", z.ZodTypeAny, {
+        range?: number;
+        size?: number;
+        discount?: number;
+        time?: number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+    }, {
+        range?: string | number;
+        size?: string | number;
+        discount?: string | number;
+        time?: string | number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+    }>>;
+    upgrades: z.ZodDefault<z.ZodOptional<z.ZodArray<z.ZodObject<{
+        type: z.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>;
+        construction: z.ZodObject<{
+            range: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            size: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            discount: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            time: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+            materials: z.ZodRecord<z.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        }, "strip", z.ZodTypeAny, {
+            range?: number;
+            size?: number;
+            discount?: number;
+            time?: number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+        }, {
+            range?: string | number;
+            size?: string | number;
+            discount?: string | number;
+            time?: string | number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+        }>;
+    }, "strip", z.ZodTypeAny, {
+        type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+        construction?: {
+            range?: number;
+            size?: number;
+            discount?: number;
+            time?: number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+        };
+    }, {
+        type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+        construction?: {
+            range?: string | number;
+            size?: string | number;
+            discount?: string | number;
+            time?: string | number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+        };
+    }>, "many">>>;
+}, "strip", z.ZodTypeAny, {
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    construction?: {
+        range?: number;
+        size?: number;
+        discount?: number;
+        time?: number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+    };
+    upgrades?: {
+        type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+        construction?: {
+            range?: number;
+            size?: number;
+            discount?: number;
+            time?: number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+        };
+    }[];
+    supports_boost?: boolean;
+    requires?: {
+        fertility?: {
+            min?: number;
+            max?: number;
+        };
+        forest?: {
+            min?: number;
+            max?: number;
+        };
+        climate?: "cold" | "warm";
+    };
+}, {
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    construction?: {
+        range?: string | number;
+        size?: string | number;
+        discount?: string | number;
+        time?: string | number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+    };
+    upgrades?: {
+        type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+        construction?: {
+            range?: string | number;
+            size?: string | number;
+            discount?: string | number;
+            time?: string | number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+        };
+    }[];
+    supports_boost?: boolean;
+    requires?: {
+        fertility?: {
+            min?: string | number;
+            max?: string | number;
+        };
+        forest?: {
+            min?: string | number;
+            max?: string | number;
+        };
+        climate?: "cold" | "warm";
+    };
+}>;
+type BuildingTypeType = z.infer<typeof BuildingTypeSchema>;
+
+declare const BuildingRequirementsSchema: z.ZodObject<{
+    fertility: z.ZodOptional<z.ZodObject<{
+        min: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        max: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    }, "strip", z.ZodTypeAny, {
+        min?: number;
+        max?: number;
+    }, {
+        min?: string | number;
+        max?: string | number;
+    }>>;
+    forest: z.ZodOptional<z.ZodObject<{
+        min: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        max: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    }, "strip", z.ZodTypeAny, {
+        min?: number;
+        max?: number;
+    }, {
+        min?: string | number;
+        max?: string | number;
+    }>>;
+    climate: z.ZodOptional<z.ZodEnum<["cold", "warm"]>>;
+}, "strip", z.ZodTypeAny, {
+    fertility?: {
+        min?: number;
+        max?: number;
+    };
+    forest?: {
+        min?: number;
+        max?: number;
+    };
+    climate?: "cold" | "warm";
+}, {
+    fertility?: {
+        min?: string | number;
+        max?: string | number;
+    };
+    forest?: {
+        min?: string | number;
+        max?: string | number;
+    };
+    climate?: "cold" | "warm";
+}>;
+type BuildingRequirementsType = z.infer<typeof BuildingRequirementsSchema>;
+
+declare const BuildingUpgradeSchema: z.ZodObject<{
+    type: z.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>;
+    construction: z.ZodObject<{
+        range: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        size: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        discount: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+        time: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+        materials: z.ZodRecord<z.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    }, "strip", z.ZodTypeAny, {
+        range?: number;
+        size?: number;
+        discount?: number;
+        time?: number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+    }, {
+        range?: string | number;
+        size?: string | number;
+        discount?: string | number;
+        time?: string | number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+    }>;
+}, "strip", z.ZodTypeAny, {
+    type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+    construction?: {
+        range?: number;
+        size?: number;
+        discount?: number;
+        time?: number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+    };
+}, {
+    type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+    construction?: {
+        range?: string | number;
+        size?: string | number;
+        discount?: string | number;
+        time?: string | number;
+        materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+    };
+}>;
+type BuildingUpgradeType = z.infer<typeof BuildingUpgradeSchema>;
+
+declare class Building$1 extends BaseModel implements BuildingType$1 {
     static schema: zod.ZodObject<{
         capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
         construction: zod.ZodNullable<zod.ZodOptional<zod.ZodObject<{
@@ -8903,7 +9169,7 @@ declare class Building$1 extends BaseModel implements BuildingType {
         upgrades: zod.ZodOptional<zod.ZodArray<zod.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>, "many">>;
     }, "strip", zod.ZodTypeAny, {
         id?: number;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         capacity?: number;
         name?: string;
         owner_id?: string;
@@ -9064,7 +9330,7 @@ declare class Building$1 extends BaseModel implements BuildingType {
         upgrades?: ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
     }, {
         id?: string | number;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         capacity?: string | number;
         name?: string;
         owner_id?: string;
@@ -9483,20 +9749,7 @@ declare class BuildingStorage extends BaseModel implements BuildingStorageType {
 }
 declare class BuildingOperation$1 extends BaseModel implements BuildingOperationType {
     static schema: zod.ZodObject<{
-        total_flow: zod.ZodOptional<zod.ZodRecord<zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, zod.ZodObject<{
-            consumption: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
-            expiration: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
-            export: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-            imported: zod.ZodDefault<zod.ZodNullable<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>>;
-            production: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
-            production_cost: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
-            purchase: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-            purchase_cost: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
-            resident: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-            sale: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-            sale_value: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
-            shortfall: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
-        }, "strip", zod.ZodTypeAny, {
+        total_flow: zod.ZodEffects<zod.ZodEffects<zod.ZodObject<{}, "strip", zod.ZodTypeAny, {}, {}>, Map<string, unknown>, {}>, Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
             purchase?: number;
             sale?: number;
             consumption?: number;
@@ -9509,21 +9762,8 @@ declare class BuildingOperation$1 extends BaseModel implements BuildingOperation
             resident?: number;
             sale_value?: number;
             shortfall?: number;
-        }, {
-            purchase?: string | number;
-            sale?: string | number;
-            consumption?: string | number;
-            expiration?: string | number;
-            export?: string | number;
-            imported?: string | number;
-            production?: string | number;
-            production_cost?: string | number;
-            purchase_cost?: string | number;
-            resident?: string | number;
-            sale_value?: string | number;
-            shortfall?: string | number;
-        }>>>;
-        operations: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
+        }>, {}>;
+        operations: zod.ZodNullable<zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
             target: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             production: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
             provision: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
@@ -9636,7 +9876,7 @@ declare class BuildingOperation$1 extends BaseModel implements BuildingOperation
                 sale_value?: string | number;
                 shortfall?: string | number;
             }>>;
-        }>, "many">>;
+        }>, "many">>>;
     }, "strip", zod.ZodTypeAny, {
         operations?: {
             production?: number;
@@ -9666,7 +9906,7 @@ declare class BuildingOperation$1 extends BaseModel implements BuildingOperation
                 shortfall?: number;
             }>>;
         }[];
-        total_flow?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+        total_flow?: Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
             purchase?: number;
             sale?: number;
             consumption?: number;
@@ -9679,7 +9919,7 @@ declare class BuildingOperation$1 extends BaseModel implements BuildingOperation
             resident?: number;
             sale_value?: number;
             shortfall?: number;
-        }>>;
+        }>;
     }, {
         operations?: {
             production?: string | number;
@@ -9709,23 +9949,185 @@ declare class BuildingOperation$1 extends BaseModel implements BuildingOperation
                 shortfall?: string | number;
             }>>;
         }[];
-        total_flow?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
-            purchase?: string | number;
-            sale?: string | number;
-            consumption?: string | number;
-            expiration?: string | number;
-            export?: string | number;
-            imported?: string | number;
-            production?: string | number;
-            production_cost?: string | number;
-            purchase_cost?: string | number;
-            resident?: string | number;
-            sale_value?: string | number;
-            shortfall?: string | number;
-        }>>;
+        total_flow?: {};
     }>;
-    total_flow: Record<ItemEnumType, Flow> | null;
+    total_flow: Map<ItemEnumType, Flow> | null;
     operations: Operation$1[] | null;
+}
+declare class BuildingType extends BaseModel implements BuildingTypeType {
+    static schema: zod.ZodObject<{
+        type: zod.ZodEnum<["apothecary", "bakery", "bloomery", "boardinghouse", "brewery", "brickworks", "butchery", "carpentry", "cartshed", "cathedral", "center", "ceramic kiln", "chandlery", "chapel", "charcoal hut", "charcoal kiln", "church", "clay pit", "copper mine", "coppersmith", "cottage", "dairy", "dye boiler", "dyeworks", "farmstead", "fisher", "fishing shack", "flax farm", "foundry", "glass blower", "glass house", "gold mine", "grain farm", "guardhouse", "herb garden", "hjell", "household", "hunting lodge", "iron mine", "jeweller", "lead mine", "leatherworks", "logging camp", "markethall", "malthouse", "mansion", "mint", "net maker", "outpost", "park", "pasture", "quarry", "retting pit", "ropewalk", "sail loft", "saltery", "salt mine", "sawmill", "sewing shop", "shipyard", "smithy", "smokery", "spinnery", "stable", "storehouse", "square", "tannery", "tar kiln", "toolworks", "townhall", "townhouse", "townroad", "vignoble", "warehouse", "weavery", "windmill"]>;
+        supports_boost: zod.ZodDefault<zod.ZodOptional<zod.ZodBoolean>>;
+        requires: zod.ZodObject<{
+            fertility: zod.ZodOptional<zod.ZodObject<{
+                min: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+                max: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+            }, "strip", zod.ZodTypeAny, {
+                min?: number;
+                max?: number;
+            }, {
+                min?: string | number;
+                max?: string | number;
+            }>>;
+            forest: zod.ZodOptional<zod.ZodObject<{
+                min: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+                max: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+            }, "strip", zod.ZodTypeAny, {
+                min?: number;
+                max?: number;
+            }, {
+                min?: string | number;
+                max?: string | number;
+            }>>;
+            climate: zod.ZodOptional<zod.ZodEnum<["cold", "warm"]>>;
+        }, "strip", zod.ZodTypeAny, {
+            fertility?: {
+                min?: number;
+                max?: number;
+            };
+            forest?: {
+                min?: number;
+                max?: number;
+            };
+            climate?: "cold" | "warm";
+        }, {
+            fertility?: {
+                min?: string | number;
+                max?: string | number;
+            };
+            forest?: {
+                min?: string | number;
+                max?: string | number;
+            };
+            climate?: "cold" | "warm";
+        }>;
+        construction: zod.ZodOptional<zod.ZodObject<{
+            range: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+            size: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+            discount: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+            time: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+            materials: zod.ZodRecord<zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+        }, "strip", zod.ZodTypeAny, {
+            range?: number;
+            size?: number;
+            discount?: number;
+            time?: number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+        }, {
+            range?: string | number;
+            size?: string | number;
+            discount?: string | number;
+            time?: string | number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+        }>>;
+        upgrades: zod.ZodDefault<zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
+            type: zod.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>;
+            construction: zod.ZodObject<{
+                range: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+                size: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+                discount: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+                time: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+                materials: zod.ZodRecord<zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+            }, "strip", zod.ZodTypeAny, {
+                range?: number;
+                size?: number;
+                discount?: number;
+                time?: number;
+                materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+            }, {
+                range?: string | number;
+                size?: string | number;
+                discount?: string | number;
+                time?: string | number;
+                materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+            }>;
+        }, "strip", zod.ZodTypeAny, {
+            type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+            construction?: {
+                range?: number;
+                size?: number;
+                discount?: number;
+                time?: number;
+                materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+            };
+        }, {
+            type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+            construction?: {
+                range?: string | number;
+                size?: string | number;
+                discount?: string | number;
+                time?: string | number;
+                materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+            };
+        }>, "many">>>;
+    }, "strip", zod.ZodTypeAny, {
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        construction?: {
+            range?: number;
+            size?: number;
+            discount?: number;
+            time?: number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+        };
+        upgrades?: {
+            type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+            construction?: {
+                range?: number;
+                size?: number;
+                discount?: number;
+                time?: number;
+                materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+            };
+        }[];
+        supports_boost?: boolean;
+        requires?: {
+            fertility?: {
+                min?: number;
+                max?: number;
+            };
+            forest?: {
+                min?: number;
+                max?: number;
+            };
+            climate?: "cold" | "warm";
+        };
+    }, {
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        construction?: {
+            range?: string | number;
+            size?: string | number;
+            discount?: string | number;
+            time?: string | number;
+            materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+        };
+        upgrades?: {
+            type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+            construction?: {
+                range?: string | number;
+                size?: string | number;
+                discount?: string | number;
+                time?: string | number;
+                materials?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+            };
+        }[];
+        supports_boost?: boolean;
+        requires?: {
+            fertility?: {
+                min?: string | number;
+                max?: string | number;
+            };
+            forest?: {
+                min?: string | number;
+                max?: string | number;
+            };
+            climate?: "cold" | "warm";
+        };
+    }>;
+    type: BuildingTypeEnumType;
+    supports_boost: boolean;
+    requires: BuildingRequirementsType;
+    construction: BuildingConstructionType | null;
+    upgrades: BuildingUpgradeType[];
 }
 
 declare class BuildingsAPI extends BaseAPI {
@@ -10531,7 +10933,7 @@ declare const BusinessSchema: z.ZodObject<{
         upgrades: z.ZodOptional<z.ZodArray<z.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>, "many">>;
     }, "strip", z.ZodTypeAny, {
         id?: number;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         capacity?: number;
         name?: string;
         owner_id?: string;
@@ -10692,7 +11094,7 @@ declare const BusinessSchema: z.ZodObject<{
         upgrades?: ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
     }, {
         id?: string | number;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         capacity?: string | number;
         name?: string;
         owner_id?: string;
@@ -10849,7 +11251,7 @@ declare const BusinessSchema: z.ZodObject<{
     building_ids?: number[];
     buildings?: {
         id?: number;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         capacity?: number;
         name?: string;
         owner_id?: string;
@@ -11027,7 +11429,7 @@ declare const BusinessSchema: z.ZodObject<{
     building_ids?: (string | number)[];
     buildings?: {
         id?: string | number;
-        type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         capacity?: string | number;
         name?: string;
         owner_id?: string;
@@ -11157,6 +11559,18 @@ declare const BusinessSchema: z.ZodObject<{
     transport_ids?: (string | number)[];
 }>;
 type BusinessType = z.infer<typeof BusinessSchema>;
+
+declare const BusinessBuildingSchema: z.ZodObject<{
+    id: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    type: z.ZodEnum<["apothecary", "bakery", "bloomery", "boardinghouse", "brewery", "brickworks", "butchery", "carpentry", "cartshed", "cathedral", "center", "ceramic kiln", "chandlery", "chapel", "charcoal hut", "charcoal kiln", "church", "clay pit", "copper mine", "coppersmith", "cottage", "dairy", "dye boiler", "dyeworks", "farmstead", "fisher", "fishing shack", "flax farm", "foundry", "glass blower", "glass house", "gold mine", "grain farm", "guardhouse", "herb garden", "hjell", "household", "hunting lodge", "iron mine", "jeweller", "lead mine", "leatherworks", "logging camp", "markethall", "malthouse", "mansion", "mint", "net maker", "outpost", "park", "pasture", "quarry", "retting pit", "ropewalk", "sail loft", "saltery", "salt mine", "sawmill", "sewing shop", "shipyard", "smithy", "smokery", "spinnery", "stable", "storehouse", "square", "tannery", "tar kiln", "toolworks", "townhall", "townhouse", "townroad", "vignoble", "warehouse", "weavery", "windmill"]>;
+}, "strip", z.ZodTypeAny, {
+    id?: number;
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+}, {
+    id?: string | number;
+    type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+}>;
+type BusinessBuildingType = z.infer<typeof BusinessBuildingSchema>;
 
 declare class Business extends BaseModel implements BusinessType {
     static schema: zod.ZodObject<{
@@ -11945,7 +12359,7 @@ declare class Business extends BaseModel implements BusinessType {
             upgrades: zod.ZodOptional<zod.ZodArray<zod.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>, "many">>;
         }, "strip", zod.ZodTypeAny, {
             id?: number;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             capacity?: number;
             name?: string;
             owner_id?: string;
@@ -12106,7 +12520,7 @@ declare class Business extends BaseModel implements BusinessType {
             upgrades?: ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
         }, {
             id?: string | number;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             capacity?: string | number;
             name?: string;
             owner_id?: string;
@@ -12263,7 +12677,7 @@ declare class Business extends BaseModel implements BusinessType {
         building_ids?: number[];
         buildings?: {
             id?: number;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             capacity?: number;
             name?: string;
             owner_id?: string;
@@ -12441,7 +12855,7 @@ declare class Business extends BaseModel implements BusinessType {
         building_ids?: (string | number)[];
         buildings?: {
             id?: string | number;
-            type?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+            type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
             capacity?: string | number;
             name?: string;
             owner_id?: string;
@@ -12579,6 +12993,20 @@ declare class Business extends BaseModel implements BusinessType {
     name: string;
     owner_id: string;
     transport_ids: number[] | null;
+}
+declare class BusinessBuilding extends BaseModel implements BusinessBuildingType {
+    static schema: zod.ZodObject<{
+        id: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        type: zod.ZodEnum<["apothecary", "bakery", "bloomery", "boardinghouse", "brewery", "brickworks", "butchery", "carpentry", "cartshed", "cathedral", "center", "ceramic kiln", "chandlery", "chapel", "charcoal hut", "charcoal kiln", "church", "clay pit", "copper mine", "coppersmith", "cottage", "dairy", "dye boiler", "dyeworks", "farmstead", "fisher", "fishing shack", "flax farm", "foundry", "glass blower", "glass house", "gold mine", "grain farm", "guardhouse", "herb garden", "hjell", "household", "hunting lodge", "iron mine", "jeweller", "lead mine", "leatherworks", "logging camp", "markethall", "malthouse", "mansion", "mint", "net maker", "outpost", "park", "pasture", "quarry", "retting pit", "ropewalk", "sail loft", "saltery", "salt mine", "sawmill", "sewing shop", "shipyard", "smithy", "smokery", "spinnery", "stable", "storehouse", "square", "tannery", "tar kiln", "toolworks", "townhall", "townhouse", "townroad", "vignoble", "warehouse", "weavery", "windmill"]>;
+    }, "strip", zod.ZodTypeAny, {
+        id?: number;
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    }, {
+        id?: string | number;
+        type?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    }>;
+    id: number;
+    type: BuildingTypeEnumType;
 }
 
 declare class BusinessesAPI extends BaseAPI {
@@ -12791,7 +13219,7 @@ declare const RecipeSchema: z.ZodObject<{
     name?: "bake bread 1" | "bake bread 2" | "bake pasties 1" | "bake pasties 2" | "bake pies 1" | "bind garments 1" | "bind garments 2" | "blow glassware 1" | "blow glassware 2" | "boil dye 1" | "boil dye 2" | "border patrol 1" | "border patrol 2" | "breed cattle 1a" | "breed cattle 1b" | "breed cattle 2a" | "breed cattle 2b" | "brew beer 1" | "brew beer 2" | "brew beer 3" | "brew beer 4" | "brew hop beer 1" | "brew hop beer 2" | "build cog 1" | "build cog 2" | "build handcart 1" | "build handcart 2" | "build hulk 1" | "build snekkja 1" | "build snekkja 2" | "build tumbrel 1" | "burn bricks 1" | "burn charcoal 1" | "burn charcoal 2" | "burn charcoal 3" | "burn charcoal 4" | "burn cookware 1" | "burn cookware 2" | "burn glass 1" | "burn lime 1" | "burn tar 1" | "burn tar 2" | "burn tiles 1" | "burn tiles 2" | "butcher cattle 1a" | "butcher cattle 1b" | "butcher cattle 2" | "carting 1" | "carting 2" | "churn butter 1" | "churn butter 2" | "cog operations" | "craft arms 1" | "craft belts 1" | "craft belts 2" | "craft belts 3" | "craft belts 4" | "craft cookware 1" | "craft furniture 1" | "craft furniture 2" | "craft furniture 3" | "craft furniture 4" | "craft ploughs 1" | "craft ploughs 2" | "craft ploughs 3" | "craft scythes 1" | "craft scythes 2" | "craft tools 1" | "craft tools 2" | "craft wheels 1" | "craft wheels 2" | "craft wheels 3" | "cut bricks 1" | "cut grindstones 1" | "delivery duty 1" | "delivery duty 2" | "dig clay 1" | "dig clay 2" | "distill spirits 1" | "distill spirits 2" | "dry fish 1" | "dry fish 2" | "dry stockfish 1" | "dry stockfish 2" | "dye cloth 1" | "dye cloth 2" | "extract stone 1" | "extract stone 2" | "extract stone 3" | "fishing 1" | "fishing 2a" | "fishing 2b" | "fishing 3" | "forge arms 1" | "forge arms 2" | "forge arms 2b" | "forge axes 1" | "forge axes 1b" | "forge axes 2" | "forge axes 2b" | "forge blades 1" | "forge blades 1b" | "forge blades 2" | "forge blades 2b" | "forge mouldboards 1" | "forge pickaxes 1" | "forge pickaxes 1b" | "forge pickaxes 2" | "forge pickaxes 2b" | "forge swords 1" | "forge swords 1b" | "forge swords 2" | "forge swords 2b" | "forge tools 1" | "forge tools 2" | "forge tools 3" | "gather firewood 1" | "gather firewood 2" | "gather resin 1" | "gather resin 2" | "grain payment" | "grow flax 1" | "grow flax 2" | "grow flax 3" | "grow flax 4a" | "grow flax 4b" | "grow grain 1" | "grow grain 2" | "grow grain 3a" | "grow grain 3b" | "grow grain 4a" | "grow grain 4b" | "grow herbs 1" | "grow herbs 2" | "hammer nails 1" | "handcart operations" | "harness ox 1" | "harness ox 2a" | "harness ox 2b" | "harness ox 3a" | "harness ox 3b" | "harness ox 4a" | "harness ox 4b" | "herd sheep 1" | "herd sheep 2" | "hold banquet 1a" | "hold banquet 1b" | "hold banquet 2a" | "hold banquet 2b" | "hold banquet 2c" | "hold banquet 3a" | "hold banquet 3b" | "hold banquet 3c" | "hold banquet 4a" | "hold banquet 4b" | "hold feast 1" | "hold feast 2" | "hold feast 3" | "hold mass 1" | "hold mass 2" | "hold mass 3" | "hold prayer 1" | "hold prayer 2" | "hold prayer 3" | "hold sermon 1" | "hold sermon 2a" | "hold sermon 2b" | "hold sermon 3a" | "hold sermon 3b" | "hulk operations" | "hunting 1" | "hunting 2" | "hunting 3" | "hunting 4" | "hunting 5" | "keep bees 1" | "knight duty 1" | "knight duty 2" | "knight duty 3" | "knight duty 4" | "knit garments 1" | "knit garments 2" | "let cottages 1" | "let cottages 2" | "logging 1" | "logging 2" | "logging 3" | "maintain 1" | "make alembics 1" | "make alembics 2" | "make bricks 1" | "make bricks 2" | "make candles 1" | "make candles 2" | "make casks 1" | "make casks 2" | "make cheese 1" | "make cheese 2" | "make cheese 3" | "make cheese 4" | "make cheese 5" | "make harnesses 1" | "make harnesses 2" | "make harnesses 2b" | "make jewellery 1" | "make jewellery 2" | "make leather armor 1" | "make medicine 1" | "make medicine 2" | "make nets 1" | "make nets 2" | "make nets 3" | "make rope 1" | "make windows 1" | "make wine 1" | "make wine 2" | "make wine 3" | "malting 1" | "malting 2" | "milling 1" | "milling 2" | "milling 3" | "mine copper 1" | "mine copper 2" | "mine copper 3" | "mine copper 4" | "mine copper 5" | "mine gold 1" | "mine gold 1b" | "mine gold 2" | "mine gold 2b" | "mine gold 3" | "mine iron 1" | "mine iron 2" | "mine iron 3" | "mine iron 4" | "mine iron 5" | "mine lead 1" | "mine lead 2" | "mine lead 2b" | "mine lead 3" | "mine lead 3b" | "mine lead 4" | "mine salt 1" | "mine salt 2" | "mine salt 3" | "mint copper coins 1" | "mint copper coins 2" | "mint copper coins 3" | "mint gold coins 1" | "mint gold coins 2" | "mint gold coins 3" | "mint leather coins 1" | "mint silver coins 1" | "mint silver coins 2" | "mint silver coins 3" | "mint steel coins 1" | "patrol 1" | "patrol 2a" | "patrol 2b" | "patrol 3a" | "patrol 3b" | "refine steel 1" | "refine steel 1b" | "refine steel 2" | "refine steel 2b" | "retting 1" | "retting 2" | "salting fish 1" | "salting fish 2" | "salting meat 1" | "salting meat 2" | "sawing 1" | "sawing 2" | "sawing 3" | "sawing 4" | "service 1" | "service 2" | "service 3" | "service 4" | "sew coats 1a" | "sew coats 1b" | "sew coats 2a" | "sew coats 2b" | "sew gambeson 1" | "sew garments 1" | "sew garments 2a" | "sew garments 2b" | "sew garments 3a" | "sew garments 3b" | "sew garments 4a" | "sew garments 4b" | "sew sails 1" | "sew sails 2" | "shear sheep 1" | "shear sheep 2" | "shear sheep 3" | "smelt copper 1" | "smelt copper 2" | "smelt gold 1" | "smelt gold 2" | "smelt iron 1" | "smelt iron 2" | "smelt lead 1" | "smelt lead 2a" | "smelt lead 2b" | "smelt lead 3 (silver)" | "smoking fish 1" | "smoking fish 2" | "smoking ham 1" | "smoking ham 2" | "smoking meat 1" | "smoking meat 2" | "snekkja operations" | "spin thread 1" | "spin thread 2" | "spin yarn 1" | "spin yarn 2" | "split timber 1" | "split timber 2" | "tan hides 1" | "tan hides 2" | "trap fish 1" | "trap fish 2" | "trap fish 3" | "trapping 1" | "trapping 2" | "tumbrel operations" | "weave cloth 1" | "weave cloth 2a" | "weave cloth 2b" | "weave cloth 3a" | "weave cloth 3b" | "weave cloth 4a" | "weave cloth 4b" | "yoke ox 1a" | "yoke ox 1b" | "yoke ox 2a" | "yoke ox 2b" | "yoke ox 3" | "yoke ox 3 (manure)";
     size?: number;
     tier?: number;
-    building?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    building?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
     product_class?: "crafting" | "forging" | "maritime" | "mercantile" | "nutrition" | "textile" | "weaponry";
     points?: number;
     inputs?: {
@@ -12806,7 +13234,7 @@ declare const RecipeSchema: z.ZodObject<{
     name?: "bake bread 1" | "bake bread 2" | "bake pasties 1" | "bake pasties 2" | "bake pies 1" | "bind garments 1" | "bind garments 2" | "blow glassware 1" | "blow glassware 2" | "boil dye 1" | "boil dye 2" | "border patrol 1" | "border patrol 2" | "breed cattle 1a" | "breed cattle 1b" | "breed cattle 2a" | "breed cattle 2b" | "brew beer 1" | "brew beer 2" | "brew beer 3" | "brew beer 4" | "brew hop beer 1" | "brew hop beer 2" | "build cog 1" | "build cog 2" | "build handcart 1" | "build handcart 2" | "build hulk 1" | "build snekkja 1" | "build snekkja 2" | "build tumbrel 1" | "burn bricks 1" | "burn charcoal 1" | "burn charcoal 2" | "burn charcoal 3" | "burn charcoal 4" | "burn cookware 1" | "burn cookware 2" | "burn glass 1" | "burn lime 1" | "burn tar 1" | "burn tar 2" | "burn tiles 1" | "burn tiles 2" | "butcher cattle 1a" | "butcher cattle 1b" | "butcher cattle 2" | "carting 1" | "carting 2" | "churn butter 1" | "churn butter 2" | "cog operations" | "craft arms 1" | "craft belts 1" | "craft belts 2" | "craft belts 3" | "craft belts 4" | "craft cookware 1" | "craft furniture 1" | "craft furniture 2" | "craft furniture 3" | "craft furniture 4" | "craft ploughs 1" | "craft ploughs 2" | "craft ploughs 3" | "craft scythes 1" | "craft scythes 2" | "craft tools 1" | "craft tools 2" | "craft wheels 1" | "craft wheels 2" | "craft wheels 3" | "cut bricks 1" | "cut grindstones 1" | "delivery duty 1" | "delivery duty 2" | "dig clay 1" | "dig clay 2" | "distill spirits 1" | "distill spirits 2" | "dry fish 1" | "dry fish 2" | "dry stockfish 1" | "dry stockfish 2" | "dye cloth 1" | "dye cloth 2" | "extract stone 1" | "extract stone 2" | "extract stone 3" | "fishing 1" | "fishing 2a" | "fishing 2b" | "fishing 3" | "forge arms 1" | "forge arms 2" | "forge arms 2b" | "forge axes 1" | "forge axes 1b" | "forge axes 2" | "forge axes 2b" | "forge blades 1" | "forge blades 1b" | "forge blades 2" | "forge blades 2b" | "forge mouldboards 1" | "forge pickaxes 1" | "forge pickaxes 1b" | "forge pickaxes 2" | "forge pickaxes 2b" | "forge swords 1" | "forge swords 1b" | "forge swords 2" | "forge swords 2b" | "forge tools 1" | "forge tools 2" | "forge tools 3" | "gather firewood 1" | "gather firewood 2" | "gather resin 1" | "gather resin 2" | "grain payment" | "grow flax 1" | "grow flax 2" | "grow flax 3" | "grow flax 4a" | "grow flax 4b" | "grow grain 1" | "grow grain 2" | "grow grain 3a" | "grow grain 3b" | "grow grain 4a" | "grow grain 4b" | "grow herbs 1" | "grow herbs 2" | "hammer nails 1" | "handcart operations" | "harness ox 1" | "harness ox 2a" | "harness ox 2b" | "harness ox 3a" | "harness ox 3b" | "harness ox 4a" | "harness ox 4b" | "herd sheep 1" | "herd sheep 2" | "hold banquet 1a" | "hold banquet 1b" | "hold banquet 2a" | "hold banquet 2b" | "hold banquet 2c" | "hold banquet 3a" | "hold banquet 3b" | "hold banquet 3c" | "hold banquet 4a" | "hold banquet 4b" | "hold feast 1" | "hold feast 2" | "hold feast 3" | "hold mass 1" | "hold mass 2" | "hold mass 3" | "hold prayer 1" | "hold prayer 2" | "hold prayer 3" | "hold sermon 1" | "hold sermon 2a" | "hold sermon 2b" | "hold sermon 3a" | "hold sermon 3b" | "hulk operations" | "hunting 1" | "hunting 2" | "hunting 3" | "hunting 4" | "hunting 5" | "keep bees 1" | "knight duty 1" | "knight duty 2" | "knight duty 3" | "knight duty 4" | "knit garments 1" | "knit garments 2" | "let cottages 1" | "let cottages 2" | "logging 1" | "logging 2" | "logging 3" | "maintain 1" | "make alembics 1" | "make alembics 2" | "make bricks 1" | "make bricks 2" | "make candles 1" | "make candles 2" | "make casks 1" | "make casks 2" | "make cheese 1" | "make cheese 2" | "make cheese 3" | "make cheese 4" | "make cheese 5" | "make harnesses 1" | "make harnesses 2" | "make harnesses 2b" | "make jewellery 1" | "make jewellery 2" | "make leather armor 1" | "make medicine 1" | "make medicine 2" | "make nets 1" | "make nets 2" | "make nets 3" | "make rope 1" | "make windows 1" | "make wine 1" | "make wine 2" | "make wine 3" | "malting 1" | "malting 2" | "milling 1" | "milling 2" | "milling 3" | "mine copper 1" | "mine copper 2" | "mine copper 3" | "mine copper 4" | "mine copper 5" | "mine gold 1" | "mine gold 1b" | "mine gold 2" | "mine gold 2b" | "mine gold 3" | "mine iron 1" | "mine iron 2" | "mine iron 3" | "mine iron 4" | "mine iron 5" | "mine lead 1" | "mine lead 2" | "mine lead 2b" | "mine lead 3" | "mine lead 3b" | "mine lead 4" | "mine salt 1" | "mine salt 2" | "mine salt 3" | "mint copper coins 1" | "mint copper coins 2" | "mint copper coins 3" | "mint gold coins 1" | "mint gold coins 2" | "mint gold coins 3" | "mint leather coins 1" | "mint silver coins 1" | "mint silver coins 2" | "mint silver coins 3" | "mint steel coins 1" | "patrol 1" | "patrol 2a" | "patrol 2b" | "patrol 3a" | "patrol 3b" | "refine steel 1" | "refine steel 1b" | "refine steel 2" | "refine steel 2b" | "retting 1" | "retting 2" | "salting fish 1" | "salting fish 2" | "salting meat 1" | "salting meat 2" | "sawing 1" | "sawing 2" | "sawing 3" | "sawing 4" | "service 1" | "service 2" | "service 3" | "service 4" | "sew coats 1a" | "sew coats 1b" | "sew coats 2a" | "sew coats 2b" | "sew gambeson 1" | "sew garments 1" | "sew garments 2a" | "sew garments 2b" | "sew garments 3a" | "sew garments 3b" | "sew garments 4a" | "sew garments 4b" | "sew sails 1" | "sew sails 2" | "shear sheep 1" | "shear sheep 2" | "shear sheep 3" | "smelt copper 1" | "smelt copper 2" | "smelt gold 1" | "smelt gold 2" | "smelt iron 1" | "smelt iron 2" | "smelt lead 1" | "smelt lead 2a" | "smelt lead 2b" | "smelt lead 3 (silver)" | "smoking fish 1" | "smoking fish 2" | "smoking ham 1" | "smoking ham 2" | "smoking meat 1" | "smoking meat 2" | "snekkja operations" | "spin thread 1" | "spin thread 2" | "spin yarn 1" | "spin yarn 2" | "split timber 1" | "split timber 2" | "tan hides 1" | "tan hides 2" | "trap fish 1" | "trap fish 2" | "trap fish 3" | "trapping 1" | "trapping 2" | "tumbrel operations" | "weave cloth 1" | "weave cloth 2a" | "weave cloth 2b" | "weave cloth 3a" | "weave cloth 3b" | "weave cloth 4a" | "weave cloth 4b" | "yoke ox 1a" | "yoke ox 1b" | "yoke ox 2a" | "yoke ox 2b" | "yoke ox 3" | "yoke ox 3 (manure)";
     size?: string | number;
     tier?: string | number;
-    building?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    building?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
     product_class?: "crafting" | "forging" | "maritime" | "mercantile" | "nutrition" | "textile" | "weaponry";
     points?: string | number;
     inputs?: {
@@ -12864,7 +13292,7 @@ declare class Recipe$1 extends BaseModel implements RecipeType {
         name?: "bake bread 1" | "bake bread 2" | "bake pasties 1" | "bake pasties 2" | "bake pies 1" | "bind garments 1" | "bind garments 2" | "blow glassware 1" | "blow glassware 2" | "boil dye 1" | "boil dye 2" | "border patrol 1" | "border patrol 2" | "breed cattle 1a" | "breed cattle 1b" | "breed cattle 2a" | "breed cattle 2b" | "brew beer 1" | "brew beer 2" | "brew beer 3" | "brew beer 4" | "brew hop beer 1" | "brew hop beer 2" | "build cog 1" | "build cog 2" | "build handcart 1" | "build handcart 2" | "build hulk 1" | "build snekkja 1" | "build snekkja 2" | "build tumbrel 1" | "burn bricks 1" | "burn charcoal 1" | "burn charcoal 2" | "burn charcoal 3" | "burn charcoal 4" | "burn cookware 1" | "burn cookware 2" | "burn glass 1" | "burn lime 1" | "burn tar 1" | "burn tar 2" | "burn tiles 1" | "burn tiles 2" | "butcher cattle 1a" | "butcher cattle 1b" | "butcher cattle 2" | "carting 1" | "carting 2" | "churn butter 1" | "churn butter 2" | "cog operations" | "craft arms 1" | "craft belts 1" | "craft belts 2" | "craft belts 3" | "craft belts 4" | "craft cookware 1" | "craft furniture 1" | "craft furniture 2" | "craft furniture 3" | "craft furniture 4" | "craft ploughs 1" | "craft ploughs 2" | "craft ploughs 3" | "craft scythes 1" | "craft scythes 2" | "craft tools 1" | "craft tools 2" | "craft wheels 1" | "craft wheels 2" | "craft wheels 3" | "cut bricks 1" | "cut grindstones 1" | "delivery duty 1" | "delivery duty 2" | "dig clay 1" | "dig clay 2" | "distill spirits 1" | "distill spirits 2" | "dry fish 1" | "dry fish 2" | "dry stockfish 1" | "dry stockfish 2" | "dye cloth 1" | "dye cloth 2" | "extract stone 1" | "extract stone 2" | "extract stone 3" | "fishing 1" | "fishing 2a" | "fishing 2b" | "fishing 3" | "forge arms 1" | "forge arms 2" | "forge arms 2b" | "forge axes 1" | "forge axes 1b" | "forge axes 2" | "forge axes 2b" | "forge blades 1" | "forge blades 1b" | "forge blades 2" | "forge blades 2b" | "forge mouldboards 1" | "forge pickaxes 1" | "forge pickaxes 1b" | "forge pickaxes 2" | "forge pickaxes 2b" | "forge swords 1" | "forge swords 1b" | "forge swords 2" | "forge swords 2b" | "forge tools 1" | "forge tools 2" | "forge tools 3" | "gather firewood 1" | "gather firewood 2" | "gather resin 1" | "gather resin 2" | "grain payment" | "grow flax 1" | "grow flax 2" | "grow flax 3" | "grow flax 4a" | "grow flax 4b" | "grow grain 1" | "grow grain 2" | "grow grain 3a" | "grow grain 3b" | "grow grain 4a" | "grow grain 4b" | "grow herbs 1" | "grow herbs 2" | "hammer nails 1" | "handcart operations" | "harness ox 1" | "harness ox 2a" | "harness ox 2b" | "harness ox 3a" | "harness ox 3b" | "harness ox 4a" | "harness ox 4b" | "herd sheep 1" | "herd sheep 2" | "hold banquet 1a" | "hold banquet 1b" | "hold banquet 2a" | "hold banquet 2b" | "hold banquet 2c" | "hold banquet 3a" | "hold banquet 3b" | "hold banquet 3c" | "hold banquet 4a" | "hold banquet 4b" | "hold feast 1" | "hold feast 2" | "hold feast 3" | "hold mass 1" | "hold mass 2" | "hold mass 3" | "hold prayer 1" | "hold prayer 2" | "hold prayer 3" | "hold sermon 1" | "hold sermon 2a" | "hold sermon 2b" | "hold sermon 3a" | "hold sermon 3b" | "hulk operations" | "hunting 1" | "hunting 2" | "hunting 3" | "hunting 4" | "hunting 5" | "keep bees 1" | "knight duty 1" | "knight duty 2" | "knight duty 3" | "knight duty 4" | "knit garments 1" | "knit garments 2" | "let cottages 1" | "let cottages 2" | "logging 1" | "logging 2" | "logging 3" | "maintain 1" | "make alembics 1" | "make alembics 2" | "make bricks 1" | "make bricks 2" | "make candles 1" | "make candles 2" | "make casks 1" | "make casks 2" | "make cheese 1" | "make cheese 2" | "make cheese 3" | "make cheese 4" | "make cheese 5" | "make harnesses 1" | "make harnesses 2" | "make harnesses 2b" | "make jewellery 1" | "make jewellery 2" | "make leather armor 1" | "make medicine 1" | "make medicine 2" | "make nets 1" | "make nets 2" | "make nets 3" | "make rope 1" | "make windows 1" | "make wine 1" | "make wine 2" | "make wine 3" | "malting 1" | "malting 2" | "milling 1" | "milling 2" | "milling 3" | "mine copper 1" | "mine copper 2" | "mine copper 3" | "mine copper 4" | "mine copper 5" | "mine gold 1" | "mine gold 1b" | "mine gold 2" | "mine gold 2b" | "mine gold 3" | "mine iron 1" | "mine iron 2" | "mine iron 3" | "mine iron 4" | "mine iron 5" | "mine lead 1" | "mine lead 2" | "mine lead 2b" | "mine lead 3" | "mine lead 3b" | "mine lead 4" | "mine salt 1" | "mine salt 2" | "mine salt 3" | "mint copper coins 1" | "mint copper coins 2" | "mint copper coins 3" | "mint gold coins 1" | "mint gold coins 2" | "mint gold coins 3" | "mint leather coins 1" | "mint silver coins 1" | "mint silver coins 2" | "mint silver coins 3" | "mint steel coins 1" | "patrol 1" | "patrol 2a" | "patrol 2b" | "patrol 3a" | "patrol 3b" | "refine steel 1" | "refine steel 1b" | "refine steel 2" | "refine steel 2b" | "retting 1" | "retting 2" | "salting fish 1" | "salting fish 2" | "salting meat 1" | "salting meat 2" | "sawing 1" | "sawing 2" | "sawing 3" | "sawing 4" | "service 1" | "service 2" | "service 3" | "service 4" | "sew coats 1a" | "sew coats 1b" | "sew coats 2a" | "sew coats 2b" | "sew gambeson 1" | "sew garments 1" | "sew garments 2a" | "sew garments 2b" | "sew garments 3a" | "sew garments 3b" | "sew garments 4a" | "sew garments 4b" | "sew sails 1" | "sew sails 2" | "shear sheep 1" | "shear sheep 2" | "shear sheep 3" | "smelt copper 1" | "smelt copper 2" | "smelt gold 1" | "smelt gold 2" | "smelt iron 1" | "smelt iron 2" | "smelt lead 1" | "smelt lead 2a" | "smelt lead 2b" | "smelt lead 3 (silver)" | "smoking fish 1" | "smoking fish 2" | "smoking ham 1" | "smoking ham 2" | "smoking meat 1" | "smoking meat 2" | "snekkja operations" | "spin thread 1" | "spin thread 2" | "spin yarn 1" | "spin yarn 2" | "split timber 1" | "split timber 2" | "tan hides 1" | "tan hides 2" | "trap fish 1" | "trap fish 2" | "trap fish 3" | "trapping 1" | "trapping 2" | "tumbrel operations" | "weave cloth 1" | "weave cloth 2a" | "weave cloth 2b" | "weave cloth 3a" | "weave cloth 3b" | "weave cloth 4a" | "weave cloth 4b" | "yoke ox 1a" | "yoke ox 1b" | "yoke ox 2a" | "yoke ox 2b" | "yoke ox 3" | "yoke ox 3 (manure)";
         size?: number;
         tier?: number;
-        building?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        building?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         product_class?: "crafting" | "forging" | "maritime" | "mercantile" | "nutrition" | "textile" | "weaponry";
         points?: number;
         inputs?: {
@@ -12879,7 +13307,7 @@ declare class Recipe$1 extends BaseModel implements RecipeType {
         name?: "bake bread 1" | "bake bread 2" | "bake pasties 1" | "bake pasties 2" | "bake pies 1" | "bind garments 1" | "bind garments 2" | "blow glassware 1" | "blow glassware 2" | "boil dye 1" | "boil dye 2" | "border patrol 1" | "border patrol 2" | "breed cattle 1a" | "breed cattle 1b" | "breed cattle 2a" | "breed cattle 2b" | "brew beer 1" | "brew beer 2" | "brew beer 3" | "brew beer 4" | "brew hop beer 1" | "brew hop beer 2" | "build cog 1" | "build cog 2" | "build handcart 1" | "build handcart 2" | "build hulk 1" | "build snekkja 1" | "build snekkja 2" | "build tumbrel 1" | "burn bricks 1" | "burn charcoal 1" | "burn charcoal 2" | "burn charcoal 3" | "burn charcoal 4" | "burn cookware 1" | "burn cookware 2" | "burn glass 1" | "burn lime 1" | "burn tar 1" | "burn tar 2" | "burn tiles 1" | "burn tiles 2" | "butcher cattle 1a" | "butcher cattle 1b" | "butcher cattle 2" | "carting 1" | "carting 2" | "churn butter 1" | "churn butter 2" | "cog operations" | "craft arms 1" | "craft belts 1" | "craft belts 2" | "craft belts 3" | "craft belts 4" | "craft cookware 1" | "craft furniture 1" | "craft furniture 2" | "craft furniture 3" | "craft furniture 4" | "craft ploughs 1" | "craft ploughs 2" | "craft ploughs 3" | "craft scythes 1" | "craft scythes 2" | "craft tools 1" | "craft tools 2" | "craft wheels 1" | "craft wheels 2" | "craft wheels 3" | "cut bricks 1" | "cut grindstones 1" | "delivery duty 1" | "delivery duty 2" | "dig clay 1" | "dig clay 2" | "distill spirits 1" | "distill spirits 2" | "dry fish 1" | "dry fish 2" | "dry stockfish 1" | "dry stockfish 2" | "dye cloth 1" | "dye cloth 2" | "extract stone 1" | "extract stone 2" | "extract stone 3" | "fishing 1" | "fishing 2a" | "fishing 2b" | "fishing 3" | "forge arms 1" | "forge arms 2" | "forge arms 2b" | "forge axes 1" | "forge axes 1b" | "forge axes 2" | "forge axes 2b" | "forge blades 1" | "forge blades 1b" | "forge blades 2" | "forge blades 2b" | "forge mouldboards 1" | "forge pickaxes 1" | "forge pickaxes 1b" | "forge pickaxes 2" | "forge pickaxes 2b" | "forge swords 1" | "forge swords 1b" | "forge swords 2" | "forge swords 2b" | "forge tools 1" | "forge tools 2" | "forge tools 3" | "gather firewood 1" | "gather firewood 2" | "gather resin 1" | "gather resin 2" | "grain payment" | "grow flax 1" | "grow flax 2" | "grow flax 3" | "grow flax 4a" | "grow flax 4b" | "grow grain 1" | "grow grain 2" | "grow grain 3a" | "grow grain 3b" | "grow grain 4a" | "grow grain 4b" | "grow herbs 1" | "grow herbs 2" | "hammer nails 1" | "handcart operations" | "harness ox 1" | "harness ox 2a" | "harness ox 2b" | "harness ox 3a" | "harness ox 3b" | "harness ox 4a" | "harness ox 4b" | "herd sheep 1" | "herd sheep 2" | "hold banquet 1a" | "hold banquet 1b" | "hold banquet 2a" | "hold banquet 2b" | "hold banquet 2c" | "hold banquet 3a" | "hold banquet 3b" | "hold banquet 3c" | "hold banquet 4a" | "hold banquet 4b" | "hold feast 1" | "hold feast 2" | "hold feast 3" | "hold mass 1" | "hold mass 2" | "hold mass 3" | "hold prayer 1" | "hold prayer 2" | "hold prayer 3" | "hold sermon 1" | "hold sermon 2a" | "hold sermon 2b" | "hold sermon 3a" | "hold sermon 3b" | "hulk operations" | "hunting 1" | "hunting 2" | "hunting 3" | "hunting 4" | "hunting 5" | "keep bees 1" | "knight duty 1" | "knight duty 2" | "knight duty 3" | "knight duty 4" | "knit garments 1" | "knit garments 2" | "let cottages 1" | "let cottages 2" | "logging 1" | "logging 2" | "logging 3" | "maintain 1" | "make alembics 1" | "make alembics 2" | "make bricks 1" | "make bricks 2" | "make candles 1" | "make candles 2" | "make casks 1" | "make casks 2" | "make cheese 1" | "make cheese 2" | "make cheese 3" | "make cheese 4" | "make cheese 5" | "make harnesses 1" | "make harnesses 2" | "make harnesses 2b" | "make jewellery 1" | "make jewellery 2" | "make leather armor 1" | "make medicine 1" | "make medicine 2" | "make nets 1" | "make nets 2" | "make nets 3" | "make rope 1" | "make windows 1" | "make wine 1" | "make wine 2" | "make wine 3" | "malting 1" | "malting 2" | "milling 1" | "milling 2" | "milling 3" | "mine copper 1" | "mine copper 2" | "mine copper 3" | "mine copper 4" | "mine copper 5" | "mine gold 1" | "mine gold 1b" | "mine gold 2" | "mine gold 2b" | "mine gold 3" | "mine iron 1" | "mine iron 2" | "mine iron 3" | "mine iron 4" | "mine iron 5" | "mine lead 1" | "mine lead 2" | "mine lead 2b" | "mine lead 3" | "mine lead 3b" | "mine lead 4" | "mine salt 1" | "mine salt 2" | "mine salt 3" | "mint copper coins 1" | "mint copper coins 2" | "mint copper coins 3" | "mint gold coins 1" | "mint gold coins 2" | "mint gold coins 3" | "mint leather coins 1" | "mint silver coins 1" | "mint silver coins 2" | "mint silver coins 3" | "mint steel coins 1" | "patrol 1" | "patrol 2a" | "patrol 2b" | "patrol 3a" | "patrol 3b" | "refine steel 1" | "refine steel 1b" | "refine steel 2" | "refine steel 2b" | "retting 1" | "retting 2" | "salting fish 1" | "salting fish 2" | "salting meat 1" | "salting meat 2" | "sawing 1" | "sawing 2" | "sawing 3" | "sawing 4" | "service 1" | "service 2" | "service 3" | "service 4" | "sew coats 1a" | "sew coats 1b" | "sew coats 2a" | "sew coats 2b" | "sew gambeson 1" | "sew garments 1" | "sew garments 2a" | "sew garments 2b" | "sew garments 3a" | "sew garments 3b" | "sew garments 4a" | "sew garments 4b" | "sew sails 1" | "sew sails 2" | "shear sheep 1" | "shear sheep 2" | "shear sheep 3" | "smelt copper 1" | "smelt copper 2" | "smelt gold 1" | "smelt gold 2" | "smelt iron 1" | "smelt iron 2" | "smelt lead 1" | "smelt lead 2a" | "smelt lead 2b" | "smelt lead 3 (silver)" | "smoking fish 1" | "smoking fish 2" | "smoking ham 1" | "smoking ham 2" | "smoking meat 1" | "smoking meat 2" | "snekkja operations" | "spin thread 1" | "spin thread 2" | "spin yarn 1" | "spin yarn 2" | "split timber 1" | "split timber 2" | "tan hides 1" | "tan hides 2" | "trap fish 1" | "trap fish 2" | "trap fish 3" | "trapping 1" | "trapping 2" | "tumbrel operations" | "weave cloth 1" | "weave cloth 2a" | "weave cloth 2b" | "weave cloth 3a" | "weave cloth 3b" | "weave cloth 4a" | "weave cloth 4b" | "yoke ox 1a" | "yoke ox 1b" | "yoke ox 2a" | "yoke ox 2b" | "yoke ox 3" | "yoke ox 3 (manure)";
         size?: string | number;
         tier?: string | number;
-        building?: "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+        building?: "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
         product_class?: "crafting" | "forging" | "maritime" | "mercantile" | "nutrition" | "textile" | "weaponry";
         points?: string | number;
         inputs?: {
@@ -14762,7 +15190,7 @@ declare const TransportSchema: z.ZodObject<{
         }[];
     };
 }>;
-type TransportType = z.infer<typeof TransportSchema>;
+type TransportType$1 = z.infer<typeof TransportSchema>;
 
 declare const TradeRouteSchema: z.ZodObject<{
     id: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
@@ -15376,6 +15804,42 @@ declare const TransportJourneyLegSchema: z.ZodObject<{
 }>;
 type TransportJourneyLegType = z.infer<typeof TransportJourneyLegSchema>;
 
+declare const TransportTypeSchema: z.ZodObject<{
+    type: z.ZodEnum<["cog", "handcart", "hulk", "snekkja", "tumbrel"]>;
+    category: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    tier: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    capacity: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    speed: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    journey_duration: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    effective_days: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    operating_costs: z.ZodRecord<z.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    catches: z.ZodOptional<z.ZodString>;
+    fishing_range: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+}, "strip", z.ZodTypeAny, {
+    type?: "cog" | "handcart" | "hulk" | "snekkja" | "tumbrel";
+    capacity?: number;
+    tier?: number;
+    category?: number;
+    speed?: number;
+    journey_duration?: number;
+    effective_days?: number;
+    operating_costs?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+    catches?: string;
+    fishing_range?: number;
+}, {
+    type?: "cog" | "handcart" | "hulk" | "snekkja" | "tumbrel";
+    capacity?: string | number;
+    tier?: string | number;
+    category?: string | number;
+    speed?: string | number;
+    journey_duration?: string | number;
+    effective_days?: string | number;
+    operating_costs?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+    catches?: string;
+    fishing_range?: string | number;
+}>;
+type TransportTypeType = z.infer<typeof TransportTypeSchema>;
+
 declare const PathSchema: z.ZodObject<{
     x: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
     y: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
@@ -15413,7 +15877,7 @@ declare class Path extends BaseModel implements PathType {
 declare const TransportTypeEnumSchema: z.ZodEnum<["cog", "handcart", "hulk", "snekkja", "tumbrel"]>;
 type TransportTypeEnumType = z.infer<typeof TransportTypeEnumSchema>;
 
-declare class Transport$1 extends BaseModel implements TransportType {
+declare class Transport$1 extends BaseModel implements TransportType$1 {
     static schema: zod.ZodObject<{
         id: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         reference: zod.ZodString;
@@ -17915,6 +18379,52 @@ declare class TransportJourneyLeg extends BaseModel implements TransportJourneyL
     }>;
     path: Path[];
 }
+declare class TransportType extends BaseModel implements TransportTypeType {
+    static schema: zod.ZodObject<{
+        type: zod.ZodEnum<["cog", "handcart", "hulk", "snekkja", "tumbrel"]>;
+        category: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        tier: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        capacity: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        speed: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        journey_duration: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+        effective_days: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+        operating_costs: zod.ZodRecord<zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+        catches: zod.ZodOptional<zod.ZodString>;
+        fishing_range: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+    }, "strip", zod.ZodTypeAny, {
+        type?: "cog" | "handcart" | "hulk" | "snekkja" | "tumbrel";
+        capacity?: number;
+        tier?: number;
+        category?: number;
+        speed?: number;
+        journey_duration?: number;
+        effective_days?: number;
+        operating_costs?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", number>>;
+        catches?: string;
+        fishing_range?: number;
+    }, {
+        type?: "cog" | "handcart" | "hulk" | "snekkja" | "tumbrel";
+        capacity?: string | number;
+        tier?: string | number;
+        category?: string | number;
+        speed?: string | number;
+        journey_duration?: string | number;
+        effective_days?: string | number;
+        operating_costs?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", string | number>>;
+        catches?: string;
+        fishing_range?: string | number;
+    }>;
+    type: TransportTypeEnumType;
+    category: number;
+    tier: number;
+    capacity: number;
+    speed: number;
+    journey_duration: number | null;
+    effective_days: number | null;
+    operating_costs: Record<ItemEnumType, number>;
+    catches: string | null;
+    fishing_range: number | null;
+}
 
 declare class StaticAPI extends BaseAPI {
     endpoint: string;
@@ -17972,6 +18482,761 @@ declare class Town {
     sell(item: ItemEnumType, expectedBalance: number, operation: string, volume: number, price: number): Promise<ItemTradeResult>;
 }
 
+declare enum AssetEnum {
+    Cog = "cog",
+    Handcart = "handcart",
+    Hulk = "hulk",
+    Money = "money",
+    Snekkja = "snekkja",
+    Tumbrel = "tumbrel"
+}
+
+declare enum BuildingTypeEnum {
+    Apothecary = "apothecary",
+    Bakery = "bakery",
+    Bloomery = "bloomery",
+    BoardingHouse = "boardinghouse",
+    Brewery = "brewery",
+    Brickworks = "brickworks",
+    Butchery = "butchery",
+    Carpentry = "carpentry",
+    Cartshed = "cartshed",
+    Cathedral = "cathedral",
+    Center = "center",
+    CeramicKiln = "ceramic kiln",
+    Chandlery = "chandlery",
+    Chapel = "chapel",
+    CharcoalHut = "charcoal hut",
+    CharcoalKiln = "charcoal kiln",
+    Church = "church",
+    ClayPit = "clay pit",
+    CopperMine = "copper mine",
+    Coppersmith = "coppersmith",
+    Cottage = "cottage",
+    Dairy = "dairy",
+    DyeBoiler = "dye boiler",
+    Dyeworks = "dyeworks",
+    Farmstead = "farmstead",
+    Fisher = "fisher",
+    FishingShack = "fishing shack",
+    FlaxFarm = "flax farm",
+    Foundry = "foundry",
+    GlassBlower = "glass blower",
+    GlassHouse = "glass house",
+    GoldMine = "gold mine",
+    GrainFarm = "grain farm",
+    Guardhouse = "guardhouse",
+    HerbGarden = "herb garden",
+    Hjell = "hjell",
+    Household = "household",
+    HuntingLodge = "hunting lodge",
+    IronMine = "iron mine",
+    Jeweller = "jeweller",
+    LeadMine = "lead mine",
+    Leatherworks = "leatherworks",
+    LoggingCamp = "logging camp",
+    Markethall = "markethall",
+    Malthouse = "malthouse",
+    Mansion = "mansion",
+    Mint = "mint",
+    NetMaker = "net maker",
+    Outpost = "outpost",
+    Park = "park",
+    Pasture = "pasture",
+    Quarry = "quarry",
+    RettingPit = "retting pit",
+    Ropewalk = "ropewalk",
+    SailLoft = "sail loft",
+    Saltery = "saltery",
+    SaltMine = "salt mine",
+    Sawmill = "sawmill",
+    SewingShop = "sewing shop",
+    Shipyard = "shipyard",
+    Smithy = "smithy",
+    Smokery = "smokery",
+    Spinnery = "spinnery",
+    Stable = "stable",
+    Storehouse = "storehouse",
+    Square = "square",
+    Tannery = "tannery",
+    TarKiln = "tar kiln",
+    Toolworks = "toolworks",
+    Townhall = "townhall",
+    Townhouse = "townhouse",
+    Townroad = "townroad",
+    Vignoble = "vignoble",
+    Warehouse = "warehouse",
+    Weavery = "weavery",
+    Windmill = "windmill"
+}
+
+declare enum BuildingUpgradeTypeEnum {
+    Armsrack = "armsrack",
+    Beehives = "beehives",
+    Bellows = "bellows",
+    ButtonCast = "button cast",
+    Cowshed = "cowshed",
+    Crane = "crane",
+    CraneLift = "crane lift",
+    CuringChamber = "curing chamber",
+    CuttingTable = "cutting table",
+    Fermentory = "fermentory",
+    Grindstone = "grindstone",
+    GroovedBedstone = "grooved bedstone",
+    GuardBooth = "guard booth",
+    HoppingVessels = "hopping vessels",
+    LimeKiln = "lime kiln",
+    LimingPots = "liming pots",
+    MaltMill = "malt mill",
+    MaltSieve = "malt sieve",
+    ManurePit = "manure pit",
+    PloughHouse = "plough house",
+    SkinningTable = "skinning table",
+    SpinningWheel = "spinning wheel",
+    SteelAnvil = "steel anvil",
+    StoneOven = "stone oven",
+    StonecuttersHut = "stonecutter's hut",
+    TileMoulds = "tile moulds",
+    Toolshed = "toolshed",
+    Transmission = "transmission",
+    TreadleLoom = "treadle loom",
+    UpholstryBench = "upholstry bench",
+    Warehouse = "warehouse",
+    Weaponsrack = "weaponsrack"
+}
+
+declare enum ClimateEnum {
+    Cold = "cold",
+    Warm = "warm"
+}
+
+declare enum ItemEnum {
+    Alembics = "alembics",
+    Arms = "arms",
+    Axes = "axes",
+    Beer = "beer",
+    Belts = "belts",
+    Blades = "blades",
+    Bread = "bread",
+    Bricks = "bricks",
+    Butter = "butter",
+    Candles = "candles",
+    Carting = "carting",
+    Casks = "casks",
+    Cattle = "cattle",
+    Charcoal = "charcoal",
+    Cheese = "cheese",
+    Clay = "clay",
+    Cloth = "cloth",
+    Coats = "coats",
+    Cog = "cog",
+    Cookware = "cookware",
+    CopperIngots = "copper ingots",
+    CopperOre = "copper ore",
+    CuredFish = "cured fish",
+    CuredMeat = "cured meat",
+    Donations = "donations",
+    Dye = "dye",
+    DyedCloth = "dyed cloth",
+    Firewood = "firewood",
+    Fish = "fish",
+    FlaxFibres = "flax fibres",
+    FlaxPlants = "flax plants",
+    Flour = "flour",
+    Furniture = "furniture",
+    Garments = "garments",
+    Glass = "glass",
+    Glassware = "glassware",
+    GoldBars = "gold bars",
+    GoldOre = "gold ore",
+    Grain = "grain",
+    Grindstones = "grindstones",
+    Ham = "ham",
+    Handcart = "handcart",
+    Harnesses = "harnesses",
+    Herbs = "herbs",
+    Hides = "hides",
+    Honey = "honey",
+    HopBeer = "hop beer",
+    Hulk = "hulk",
+    IronOre = "iron ore",
+    Jewellery = "jewellery",
+    Labour = "labour",
+    LeadBars = "lead bars",
+    LeadOre = "lead ore",
+    Leather = "leather",
+    LightArmor = "light armor",
+    Limestone = "limestone",
+    Lodging = "lodging",
+    Lumber = "lumber",
+    Malt = "malt",
+    Manure = "manure",
+    Meat = "meat",
+    Medicine = "medicine",
+    Milk = "milk",
+    Money = "money",
+    Mouldboards = "mouldboards",
+    Nails = "nails",
+    Nets = "nets",
+    OxPower = "ox power",
+    Pasties = "pasties",
+    Pickaxes = "pickaxes",
+    Pies = "pies",
+    Ploughs = "ploughs",
+    Protection = "protection",
+    Resin = "resin",
+    Rope = "rope",
+    Sails = "sails",
+    Salt = "salt",
+    Scythes = "scythes",
+    SilverBars = "silver bars",
+    SlakedLime = "slaked lime",
+    Snekkja = "snekkja",
+    Spirits = "spirits",
+    SteelIngots = "steel ingots",
+    Stockfish = "stockfish",
+    Swords = "swords",
+    Tar = "tar",
+    Thread = "thread",
+    Tiles = "tiles",
+    Timber = "timber",
+    Tools = "tools",
+    Tumbrel = "tumbrel",
+    Wax = "wax",
+    Wheels = "wheels",
+    Windows = "windows",
+    Wine = "wine",
+    Wool = "wool",
+    WroughtIron = "wrought iron",
+    Yarn = "yarn"
+}
+
+declare enum ItemTypeEnum {
+    Commodity = "commodity",
+    Service = "service",
+    Special = "special"
+}
+
+declare enum RecipeEnum {
+    BakeBread1 = "bake bread 1",
+    BakeBread2 = "bake bread 2",
+    BakePasties1 = "bake pasties 1",
+    BakePasties2 = "bake pasties 2",
+    BakePies1 = "bake pies 1",
+    BindGarments1 = "bind garments 1",
+    BindGarments2 = "bind garments 2",
+    BlowGlassware1 = "blow glassware 1",
+    BlowGlassware2 = "blow glassware 2",
+    BoilDye1 = "boil dye 1",
+    BoilDye2 = "boil dye 2",
+    BorderPatrol1 = "border patrol 1",
+    BorderPatrol2 = "border patrol 2",
+    BreedCattle1a = "breed cattle 1a",
+    BreedCattle1b = "breed cattle 1b",
+    BreedCattle2a = "breed cattle 2a",
+    BreedCattle2b = "breed cattle 2b",
+    BrewBeer1 = "brew beer 1",
+    BrewBeer2 = "brew beer 2",
+    BrewBeer3 = "brew beer 3",
+    BrewBeer4 = "brew beer 4",
+    BrewHopBeer1 = "brew hop beer 1",
+    BrewHopBeer2 = "brew hop beer 2",
+    BuildCog1 = "build cog 1",
+    BuildCog2 = "build cog 2",
+    BuildHandcart1 = "build handcart 1",
+    BuildHandcart2 = "build handcart 2",
+    BuildHulk1 = "build hulk 1",
+    BuildSnekkja1 = "build snekkja 1",
+    BuildSnekkja2 = "build snekkja 2",
+    BuildTumbrel1 = "build tumbrel 1",
+    BurnBricks1 = "burn bricks 1",
+    BurnCharcoal1 = "burn charcoal 1",
+    BurnCharcoal2 = "burn charcoal 2",
+    BurnCharcoal3 = "burn charcoal 3",
+    BurnCharcoal4 = "burn charcoal 4",
+    BurnCookware1 = "burn cookware 1",
+    BurnCookware2 = "burn cookware 2",
+    BurnGlass1 = "burn glass 1",
+    BurnLime1 = "burn lime 1",
+    BurnTar1 = "burn tar 1",
+    BurnTar2 = "burn tar 2",
+    BurnTiles1 = "burn tiles 1",
+    BurnTiles2 = "burn tiles 2",
+    ButcherCattle1a = "butcher cattle 1a",
+    ButcherCattle1b = "butcher cattle 1b",
+    ButcherCattle2 = "butcher cattle 2",
+    Carting1 = "carting 1",
+    Carting2 = "carting 2",
+    ChurnButter1 = "churn butter 1",
+    ChurnButter2 = "churn butter 2",
+    CogOperations = "cog operations",
+    CraftArms1 = "craft arms 1",
+    CraftBelts1 = "craft belts 1",
+    CraftBelts2 = "craft belts 2",
+    CraftBelts3 = "craft belts 3",
+    CraftBelts4 = "craft belts 4",
+    CraftCookware1 = "craft cookware 1",
+    CraftFurniture1 = "craft furniture 1",
+    CraftFurniture2 = "craft furniture 2",
+    CraftFurniture3 = "craft furniture 3",
+    CraftFurniture4 = "craft furniture 4",
+    CraftPloughs1 = "craft ploughs 1",
+    CraftPloughs2 = "craft ploughs 2",
+    CraftPloughs3 = "craft ploughs 3",
+    CraftScythes1 = "craft scythes 1",
+    CraftScythes2 = "craft scythes 2",
+    CraftTools1 = "craft tools 1",
+    CraftTools2 = "craft tools 2",
+    CraftWheels1 = "craft wheels 1",
+    CraftWheels2 = "craft wheels 2",
+    CraftWheels3 = "craft wheels 3",
+    CutBricks1 = "cut bricks 1",
+    CutGrindstones1 = "cut grindstones 1",
+    DeliveryDuty1 = "delivery duty 1",
+    DeliveryDuty2 = "delivery duty 2",
+    DigClay1 = "dig clay 1",
+    DigClay2 = "dig clay 2",
+    DistillSpirits2 = "distill spirits 2",
+    DryFish1 = "dry fish 1",
+    DryFish2 = "dry fish 2",
+    DryStockfish1 = "dry stockfish 1",
+    DryStockfish2 = "dry stockfish 2",
+    DyeCloth1 = "dye cloth 1",
+    DyeCloth2 = "dye cloth 2",
+    ExtractStone1 = "extract stone 1",
+    ExtractStone2 = "extract stone 2",
+    ExtractStone3 = "extract stone 3",
+    Fishing1 = "fishing 1",
+    Fishing2a = "fishing 2a",
+    Fishing2b = "fishing 2b",
+    Fishing3 = "fishing 3",
+    ForgeArms1 = "forge arms 1",
+    ForgeArms2 = "forge arms 2",
+    ForgeArms2b = "forge arms 2b",
+    ForgeAxes1 = "forge axes 1",
+    ForgeAxes1b = "forge axes 1b",
+    ForgeAxes2 = "forge axes 2",
+    ForgeAxes2b = "forge axes 2b",
+    ForgeBlades1 = "forge blades 1",
+    ForgeBlades1b = "forge blades 1b",
+    ForgeBlades2 = "forge blades 2",
+    ForgeBlades2b = "forge blades 2b",
+    ForgeMouldboards1 = "forge mouldboards 1",
+    ForgePickaxes1 = "forge pickaxes 1",
+    ForgePickaxes1b = "forge pickaxes 1b",
+    ForgePickaxes2 = "forge pickaxes 2",
+    ForgePickaxes2b = "forge pickaxes 2b",
+    ForgeSwords1 = "forge swords 1",
+    ForgeSwords1b = "forge swords 1b",
+    ForgeSwords2 = "forge swords 2",
+    ForgeSwords2b = "forge swords 2b",
+    ForgeTools1 = "forge tools 1",
+    ForgeTools2 = "forge tools 2",
+    ForgeTools3 = "forge tools 3",
+    GatherFirewood1 = "gather firewood 1",
+    GatherFirewood2 = "gather firewood 2",
+    GatherResin1 = "gather resin 1",
+    GatherResin2 = "gather resin 2",
+    GrainPayment = "grain payment",
+    GrowFlax1 = "grow flax 1",
+    GrowFlax2 = "grow flax 2",
+    GrowFlax3 = "grow flax 3",
+    GrowFlax4a = "grow flax 4a",
+    GrowFlax4b = "grow flax 4b",
+    GrowGrain1 = "grow grain 1",
+    GrowGrain2 = "grow grain 2",
+    GrowGrain3a = "grow grain 3a",
+    GrowGrain3b = "grow grain 3b",
+    GrowGrain4a = "grow grain 4a",
+    GrowGrain4b = "grow grain 4b",
+    GrowHerbs1 = "grow herbs 1",
+    GrowHerbs2 = "grow herbs 2",
+    HammerNails1 = "hammer nails 1",
+    HandcartOperations = "handcart operations",
+    HarnessOx1 = "harness ox 1",
+    HarnessOx2a = "harness ox 2a",
+    HarnessOx2b = "harness ox 2b",
+    HarnessOx3a = "harness ox 3a",
+    HarnessOx3b = "harness ox 3b",
+    HarnessOx4a = "harness ox 4a",
+    HarnessOx4b = "harness ox 4b",
+    HerdSheep1 = "herd sheep 1",
+    HerdSheep2 = "herd sheep 2",
+    HoldBanquet1a = "hold banquet 1a",
+    HoldBanquet1b = "hold banquet 1b",
+    HoldBanquet2a = "hold banquet 2a",
+    HoldBanquet2b = "hold banquet 2b",
+    HoldBanquet2c = "hold banquet 2c",
+    HoldBanquet3a = "hold banquet 3a",
+    HoldBanquet3b = "hold banquet 3b",
+    HoldBanquet3c = "hold banquet 3c",
+    HoldBanquet4a = "hold banquet 4a",
+    HoldBanquet4b = "hold banquet 4b",
+    HoldFeast1 = "hold feast 1",
+    HoldFeast2 = "hold feast 2",
+    HoldFeast3 = "hold feast 3",
+    HoldMass1 = "hold mass 1",
+    HoldMass2 = "hold mass 2",
+    HoldMass3 = "hold mass 3",
+    HoldPrayer1 = "hold prayer 1",
+    HoldPrayer2 = "hold prayer 2",
+    HoldPrayer3 = "hold prayer 3",
+    HoldSermon1 = "hold sermon 1",
+    HoldSermon2a = "hold sermon 2a",
+    HoldSermon2b = "hold sermon 2b",
+    HoldSermon3a = "hold sermon 3a",
+    HoldSermon3b = "hold sermon 3b",
+    HulkOperations = "hulk operations",
+    Hunting1 = "hunting 1",
+    Hunting2 = "hunting 2",
+    Hunting3 = "hunting 3",
+    Hunting4 = "hunting 4",
+    Hunting5 = "hunting 5",
+    KeepBees1 = "keep bees 1",
+    KnightDuty1 = "knight duty 1",
+    KnightDuty2 = "knight duty 2",
+    KnightDuty3 = "knight duty 3",
+    KnightDuty4 = "knight duty 4",
+    KnitGarments1 = "knit garments 1",
+    KnitGarments2 = "knit garments 2",
+    LetCottages1 = "let cottages 1",
+    LetCottages2 = "let cottages 2",
+    Logging1 = "logging 1",
+    Logging2 = "logging 2",
+    Logging3 = "logging 3",
+    Maintain1 = "maintain 1",
+    MakeAlembics1 = "make alembics 1",
+    MakeAlembics2 = "make alembics 2",
+    MakeBricks1 = "make bricks 1",
+    MakeBricks2 = "make bricks 2",
+    MakeCandles1 = "make candles 1",
+    MakeCandles2 = "make candles 2",
+    MakeCasks1 = "make casks 1",
+    MakeCasks2 = "make casks 2",
+    MakeCheese1 = "make cheese 1",
+    MakeCheese2 = "make cheese 2",
+    MakeCheese3 = "make cheese 3",
+    MakeCheese4 = "make cheese 4",
+    MakeCheese5 = "make cheese 5",
+    MakeHarnesses1 = "make harnesses 1",
+    MakeHarnesses2 = "make harnesses 2",
+    MakeHarnesses2b = "make harnesses 2b",
+    MakeJewellery1 = "make jewellery 1",
+    MakeJewellery2 = "make jewellery 2",
+    MakeLeatherArmor1 = "make leather armor 1",
+    MakeMedicine1 = "make medicine 1",
+    MakeMedicine2 = "make medicine 2",
+    MakeNets1 = "make nets 1",
+    MakeNets2 = "make nets 2",
+    MakeNets3 = "make nets 3",
+    MakeRope1 = "make rope 1",
+    MakeWindows1 = "make windows 1",
+    MakeWine1 = "make wine 1",
+    MakeWine2 = "make wine 2",
+    MakeWine3 = "make wine 3",
+    Malting1 = "malting 1",
+    Malting2 = "malting 2",
+    Milling1 = "milling 1",
+    Milling2 = "milling 2",
+    Milling3 = "milling 3",
+    MineCopper1 = "mine copper 1",
+    MineCopper2 = "mine copper 2",
+    MineCopper3 = "mine copper 3",
+    MineCopper4 = "mine copper 4",
+    MineCopper5 = "mine copper 5",
+    MineGold1 = "mine gold 1",
+    MineGold1b = "mine gold 1b",
+    MineGold2 = "mine gold 2",
+    MineGold2b = "mine gold 2b",
+    MineGold3 = "mine gold 3",
+    MineIron1 = "mine iron 1",
+    MineIron2 = "mine iron 2",
+    MineIron3 = "mine iron 3",
+    MineIron4 = "mine iron 4",
+    MineIron5 = "mine iron 5",
+    MineLead1 = "mine lead 1",
+    MineLead2 = "mine lead 2",
+    MineLead2b = "mine lead 2b",
+    MineLead3 = "mine lead 3",
+    MineLead3b = "mine lead 3b",
+    MineLead4 = "mine lead 4",
+    MineSalt1 = "mine salt 1",
+    MineSalt2 = "mine salt 2",
+    MineSalt3 = "mine salt 3",
+    MintCopperCoins1 = "mint copper coins 1",
+    MintCopperCoins2 = "mint copper coins 2",
+    MintCopperCoins3 = "mint copper coins 3",
+    MintGoldCoins1 = "mint gold coins 1",
+    MintGoldCoins2 = "mint gold coins 2",
+    MintGoldCoins3 = "mint gold coins 3",
+    MintLeatherCoins1 = "mint leather coins 1",
+    MintSilverCoins1 = "mint silver coins 1",
+    MintSilverCoins2 = "mint silver coins 2",
+    MintSilverCoins3 = "mint silver coins 3",
+    MintSteelCoins1 = "mint steel coins 1",
+    Patrol1 = "patrol 1",
+    Patrol2a = "patrol 2a",
+    Patrol2b = "patrol 2b",
+    Patrol3a = "patrol 3a",
+    Patrol3b = "patrol 3b",
+    RefineSteel1 = "refine steel 1",
+    RefineSteel1b = "refine steel 1b",
+    RefineSteel2 = "refine steel 2",
+    RefineSteel2b = "refine steel 2b",
+    Retting1 = "retting 1",
+    Retting2 = "retting 2",
+    SaltingFish1 = "salting fish 1",
+    SaltingFish2 = "salting fish 2",
+    SaltingMeat1 = "salting meat 1",
+    SaltingMeat2 = "salting meat 2",
+    Sawing1 = "sawing 1",
+    Sawing2 = "sawing 2",
+    Sawing3 = "sawing 3",
+    Sawing4 = "sawing 4",
+    Service1 = "service 1",
+    Service2 = "service 2",
+    Service3 = "service 3",
+    Service4 = "service 4",
+    SewCoats1a = "sew coats 1a",
+    SewCoats1b = "sew coats 1b",
+    SewCoats2a = "sew coats 2a",
+    SewCoats2b = "sew coats 2b",
+    SewGambeson1 = "sew gambeson 1",
+    SewGarments1 = "sew garments 1",
+    SewGarments2a = "sew garments 2a",
+    SewGarments2b = "sew garments 2b",
+    SewGarments3a = "sew garments 3a",
+    SewGarments3b = "sew garments 3b",
+    SewGarments4a = "sew garments 4a",
+    SewGarments4b = "sew garments 4b",
+    SewSails1 = "sew sails 1",
+    SewSails2 = "sew sails 2",
+    ShearSheep1 = "shear sheep 1",
+    ShearSheep2 = "shear sheep 2",
+    ShearSheep3 = "shear sheep 3",
+    SmeltCopper1 = "smelt copper 1",
+    SmeltCopper2 = "smelt copper 2",
+    SmeltGold1 = "smelt gold 1",
+    SmeltGold2 = "smelt gold 2",
+    SmeltIron1 = "smelt iron 1",
+    SmeltIron2 = "smelt iron 2",
+    SmeltLead1 = "smelt lead 1",
+    SmeltLead2a = "smelt lead 2a",
+    SmeltLead2b = "smelt lead 2b",
+    SmeltLead3 = "smelt lead 3 (silver)",
+    SmokingFish1 = "smoking fish 1",
+    SmokingFish2 = "smoking fish 2",
+    SmokingHam1 = "smoking ham 1",
+    SmokingHam2 = "smoking ham 2",
+    SmokingMeat1 = "smoking meat 1",
+    SmokingMeat2 = "smoking meat 2",
+    SnekkjaOperations = "snekkja operations",
+    SpinThread1 = "spin thread 1",
+    SpinThread2 = "spin thread 2",
+    SpinYarn1 = "spin yarn 1",
+    SpinYarn2 = "spin yarn 2",
+    SplitTimber1 = "split timber 1",
+    SplitTimber2 = "split timber 2",
+    TanHides1 = "tan hides 1",
+    TanHides2 = "tan hides 2",
+    TrapFish1 = "trap fish 1",
+    TrapFish2 = "trap fish 2",
+    TrapFish3 = "trap fish 3",
+    Trapping1 = "trapping 1",
+    Trapping2 = "trapping 2",
+    TumbrelOperations = "tumbrel operations",
+    WeaveCloth1 = "weave cloth 1",
+    WeaveCloth2a = "weave cloth 2a",
+    WeaveCloth2b = "weave cloth 2b",
+    WeaveCloth3a = "weave cloth 3a",
+    WeaveCloth3b = "weave cloth 3b",
+    WeaveCloth4a = "weave cloth 4a",
+    WeaveCloth4b = "weave cloth 4b",
+    YokeOx1a = "yoke ox 1a",
+    YokeOx1b = "yoke ox 1b",
+    YokeOx2a = "yoke ox 2a",
+    YokeOx2b = "yoke ox 2b",
+    YokeOx3 = "yoke ox 3",
+    YokeOx3manure = "yoke ox 3 (manure)"
+}
+
+declare enum SkillEnum {
+    Crafting = "crafting",
+    Forging = "forging",
+    Maritime = "maritime",
+    Mercantile = "mercantile",
+    Nutrition = "nutrition",
+    Textile = "textile",
+    Weaponry = "weaponry"
+}
+
+declare enum SkillLevelEnum {
+    Novice = 99,
+    Worker = 599,
+    Journeyman = 2699,
+    Master = 9999
+}
+
+declare enum TransportTypeEnum {
+    Cog = "cog",
+    Handcart = "handcart",
+    Hulk = "hulk",
+    Snekkja = "snekkja",
+    Tumbrel = "tumbrel"
+}
+
+type index$6_AssetEnum = AssetEnum;
+declare const index$6_AssetEnum: typeof AssetEnum;
+type index$6_BuildingTypeEnum = BuildingTypeEnum;
+declare const index$6_BuildingTypeEnum: typeof BuildingTypeEnum;
+type index$6_BuildingUpgradeTypeEnum = BuildingUpgradeTypeEnum;
+declare const index$6_BuildingUpgradeTypeEnum: typeof BuildingUpgradeTypeEnum;
+type index$6_ClimateEnum = ClimateEnum;
+declare const index$6_ClimateEnum: typeof ClimateEnum;
+type index$6_ItemEnum = ItemEnum;
+declare const index$6_ItemEnum: typeof ItemEnum;
+type index$6_ItemTypeEnum = ItemTypeEnum;
+declare const index$6_ItemTypeEnum: typeof ItemTypeEnum;
+type index$6_RecipeEnum = RecipeEnum;
+declare const index$6_RecipeEnum: typeof RecipeEnum;
+type index$6_SkillEnum = SkillEnum;
+declare const index$6_SkillEnum: typeof SkillEnum;
+type index$6_SkillLevelEnum = SkillLevelEnum;
+declare const index$6_SkillLevelEnum: typeof SkillLevelEnum;
+type index$6_TransportTypeEnum = TransportTypeEnum;
+declare const index$6_TransportTypeEnum: typeof TransportTypeEnum;
+declare namespace index$6 {
+  export { index$6_AssetEnum as AssetEnum, index$6_BuildingTypeEnum as BuildingTypeEnum, index$6_BuildingUpgradeTypeEnum as BuildingUpgradeTypeEnum, index$6_ClimateEnum as ClimateEnum, index$6_ItemEnum as ItemEnum, index$6_ItemTypeEnum as ItemTypeEnum, index$6_RecipeEnum as RecipeEnum, index$6_SkillEnum as SkillEnum, index$6_SkillLevelEnum as SkillLevelEnum, index$6_TransportTypeEnum as TransportTypeEnum };
+}
+
+declare class Region extends BaseModel implements RegionType {
+    static schema: zod.ZodObject<{
+        id: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        name: zod.ZodString;
+        description: zod.ZodOptional<zod.ZodString>;
+        center: zod.ZodOptional<zod.ZodObject<{
+            x: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+            y: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
+        }, "strip", zod.ZodTypeAny, {
+            x?: number;
+            y?: number;
+        }, {
+            x?: string | number;
+            y?: string | number;
+        }>>;
+        size: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+    }, "strip", zod.ZodTypeAny, {
+        id?: number;
+        name?: string;
+        center?: {
+            x?: number;
+            y?: number;
+        };
+        size?: number;
+        description?: string;
+    }, {
+        id?: string | number;
+        name?: string;
+        center?: {
+            x?: string | number;
+            y?: string | number;
+        };
+        size?: string | number;
+        description?: string;
+    }>;
+    id: number;
+    name: string;
+    description: string | null;
+    center: Location | null;
+    size: number | null;
+}
+
+type index$5_Account = Account;
+declare const index$5_Account: typeof Account;
+type index$5_AccountAsset = AccountAsset;
+declare const index$5_AccountAsset: typeof AccountAsset;
+type index$5_BuildingConstruction = BuildingConstruction;
+declare const index$5_BuildingConstruction: typeof BuildingConstruction;
+type index$5_BuildingStorage = BuildingStorage;
+declare const index$5_BuildingStorage: typeof BuildingStorage;
+type index$5_BuildingType = BuildingType;
+declare const index$5_BuildingType: typeof BuildingType;
+type index$5_Business = Business;
+declare const index$5_Business: typeof Business;
+type index$5_BusinessBuilding = BusinessBuilding;
+declare const index$5_BusinessBuilding: typeof BusinessBuilding;
+type index$5_Commoners = Commoners;
+declare const index$5_Commoners: typeof Commoners;
+type index$5_DeliveryCost = DeliveryCost;
+declare const index$5_DeliveryCost: typeof DeliveryCost;
+type index$5_Flow = Flow;
+declare const index$5_Flow: typeof Flow;
+type index$5_Household = Household;
+declare const index$5_Household: typeof Household;
+type index$5_Ingredient = Ingredient;
+declare const index$5_Ingredient: typeof Ingredient;
+type index$5_Inventory = Inventory;
+declare const index$5_Inventory: typeof Inventory;
+type index$5_Item = Item;
+declare const index$5_Item: typeof Item;
+type index$5_ItemTrade = ItemTrade;
+declare const index$5_ItemTrade: typeof ItemTrade;
+type index$5_ItemTradeResult = ItemTradeResult;
+declare const index$5_ItemTradeResult: typeof ItemTradeResult;
+type index$5_ItemTradeSettlement = ItemTradeSettlement;
+declare const index$5_ItemTradeSettlement: typeof ItemTradeSettlement;
+type index$5_Location = Location;
+declare const index$5_Location: typeof Location;
+type index$5_Manager = Manager;
+declare const index$5_Manager: typeof Manager;
+type index$5_Market = Market;
+declare const index$5_Market: typeof Market;
+type index$5_MarketItem = MarketItem;
+declare const index$5_MarketItem: typeof MarketItem;
+type index$5_MarketItemDetails = MarketItemDetails;
+declare const index$5_MarketItemDetails: typeof MarketItemDetails;
+type index$5_NotificationSettings = NotificationSettings;
+declare const index$5_NotificationSettings: typeof NotificationSettings;
+type index$5_Path = Path;
+declare const index$5_Path: typeof Path;
+type index$5_PrestigeImpact = PrestigeImpact;
+declare const index$5_PrestigeImpact: typeof PrestigeImpact;
+type index$5_Producer = Producer;
+declare const index$5_Producer: typeof Producer;
+type index$5_Region = Region;
+declare const index$5_Region: typeof Region;
+type index$5_Settings = Settings;
+declare const index$5_Settings: typeof Settings;
+type index$5_Structure = Structure;
+declare const index$5_Structure: typeof Structure;
+type index$5_Sustenance = Sustenance;
+declare const index$5_Sustenance: typeof Sustenance;
+type index$5_Tile = Tile;
+declare const index$5_Tile: typeof Tile;
+type index$5_TownData = TownData;
+declare const index$5_TownData: typeof TownData;
+type index$5_TownDemand = TownDemand;
+declare const index$5_TownDemand: typeof TownDemand;
+type index$5_TownDemandCategory = TownDemandCategory;
+declare const index$5_TownDemandCategory: typeof TownDemandCategory;
+type index$5_TradeRoute = TradeRoute;
+declare const index$5_TradeRoute: typeof TradeRoute;
+type index$5_TransportCargo = TransportCargo;
+declare const index$5_TransportCargo: typeof TransportCargo;
+type index$5_TransportJourney = TransportJourney;
+declare const index$5_TransportJourney: typeof TransportJourney;
+type index$5_TransportJourneyLeg = TransportJourneyLeg;
+declare const index$5_TransportJourneyLeg: typeof TransportJourneyLeg;
+type index$5_TransportType = TransportType;
+declare const index$5_TransportType: typeof TransportType;
+type index$5_Turn = Turn;
+declare const index$5_Turn: typeof Turn;
+type index$5_Worker = Worker;
+declare const index$5_Worker: typeof Worker;
+declare namespace index$5 {
+  export { index$5_Account as Account, index$5_AccountAsset as AccountAsset, Building$1 as Building, index$5_BuildingConstruction as BuildingConstruction, BuildingOperation$1 as BuildingOperation, index$5_BuildingStorage as BuildingStorage, index$5_BuildingType as BuildingType, index$5_Business as Business, index$5_BusinessBuilding as BusinessBuilding, index$5_Commoners as Commoners, index$5_DeliveryCost as DeliveryCost, index$5_Flow as Flow, index$5_Household as Household, index$5_Ingredient as Ingredient, index$5_Inventory as Inventory, index$5_Item as Item, index$5_ItemTrade as ItemTrade, index$5_ItemTradeResult as ItemTradeResult, index$5_ItemTradeSettlement as ItemTradeSettlement, index$5_Location as Location, index$5_Manager as Manager, index$5_Market as Market, index$5_MarketItem as MarketItem, index$5_MarketItemDetails as MarketItemDetails, index$5_NotificationSettings as NotificationSettings, Operation$1 as Operation, index$5_Path as Path, Player$1 as Player, index$5_PrestigeImpact as PrestigeImpact, index$5_Producer as Producer, Recipe$1 as Recipe, index$5_Region as Region, index$5_Settings as Settings, index$5_Structure as Structure, index$5_Sustenance as Sustenance, index$5_Tile as Tile, Town$1 as Town, index$5_TownData as TownData, index$5_TownDemand as TownDemand, index$5_TownDemandCategory as TownDemandCategory, index$5_TradeRoute as TradeRoute, Transport$1 as Transport, index$5_TransportCargo as TransportCargo, index$5_TransportJourney as TransportJourney, index$5_TransportJourneyLeg as TransportJourneyLeg, index$5_TransportType as TransportType, index$5_Turn as Turn, index$5_Worker as Worker, index$6 as enums };
+}
+
 declare class Recipe {
     name: string;
     data: Recipe$1;
@@ -18001,7 +19266,12 @@ declare class BuildingOperation {
     constructor(client: Client, player: Player, buildingId: number);
     load(): Promise<void>;
     get building(): Building | undefined;
-    get totalFlow(): Record<ItemEnumType, Flow> | null;
+    get totalFlow(): Map<ItemEnumType, Flow> | null;
+}
+declare class BuildingOperationList extends Array<BuildingOperation> {
+    byBuildingId(buildingId: number): BuildingOperation;
+    byItemInput(item: ItemEnumType): OperationsList;
+    byItemOutput(item: ItemEnumType): OperationsList;
 }
 declare class BuildingOperationsDict extends Map<number, BuildingOperation> {
     byBuildingType(buildingType: BuildingTypeEnumType): OperationsList;
@@ -18047,7 +19317,7 @@ declare class Building {
     get productionFlows(): Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", Flow>;
     get size(): number;
     get targetProduction(): number;
-    get type(): "household" | "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    get type(): "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
     get underConstruction(): boolean;
     get upgrades(): ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
     flow(item: ItemEnumType): Promise<Flow>;
@@ -18271,6 +19541,39 @@ declare class StorehouseItem {
     setManager(manager: Manager): Promise<void>;
 }
 
+declare const AssetEnumSchema: z.ZodEnum<["cog", "handcart", "hulk", "money", "snekkja", "tumbrel"]>;
+type AssetEnumType = z.infer<typeof AssetEnumSchema>;
+
+declare const ClimateEnumSchema: z.ZodEnum<["cold", "warm"]>;
+type ClimateEnumType = z.infer<typeof ClimateEnumSchema>;
+
+declare const SkillLevelEnumSchema: z.ZodEnum<["99", "599", "2699", "9999"]>;
+type SkillLevelEnumType = z.infer<typeof SkillLevelEnumSchema>;
+
+declare const index$4_AssetEnumSchema: typeof AssetEnumSchema;
+type index$4_AssetEnumType = AssetEnumType;
+declare const index$4_BuildingTypeEnumSchema: typeof BuildingTypeEnumSchema;
+type index$4_BuildingTypeEnumType = BuildingTypeEnumType;
+declare const index$4_BuildingUpgradeTypeEnumSchema: typeof BuildingUpgradeTypeEnumSchema;
+type index$4_BuildingUpgradeTypeEnumType = BuildingUpgradeTypeEnumType;
+declare const index$4_ClimateEnumSchema: typeof ClimateEnumSchema;
+type index$4_ClimateEnumType = ClimateEnumType;
+declare const index$4_ItemEnumSchema: typeof ItemEnumSchema;
+type index$4_ItemEnumType = ItemEnumType;
+declare const index$4_ItemTypeEnumSchema: typeof ItemTypeEnumSchema;
+type index$4_ItemTypeEnumType = ItemTypeEnumType;
+declare const index$4_RecipeEnumSchema: typeof RecipeEnumSchema;
+type index$4_RecipeEnumType = RecipeEnumType;
+declare const index$4_SkillEnumSchema: typeof SkillEnumSchema;
+type index$4_SkillEnumType = SkillEnumType;
+declare const index$4_SkillLevelEnumSchema: typeof SkillLevelEnumSchema;
+type index$4_SkillLevelEnumType = SkillLevelEnumType;
+declare const index$4_TransportTypeEnumSchema: typeof TransportTypeEnumSchema;
+type index$4_TransportTypeEnumType = TransportTypeEnumType;
+declare namespace index$4 {
+  export { index$4_AssetEnumSchema as AssetEnumSchema, type index$4_AssetEnumType as AssetEnumType, index$4_BuildingTypeEnumSchema as BuildingTypeEnumSchema, type index$4_BuildingTypeEnumType as BuildingTypeEnumType, index$4_BuildingUpgradeTypeEnumSchema as BuildingUpgradeTypeEnumSchema, type index$4_BuildingUpgradeTypeEnumType as BuildingUpgradeTypeEnumType, index$4_ClimateEnumSchema as ClimateEnumSchema, type index$4_ClimateEnumType as ClimateEnumType, index$4_ItemEnumSchema as ItemEnumSchema, type index$4_ItemEnumType as ItemEnumType, index$4_ItemTypeEnumSchema as ItemTypeEnumSchema, type index$4_ItemTypeEnumType as ItemTypeEnumType, index$4_RecipeEnumSchema as RecipeEnumSchema, type index$4_RecipeEnumType as RecipeEnumType, index$4_SkillEnumSchema as SkillEnumSchema, type index$4_SkillEnumType as SkillEnumType, index$4_SkillLevelEnumSchema as SkillLevelEnumSchema, type index$4_SkillLevelEnumType as SkillLevelEnumType, index$4_TransportTypeEnumSchema as TransportTypeEnumSchema, type index$4_TransportTypeEnumType as TransportTypeEnumType };
+}
+
 declare class Player {
     _client: Client;
     exports: ExportsSummed;
@@ -18346,7 +19649,7 @@ declare class Client {
     get Turn(): TurnsAPI;
     getTurn(): Promise<object>;
     get Player(): PlayersAPI;
-    getPlayer(): Promise<object>;
+    getPlayer(): Promise<Player>;
     get Towns(): TownsAPI;
     getTowns(filter?: string[]): Promise<Town[]>;
     /**
@@ -18366,4 +19669,507 @@ declare class Client {
     getTransport(player: Player, id: number): Promise<Transport>;
 }
 
-export { Client, Client as default };
+type index$3_Building = Building;
+declare const index$3_Building: typeof Building;
+type index$3_BuildingOperation = BuildingOperation;
+declare const index$3_BuildingOperation: typeof BuildingOperation;
+type index$3_BuildingOperationList = BuildingOperationList;
+declare const index$3_BuildingOperationList: typeof BuildingOperationList;
+type index$3_BuildingOperationsDict = BuildingOperationsDict;
+declare const index$3_BuildingOperationsDict: typeof BuildingOperationsDict;
+type index$3_BuildingsList = BuildingsList;
+declare const index$3_BuildingsList: typeof BuildingsList;
+type index$3_Export = Export;
+declare const index$3_Export: typeof Export;
+type index$3_Exports = Exports;
+declare const index$3_Exports: typeof Exports;
+type index$3_ExportsList = ExportsList;
+declare const index$3_ExportsList: typeof ExportsList;
+type index$3_ExportsSummed = ExportsSummed;
+declare const index$3_ExportsSummed: typeof ExportsSummed;
+type index$3_Import = Import;
+declare const index$3_Import: typeof Import;
+type index$3_Imports = Imports;
+declare const index$3_Imports: typeof Imports;
+type index$3_ImportsList = ImportsList;
+declare const index$3_ImportsList: typeof ImportsList;
+type index$3_ImportsSummed = ImportsSummed;
+declare const index$3_ImportsSummed: typeof ImportsSummed;
+type index$3_Operation = Operation;
+declare const index$3_Operation: typeof Operation;
+type index$3_OperationsList = OperationsList;
+declare const index$3_OperationsList: typeof OperationsList;
+type index$3_Player = Player;
+declare const index$3_Player: typeof Player;
+type index$3_Recipe = Recipe;
+declare const index$3_Recipe: typeof Recipe;
+type index$3_Storehouse = Storehouse;
+declare const index$3_Storehouse: typeof Storehouse;
+type index$3_StorehouseItem = StorehouseItem;
+declare const index$3_StorehouseItem: typeof StorehouseItem;
+type index$3_Town = Town;
+declare const index$3_Town: typeof Town;
+type index$3_TownItem = TownItem;
+declare const index$3_TownItem: typeof TownItem;
+type index$3_Transport = Transport;
+declare const index$3_Transport: typeof Transport;
+type index$3_TransportList = TransportList;
+declare const index$3_TransportList: typeof TransportList;
+declare namespace index$3 {
+  export { index$3_Building as Building, index$3_BuildingOperation as BuildingOperation, index$3_BuildingOperationList as BuildingOperationList, index$3_BuildingOperationsDict as BuildingOperationsDict, index$3_BuildingsList as BuildingsList, index$3_Export as Export, index$3_Exports as Exports, index$3_ExportsList as ExportsList, index$3_ExportsSummed as ExportsSummed, index$3_Import as Import, index$3_Imports as Imports, index$3_ImportsList as ImportsList, index$3_ImportsSummed as ImportsSummed, index$3_Operation as Operation, index$3_OperationsList as OperationsList, index$3_Player as Player, index$3_Recipe as Recipe, index$3_Storehouse as Storehouse, index$3_StorehouseItem as StorehouseItem, index$3_Town as Town, index$3_TownItem as TownItem, index$3_Transport as Transport, index$3_TransportList as TransportList };
+}
+
+/**
+ * Converts floats in an object to strings.
+ *
+ * @param obj - The object to convert.
+ * @returns The object with floats converted to strings.
+ */
+declare function convertFloatsToStrings(obj: any): any;
+
+declare class TurnInProgressException extends Error {
+    constructor(message: string);
+}
+declare class BuySellOrderFailedException extends Error {
+    constructor(message: string);
+}
+declare class SetManagerFailedException extends Error {
+    constructor(message: string);
+}
+
+type index$2_BuySellOrderFailedException = BuySellOrderFailedException;
+declare const index$2_BuySellOrderFailedException: typeof BuySellOrderFailedException;
+type index$2_SetManagerFailedException = SetManagerFailedException;
+declare const index$2_SetManagerFailedException: typeof SetManagerFailedException;
+type index$2_TurnInProgressException = TurnInProgressException;
+declare const index$2_TurnInProgressException: typeof TurnInProgressException;
+declare const index$2_convertFloatsToStrings: typeof convertFloatsToStrings;
+declare namespace index$2 {
+  export { index$2_BuySellOrderFailedException as BuySellOrderFailedException, index$2_SetManagerFailedException as SetManagerFailedException, index$2_TurnInProgressException as TurnInProgressException, index$2_convertFloatsToStrings as convertFloatsToStrings };
+}
+
+declare namespace index$1 {
+  export {  };
+}
+
+declare const BuildingConstructionEffortSchema: z.ZodObject<{
+    inventory: z.ZodObject<{
+        account: z.ZodObject<{
+            assets: z.ZodEffects<z.ZodEffects<z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>, Map<string, unknown>, {}>, Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+                capacity?: number;
+                balance?: number;
+                purchase?: number;
+                purchase_price?: number;
+                reserved?: number;
+                reserved_capacity?: number;
+                sale?: number;
+                sale_price?: number;
+                unit_cost?: number;
+            }>, {}>;
+            id: z.ZodString;
+            master_id: z.ZodOptional<z.ZodString>;
+            name: z.ZodOptional<z.ZodString>;
+            owner_id: z.ZodString;
+            sponsor_id: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            id?: string;
+            name?: string;
+            assets?: Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+                capacity?: number;
+                balance?: number;
+                purchase?: number;
+                purchase_price?: number;
+                reserved?: number;
+                reserved_capacity?: number;
+                sale?: number;
+                sale_price?: number;
+                unit_cost?: number;
+            }>;
+            master_id?: string;
+            owner_id?: string;
+            sponsor_id?: string;
+        }, {
+            id?: string;
+            name?: string;
+            assets?: {};
+            master_id?: string;
+            owner_id?: string;
+            sponsor_id?: string;
+        }>;
+        capacity: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+        managers: z.ZodOptional<z.ZodEffects<z.ZodOptional<z.ZodEffects<z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>, Map<string, unknown>, {}>>, Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+            capacity?: number;
+            buy_price?: number;
+            buy_volume?: number;
+            max_holding?: number;
+            sell_price?: number;
+            sell_volume?: number;
+        }>, {}>>;
+        previous_flows: z.ZodDefault<z.ZodOptional<z.ZodRecord<z.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, z.ZodObject<{
+            consumption: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+            expiration: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+            export: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            imported: z.ZodDefault<z.ZodNullable<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>>;
+            production: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+            production_cost: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+            purchase: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            purchase_cost: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+            resident: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            sale: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+            sale_value: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+            shortfall: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+        }, "strip", z.ZodTypeAny, {
+            purchase?: number;
+            sale?: number;
+            consumption?: number;
+            expiration?: number;
+            export?: number;
+            imported?: number;
+            production?: number;
+            production_cost?: number;
+            purchase_cost?: number;
+            resident?: number;
+            sale_value?: number;
+            shortfall?: number;
+        }, {
+            purchase?: string | number;
+            sale?: string | number;
+            consumption?: string | number;
+            expiration?: string | number;
+            export?: string | number;
+            imported?: string | number;
+            production?: string | number;
+            production_cost?: string | number;
+            purchase_cost?: string | number;
+            resident?: string | number;
+            sale_value?: string | number;
+            shortfall?: string | number;
+        }>>>>;
+        reserved: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    }, "strip", z.ZodTypeAny, {
+        capacity?: number;
+        reserved?: number;
+        account?: {
+            id?: string;
+            name?: string;
+            assets?: Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+                capacity?: number;
+                balance?: number;
+                purchase?: number;
+                purchase_price?: number;
+                reserved?: number;
+                reserved_capacity?: number;
+                sale?: number;
+                sale_price?: number;
+                unit_cost?: number;
+            }>;
+            master_id?: string;
+            owner_id?: string;
+            sponsor_id?: string;
+        };
+        managers?: Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+            capacity?: number;
+            buy_price?: number;
+            buy_volume?: number;
+            max_holding?: number;
+            sell_price?: number;
+            sell_volume?: number;
+        }>;
+        previous_flows?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+            purchase?: number;
+            sale?: number;
+            consumption?: number;
+            expiration?: number;
+            export?: number;
+            imported?: number;
+            production?: number;
+            production_cost?: number;
+            purchase_cost?: number;
+            resident?: number;
+            sale_value?: number;
+            shortfall?: number;
+        }>>;
+    }, {
+        capacity?: string | number;
+        reserved?: string | number;
+        account?: {
+            id?: string;
+            name?: string;
+            assets?: {};
+            master_id?: string;
+            owner_id?: string;
+            sponsor_id?: string;
+        };
+        managers?: {};
+        previous_flows?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+            purchase?: string | number;
+            sale?: string | number;
+            consumption?: string | number;
+            expiration?: string | number;
+            export?: string | number;
+            imported?: string | number;
+            production?: string | number;
+            production_cost?: string | number;
+            purchase_cost?: string | number;
+            resident?: string | number;
+            sale_value?: string | number;
+            shortfall?: string | number;
+        }>>;
+    }>;
+    progress: z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>;
+    reference: z.ZodString;
+    stage: z.ZodString;
+    time: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    upgrade_type: z.ZodOptional<z.ZodEnum<["armsrack", "beehives", "bellows", "button cast", "cowshed", "crane", "crane lift", "curing chamber", "cutting table", "fermentory", "grindstone", "grooved bedstone", "guard booth", "hopping vessels", "lime kiln", "liming pots", "malt mill", "malt sieve", "manure pit", "plough house", "skinning table", "spinning wheel", "steel anvil", "stone oven", "stonecutter's hut", "tile moulds", "toolshed", "transmission", "treadle loom", "upholstry bench", "warehouse", "weaponsrack"]>>;
+}, "strip", z.ZodTypeAny, {
+    reference?: string;
+    inventory?: {
+        capacity?: number;
+        reserved?: number;
+        account?: {
+            id?: string;
+            name?: string;
+            assets?: Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+                capacity?: number;
+                balance?: number;
+                purchase?: number;
+                purchase_price?: number;
+                reserved?: number;
+                reserved_capacity?: number;
+                sale?: number;
+                sale_price?: number;
+                unit_cost?: number;
+            }>;
+            master_id?: string;
+            owner_id?: string;
+            sponsor_id?: string;
+        };
+        managers?: Map<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+            capacity?: number;
+            buy_price?: number;
+            buy_volume?: number;
+            max_holding?: number;
+            sell_price?: number;
+            sell_volume?: number;
+        }>;
+        previous_flows?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+            purchase?: number;
+            sale?: number;
+            consumption?: number;
+            expiration?: number;
+            export?: number;
+            imported?: number;
+            production?: number;
+            production_cost?: number;
+            purchase_cost?: number;
+            resident?: number;
+            sale_value?: number;
+            shortfall?: number;
+        }>>;
+    };
+    time?: number;
+    progress?: number;
+    stage?: string;
+    upgrade_type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+}, {
+    reference?: string;
+    inventory?: {
+        capacity?: string | number;
+        reserved?: string | number;
+        account?: {
+            id?: string;
+            name?: string;
+            assets?: {};
+            master_id?: string;
+            owner_id?: string;
+            sponsor_id?: string;
+        };
+        managers?: {};
+        previous_flows?: Partial<Record<"alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", {
+            purchase?: string | number;
+            sale?: string | number;
+            consumption?: string | number;
+            expiration?: string | number;
+            export?: string | number;
+            imported?: string | number;
+            production?: string | number;
+            production_cost?: string | number;
+            purchase_cost?: string | number;
+            resident?: string | number;
+            sale_value?: string | number;
+            shortfall?: string | number;
+        }>>;
+    };
+    time?: string | number;
+    progress?: string | number;
+    stage?: string;
+    upgrade_type?: "warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack";
+}>;
+type BuildingConstructionEffortType = z.infer<typeof BuildingConstructionEffortSchema>;
+
+declare const BuildingRequirementSchema: z.ZodObject<{
+    center: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+    climate: z.ZodOptional<z.ZodEnum<["cold", "warm"]>>;
+    min: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    resource: z.ZodOptional<z.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>>;
+}, "strip", z.ZodTypeAny, {
+    center?: boolean;
+    min?: number;
+    climate?: "cold" | "warm";
+    resource?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
+}, {
+    center?: boolean;
+    min?: string | number;
+    climate?: "cold" | "warm";
+    resource?: "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cog" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "handcart" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "hulk" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "money" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "snekkja" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "tumbrel" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn";
+}>;
+type BuildingRequirementType = z.infer<typeof BuildingRequirementSchema>;
+
+declare const TileRequirementSchema: z.ZodObject<{
+    min: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+    max: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
+}, "strip", z.ZodTypeAny, {
+    min?: number;
+    max?: number;
+}, {
+    min?: string | number;
+    max?: string | number;
+}>;
+type TileRequirementType = z.infer<typeof TileRequirementSchema>;
+
+declare const TownGovernmentTaxesSchema: z.ZodObject<{
+    land_tax: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+    structure_tax: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+    ferry_fees: z.ZodDefault<z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>>;
+}, "strip", z.ZodTypeAny, {
+    land_tax?: number;
+    structure_tax?: number;
+    ferry_fees?: number;
+}, {
+    land_tax?: string | number;
+    structure_tax?: string | number;
+    ferry_fees?: string | number;
+}>;
+type TownGovernmentTaxesType = z.infer<typeof TownGovernmentTaxesSchema>;
+
+declare const index_AccountAssetSchema: typeof AccountAssetSchema;
+type index_AccountAssetType = AccountAssetType;
+declare const index_AccountSchema: typeof AccountSchema;
+type index_AccountType = AccountType;
+declare const index_BuildingConstructionEffortSchema: typeof BuildingConstructionEffortSchema;
+type index_BuildingConstructionEffortType = BuildingConstructionEffortType;
+declare const index_BuildingConstructionSchema: typeof BuildingConstructionSchema;
+type index_BuildingConstructionType = BuildingConstructionType;
+declare const index_BuildingOperationSchema: typeof BuildingOperationSchema;
+type index_BuildingOperationType = BuildingOperationType;
+declare const index_BuildingRequirementSchema: typeof BuildingRequirementSchema;
+type index_BuildingRequirementType = BuildingRequirementType;
+declare const index_BuildingRequirementsSchema: typeof BuildingRequirementsSchema;
+type index_BuildingRequirementsType = BuildingRequirementsType;
+declare const index_BuildingSchema: typeof BuildingSchema;
+declare const index_BuildingStorageSchema: typeof BuildingStorageSchema;
+type index_BuildingStorageType = BuildingStorageType;
+declare const index_BuildingTypeSchema: typeof BuildingTypeSchema;
+type index_BuildingTypeType = BuildingTypeType;
+declare const index_BuildingUpgradeSchema: typeof BuildingUpgradeSchema;
+type index_BuildingUpgradeType = BuildingUpgradeType;
+declare const index_BusinessBuildingSchema: typeof BusinessBuildingSchema;
+type index_BusinessBuildingType = BusinessBuildingType;
+declare const index_BusinessSchema: typeof BusinessSchema;
+type index_BusinessType = BusinessType;
+declare const index_CommonersSchema: typeof CommonersSchema;
+type index_CommonersType = CommonersType;
+declare const index_DeliveryCostSchema: typeof DeliveryCostSchema;
+type index_DeliveryCostType = DeliveryCostType;
+declare const index_FlowSchema: typeof FlowSchema;
+type index_FlowType = FlowType;
+declare const index_HouseholdSchema: typeof HouseholdSchema;
+type index_HouseholdType = HouseholdType;
+declare const index_IngredientSchema: typeof IngredientSchema;
+type index_IngredientType = IngredientType;
+declare const index_InventorySchema: typeof InventorySchema;
+type index_InventoryType = InventoryType;
+declare const index_ItemOrderSchema: typeof ItemOrderSchema;
+type index_ItemOrderType = ItemOrderType;
+declare const index_ItemPriceSchema: typeof ItemPriceSchema;
+type index_ItemPriceType = ItemPriceType;
+declare const index_ItemSchema: typeof ItemSchema;
+declare const index_ItemTradeResultSchema: typeof ItemTradeResultSchema;
+type index_ItemTradeResultType = ItemTradeResultType;
+declare const index_ItemTradeSchema: typeof ItemTradeSchema;
+declare const index_ItemTradeSettlementSchema: typeof ItemTradeSettlementSchema;
+type index_ItemTradeSettlementType = ItemTradeSettlementType;
+type index_ItemTradeType = ItemTradeType;
+type index_ItemType = ItemType;
+declare const index_LocationSchema: typeof LocationSchema;
+type index_LocationType = LocationType;
+declare const index_ManagerSchema: typeof ManagerSchema;
+type index_ManagerType = ManagerType;
+declare const index_MarketItemDetailsSchema: typeof MarketItemDetailsSchema;
+type index_MarketItemDetailsType = MarketItemDetailsType;
+declare const index_MarketItemSchema: typeof MarketItemSchema;
+type index_MarketItemType = MarketItemType;
+declare const index_MarketSchema: typeof MarketSchema;
+type index_MarketType = MarketType;
+declare const index_NotificationSettingsSchema: typeof NotificationSettingsSchema;
+type index_NotificationSettingsType = NotificationSettingsType;
+declare const index_OperationSchema: typeof OperationSchema;
+type index_OperationType = OperationType;
+declare const index_PathSchema: typeof PathSchema;
+type index_PathType = PathType;
+declare const index_PlayerSchema: typeof PlayerSchema;
+type index_PlayerType = PlayerType;
+declare const index_PrestigeImpactSchema: typeof PrestigeImpactSchema;
+type index_PrestigeImpactType = PrestigeImpactType;
+declare const index_ProducerSchema: typeof ProducerSchema;
+type index_ProducerType = ProducerType;
+declare const index_RecipeSchema: typeof RecipeSchema;
+type index_RecipeType = RecipeType;
+declare const index_RegionSchema: typeof RegionSchema;
+type index_RegionType = RegionType;
+declare const index_SettingsSchema: typeof SettingsSchema;
+type index_SettingsType = SettingsType;
+declare const index_StructureSchema: typeof StructureSchema;
+type index_StructureType = StructureType;
+declare const index_SustenanceSchema: typeof SustenanceSchema;
+type index_SustenanceType = SustenanceType;
+declare const index_TileRequirementSchema: typeof TileRequirementSchema;
+type index_TileRequirementType = TileRequirementType;
+declare const index_TileSchema: typeof TileSchema;
+type index_TileType = TileType;
+declare const index_TownChurchSchema: typeof TownChurchSchema;
+type index_TownChurchType = TownChurchType;
+declare const index_TownCultureSchema: typeof TownCultureSchema;
+type index_TownCultureType = TownCultureType;
+declare const index_TownDataSchema: typeof TownDataSchema;
+type index_TownDataType = TownDataType;
+declare const index_TownDemandCategorySchema: typeof TownDemandCategorySchema;
+type index_TownDemandCategoryType = TownDemandCategoryType;
+declare const index_TownDemandSchema: typeof TownDemandSchema;
+type index_TownDemandType = TownDemandType;
+declare const index_TownGovernmentSchema: typeof TownGovernmentSchema;
+declare const index_TownGovernmentTaxesSchema: typeof TownGovernmentTaxesSchema;
+type index_TownGovernmentTaxesType = TownGovernmentTaxesType;
+type index_TownGovernmentType = TownGovernmentType;
+declare const index_TownSchema: typeof TownSchema;
+type index_TownType = TownType;
+declare const index_TradeRouteSchema: typeof TradeRouteSchema;
+type index_TradeRouteType = TradeRouteType;
+declare const index_TransportCargoSchema: typeof TransportCargoSchema;
+type index_TransportCargoType = TransportCargoType;
+declare const index_TransportJourneyLegSchema: typeof TransportJourneyLegSchema;
+type index_TransportJourneyLegType = TransportJourneyLegType;
+declare const index_TransportJourneySchema: typeof TransportJourneySchema;
+type index_TransportJourneyType = TransportJourneyType;
+declare const index_TransportSchema: typeof TransportSchema;
+declare const index_TransportTypeSchema: typeof TransportTypeSchema;
+type index_TransportTypeType = TransportTypeType;
+declare const index_TurnSchema: typeof TurnSchema;
+type index_TurnType = TurnType;
+declare const index_WorkerSchema: typeof WorkerSchema;
+type index_WorkerType = WorkerType;
+declare namespace index {
+  export { index_AccountAssetSchema as AccountAssetSchema, type index_AccountAssetType as AccountAssetType, index_AccountSchema as AccountSchema, type index_AccountType as AccountType, index_BuildingConstructionEffortSchema as BuildingConstructionEffortSchema, type index_BuildingConstructionEffortType as BuildingConstructionEffortType, index_BuildingConstructionSchema as BuildingConstructionSchema, type index_BuildingConstructionType as BuildingConstructionType, index_BuildingOperationSchema as BuildingOperationSchema, type index_BuildingOperationType as BuildingOperationType, index_BuildingRequirementSchema as BuildingRequirementSchema, type index_BuildingRequirementType as BuildingRequirementType, index_BuildingRequirementsSchema as BuildingRequirementsSchema, type index_BuildingRequirementsType as BuildingRequirementsType, index_BuildingSchema as BuildingSchema, index_BuildingStorageSchema as BuildingStorageSchema, type index_BuildingStorageType as BuildingStorageType, type BuildingType$1 as BuildingType, index_BuildingTypeSchema as BuildingTypeSchema, type index_BuildingTypeType as BuildingTypeType, index_BuildingUpgradeSchema as BuildingUpgradeSchema, type index_BuildingUpgradeType as BuildingUpgradeType, index_BusinessBuildingSchema as BusinessBuildingSchema, type index_BusinessBuildingType as BusinessBuildingType, index_BusinessSchema as BusinessSchema, type index_BusinessType as BusinessType, index_CommonersSchema as CommonersSchema, type index_CommonersType as CommonersType, index_DeliveryCostSchema as DeliveryCostSchema, type index_DeliveryCostType as DeliveryCostType, index_FlowSchema as FlowSchema, type index_FlowType as FlowType, index_HouseholdSchema as HouseholdSchema, type index_HouseholdType as HouseholdType, index_IngredientSchema as IngredientSchema, type index_IngredientType as IngredientType, index_InventorySchema as InventorySchema, type index_InventoryType as InventoryType, index_ItemOrderSchema as ItemOrderSchema, type index_ItemOrderType as ItemOrderType, index_ItemPriceSchema as ItemPriceSchema, type index_ItemPriceType as ItemPriceType, index_ItemSchema as ItemSchema, index_ItemTradeResultSchema as ItemTradeResultSchema, type index_ItemTradeResultType as ItemTradeResultType, index_ItemTradeSchema as ItemTradeSchema, index_ItemTradeSettlementSchema as ItemTradeSettlementSchema, type index_ItemTradeSettlementType as ItemTradeSettlementType, type index_ItemTradeType as ItemTradeType, type index_ItemType as ItemType, index_LocationSchema as LocationSchema, type index_LocationType as LocationType, index_ManagerSchema as ManagerSchema, type index_ManagerType as ManagerType, index_MarketItemDetailsSchema as MarketItemDetailsSchema, type index_MarketItemDetailsType as MarketItemDetailsType, index_MarketItemSchema as MarketItemSchema, type index_MarketItemType as MarketItemType, index_MarketSchema as MarketSchema, type index_MarketType as MarketType, index_NotificationSettingsSchema as NotificationSettingsSchema, type index_NotificationSettingsType as NotificationSettingsType, index_OperationSchema as OperationSchema, type index_OperationType as OperationType, index_PathSchema as PathSchema, type index_PathType as PathType, index_PlayerSchema as PlayerSchema, type index_PlayerType as PlayerType, index_PrestigeImpactSchema as PrestigeImpactSchema, type index_PrestigeImpactType as PrestigeImpactType, index_ProducerSchema as ProducerSchema, type index_ProducerType as ProducerType, index_RecipeSchema as RecipeSchema, type index_RecipeType as RecipeType, index_RegionSchema as RegionSchema, type index_RegionType as RegionType, index_SettingsSchema as SettingsSchema, type index_SettingsType as SettingsType, index_StructureSchema as StructureSchema, type index_StructureType as StructureType, index_SustenanceSchema as SustenanceSchema, type index_SustenanceType as SustenanceType, index_TileRequirementSchema as TileRequirementSchema, type index_TileRequirementType as TileRequirementType, index_TileSchema as TileSchema, type index_TileType as TileType, index_TownChurchSchema as TownChurchSchema, type index_TownChurchType as TownChurchType, index_TownCultureSchema as TownCultureSchema, type index_TownCultureType as TownCultureType, index_TownDataSchema as TownDataSchema, type index_TownDataType as TownDataType, index_TownDemandCategorySchema as TownDemandCategorySchema, type index_TownDemandCategoryType as TownDemandCategoryType, index_TownDemandSchema as TownDemandSchema, type index_TownDemandType as TownDemandType, index_TownGovernmentSchema as TownGovernmentSchema, index_TownGovernmentTaxesSchema as TownGovernmentTaxesSchema, type index_TownGovernmentTaxesType as TownGovernmentTaxesType, type index_TownGovernmentType as TownGovernmentType, index_TownSchema as TownSchema, type index_TownType as TownType, index_TradeRouteSchema as TradeRouteSchema, type index_TradeRouteType as TradeRouteType, index_TransportCargoSchema as TransportCargoSchema, type index_TransportCargoType as TransportCargoType, index_TransportJourneyLegSchema as TransportJourneyLegSchema, type index_TransportJourneyLegType as TransportJourneyLegType, index_TransportJourneySchema as TransportJourneySchema, type index_TransportJourneyType as TransportJourneyType, index_TransportSchema as TransportSchema, type TransportType$1 as TransportType, index_TransportTypeSchema as TransportTypeSchema, type index_TransportTypeType as TransportTypeType, index_TurnSchema as TurnSchema, type index_TurnType as TurnType, index_WorkerSchema as WorkerSchema, type index_WorkerType as WorkerType, index$4 as enums };
+}
+
+export { AssetEnum, type AssetEnumType, Building, BuildingOperation, BuildingOperationList, BuildingOperationsDict, BuildingTypeEnum, type BuildingTypeEnumType, BuildingUpgradeTypeEnum, type BuildingUpgradeTypeEnumType, BuildingsList, Client, ClimateEnum, type ClimateEnumType, Export, Exports, ExportsList, ExportsSummed, Import, Imports, ImportsList, ImportsSummed, ItemEnum, type ItemEnumType, ItemTypeEnum, type ItemTypeEnumType, Operation, OperationsList, Player, Recipe, RecipeEnum, type RecipeEnumType, SkillEnum, type SkillEnumType, SkillLevelEnum, type SkillLevelEnumType, Storehouse, StorehouseItem, Town, TownItem, Transport, TransportList, TransportTypeEnum, type TransportTypeEnumType, index$1 as api, index$3 as game, index$5 as models, index as schema, index$2 as utils };

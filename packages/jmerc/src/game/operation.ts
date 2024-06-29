@@ -43,7 +43,7 @@ export class BuildingOperation {
         return this.player.buildings.byId(this.buildingId);
     }
 
-    get totalFlow(): Record<ItemEnumType, Flow> | null {
+    get totalFlow(): Map<ItemEnumType, Flow> | null {
         return this.data.total_flow;
     }
 }

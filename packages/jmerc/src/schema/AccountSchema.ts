@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ItemEnumSchema } from './enums/ItemEnumSchema';
+import { ItemEnumSchema } from './enums';
 import { AccountAssetSchema } from './AccountAssetSchema';
 
 export const AccountSchema = z.object({

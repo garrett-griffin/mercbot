@@ -1,5 +1,5 @@
 import { Player as PlayerModel, Household, Sustenance } from '../models/player';
-import { Business } from '../models/business';
+import { Business } from '../models';
 import { Building, BuildingsList } from './building';
 import {Export, ExportsList, ExportsSummed} from './exports';
 import {Import, Imports, ImportsList, ImportsSummed} from './imports';
@@ -8,8 +8,8 @@ import { Town } from './town';
 import { Transport, TransportList } from './transport';
 import Client from "../client";
 import {Storehouse} from "./storehouse";
-import {AssetEnum} from "../models/enums/assetEnum";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
+import {AssetEnum} from "../models/enums";
+import {ItemEnumType} from "../schema/enums";
 
 interface PlayerType {
     buildings: BuildingsList;
@@ -50,15 +50,14 @@ export class Player {
         let tasks = [];
         for (const operation of this.data.household.operations) {
             const id = parseInt(operation.split('/')[1]);
-            tasks.push(this._client.getBuildingOperation(this, id));
+            if(!operation.includes('transport')) {
+                tasks.push(this._client.getBuildingOperation(this, id));
+            }
         }
 
         this.operations = new BuildingOperationsDict(
             await Promise.all(tasks).then((ops) =>
-                ops.reduce((acc, op) => {
-                    acc[op.buildingId] = op;
-                    return acc;
-                }, {})
+                ops.map((op) => [op.buildingId, op])
             )
         );
 

@@ -6,8 +6,7 @@
     "outDir": "./dist", // Add this to specify the output directory
     "rootDir": ".", // Add this to specify the root directory
     "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "models": ["packages/models/dist/index"]
-    }
+    "declaration": true,
+    "declarationDir": "./dist/types"
   }
 }
