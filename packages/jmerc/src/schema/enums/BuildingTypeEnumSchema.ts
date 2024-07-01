@@ -55,6 +55,7 @@ export const BuildingTypeEnumSchema = z.enum([
     "quarry",
     "retting pit",
     "ropewalk",
+    "rowhouse",
     "sail loft",
     "saltery",
     "salt mine",

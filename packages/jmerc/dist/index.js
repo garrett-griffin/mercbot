@@ -49,7 +49,7 @@ __export(jmerc_exports, {
   ImportsSummed: () => ImportsSummed,
   ItemEnum: () => ItemEnum,
   ItemTypeEnum: () => ItemTypeEnum,
-  Operation: () => Operation,
+  Operation: () => Operation2,
   OperationsList: () => OperationsList,
   Player: () => Player2,
   Recipe: () => Recipe2,
@@ -282,9 +282,161 @@ var import_zod19 = require("zod");
 // src/schema/InventorySchema.ts
 var import_zod18 = require("zod");
 
-// src/schema/enums/ItemEnumSchema.ts
+// src/schema/enums/index.ts
+var enums_exports = {};
+__export(enums_exports, {
+  AssetEnumSchema: () => AssetEnumSchema,
+  BuildingTypeEnumSchema: () => BuildingTypeEnumSchema,
+  BuildingUpgradeTypeEnumSchema: () => BuildingUpgradeTypeEnumSchema,
+  ClimateEnumSchema: () => ClimateEnumSchema,
+  ItemEnumSchema: () => ItemEnumSchema,
+  ItemTypeEnumSchema: () => ItemTypeEnumSchema,
+  RecipeEnumSchema: () => RecipeEnumSchema,
+  SkillEnumSchema: () => SkillEnumSchema,
+  SkillLevelEnumSchema: () => SkillLevelEnumSchema,
+  TransportTypeEnumSchema: () => TransportTypeEnumSchema
+});
+
+// src/schema/enums/AssetEnumSchema.ts
 var import_zod5 = require("zod");
-var ItemEnumSchema = import_zod5.z.enum([
+var AssetEnumSchema = import_zod5.z.enum([
+  "cog",
+  "handcart",
+  "hulk",
+  "money",
+  "snekkja",
+  "tumbrel"
+]);
+
+// src/schema/enums/BuildingTypeEnumSchema.ts
+var import_zod6 = require("zod");
+var BuildingTypeEnumSchema = import_zod6.z.enum([
+  "apothecary",
+  "bakery",
+  "bloomery",
+  "boardinghouse",
+  "brewery",
+  "brickworks",
+  "butchery",
+  "carpentry",
+  "cartshed",
+  "cathedral",
+  "center",
+  "ceramic kiln",
+  "chandlery",
+  "chapel",
+  "charcoal hut",
+  "charcoal kiln",
+  "church",
+  "clay pit",
+  "copper mine",
+  "coppersmith",
+  "cottage",
+  "dairy",
+  "dye boiler",
+  "dyeworks",
+  "farmstead",
+  "fisher",
+  "fishing shack",
+  "flax farm",
+  "foundry",
+  "glass blower",
+  "glass house",
+  "gold mine",
+  "grain farm",
+  "guardhouse",
+  "herb garden",
+  "hjell",
+  "household",
+  "hunting lodge",
+  "iron mine",
+  "jeweller",
+  "lead mine",
+  "leatherworks",
+  "logging camp",
+  "markethall",
+  "malthouse",
+  "mansion",
+  "mint",
+  "net maker",
+  "outpost",
+  "park",
+  "pasture",
+  "quarry",
+  "retting pit",
+  "ropewalk",
+  "rowhouse",
+  "sail loft",
+  "saltery",
+  "salt mine",
+  "sawmill",
+  "sewing shop",
+  "shipyard",
+  "smithy",
+  "smokery",
+  "spinnery",
+  "stable",
+  "storehouse",
+  "square",
+  "tannery",
+  "tar kiln",
+  "toolworks",
+  "townhall",
+  "townhouse",
+  "townroad",
+  "vignoble",
+  "warehouse",
+  "weavery",
+  "windmill"
+]);
+
+// src/schema/enums/BuildingUpgradeTypeEnumSchema.ts
+var import_zod7 = require("zod");
+var BuildingUpgradeTypeEnumSchema = import_zod7.z.enum([
+  "armsrack",
+  "beehives",
+  "bellows",
+  "button cast",
+  "cowshed",
+  "crane",
+  "crane lift",
+  "curing chamber",
+  "cutting table",
+  "fermentory",
+  "grindstone",
+  "grooved bedstone",
+  "guard booth",
+  "hopping vessels",
+  "lime kiln",
+  "liming pots",
+  "malt mill",
+  "malt sieve",
+  "manure pit",
+  "plough house",
+  "skinning table",
+  "spinning wheel",
+  "steel anvil",
+  "stone oven",
+  "stonecutter's hut",
+  "tile moulds",
+  "toolshed",
+  "transmission",
+  "treadle loom",
+  "upholstry bench",
+  "warehouse",
+  "weaponsrack"
+]);
+
+// src/schema/enums/ClimateEnumSchema.ts
+var import_zod8 = require("zod");
+var ClimateEnumSchema = import_zod8.z.enum([
+  "cold",
+  "warm"
+]);
+
+// src/schema/enums/ItemEnumSchema.ts
+var import_zod9 = require("zod");
+var ItemEnumSchema = import_zod9.z.enum([
   "alembics",
   "arms",
   "axes",
@@ -383,160 +535,6 @@ var ItemEnumSchema = import_zod5.z.enum([
   "wool",
   "wrought iron",
   "yarn"
-]);
-
-// src/schema/AccountSchema.ts
-var import_zod15 = require("zod");
-
-// src/schema/enums/index.ts
-var enums_exports = {};
-__export(enums_exports, {
-  AssetEnumSchema: () => AssetEnumSchema,
-  BuildingTypeEnumSchema: () => BuildingTypeEnumSchema,
-  BuildingUpgradeTypeEnumSchema: () => BuildingUpgradeTypeEnumSchema,
-  ClimateEnumSchema: () => ClimateEnumSchema,
-  ItemEnumSchema: () => ItemEnumSchema,
-  ItemTypeEnumSchema: () => ItemTypeEnumSchema,
-  RecipeEnumSchema: () => RecipeEnumSchema,
-  SkillEnumSchema: () => SkillEnumSchema,
-  SkillLevelEnumSchema: () => SkillLevelEnumSchema,
-  TransportTypeEnumSchema: () => TransportTypeEnumSchema
-});
-
-// src/schema/enums/AssetEnumSchema.ts
-var import_zod6 = require("zod");
-var AssetEnumSchema = import_zod6.z.enum([
-  "cog",
-  "handcart",
-  "hulk",
-  "money",
-  "snekkja",
-  "tumbrel"
-]);
-
-// src/schema/enums/BuildingTypeEnumSchema.ts
-var import_zod7 = require("zod");
-var BuildingTypeEnumSchema = import_zod7.z.enum([
-  "apothecary",
-  "bakery",
-  "bloomery",
-  "boardinghouse",
-  "brewery",
-  "brickworks",
-  "butchery",
-  "carpentry",
-  "cartshed",
-  "cathedral",
-  "center",
-  "ceramic kiln",
-  "chandlery",
-  "chapel",
-  "charcoal hut",
-  "charcoal kiln",
-  "church",
-  "clay pit",
-  "copper mine",
-  "coppersmith",
-  "cottage",
-  "dairy",
-  "dye boiler",
-  "dyeworks",
-  "farmstead",
-  "fisher",
-  "fishing shack",
-  "flax farm",
-  "foundry",
-  "glass blower",
-  "glass house",
-  "gold mine",
-  "grain farm",
-  "guardhouse",
-  "herb garden",
-  "hjell",
-  "household",
-  "hunting lodge",
-  "iron mine",
-  "jeweller",
-  "lead mine",
-  "leatherworks",
-  "logging camp",
-  "markethall",
-  "malthouse",
-  "mansion",
-  "mint",
-  "net maker",
-  "outpost",
-  "park",
-  "pasture",
-  "quarry",
-  "retting pit",
-  "ropewalk",
-  "sail loft",
-  "saltery",
-  "salt mine",
-  "sawmill",
-  "sewing shop",
-  "shipyard",
-  "smithy",
-  "smokery",
-  "spinnery",
-  "stable",
-  "storehouse",
-  "square",
-  "tannery",
-  "tar kiln",
-  "toolworks",
-  "townhall",
-  "townhouse",
-  "townroad",
-  "vignoble",
-  "warehouse",
-  "weavery",
-  "windmill"
-]);
-
-// src/schema/enums/BuildingUpgradeTypeEnumSchema.ts
-var import_zod8 = require("zod");
-var BuildingUpgradeTypeEnumSchema = import_zod8.z.enum([
-  "armsrack",
-  "beehives",
-  "bellows",
-  "button cast",
-  "cowshed",
-  "crane",
-  "crane lift",
-  "curing chamber",
-  "cutting table",
-  "fermentory",
-  "grindstone",
-  "grooved bedstone",
-  "guard booth",
-  "hopping vessels",
-  "lime kiln",
-  "liming pots",
-  "malt mill",
-  "malt sieve",
-  "manure pit",
-  "plough house",
-  "skinning table",
-  "spinning wheel",
-  "steel anvil",
-  "stone oven",
-  "stonecutter's hut",
-  "tile moulds",
-  "toolshed",
-  "transmission",
-  "treadle loom",
-  "upholstry bench",
-  "warehouse",
-  "weaponsrack"
-]);
-
-// src/schema/enums/ClimateEnumSchema.ts
-var import_zod9 = require("zod");
-var ClimateEnumSchema = import_zod9.z.enum([
-  "cold",
-  "warm"
 ]);
 
 // src/schema/enums/ItemTypeEnumSchema.ts
@@ -668,6 +666,7 @@ var RecipeEnumSchema = import_zod11.z.enum([
   "forge tools 3",
   "gather firewood 1",
   "gather firewood 2",
+  "gather firewood 3",
   "gather resin 1",
   "gather resin 2",
   "grain payment",
@@ -734,9 +733,13 @@ var RecipeEnumSchema = import_zod11.z.enum([
   "knit garments 2",
   "let cottages 1",
   "let cottages 2",
+  "let rowhouses 1",
+  "let rowhouses 2",
+  "let rowhouses 3",
   "logging 1",
   "logging 2",
   "logging 3",
+  "logging 4",
   "maintain 1",
   "make alembics 1",
   "make alembics 2",
@@ -763,7 +766,10 @@ var RecipeEnumSchema = import_zod11.z.enum([
   "make nets 2",
   "make nets 3",
   "make rope 1",
+  "make rope 2",
+  "make rope 3",
   "make windows 1",
+  "make windows 2",
   "make wine 1",
   "make wine 2",
   "make wine 3",
@@ -825,6 +831,7 @@ var RecipeEnumSchema = import_zod11.z.enum([
   "sawing 1",
   "sawing 2",
   "sawing 3",
+  "sawing 3 (firewood)",
   "sawing 4",
   "service 1",
   "service 2",
@@ -870,8 +877,10 @@ var RecipeEnumSchema = import_zod11.z.enum([
   "spin yarn 2",
   "split timber 1",
   "split timber 2",
+  "split timber 3",
   "tan hides 1",
   "tan hides 2",
+  "tan hides 3",
   "trap fish 1",
   "trap fish 2",
   "trap fish 3",
@@ -912,6 +921,9 @@ var TransportTypeEnumSchema = import_zod13.z.enum([
   "tumbrel"
 ]);
 
+// src/schema/AccountSchema.ts
+var import_zod15 = require("zod");
+
 // src/schema/AccountAssetSchema.ts
 var import_zod14 = require("zod");
 var AccountAssetSchema = import_zod14.z.object({
@@ -928,7 +940,7 @@ var AccountAssetSchema = import_zod14.z.object({
 
 // src/schema/AccountSchema.ts
 var AccountSchema = import_zod15.z.object({
-  assets: import_zod15.z.object({}).transform((obj) => new Map(Object.entries(obj))).transform((map) => import_zod15.z.map(ItemEnumSchema, AccountAssetSchema).parse(map)),
+  assets: import_zod15.z.record(ItemEnumSchema, AccountAssetSchema),
   id: import_zod15.z.string(),
   master_id: import_zod15.z.string().optional(),
   name: import_zod15.z.string().optional(),
@@ -968,7 +980,7 @@ var FlowSchema = import_zod17.z.object({
 var InventorySchema = import_zod18.z.object({
   account: AccountSchema,
   capacity: import_zod18.z.union([import_zod18.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod18.z.number()]),
-  managers: import_zod18.z.object({}).transform((obj) => new Map(Object.entries(obj))).optional().transform((map) => import_zod18.z.map(ItemEnumSchema, ManagerSchema).parse(map)).optional(),
+  managers: import_zod18.z.record(ItemEnumSchema, ManagerSchema).optional(),
   previous_flows: import_zod18.z.record(ItemEnumSchema, FlowSchema).optional().default({}),
   reserved: import_zod18.z.union([import_zod18.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod18.z.number()]).optional()
 });
@@ -1560,126 +1572,1150 @@ var TownsAPI = class extends baseAPI_default {
 };
 var towns_default = TownsAPI;
 
-// src/schema/BuildingSchema.ts
-var import_zod48 = require("zod");
+// src/models/index.ts
+var models_exports = {};
+__export(models_exports, {
+  Account: () => Account,
+  AccountAsset: () => AccountAsset,
+  Building: () => Building,
+  BuildingConstruction: () => BuildingConstruction,
+  BuildingOperation: () => BuildingOperation,
+  BuildingStorage: () => BuildingStorage,
+  BuildingType: () => BuildingType,
+  Business: () => Business,
+  BusinessBuilding: () => BusinessBuilding,
+  Commoners: () => Commoners,
+  DeliveryCost: () => DeliveryCost,
+  Flow: () => Flow,
+  Household: () => Household,
+  Ingredient: () => Ingredient,
+  Inventory: () => Inventory,
+  Item: () => Item,
+  ItemTrade: () => ItemTrade,
+  ItemTradeResult: () => ItemTradeResult,
+  ItemTradeSettlement: () => ItemTradeSettlement,
+  Location: () => Location,
+  Manager: () => Manager,
+  Market: () => Market,
+  MarketItem: () => MarketItem,
+  MarketItemDetails: () => MarketItemDetails,
+  NotificationSettings: () => NotificationSettings,
+  Operation: () => Operation,
+  Path: () => Path,
+  Player: () => Player,
+  PrestigeImpact: () => PrestigeImpact,
+  Producer: () => Producer,
+  Recipe: () => Recipe,
+  Region: () => Region,
+  Settings: () => Settings,
+  Structure: () => Structure,
+  Sustenance: () => Sustenance,
+  Tile: () => Tile,
+  Town: () => Town,
+  TownData: () => TownData,
+  TownDemand: () => TownDemand,
+  TownDemandCategory: () => TownDemandCategory,
+  TradeRoute: () => TradeRoute,
+  Transport: () => Transport,
+  TransportCargo: () => TransportCargo,
+  TransportJourney: () => TransportJourney,
+  TransportJourneyLeg: () => TransportJourneyLeg,
+  TransportType: () => TransportType,
+  Turn: () => Turn,
+  Worker: () => Worker,
+  enums: () => enums_exports2
+});
+
+// src/models/enums/index.ts
+var enums_exports2 = {};
+__export(enums_exports2, {
+  AssetEnum: () => AssetEnum,
+  BuildingTypeEnum: () => BuildingTypeEnum,
+  BuildingUpgradeTypeEnum: () => BuildingUpgradeTypeEnum,
+  ClimateEnum: () => ClimateEnum,
+  ItemEnum: () => ItemEnum,
+  ItemTypeEnum: () => ItemTypeEnum,
+  RecipeEnum: () => RecipeEnum,
+  SkillEnum: () => SkillEnum,
+  SkillLevelEnum: () => SkillLevelEnum,
+  TransportTypeEnum: () => TransportTypeEnum
+});
+
+// src/models/enums/assetEnum.ts
+var AssetEnum = /* @__PURE__ */ ((AssetEnum2) => {
+  AssetEnum2["Cog"] = "cog";
+  AssetEnum2["Handcart"] = "handcart";
+  AssetEnum2["Hulk"] = "hulk";
+  AssetEnum2["Money"] = "money";
+  AssetEnum2["Snekkja"] = "snekkja";
+  AssetEnum2["Tumbrel"] = "tumbrel";
+  return AssetEnum2;
+})(AssetEnum || {});
+
+// src/models/enums/buildingTypeEnum.ts
+var BuildingTypeEnum = /* @__PURE__ */ ((BuildingTypeEnum2) => {
+  BuildingTypeEnum2["Apothecary"] = "apothecary";
+  BuildingTypeEnum2["Bakery"] = "bakery";
+  BuildingTypeEnum2["Bloomery"] = "bloomery";
+  BuildingTypeEnum2["BoardingHouse"] = "boardinghouse";
+  BuildingTypeEnum2["Brewery"] = "brewery";
+  BuildingTypeEnum2["Brickworks"] = "brickworks";
+  BuildingTypeEnum2["Butchery"] = "butchery";
+  BuildingTypeEnum2["Carpentry"] = "carpentry";
+  BuildingTypeEnum2["Cartshed"] = "cartshed";
+  BuildingTypeEnum2["Cathedral"] = "cathedral";
+  BuildingTypeEnum2["Center"] = "center";
+  BuildingTypeEnum2["CeramicKiln"] = "ceramic kiln";
+  BuildingTypeEnum2["Chandlery"] = "chandlery";
+  BuildingTypeEnum2["Chapel"] = "chapel";
+  BuildingTypeEnum2["CharcoalHut"] = "charcoal hut";
+  BuildingTypeEnum2["CharcoalKiln"] = "charcoal kiln";
+  BuildingTypeEnum2["Church"] = "church";
+  BuildingTypeEnum2["ClayPit"] = "clay pit";
+  BuildingTypeEnum2["CopperMine"] = "copper mine";
+  BuildingTypeEnum2["Coppersmith"] = "coppersmith";
+  BuildingTypeEnum2["Cottage"] = "cottage";
+  BuildingTypeEnum2["Dairy"] = "dairy";
+  BuildingTypeEnum2["DyeBoiler"] = "dye boiler";
+  BuildingTypeEnum2["Dyeworks"] = "dyeworks";
+  BuildingTypeEnum2["Farmstead"] = "farmstead";
+  BuildingTypeEnum2["Fisher"] = "fisher";
+  BuildingTypeEnum2["FishingShack"] = "fishing shack";
+  BuildingTypeEnum2["FlaxFarm"] = "flax farm";
+  BuildingTypeEnum2["Foundry"] = "foundry";
+  BuildingTypeEnum2["GlassBlower"] = "glass blower";
+  BuildingTypeEnum2["GlassHouse"] = "glass house";
+  BuildingTypeEnum2["GoldMine"] = "gold mine";
+  BuildingTypeEnum2["GrainFarm"] = "grain farm";
+  BuildingTypeEnum2["Guardhouse"] = "guardhouse";
+  BuildingTypeEnum2["HerbGarden"] = "herb garden";
+  BuildingTypeEnum2["Hjell"] = "hjell";
+  BuildingTypeEnum2["Household"] = "household";
+  BuildingTypeEnum2["HuntingLodge"] = "hunting lodge";
+  BuildingTypeEnum2["IronMine"] = "iron mine";
+  BuildingTypeEnum2["Jeweller"] = "jeweller";
+  BuildingTypeEnum2["LeadMine"] = "lead mine";
+  BuildingTypeEnum2["Leatherworks"] = "leatherworks";
+  BuildingTypeEnum2["LoggingCamp"] = "logging camp";
+  BuildingTypeEnum2["Markethall"] = "markethall";
+  BuildingTypeEnum2["Malthouse"] = "malthouse";
+  BuildingTypeEnum2["Mansion"] = "mansion";
+  BuildingTypeEnum2["Mint"] = "mint";
+  BuildingTypeEnum2["NetMaker"] = "net maker";
+  BuildingTypeEnum2["Outpost"] = "outpost";
+  BuildingTypeEnum2["Park"] = "park";
+  BuildingTypeEnum2["Pasture"] = "pasture";
+  BuildingTypeEnum2["Quarry"] = "quarry";
+  BuildingTypeEnum2["RettingPit"] = "retting pit";
+  BuildingTypeEnum2["Ropewalk"] = "ropewalk";
+  BuildingTypeEnum2["Rowhouse"] = "rowhouse";
+  BuildingTypeEnum2["SailLoft"] = "sail loft";
+  BuildingTypeEnum2["Saltery"] = "saltery";
+  BuildingTypeEnum2["SaltMine"] = "salt mine";
+  BuildingTypeEnum2["Sawmill"] = "sawmill";
+  BuildingTypeEnum2["SewingShop"] = "sewing shop";
+  BuildingTypeEnum2["Shipyard"] = "shipyard";
+  BuildingTypeEnum2["Smithy"] = "smithy";
+  BuildingTypeEnum2["Smokery"] = "smokery";
+  BuildingTypeEnum2["Spinnery"] = "spinnery";
+  BuildingTypeEnum2["Stable"] = "stable";
+  BuildingTypeEnum2["Storehouse"] = "storehouse";
+  BuildingTypeEnum2["Square"] = "square";
+  BuildingTypeEnum2["Tannery"] = "tannery";
+  BuildingTypeEnum2["TarKiln"] = "tar kiln";
+  BuildingTypeEnum2["Toolworks"] = "toolworks";
+  BuildingTypeEnum2["Townhall"] = "townhall";
+  BuildingTypeEnum2["Townhouse"] = "townhouse";
+  BuildingTypeEnum2["Townroad"] = "townroad";
+  BuildingTypeEnum2["Vignoble"] = "vignoble";
+  BuildingTypeEnum2["Warehouse"] = "warehouse";
+  BuildingTypeEnum2["Weavery"] = "weavery";
+  BuildingTypeEnum2["Windmill"] = "windmill";
+  return BuildingTypeEnum2;
+})(BuildingTypeEnum || {});
+
+// src/models/enums/buildingUpgradeTypeEnum.ts
+var BuildingUpgradeTypeEnum = /* @__PURE__ */ ((BuildingUpgradeTypeEnum2) => {
+  BuildingUpgradeTypeEnum2["Armsrack"] = "armsrack";
+  BuildingUpgradeTypeEnum2["Beehives"] = "beehives";
+  BuildingUpgradeTypeEnum2["Bellows"] = "bellows";
+  BuildingUpgradeTypeEnum2["ButtonCast"] = "button cast";
+  BuildingUpgradeTypeEnum2["Cowshed"] = "cowshed";
+  BuildingUpgradeTypeEnum2["Crane"] = "crane";
+  BuildingUpgradeTypeEnum2["CraneLift"] = "crane lift";
+  BuildingUpgradeTypeEnum2["CuringChamber"] = "curing chamber";
+  BuildingUpgradeTypeEnum2["CuttingTable"] = "cutting table";
+  BuildingUpgradeTypeEnum2["Fermentory"] = "fermentory";
+  BuildingUpgradeTypeEnum2["Grindstone"] = "grindstone";
+  BuildingUpgradeTypeEnum2["GroovedBedstone"] = "grooved bedstone";
+  BuildingUpgradeTypeEnum2["GuardBooth"] = "guard booth";
+  BuildingUpgradeTypeEnum2["HoppingVessels"] = "hopping vessels";
+  BuildingUpgradeTypeEnum2["LimeKiln"] = "lime kiln";
+  BuildingUpgradeTypeEnum2["LimingPots"] = "liming pots";
+  BuildingUpgradeTypeEnum2["MaltMill"] = "malt mill";
+  BuildingUpgradeTypeEnum2["MaltSieve"] = "malt sieve";
+  BuildingUpgradeTypeEnum2["ManurePit"] = "manure pit";
+  BuildingUpgradeTypeEnum2["PloughHouse"] = "plough house";
+  BuildingUpgradeTypeEnum2["SkinningTable"] = "skinning table";
+  BuildingUpgradeTypeEnum2["SpinningWheel"] = "spinning wheel";
+  BuildingUpgradeTypeEnum2["SteelAnvil"] = "steel anvil";
+  BuildingUpgradeTypeEnum2["StoneOven"] = "stone oven";
+  BuildingUpgradeTypeEnum2["StonecuttersHut"] = "stonecutter's hut";
+  BuildingUpgradeTypeEnum2["TileMoulds"] = "tile moulds";
+  BuildingUpgradeTypeEnum2["Toolshed"] = "toolshed";
+  BuildingUpgradeTypeEnum2["Transmission"] = "transmission";
+  BuildingUpgradeTypeEnum2["TreadleLoom"] = "treadle loom";
+  BuildingUpgradeTypeEnum2["UpholstryBench"] = "upholstry bench";
+  BuildingUpgradeTypeEnum2["Warehouse"] = "warehouse";
+  BuildingUpgradeTypeEnum2["Weaponsrack"] = "weaponsrack";
+  return BuildingUpgradeTypeEnum2;
+})(BuildingUpgradeTypeEnum || {});
+
+// src/models/enums/climateEnum.ts
+var ClimateEnum = /* @__PURE__ */ ((ClimateEnum2) => {
+  ClimateEnum2["Cold"] = "cold";
+  ClimateEnum2["Warm"] = "warm";
+  return ClimateEnum2;
+})(ClimateEnum || {});
+
+// src/models/enums/itemEnum.ts
+var ItemEnum = /* @__PURE__ */ ((ItemEnum2) => {
+  ItemEnum2["Alembics"] = "alembics";
+  ItemEnum2["Arms"] = "arms";
+  ItemEnum2["Axes"] = "axes";
+  ItemEnum2["Beer"] = "beer";
+  ItemEnum2["Belts"] = "belts";
+  ItemEnum2["Blades"] = "blades";
+  ItemEnum2["Bread"] = "bread";
+  ItemEnum2["Bricks"] = "bricks";
+  ItemEnum2["Butter"] = "butter";
+  ItemEnum2["Candles"] = "candles";
+  ItemEnum2["Carting"] = "carting";
+  ItemEnum2["Casks"] = "casks";
+  ItemEnum2["Cattle"] = "cattle";
+  ItemEnum2["Charcoal"] = "charcoal";
+  ItemEnum2["Cheese"] = "cheese";
+  ItemEnum2["Clay"] = "clay";
+  ItemEnum2["Cloth"] = "cloth";
+  ItemEnum2["Coats"] = "coats";
+  ItemEnum2["Cog"] = "cog";
+  ItemEnum2["Cookware"] = "cookware";
+  ItemEnum2["CopperIngots"] = "copper ingots";
+  ItemEnum2["CopperOre"] = "copper ore";
+  ItemEnum2["CuredFish"] = "cured fish";
+  ItemEnum2["CuredMeat"] = "cured meat";
+  ItemEnum2["Donations"] = "donations";
+  ItemEnum2["Dye"] = "dye";
+  ItemEnum2["DyedCloth"] = "dyed cloth";
+  ItemEnum2["Firewood"] = "firewood";
+  ItemEnum2["Fish"] = "fish";
+  ItemEnum2["FlaxFibres"] = "flax fibres";
+  ItemEnum2["FlaxPlants"] = "flax plants";
+  ItemEnum2["Flour"] = "flour";
+  ItemEnum2["Furniture"] = "furniture";
+  ItemEnum2["Garments"] = "garments";
+  ItemEnum2["Glass"] = "glass";
+  ItemEnum2["Glassware"] = "glassware";
+  ItemEnum2["GoldBars"] = "gold bars";
+  ItemEnum2["GoldOre"] = "gold ore";
+  ItemEnum2["Grain"] = "grain";
+  ItemEnum2["Grindstones"] = "grindstones";
+  ItemEnum2["Ham"] = "ham";
+  ItemEnum2["Handcart"] = "handcart";
+  ItemEnum2["Harnesses"] = "harnesses";
+  ItemEnum2["Herbs"] = "herbs";
+  ItemEnum2["Hides"] = "hides";
+  ItemEnum2["Honey"] = "honey";
+  ItemEnum2["HopBeer"] = "hop beer";
+  ItemEnum2["Hulk"] = "hulk";
+  ItemEnum2["IronOre"] = "iron ore";
+  ItemEnum2["Jewellery"] = "jewellery";
+  ItemEnum2["Labour"] = "labour";
+  ItemEnum2["LeadBars"] = "lead bars";
+  ItemEnum2["LeadOre"] = "lead ore";
+  ItemEnum2["Leather"] = "leather";
+  ItemEnum2["LightArmor"] = "light armor";
+  ItemEnum2["Limestone"] = "limestone";
+  ItemEnum2["Lodging"] = "lodging";
+  ItemEnum2["Lumber"] = "lumber";
+  ItemEnum2["Malt"] = "malt";
+  ItemEnum2["Manure"] = "manure";
+  ItemEnum2["Meat"] = "meat";
+  ItemEnum2["Medicine"] = "medicine";
+  ItemEnum2["Milk"] = "milk";
+  ItemEnum2["Money"] = "money";
+  ItemEnum2["Mouldboards"] = "mouldboards";
+  ItemEnum2["Nails"] = "nails";
+  ItemEnum2["Nets"] = "nets";
+  ItemEnum2["OxPower"] = "ox power";
+  ItemEnum2["Pasties"] = "pasties";
+  ItemEnum2["Pickaxes"] = "pickaxes";
+  ItemEnum2["Pies"] = "pies";
+  ItemEnum2["Ploughs"] = "ploughs";
+  ItemEnum2["Protection"] = "protection";
+  ItemEnum2["Resin"] = "resin";
+  ItemEnum2["Rope"] = "rope";
+  ItemEnum2["Sails"] = "sails";
+  ItemEnum2["Salt"] = "salt";
+  ItemEnum2["Scythes"] = "scythes";
+  ItemEnum2["SilverBars"] = "silver bars";
+  ItemEnum2["SlakedLime"] = "slaked lime";
+  ItemEnum2["Snekkja"] = "snekkja";
+  ItemEnum2["Spirits"] = "spirits";
+  ItemEnum2["SteelIngots"] = "steel ingots";
+  ItemEnum2["Stockfish"] = "stockfish";
+  ItemEnum2["Swords"] = "swords";
+  ItemEnum2["Tar"] = "tar";
+  ItemEnum2["Thread"] = "thread";
+  ItemEnum2["Tiles"] = "tiles";
+  ItemEnum2["Timber"] = "timber";
+  ItemEnum2["Tools"] = "tools";
+  ItemEnum2["Tumbrel"] = "tumbrel";
+  ItemEnum2["Wax"] = "wax";
+  ItemEnum2["Wheels"] = "wheels";
+  ItemEnum2["Windows"] = "windows";
+  ItemEnum2["Wine"] = "wine";
+  ItemEnum2["Wool"] = "wool";
+  ItemEnum2["WroughtIron"] = "wrought iron";
+  ItemEnum2["Yarn"] = "yarn";
+  return ItemEnum2;
+})(ItemEnum || {});
+
+// src/models/enums/itemTypeEnum.ts
+var ItemTypeEnum = /* @__PURE__ */ ((ItemTypeEnum2) => {
+  ItemTypeEnum2["Commodity"] = "commodity";
+  ItemTypeEnum2["Service"] = "service";
+  ItemTypeEnum2["Special"] = "special";
+  return ItemTypeEnum2;
+})(ItemTypeEnum || {});
+
+// src/models/enums/recipeEnum.ts
+var RecipeEnum = /* @__PURE__ */ ((RecipeEnum2) => {
+  RecipeEnum2["BakeBread1"] = "bake bread 1";
+  RecipeEnum2["BakeBread2"] = "bake bread 2";
+  RecipeEnum2["BakePasties1"] = "bake pasties 1";
+  RecipeEnum2["BakePasties2"] = "bake pasties 2";
+  RecipeEnum2["BakePies1"] = "bake pies 1";
+  RecipeEnum2["BindGarments1"] = "bind garments 1";
+  RecipeEnum2["BindGarments2"] = "bind garments 2";
+  RecipeEnum2["BlowGlassware1"] = "blow glassware 1";
+  RecipeEnum2["BlowGlassware2"] = "blow glassware 2";
+  RecipeEnum2["BoilDye1"] = "boil dye 1";
+  RecipeEnum2["BoilDye2"] = "boil dye 2";
+  RecipeEnum2["BorderPatrol1"] = "border patrol 1";
+  RecipeEnum2["BorderPatrol2"] = "border patrol 2";
+  RecipeEnum2["BreedCattle1a"] = "breed cattle 1a";
+  RecipeEnum2["BreedCattle1b"] = "breed cattle 1b";
+  RecipeEnum2["BreedCattle2a"] = "breed cattle 2a";
+  RecipeEnum2["BreedCattle2b"] = "breed cattle 2b";
+  RecipeEnum2["BrewBeer1"] = "brew beer 1";
+  RecipeEnum2["BrewBeer2"] = "brew beer 2";
+  RecipeEnum2["BrewBeer3"] = "brew beer 3";
+  RecipeEnum2["BrewBeer4"] = "brew beer 4";
+  RecipeEnum2["BrewHopBeer1"] = "brew hop beer 1";
+  RecipeEnum2["BrewHopBeer2"] = "brew hop beer 2";
+  RecipeEnum2["BuildCog1"] = "build cog 1";
+  RecipeEnum2["BuildCog2"] = "build cog 2";
+  RecipeEnum2["BuildHandcart1"] = "build handcart 1";
+  RecipeEnum2["BuildHandcart2"] = "build handcart 2";
+  RecipeEnum2["BuildHulk1"] = "build hulk 1";
+  RecipeEnum2["BuildSnekkja1"] = "build snekkja 1";
+  RecipeEnum2["BuildSnekkja2"] = "build snekkja 2";
+  RecipeEnum2["BuildTumbrel1"] = "build tumbrel 1";
+  RecipeEnum2["BurnBricks1"] = "burn bricks 1";
+  RecipeEnum2["BurnCharcoal1"] = "burn charcoal 1";
+  RecipeEnum2["BurnCharcoal2"] = "burn charcoal 2";
+  RecipeEnum2["BurnCharcoal3"] = "burn charcoal 3";
+  RecipeEnum2["BurnCharcoal4"] = "burn charcoal 4";
+  RecipeEnum2["BurnCookware1"] = "burn cookware 1";
+  RecipeEnum2["BurnCookware2"] = "burn cookware 2";
+  RecipeEnum2["BurnGlass1"] = "burn glass 1";
+  RecipeEnum2["BurnLime1"] = "burn lime 1";
+  RecipeEnum2["BurnTar1"] = "burn tar 1";
+  RecipeEnum2["BurnTar2"] = "burn tar 2";
+  RecipeEnum2["BurnTiles1"] = "burn tiles 1";
+  RecipeEnum2["BurnTiles2"] = "burn tiles 2";
+  RecipeEnum2["ButcherCattle1a"] = "butcher cattle 1a";
+  RecipeEnum2["ButcherCattle1b"] = "butcher cattle 1b";
+  RecipeEnum2["ButcherCattle2"] = "butcher cattle 2";
+  RecipeEnum2["Carting1"] = "carting 1";
+  RecipeEnum2["Carting2"] = "carting 2";
+  RecipeEnum2["ChurnButter1"] = "churn butter 1";
+  RecipeEnum2["ChurnButter2"] = "churn butter 2";
+  RecipeEnum2["CogOperations"] = "cog operations";
+  RecipeEnum2["CraftArms1"] = "craft arms 1";
+  RecipeEnum2["CraftBelts1"] = "craft belts 1";
+  RecipeEnum2["CraftBelts2"] = "craft belts 2";
+  RecipeEnum2["CraftBelts3"] = "craft belts 3";
+  RecipeEnum2["CraftBelts4"] = "craft belts 4";
+  RecipeEnum2["CraftCookware1"] = "craft cookware 1";
+  RecipeEnum2["CraftFurniture1"] = "craft furniture 1";
+  RecipeEnum2["CraftFurniture2"] = "craft furniture 2";
+  RecipeEnum2["CraftFurniture3"] = "craft furniture 3";
+  RecipeEnum2["CraftFurniture4"] = "craft furniture 4";
+  RecipeEnum2["CraftPloughs1"] = "craft ploughs 1";
+  RecipeEnum2["CraftPloughs2"] = "craft ploughs 2";
+  RecipeEnum2["CraftPloughs3"] = "craft ploughs 3";
+  RecipeEnum2["CraftScythes1"] = "craft scythes 1";
+  RecipeEnum2["CraftScythes2"] = "craft scythes 2";
+  RecipeEnum2["CraftTools1"] = "craft tools 1";
+  RecipeEnum2["CraftTools2"] = "craft tools 2";
+  RecipeEnum2["CraftWheels1"] = "craft wheels 1";
+  RecipeEnum2["CraftWheels2"] = "craft wheels 2";
+  RecipeEnum2["CraftWheels3"] = "craft wheels 3";
+  RecipeEnum2["CutBricks1"] = "cut bricks 1";
+  RecipeEnum2["CutGrindstones1"] = "cut grindstones 1";
+  RecipeEnum2["DeliveryDuty1"] = "delivery duty 1";
+  RecipeEnum2["DeliveryDuty2"] = "delivery duty 2";
+  RecipeEnum2["DigClay1"] = "dig clay 1";
+  RecipeEnum2["DigClay2"] = "dig clay 2";
+  RecipeEnum2["DistillSpirits2"] = "distill spirits 2";
+  RecipeEnum2["DryFish1"] = "dry fish 1";
+  RecipeEnum2["DryFish2"] = "dry fish 2";
+  RecipeEnum2["DryStockfish1"] = "dry stockfish 1";
+  RecipeEnum2["DryStockfish2"] = "dry stockfish 2";
+  RecipeEnum2["DyeCloth1"] = "dye cloth 1";
+  RecipeEnum2["DyeCloth2"] = "dye cloth 2";
+  RecipeEnum2["ExtractStone1"] = "extract stone 1";
+  RecipeEnum2["ExtractStone2"] = "extract stone 2";
+  RecipeEnum2["ExtractStone3"] = "extract stone 3";
+  RecipeEnum2["Fishing1"] = "fishing 1";
+  RecipeEnum2["Fishing2a"] = "fishing 2a";
+  RecipeEnum2["Fishing2b"] = "fishing 2b";
+  RecipeEnum2["Fishing3"] = "fishing 3";
+  RecipeEnum2["ForgeArms1"] = "forge arms 1";
+  RecipeEnum2["ForgeArms2"] = "forge arms 2";
+  RecipeEnum2["ForgeArms2b"] = "forge arms 2b";
+  RecipeEnum2["ForgeAxes1"] = "forge axes 1";
+  RecipeEnum2["ForgeAxes1b"] = "forge axes 1b";
+  RecipeEnum2["ForgeAxes2"] = "forge axes 2";
+  RecipeEnum2["ForgeAxes2b"] = "forge axes 2b";
+  RecipeEnum2["ForgeBlades1"] = "forge blades 1";
+  RecipeEnum2["ForgeBlades1b"] = "forge blades 1b";
+  RecipeEnum2["ForgeBlades2"] = "forge blades 2";
+  RecipeEnum2["ForgeBlades2b"] = "forge blades 2b";
+  RecipeEnum2["ForgeMouldboards1"] = "forge mouldboards 1";
+  RecipeEnum2["ForgePickaxes1"] = "forge pickaxes 1";
+  RecipeEnum2["ForgePickaxes1b"] = "forge pickaxes 1b";
+  RecipeEnum2["ForgePickaxes2"] = "forge pickaxes 2";
+  RecipeEnum2["ForgePickaxes2b"] = "forge pickaxes 2b";
+  RecipeEnum2["ForgeSwords1"] = "forge swords 1";
+  RecipeEnum2["ForgeSwords1b"] = "forge swords 1b";
+  RecipeEnum2["ForgeSwords2"] = "forge swords 2";
+  RecipeEnum2["ForgeSwords2b"] = "forge swords 2b";
+  RecipeEnum2["ForgeTools1"] = "forge tools 1";
+  RecipeEnum2["ForgeTools2"] = "forge tools 2";
+  RecipeEnum2["ForgeTools3"] = "forge tools 3";
+  RecipeEnum2["GatherFirewood1"] = "gather firewood 1";
+  RecipeEnum2["GatherFirewood2"] = "gather firewood 2";
+  RecipeEnum2["GatherFirewood3"] = "gather firewood 3";
+  RecipeEnum2["GatherResin1"] = "gather resin 1";
+  RecipeEnum2["GatherResin2"] = "gather resin 2";
+  RecipeEnum2["GrainPayment"] = "grain payment";
+  RecipeEnum2["GrowFlax1"] = "grow flax 1";
+  RecipeEnum2["GrowFlax2"] = "grow flax 2";
+  RecipeEnum2["GrowFlax3"] = "grow flax 3";
+  RecipeEnum2["GrowFlax4a"] = "grow flax 4a";
+  RecipeEnum2["GrowFlax4b"] = "grow flax 4b";
+  RecipeEnum2["GrowGrain1"] = "grow grain 1";
+  RecipeEnum2["GrowGrain2"] = "grow grain 2";
+  RecipeEnum2["GrowGrain3a"] = "grow grain 3a";
+  RecipeEnum2["GrowGrain3b"] = "grow grain 3b";
+  RecipeEnum2["GrowGrain4a"] = "grow grain 4a";
+  RecipeEnum2["GrowGrain4b"] = "grow grain 4b";
+  RecipeEnum2["GrowHerbs1"] = "grow herbs 1";
+  RecipeEnum2["GrowHerbs2"] = "grow herbs 2";
+  RecipeEnum2["HammerNails1"] = "hammer nails 1";
+  RecipeEnum2["HandcartOperations"] = "handcart operations";
+  RecipeEnum2["HarnessOx1"] = "harness ox 1";
+  RecipeEnum2["HarnessOx2a"] = "harness ox 2a";
+  RecipeEnum2["HarnessOx2b"] = "harness ox 2b";
+  RecipeEnum2["HarnessOx3a"] = "harness ox 3a";
+  RecipeEnum2["HarnessOx3b"] = "harness ox 3b";
+  RecipeEnum2["HarnessOx4a"] = "harness ox 4a";
+  RecipeEnum2["HarnessOx4b"] = "harness ox 4b";
+  RecipeEnum2["HerdSheep1"] = "herd sheep 1";
+  RecipeEnum2["HerdSheep2"] = "herd sheep 2";
+  RecipeEnum2["HoldBanquet1a"] = "hold banquet 1a";
+  RecipeEnum2["HoldBanquet1b"] = "hold banquet 1b";
+  RecipeEnum2["HoldBanquet2a"] = "hold banquet 2a";
+  RecipeEnum2["HoldBanquet2b"] = "hold banquet 2b";
+  RecipeEnum2["HoldBanquet2c"] = "hold banquet 2c";
+  RecipeEnum2["HoldBanquet3a"] = "hold banquet 3a";
+  RecipeEnum2["HoldBanquet3b"] = "hold banquet 3b";
+  RecipeEnum2["HoldBanquet3c"] = "hold banquet 3c";
+  RecipeEnum2["HoldBanquet4a"] = "hold banquet 4a";
+  RecipeEnum2["HoldBanquet4b"] = "hold banquet 4b";
+  RecipeEnum2["HoldFeast1"] = "hold feast 1";
+  RecipeEnum2["HoldFeast2"] = "hold feast 2";
+  RecipeEnum2["HoldFeast3"] = "hold feast 3";
+  RecipeEnum2["HoldMass1"] = "hold mass 1";
+  RecipeEnum2["HoldMass2"] = "hold mass 2";
+  RecipeEnum2["HoldMass3"] = "hold mass 3";
+  RecipeEnum2["HoldPrayer1"] = "hold prayer 1";
+  RecipeEnum2["HoldPrayer2"] = "hold prayer 2";
+  RecipeEnum2["HoldPrayer3"] = "hold prayer 3";
+  RecipeEnum2["HoldSermon1"] = "hold sermon 1";
+  RecipeEnum2["HoldSermon2a"] = "hold sermon 2a";
+  RecipeEnum2["HoldSermon2b"] = "hold sermon 2b";
+  RecipeEnum2["HoldSermon3a"] = "hold sermon 3a";
+  RecipeEnum2["HoldSermon3b"] = "hold sermon 3b";
+  RecipeEnum2["HulkOperations"] = "hulk operations";
+  RecipeEnum2["Hunting1"] = "hunting 1";
+  RecipeEnum2["Hunting2"] = "hunting 2";
+  RecipeEnum2["Hunting3"] = "hunting 3";
+  RecipeEnum2["Hunting4"] = "hunting 4";
+  RecipeEnum2["Hunting5"] = "hunting 5";
+  RecipeEnum2["KeepBees1"] = "keep bees 1";
+  RecipeEnum2["KnightDuty1"] = "knight duty 1";
+  RecipeEnum2["KnightDuty2"] = "knight duty 2";
+  RecipeEnum2["KnightDuty3"] = "knight duty 3";
+  RecipeEnum2["KnightDuty4"] = "knight duty 4";
+  RecipeEnum2["KnitGarments1"] = "knit garments 1";
+  RecipeEnum2["KnitGarments2"] = "knit garments 2";
+  RecipeEnum2["LetCottages1"] = "let cottages 1";
+  RecipeEnum2["LetCottages2"] = "let cottages 2";
+  RecipeEnum2["LetRowhouses1"] = "let rowhouses 1";
+  RecipeEnum2["LetRowhouses2"] = "let rowhouses 2";
+  RecipeEnum2["LetRowhouses3"] = "let rowhouses 3";
+  RecipeEnum2["Logging1"] = "logging 1";
+  RecipeEnum2["Logging2"] = "logging 2";
+  RecipeEnum2["Logging3"] = "logging 3";
+  RecipeEnum2["Logging4"] = "logging 4";
+  RecipeEnum2["Maintain1"] = "maintain 1";
+  RecipeEnum2["MakeAlembics1"] = "make alembics 1";
+  RecipeEnum2["MakeAlembics2"] = "make alembics 2";
+  RecipeEnum2["MakeBricks1"] = "make bricks 1";
+  RecipeEnum2["MakeBricks2"] = "make bricks 2";
+  RecipeEnum2["MakeCandles1"] = "make candles 1";
+  RecipeEnum2["MakeCandles2"] = "make candles 2";
+  RecipeEnum2["MakeCasks1"] = "make casks 1";
+  RecipeEnum2["MakeCasks2"] = "make casks 2";
+  RecipeEnum2["MakeCheese1"] = "make cheese 1";
+  RecipeEnum2["MakeCheese2"] = "make cheese 2";
+  RecipeEnum2["MakeCheese3"] = "make cheese 3";
+  RecipeEnum2["MakeCheese4"] = "make cheese 4";
+  RecipeEnum2["MakeCheese5"] = "make cheese 5";
+  RecipeEnum2["MakeHarnesses1"] = "make harnesses 1";
+  RecipeEnum2["MakeHarnesses2"] = "make harnesses 2";
+  RecipeEnum2["MakeHarnesses2b"] = "make harnesses 2b";
+  RecipeEnum2["MakeJewellery1"] = "make jewellery 1";
+  RecipeEnum2["MakeJewellery2"] = "make jewellery 2";
+  RecipeEnum2["MakeLeatherArmor1"] = "make leather armor 1";
+  RecipeEnum2["MakeMedicine1"] = "make medicine 1";
+  RecipeEnum2["MakeMedicine2"] = "make medicine 2";
+  RecipeEnum2["MakeNets1"] = "make nets 1";
+  RecipeEnum2["MakeNets2"] = "make nets 2";
+  RecipeEnum2["MakeNets3"] = "make nets 3";
+  RecipeEnum2["MakeRope1"] = "make rope 1";
+  RecipeEnum2["MakeRope2"] = "make rope 2";
+  RecipeEnum2["MakeRope3"] = "make rope 3";
+  RecipeEnum2["MakeWindows1"] = "make windows 1";
+  RecipeEnum2["MakeWindows2"] = "make windows 2";
+  RecipeEnum2["MakeWine1"] = "make wine 1";
+  RecipeEnum2["MakeWine2"] = "make wine 2";
+  RecipeEnum2["MakeWine3"] = "make wine 3";
+  RecipeEnum2["Malting1"] = "malting 1";
+  RecipeEnum2["Malting2"] = "malting 2";
+  RecipeEnum2["Milling1"] = "milling 1";
+  RecipeEnum2["Milling2"] = "milling 2";
+  RecipeEnum2["Milling3"] = "milling 3";
+  RecipeEnum2["MineCopper1"] = "mine copper 1";
+  RecipeEnum2["MineCopper2"] = "mine copper 2";
+  RecipeEnum2["MineCopper3"] = "mine copper 3";
+  RecipeEnum2["MineCopper4"] = "mine copper 4";
+  RecipeEnum2["MineCopper5"] = "mine copper 5";
+  RecipeEnum2["MineGold1"] = "mine gold 1";
+  RecipeEnum2["MineGold1b"] = "mine gold 1b";
+  RecipeEnum2["MineGold2"] = "mine gold 2";
+  RecipeEnum2["MineGold2b"] = "mine gold 2b";
+  RecipeEnum2["MineGold3"] = "mine gold 3";
+  RecipeEnum2["MineIron1"] = "mine iron 1";
+  RecipeEnum2["MineIron2"] = "mine iron 2";
+  RecipeEnum2["MineIron3"] = "mine iron 3";
+  RecipeEnum2["MineIron4"] = "mine iron 4";
+  RecipeEnum2["MineIron5"] = "mine iron 5";
+  RecipeEnum2["MineLead1"] = "mine lead 1";
+  RecipeEnum2["MineLead2"] = "mine lead 2";
+  RecipeEnum2["MineLead2b"] = "mine lead 2b";
+  RecipeEnum2["MineLead3"] = "mine lead 3";
+  RecipeEnum2["MineLead3b"] = "mine lead 3b";
+  RecipeEnum2["MineLead4"] = "mine lead 4";
+  RecipeEnum2["MineSalt1"] = "mine salt 1";
+  RecipeEnum2["MineSalt2"] = "mine salt 2";
+  RecipeEnum2["MineSalt3"] = "mine salt 3";
+  RecipeEnum2["MintCopperCoins1"] = "mint copper coins 1";
+  RecipeEnum2["MintCopperCoins2"] = "mint copper coins 2";
+  RecipeEnum2["MintCopperCoins3"] = "mint copper coins 3";
+  RecipeEnum2["MintGoldCoins1"] = "mint gold coins 1";
+  RecipeEnum2["MintGoldCoins2"] = "mint gold coins 2";
+  RecipeEnum2["MintGoldCoins3"] = "mint gold coins 3";
+  RecipeEnum2["MintLeatherCoins1"] = "mint leather coins 1";
+  RecipeEnum2["MintSilverCoins1"] = "mint silver coins 1";
+  RecipeEnum2["MintSilverCoins2"] = "mint silver coins 2";
+  RecipeEnum2["MintSilverCoins3"] = "mint silver coins 3";
+  RecipeEnum2["MintSteelCoins1"] = "mint steel coins 1";
+  RecipeEnum2["Patrol1"] = "patrol 1";
+  RecipeEnum2["Patrol2a"] = "patrol 2a";
+  RecipeEnum2["Patrol2b"] = "patrol 2b";
+  RecipeEnum2["Patrol3a"] = "patrol 3a";
+  RecipeEnum2["Patrol3b"] = "patrol 3b";
+  RecipeEnum2["RefineSteel1"] = "refine steel 1";
+  RecipeEnum2["RefineSteel1b"] = "refine steel 1b";
+  RecipeEnum2["RefineSteel2"] = "refine steel 2";
+  RecipeEnum2["RefineSteel2b"] = "refine steel 2b";
+  RecipeEnum2["Retting1"] = "retting 1";
+  RecipeEnum2["Retting2"] = "retting 2";
+  RecipeEnum2["SaltingFish1"] = "salting fish 1";
+  RecipeEnum2["SaltingFish2"] = "salting fish 2";
+  RecipeEnum2["SaltingMeat1"] = "salting meat 1";
+  RecipeEnum2["SaltingMeat2"] = "salting meat 2";
+  RecipeEnum2["Sawing1"] = "sawing 1";
+  RecipeEnum2["Sawing2"] = "sawing 2";
+  RecipeEnum2["Sawing3"] = "sawing 3";
+  RecipeEnum2["Sawing3Firewood"] = "sawing 3 (firewood)";
+  RecipeEnum2["Sawing4"] = "sawing 4";
+  RecipeEnum2["Service1"] = "service 1";
+  RecipeEnum2["Service2"] = "service 2";
+  RecipeEnum2["Service3"] = "service 3";
+  RecipeEnum2["Service4"] = "service 4";
+  RecipeEnum2["SewCoats1a"] = "sew coats 1a";
+  RecipeEnum2["SewCoats1b"] = "sew coats 1b";
+  RecipeEnum2["SewCoats2a"] = "sew coats 2a";
+  RecipeEnum2["SewCoats2b"] = "sew coats 2b";
+  RecipeEnum2["SewGambeson1"] = "sew gambeson 1";
+  RecipeEnum2["SewGarments1"] = "sew garments 1";
+  RecipeEnum2["SewGarments2a"] = "sew garments 2a";
+  RecipeEnum2["SewGarments2b"] = "sew garments 2b";
+  RecipeEnum2["SewGarments3a"] = "sew garments 3a";
+  RecipeEnum2["SewGarments3b"] = "sew garments 3b";
+  RecipeEnum2["SewGarments4a"] = "sew garments 4a";
+  RecipeEnum2["SewGarments4b"] = "sew garments 4b";
+  RecipeEnum2["SewSails1"] = "sew sails 1";
+  RecipeEnum2["SewSails2"] = "sew sails 2";
+  RecipeEnum2["ShearSheep1"] = "shear sheep 1";
+  RecipeEnum2["ShearSheep2"] = "shear sheep 2";
+  RecipeEnum2["ShearSheep3"] = "shear sheep 3";
+  RecipeEnum2["SmeltCopper1"] = "smelt copper 1";
+  RecipeEnum2["SmeltCopper2"] = "smelt copper 2";
+  RecipeEnum2["SmeltGold1"] = "smelt gold 1";
+  RecipeEnum2["SmeltGold2"] = "smelt gold 2";
+  RecipeEnum2["SmeltIron1"] = "smelt iron 1";
+  RecipeEnum2["SmeltIron2"] = "smelt iron 2";
+  RecipeEnum2["SmeltLead1"] = "smelt lead 1";
+  RecipeEnum2["SmeltLead2a"] = "smelt lead 2a";
+  RecipeEnum2["SmeltLead2b"] = "smelt lead 2b";
+  RecipeEnum2["SmeltLead3"] = "smelt lead 3 (silver)";
+  RecipeEnum2["SmokingFish1"] = "smoking fish 1";
+  RecipeEnum2["SmokingFish2"] = "smoking fish 2";
+  RecipeEnum2["SmokingHam1"] = "smoking ham 1";
+  RecipeEnum2["SmokingHam2"] = "smoking ham 2";
+  RecipeEnum2["SmokingMeat1"] = "smoking meat 1";
+  RecipeEnum2["SmokingMeat2"] = "smoking meat 2";
+  RecipeEnum2["SnekkjaOperations"] = "snekkja operations";
+  RecipeEnum2["SpinThread1"] = "spin thread 1";
+  RecipeEnum2["SpinThread2"] = "spin thread 2";
+  RecipeEnum2["SpinYarn1"] = "spin yarn 1";
+  RecipeEnum2["SpinYarn2"] = "spin yarn 2";
+  RecipeEnum2["SplitTimber1"] = "split timber 1";
+  RecipeEnum2["SplitTimber2"] = "split timber 2";
+  RecipeEnum2["SplitTimber3"] = "split timber 3";
+  RecipeEnum2["TanHides1"] = "tan hides 1";
+  RecipeEnum2["TanHides2"] = "tan hides 2";
+  RecipeEnum2["TanHides3"] = "tan hides 3";
+  RecipeEnum2["TrapFish1"] = "trap fish 1";
+  RecipeEnum2["TrapFish2"] = "trap fish 2";
+  RecipeEnum2["TrapFish3"] = "trap fish 3";
+  RecipeEnum2["Trapping1"] = "trapping 1";
+  RecipeEnum2["Trapping2"] = "trapping 2";
+  RecipeEnum2["TumbrelOperations"] = "tumbrel operations";
+  RecipeEnum2["WeaveCloth1"] = "weave cloth 1";
+  RecipeEnum2["WeaveCloth2a"] = "weave cloth 2a";
+  RecipeEnum2["WeaveCloth2b"] = "weave cloth 2b";
+  RecipeEnum2["WeaveCloth3a"] = "weave cloth 3a";
+  RecipeEnum2["WeaveCloth3b"] = "weave cloth 3b";
+  RecipeEnum2["WeaveCloth4a"] = "weave cloth 4a";
+  RecipeEnum2["WeaveCloth4b"] = "weave cloth 4b";
+  RecipeEnum2["YokeOx1a"] = "yoke ox 1a";
+  RecipeEnum2["YokeOx1b"] = "yoke ox 1b";
+  RecipeEnum2["YokeOx2a"] = "yoke ox 2a";
+  RecipeEnum2["YokeOx2b"] = "yoke ox 2b";
+  RecipeEnum2["YokeOx3"] = "yoke ox 3";
+  RecipeEnum2["YokeOx3manure"] = "yoke ox 3 (manure)";
+  return RecipeEnum2;
+})(RecipeEnum || {});
+
+// src/models/enums/skillEnum.ts
+var SkillEnum = /* @__PURE__ */ ((SkillEnum2) => {
+  SkillEnum2["Crafting"] = "crafting";
+  SkillEnum2["Forging"] = "forging";
+  SkillEnum2["Maritime"] = "maritime";
+  SkillEnum2["Mercantile"] = "mercantile";
+  SkillEnum2["Nutrition"] = "nutrition";
+  SkillEnum2["Textile"] = "textile";
+  SkillEnum2["Weaponry"] = "weaponry";
+  return SkillEnum2;
+})(SkillEnum || {});
+
+// src/models/enums/skillLevelEnum.ts
+var SkillLevelEnum = /* @__PURE__ */ ((SkillLevelEnum2) => {
+  SkillLevelEnum2[SkillLevelEnum2["Novice"] = 99] = "Novice";
+  SkillLevelEnum2[SkillLevelEnum2["Worker"] = 599] = "Worker";
+  SkillLevelEnum2[SkillLevelEnum2["Journeyman"] = 2699] = "Journeyman";
+  SkillLevelEnum2[SkillLevelEnum2["Master"] = 9999] = "Master";
+  return SkillLevelEnum2;
+})(SkillLevelEnum || {});
+
+// src/models/enums/transportTypeEnum.ts
+var TransportTypeEnum = /* @__PURE__ */ ((TransportTypeEnum2) => {
+  TransportTypeEnum2["Cog"] = "cog";
+  TransportTypeEnum2["Handcart"] = "handcart";
+  TransportTypeEnum2["Hulk"] = "hulk";
+  TransportTypeEnum2["Snekkja"] = "snekkja";
+  TransportTypeEnum2["Tumbrel"] = "tumbrel";
+  return TransportTypeEnum2;
+})(TransportTypeEnum || {});
+
+// src/schema/index.ts
+var schema_exports = {};
+__export(schema_exports, {
+  AccountAssetSchema: () => AccountAssetSchema,
+  AccountSchema: () => AccountSchema,
+  BuildingConstructionEffortSchema: () => BuildingConstructionEffortSchema,
+  BuildingConstructionSchema: () => BuildingConstructionSchema,
+  BuildingOperationSchema: () => BuildingOperationSchema,
+  BuildingRequirementSchema: () => BuildingRequirementSchema,
+  BuildingRequirementsSchema: () => BuildingRequirementsSchema,
+  BuildingSchema: () => BuildingSchema,
+  BuildingStorageSchema: () => BuildingStorageSchema,
+  BuildingTypeSchema: () => BuildingTypeSchema,
+  BuildingUpgradeSchema: () => BuildingUpgradeSchema,
+  BusinessBuildingSchema: () => BusinessBuildingSchema,
+  BusinessSchema: () => BusinessSchema,
+  CommonersSchema: () => CommonersSchema,
+  DeliveryCostSchema: () => DeliveryCostSchema,
+  FlowSchema: () => FlowSchema,
+  HouseholdSchema: () => HouseholdSchema,
+  IngredientSchema: () => IngredientSchema,
+  InventorySchema: () => InventorySchema,
+  ItemOrderSchema: () => ItemOrderSchema,
+  ItemPriceSchema: () => ItemPriceSchema,
+  ItemSchema: () => ItemSchema,
+  ItemTradeResultSchema: () => ItemTradeResultSchema,
+  ItemTradeSchema: () => ItemTradeSchema,
+  ItemTradeSettlementSchema: () => ItemTradeSettlementSchema,
+  LocationSchema: () => LocationSchema,
+  ManagerSchema: () => ManagerSchema,
+  MarketItemDetailsSchema: () => MarketItemDetailsSchema,
+  MarketItemSchema: () => MarketItemSchema,
+  MarketSchema: () => MarketSchema,
+  NotificationSettingsSchema: () => NotificationSettingsSchema,
+  OperationSchema: () => OperationSchema,
+  PathSchema: () => PathSchema,
+  PlayerSchema: () => PlayerSchema,
+  PrestigeImpactSchema: () => PrestigeImpactSchema,
+  ProducerSchema: () => ProducerSchema,
+  RecipeSchema: () => RecipeSchema,
+  RegionSchema: () => RegionSchema,
+  SettingsSchema: () => SettingsSchema,
+  StructureSchema: () => StructureSchema,
+  SustenanceSchema: () => SustenanceSchema,
+  TileRequirementSchema: () => TileRequirementSchema,
+  TileSchema: () => TileSchema,
+  TownChurchSchema: () => TownChurchSchema,
+  TownCultureSchema: () => TownCultureSchema,
+  TownDataSchema: () => TownDataSchema,
+  TownDemandCategorySchema: () => TownDemandCategorySchema,
+  TownDemandSchema: () => TownDemandSchema,
+  TownGovernmentSchema: () => TownGovernmentSchema,
+  TownGovernmentTaxesSchema: () => TownGovernmentTaxesSchema,
+  TownSchema: () => TownSchema,
+  TradeRouteSchema: () => TradeRouteSchema,
+  TransportCargoSchema: () => TransportCargoSchema,
+  TransportJourneyLegSchema: () => TransportJourneyLegSchema,
+  TransportJourneySchema: () => TransportJourneySchema,
+  TransportSchema: () => TransportSchema,
+  TransportTypeSchema: () => TransportTypeSchema,
+  TurnSchema: () => TurnSchema,
+  WorkerSchema: () => WorkerSchema,
+  enums: () => enums_exports
+});
+
+// src/schema/BuildingConstructionEffortSchema.ts
+var import_zod43 = require("zod");
+var BuildingConstructionEffortSchema = import_zod43.z.object({
+  inventory: InventorySchema,
+  progress: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]),
+  reference: import_zod43.z.string(),
+  stage: import_zod43.z.string(),
+  time: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]).optional(),
+  upgrade_type: BuildingUpgradeTypeEnumSchema.optional()
+});
 
 // src/schema/BuildingConstructionSchema.ts
-var import_zod43 = require("zod");
-var BuildingConstructionSchema = import_zod43.z.object({
-  range: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]).optional(),
-  size: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]).optional(),
-  discount: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]).optional(),
-  time: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]),
-  materials: import_zod43.z.record(ItemEnumSchema, import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]))
-});
-
-// src/schema/DeliveryCostSchema.ts
 var import_zod44 = require("zod");
-var DeliveryCostSchema = import_zod44.z.object({
-  land_distance: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]),
-  ferry_fee: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional()
-});
-
-// src/schema/ProducerSchema.ts
-var import_zod46 = require("zod");
-
-// src/schema/OperationSchema.ts
-var import_zod45 = require("zod");
-var OperationSchema = import_zod45.z.object({
-  target: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]),
-  production: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]).optional(),
-  provision: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]).optional(),
-  reference: import_zod45.z.string().optional(),
-  recipe: RecipeEnumSchema.optional(),
-  volume: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]).optional(),
-  tax_rate: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]).optional(),
-  tax: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]).optional(),
-  delivery_cost: DeliveryCostSchema.optional(),
-  flows: import_zod45.z.record(ItemEnumSchema, FlowSchema).optional()
-});
-
-// src/schema/ProducerSchema.ts
-var ProducerSchema = import_zod46.z.object({
-  inventory: InventorySchema,
-  limited: import_zod46.z.boolean(),
-  manager: import_zod46.z.string(),
-  previous_operation: OperationSchema,
-  provider_id: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
-  recipe: RecipeEnumSchema,
-  reference: import_zod46.z.string(),
-  target: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional()
-});
-
-// src/schema/BuildingStorageSchema.ts
-var import_zod47 = require("zod");
-var BuildingStorageSchema = import_zod47.z.object({
-  inventory: InventorySchema,
-  operations: import_zod47.z.array(import_zod47.z.string()),
-  reference: import_zod47.z.string()
-});
-
-// src/schema/BuildingSchema.ts
-var BuildingSchema = import_zod48.z.object({
-  capacity: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]).optional(),
-  construction: BuildingConstructionSchema.optional().nullable(),
-  delivery_cost: DeliveryCostSchema.optional(),
-  id: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]),
-  land: import_zod48.z.array(LocationSchema).optional(),
-  location: LocationSchema.optional(),
-  name: import_zod48.z.string().optional(),
-  owner_id: import_zod48.z.string().optional(),
-  producer: ProducerSchema.optional(),
-  provider_id: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]).optional(),
-  size: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]).optional(),
-  storage: BuildingStorageSchema.optional(),
-  sublocation: LocationSchema.optional(),
-  town_id: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]).optional(),
-  type: BuildingTypeEnumSchema,
-  upgrades: import_zod48.z.array(BuildingUpgradeTypeEnumSchema).optional()
+var BuildingConstructionSchema = import_zod44.z.object({
+  range: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
+  size: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
+  discount: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
+  time: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]),
+  materials: import_zod44.z.record(ItemEnumSchema, import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]))
 });
 
 // src/schema/BuildingOperationSchema.ts
-var import_zod49 = require("zod");
-var BuildingOperationSchema = import_zod49.z.object({
-  total_flow: import_zod49.z.object({}).transform((obj) => new Map(Object.entries(obj))).transform((map) => import_zod49.z.map(ItemEnumSchema, FlowSchema).parse(map)),
-  operations: import_zod49.z.array(OperationSchema).optional().nullable()
+var import_zod47 = require("zod");
+
+// src/schema/OperationSchema.ts
+var import_zod46 = require("zod");
+
+// src/schema/DeliveryCostSchema.ts
+var import_zod45 = require("zod");
+var DeliveryCostSchema = import_zod45.z.object({
+  land_distance: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]),
+  ferry_fee: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]).optional()
 });
 
-// src/schema/BuildingTypeSchema.ts
-var import_zod53 = require("zod");
+// src/schema/OperationSchema.ts
+var OperationSchema = import_zod46.z.object({
+  target: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]),
+  production: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
+  provision: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
+  reference: import_zod46.z.string().optional(),
+  recipe: RecipeEnumSchema.optional(),
+  volume: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
+  tax_rate: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
+  tax: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
+  delivery_cost: DeliveryCostSchema.optional(),
+  flows: import_zod46.z.record(ItemEnumSchema, FlowSchema).optional()
+});
+
+// src/schema/BuildingOperationSchema.ts
+var BuildingOperationSchema = import_zod47.z.object({
+  total_flow: import_zod47.z.record(ItemEnumSchema, FlowSchema),
+  operations: import_zod47.z.array(OperationSchema).optional().nullable()
+});
+
+// src/schema/BuildingRequirementSchema.ts
+var import_zod48 = require("zod");
+var BuildingRequirementSchema = import_zod48.z.object({
+  center: import_zod48.z.boolean().optional().default(false),
+  climate: ClimateEnumSchema.optional(),
+  min: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]).optional(),
+  resource: ItemEnumSchema.optional()
+});
 
 // src/schema/BuildingRequirementsSchema.ts
-var import_zod51 = require("zod");
+var import_zod50 = require("zod");
 
 // src/schema/TileRequirementSchema.ts
-var import_zod50 = require("zod");
-var TileRequirementSchema = import_zod50.z.object({
-  min: import_zod50.z.union([import_zod50.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod50.z.number()]).optional(),
-  max: import_zod50.z.union([import_zod50.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod50.z.number()]).optional()
+var import_zod49 = require("zod");
+var TileRequirementSchema = import_zod49.z.object({
+  min: import_zod49.z.union([import_zod49.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod49.z.number()]).optional(),
+  max: import_zod49.z.union([import_zod49.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod49.z.number()]).optional()
 });
 
 // src/schema/BuildingRequirementsSchema.ts
-var BuildingRequirementsSchema = import_zod51.z.object({
+var BuildingRequirementsSchema = import_zod50.z.object({
   fertility: TileRequirementSchema.optional(),
   forest: TileRequirementSchema.optional(),
   climate: ClimateEnumSchema.optional()
 });
 
-// src/schema/BuildingUpgradeSchema.ts
+// src/schema/BuildingSchema.ts
+var import_zod53 = require("zod");
+
+// src/schema/ProducerSchema.ts
+var import_zod51 = require("zod");
+var ProducerSchema = import_zod51.z.object({
+  inventory: InventorySchema,
+  limited: import_zod51.z.boolean(),
+  manager: import_zod51.z.string(),
+  previous_operation: OperationSchema,
+  provider_id: import_zod51.z.union([import_zod51.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod51.z.number()]).optional(),
+  recipe: RecipeEnumSchema,
+  reference: import_zod51.z.string(),
+  target: import_zod51.z.union([import_zod51.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod51.z.number()]).optional()
+});
+
+// src/schema/BuildingStorageSchema.ts
 var import_zod52 = require("zod");
-var BuildingUpgradeSchema = import_zod52.z.object({
+var BuildingStorageSchema = import_zod52.z.object({
+  inventory: InventorySchema,
+  operations: import_zod52.z.array(import_zod52.z.string()),
+  reference: import_zod52.z.string()
+});
+
+// src/schema/BuildingSchema.ts
+var BuildingSchema = import_zod53.z.object({
+  capacity: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+  construction: BuildingConstructionSchema.optional().nullable(),
+  delivery_cost: DeliveryCostSchema.optional(),
+  id: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]),
+  land: import_zod53.z.array(LocationSchema).optional(),
+  location: LocationSchema.optional(),
+  name: import_zod53.z.string().optional(),
+  owner_id: import_zod53.z.string().optional(),
+  producer: ProducerSchema.optional(),
+  provider_id: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+  size: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+  storage: BuildingStorageSchema.optional(),
+  sublocation: LocationSchema.optional(),
+  town_id: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+  type: BuildingTypeEnumSchema,
+  upgrades: import_zod53.z.array(BuildingUpgradeTypeEnumSchema).optional()
+});
+
+// src/schema/BuildingTypeSchema.ts
+var import_zod55 = require("zod");
+
+// src/schema/BuildingUpgradeSchema.ts
+var import_zod54 = require("zod");
+var BuildingUpgradeSchema = import_zod54.z.object({
   type: BuildingUpgradeTypeEnumSchema,
   construction: BuildingConstructionSchema
 });
 
 // src/schema/BuildingTypeSchema.ts
-var BuildingTypeSchema = import_zod53.z.object({
+var BuildingTypeSchema = import_zod55.z.object({
   type: BuildingTypeEnumSchema,
-  supports_boost: import_zod53.z.boolean().optional().default(false),
+  supports_boost: import_zod55.z.boolean().optional().default(false),
   requires: BuildingRequirementsSchema,
   construction: BuildingConstructionSchema.optional(),
-  upgrades: import_zod53.z.array(BuildingUpgradeSchema).optional().default([])
+  upgrades: import_zod55.z.array(BuildingUpgradeSchema).optional().default([])
 });
+
+// src/schema/BusinessBuildingSchema.ts
+var import_zod56 = require("zod");
+var BusinessBuildingSchema = import_zod56.z.object({
+  id: import_zod56.z.union([import_zod56.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod56.z.number()]),
+  type: BuildingTypeEnumSchema
+});
+
+// src/schema/BusinessSchema.ts
+var import_zod57 = require("zod");
+var BusinessSchema = import_zod57.z.object({
+  account: AccountSchema,
+  account_id: import_zod57.z.string(),
+  building_ids: import_zod57.z.array(import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()])).optional(),
+  buildings: import_zod57.z.array(BuildingSchema).optional(),
+  contract_ids: import_zod57.z.array(import_zod57.z.string()).optional().nullable(),
+  id: import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()]),
+  name: import_zod57.z.string(),
+  owner_id: import_zod57.z.string(),
+  transport_ids: import_zod57.z.array(import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()])).optional().nullable()
+});
+
+// src/schema/IngredientSchema.ts
+var import_zod58 = require("zod");
+var IngredientSchema = import_zod58.z.object({
+  product: ItemEnumSchema,
+  amount: import_zod58.z.union([import_zod58.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod58.z.number()])
+});
+
+// src/schema/ItemPriceSchema.ts
+var import_zod59 = require("zod");
+var ItemPriceSchema = import_zod59.z.object({
+  low: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]).optional(),
+  typical: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]),
+  high: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]).optional()
+});
+
+// src/schema/ItemSchema.ts
+var import_zod60 = require("zod");
+var ItemSchema = import_zod60.z.object({
+  name: ItemEnumSchema,
+  type: ItemTypeEnumSchema,
+  unit: import_zod60.z.string(),
+  weight: import_zod60.z.union([import_zod60.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod60.z.number()]).optional(),
+  tier: import_zod60.z.union([import_zod60.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod60.z.number()]),
+  classes: import_zod60.z.array(SkillEnumSchema).optional().default([]),
+  price: ItemPriceSchema
+});
+
+// src/schema/PathSchema.ts
+var import_zod61 = require("zod");
+var PathSchema = import_zod61.z.object({
+  x: import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()]),
+  y: import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()]),
+  c: import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()])
+});
+
+// src/schema/RecipeSchema.ts
+var import_zod62 = require("zod");
+var RecipeSchema = import_zod62.z.object({
+  name: RecipeEnumSchema,
+  tier: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
+  building: BuildingTypeEnumSchema,
+  size: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
+  product_class: SkillEnumSchema.optional().describe("class"),
+  points: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]).optional(),
+  inputs: import_zod62.z.array(IngredientSchema).optional().default([]),
+  outputs: import_zod62.z.array(IngredientSchema).optional().default([])
+});
+
+// src/schema/RegionSchema.ts
+var import_zod63 = require("zod");
+var RegionSchema = import_zod63.z.object({
+  id: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  name: import_zod63.z.string(),
+  description: import_zod63.z.string().optional(),
+  center: LocationSchema.optional(),
+  size: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]).optional()
+});
+
+// src/schema/TradeRouteSchema.ts
+var import_zod64 = require("zod");
+var TradeRouteSchema = import_zod64.z.object({
+  id: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  reference: import_zod64.z.string(),
+  local_town: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  remote_town: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  capacity: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  reserved_import: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  reserved_export: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  distance: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  moves: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  provider_id: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
+  account_id: import_zod64.z.string(),
+  account: AccountSchema,
+  managers: import_zod64.z.record(ItemEnumSchema, ManagerSchema),
+  current_flows: import_zod64.z.record(ItemEnumSchema, FlowSchema),
+  previous_flows: import_zod64.z.record(ItemEnumSchema, FlowSchema)
+});
+
+// src/schema/TransportCargoSchema.ts
+var import_zod65 = require("zod");
+var TransportCargoSchema = import_zod65.z.object({
+  reference: import_zod65.z.string(),
+  inventory: InventorySchema.optional()
+});
+
+// src/schema/TransportJourneyLegSchema.ts
+var import_zod66 = require("zod");
+var TransportJourneyLegSchema = import_zod66.z.object({
+  path: import_zod66.z.array(PathSchema)
+});
+
+// src/schema/TransportJourneySchema.ts
+var import_zod67 = require("zod");
+var TransportJourneySchema = import_zod67.z.object({
+  category: import_zod67.z.string(),
+  start_town_id: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
+  distance: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
+  moves: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
+  legs: import_zod67.z.array(TransportJourneyLegSchema)
+});
+
+// src/schema/TransportSchema.ts
+var import_zod68 = require("zod");
+var TransportSchema = import_zod68.z.object({
+  id: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  reference: import_zod68.z.string(),
+  type: TransportTypeEnumSchema,
+  size: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  name: import_zod68.z.string(),
+  owner_id: import_zod68.z.string(),
+  hometown_id: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  location: LocationSchema,
+  domain: import_zod68.z.array(LocationSchema).optional(),
+  capacity: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  fish_quantity: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional(),
+  inventory: InventorySchema,
+  cargo: TransportCargoSchema.optional(),
+  previous_operations: OperationSchema.optional(),
+  provider_id: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional(),
+  producer: ProducerSchema.optional(),
+  route: TradeRouteSchema.optional(),
+  journey: TransportJourneySchema
+});
+
+// src/schema/TransportTypeSchema.ts
+var import_zod69 = require("zod");
+var TransportTypeSchema = import_zod69.z.object({
+  type: TransportTypeEnumSchema,
+  category: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
+  tier: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
+  capacity: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
+  speed: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
+  journey_duration: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional(),
+  effective_days: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional(),
+  operating_costs: import_zod69.z.record(ItemEnumSchema, import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()])),
+  catches: import_zod69.z.string().optional(),
+  fishing_range: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional()
+});
+
+// src/models/account.ts
+var Account = class extends BaseModel {
+  static schema = AccountSchema;
+  assets;
+  // assetsMap: Map<ItemEnumType, AccountAsset> = new Map();
+  id;
+  master_id;
+  name;
+  owner_id;
+  sponsor_id;
+  // constructor(data: AccountType) {
+  //     super();
+  //     this.id = data.id;
+  //     this.master_id = data.master_id;
+  //     this.name = data.name;
+  //     this.owner_id = data.owner_id;
+  //     this.sponsor_id = data.sponsor_id;
+  //     this.assets = {} as Record<ItemEnumType, AccountAsset>;
+  //
+  //     // Convert assets record to Map and store in assetsMap
+  //     for (const key in data.assets) {
+  //         if (data.assets.hasOwnProperty(key)) {
+  //             const assetData = data.assets[key];
+  //             const asset = new AccountAsset(assetData);
+  //             this.assets[key as ItemEnumType] = asset;
+  //             this.assetsMap.set(key as ItemEnumType, asset);
+  //         }
+  //     }
+  // }
+  get assetsMap() {
+    return new Map(Object.entries(this.assets).map(([key, value]) => [key, value]));
+  }
+};
+var AccountAsset = class extends BaseModel {
+  static schema = AccountAssetSchema;
+  balance;
+  capacity;
+  purchase;
+  purchase_price;
+  reserved;
+  reserved_capacity;
+  sale;
+  sale_price;
+  unit_cost;
+  // constructor(data: Partial<AccountAssetType>) {
+  //     super();
+  //     this.balance = data.balance ?? 0;
+  //     this.capacity = data.capacity ?? null;
+  //     this.purchase = data.purchase ?? null;
+  //     this.purchase_price = data.purchase_price ?? null;
+  //     this.reserved = data.reserved ?? 0;
+  //     this.reserved_capacity = data.reserved_capacity ?? null;
+  //     this.sale = data.sale ?? null;
+  //     this.sale_price = data.sale_price ?? null;
+  //     this.unit_cost = data.unit_cost ?? null;
+  // }
+  get purchased() {
+    return this.purchase !== null;
+  }
+  get sold() {
+    return this.sale !== null;
+  }
+  get totalPurchase() {
+    return this.purchase * this.purchase_price;
+  }
+  get totalSale() {
+    return this.sale * this.sale_price;
+  }
+  get totalValue() {
+    return this.balance * this.unit_cost;
+  }
+};
 
 // src/models/building.ts
 var Building = class extends BaseModel {
@@ -1707,6 +2743,9 @@ var BuildingConstruction = class extends BaseModel {
   discount;
   time;
   materials;
+  get materialsMap() {
+    return new Map(Object.entries(this.materials).map(([key, value]) => [key, value]));
+  }
 };
 var BuildingStorage = class extends BaseModel {
   static schema = BuildingStorageSchema;
@@ -1728,78 +2767,6 @@ var BuildingType = class extends BaseModel {
   upgrades;
 };
 
-// src/api/buildings.ts
-var import_lodash = require("lodash");
-var _ = __toESM(require("lodash"));
-var BuildingsAPI = class extends baseAPI_default {
-  endpoint = apiRoutes.buildings;
-  /**
-   * Get data for a building.
-   * @param id - The ID of the building.
-   * @returns The data for the building.
-   */
-  async get({ id } = {}) {
-    try {
-      const response = await super.get({ id });
-      return Building.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch building with ID ${id}: ${error.message}`);
-    }
-  }
-  async getOperations(id) {
-    try {
-      const response = await super.get({ endpoint: apiRoutes.buildingOperations, id });
-      if (response.status == 404) {
-        return new BuildingOperation();
-      }
-      return BuildingOperation.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch building with ID ${id}: ${error.message}`);
-    }
-  }
-  async setManager(id, item, manager) {
-    try {
-      const json = convertFloatsToStrings((0, import_lodash.pickBy)(manager, _.identity));
-      const response = await super.patch({ endpoint: apiRoutes.buildingSetManager, id, item, data: json });
-      if (response.status && response.status == 200) {
-        return Building.validate(response.data["_embedded"][`/buildings/${id}`]);
-      } else {
-        throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${response.statusText}`);
-      }
-    } catch (error) {
-      throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${error.message}`);
-    }
-  }
-  async setProductionTargetMultiplier(id, target, autosetBuying = true, autosetSelling = true) {
-    const payload = { target, autoset_buying: autosetBuying, autoset_selling: autosetSelling };
-    const json = convertFloatsToStrings(payload);
-    const response = await super.patch({ endpoint: apiRoutes.producer, id, data: json });
-    return response.status == 200;
-  }
-};
-var buildings_default = BuildingsAPI;
-
-// src/schema/BusinessSchema.ts
-var import_zod54 = require("zod");
-var BusinessSchema = import_zod54.z.object({
-  account: AccountSchema,
-  account_id: import_zod54.z.string(),
-  building_ids: import_zod54.z.array(import_zod54.z.union([import_zod54.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod54.z.number()])).optional(),
-  buildings: import_zod54.z.array(BuildingSchema).optional(),
-  contract_ids: import_zod54.z.array(import_zod54.z.string()).optional().nullable(),
-  id: import_zod54.z.union([import_zod54.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod54.z.number()]),
-  name: import_zod54.z.string(),
-  owner_id: import_zod54.z.string(),
-  transport_ids: import_zod54.z.array(import_zod54.z.union([import_zod54.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod54.z.number()])).optional().nullable()
-});
-
-// src/schema/BusinessBuildingSchema.ts
-var import_zod55 = require("zod");
-var BusinessBuildingSchema = import_zod55.z.object({
-  id: import_zod55.z.union([import_zod55.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod55.z.number()]),
-  type: BuildingTypeEnumSchema
-});
-
 // src/models/business.ts
 var Business = class extends BaseModel {
   static schema = BusinessSchema;
@@ -1819,88 +2786,78 @@ var BusinessBuilding = class extends BaseModel {
   type;
 };
 
-// src/api/businesses.ts
-var BusinessesAPI = class extends baseAPI_default {
-  endpoint = apiRoutes.business;
-  /**
-   Get a business by its ID.
-   * @param {number} id - The ID of the business.
-   * @returns The business with the given ID.
-   */
-  async get({ id } = {}) {
-    try {
-      const response = await super.get({ id });
-      return Business.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch business with ID ${id}: ${error.message}`);
-    }
+// src/models/commoners.ts
+var Commoners = class extends BaseModel {
+  static schema = CommonersSchema;
+  account_id;
+  count;
+  migration;
+  sustenance;
+  get demands() {
+    return this.sustenance.flatMap((category) => category.products);
   }
 };
-var businesses_default = BusinessesAPI;
 
-// src/schema/RegionSchema.ts
-var import_zod56 = require("zod");
-var RegionSchema = import_zod56.z.object({
-  id: import_zod56.z.union([import_zod56.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod56.z.number()]),
-  name: import_zod56.z.string(),
-  description: import_zod56.z.string().optional(),
-  center: LocationSchema.optional(),
-  size: import_zod56.z.union([import_zod56.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod56.z.number()]).optional()
-});
-
-// src/models/region.ts
-var Region = class extends BaseModel {
-  static schema = RegionSchema;
-  id;
-  name;
-  description;
-  center;
-  size;
+// src/models/deliveryCost.ts
+var DeliveryCost = class extends BaseModel {
+  static schema = DeliveryCostSchema;
+  land_distance;
+  ferry_fee;
 };
 
-// src/api/regions.ts
-var RegionAPI = class extends baseAPI_default {
-  endpoint = apiRoutes.regions;
-  /**
-   * Get a list of all regions in the game.
-   * @returns A list of all regions in the game.
-   */
-  async getAll() {
-    try {
-      const response = await super.get();
-      return response.map((regionData) => Region.validate(regionData));
-    } catch (error) {
-      throw new Error(`Failed to fetch regions: ${error.message}`);
-    }
+// src/models/flow.ts
+var Flow = class extends BaseModel {
+  static schema = FlowSchema;
+  consumption;
+  expiration;
+  export;
+  imported;
+  production;
+  production_cost;
+  purchase;
+  purchase_cost;
+  resident;
+  sale;
+  sale_value;
+  shortfall;
+  constructor(data) {
+    super();
+    this.consumption = data.consumption;
+    this.expiration = data.expiration;
+    this.export = data.export;
+    this.imported = data.imported;
+    this.production = data.production;
+    this.production_cost = data.production_cost;
+    this.purchase = data.purchase;
+    this.purchase_cost = data.purchase_cost;
+    this.resident = data.resident;
+    this.sale = data.sale;
+    this.sale_value = data.sale_value;
+    this.shortfall = data.shortfall;
   }
 };
-var regions_default = RegionAPI;
 
-// src/api/static.ts
-var import_axios = __toESM(require("axios"));
-var import_lru_cache = require("lru-cache");
-
-// src/schema/ItemSchema.ts
-var import_zod58 = require("zod");
-
-// src/schema/ItemPriceSchema.ts
-var import_zod57 = require("zod");
-var ItemPriceSchema = import_zod57.z.object({
-  low: import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()]).optional(),
-  typical: import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()]),
-  high: import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()]).optional()
-});
-
-// src/schema/ItemSchema.ts
-var ItemSchema = import_zod58.z.object({
-  name: ItemEnumSchema,
-  type: ItemTypeEnumSchema,
-  unit: import_zod58.z.string(),
-  weight: import_zod58.z.union([import_zod58.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod58.z.number()]).optional(),
-  tier: import_zod58.z.union([import_zod58.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod58.z.number()]),
-  classes: import_zod58.z.array(SkillEnumSchema).optional().default([]),
-  price: ItemPriceSchema
-});
+// src/models/inventory.ts
+var Inventory = class extends BaseModel {
+  static schema = InventorySchema;
+  account;
+  assets;
+  capacity;
+  managers;
+  previous_flows;
+  reserved;
+  get items() {
+    return new Map(Object.entries(this.account.assets).map(([key, value]) => [key, value]));
+  }
+  get managersMap() {
+    console.log("Accessing managersMap");
+    console.log("Managers: ", this.managers);
+    return new Map(Object.entries(this.managers).map(([key, value]) => [key, value]));
+  }
+  get previousFlowsMap() {
+    return new Map(Object.entries(this.previous_flows).map(([key, value]) => [key, value]));
+  }
+};
 
 // src/models/item.ts
 var Item = class extends BaseModel {
@@ -1914,27 +2871,123 @@ var Item = class extends BaseModel {
   price;
 };
 
-// src/schema/RecipeSchema.ts
-var import_zod60 = require("zod");
+// src/models/location.ts
+var Location = class extends BaseModel {
+  static schema = LocationSchema;
+  x;
+  y;
+};
 
-// src/schema/IngredientSchema.ts
-var import_zod59 = require("zod");
-var IngredientSchema = import_zod59.z.object({
-  product: ItemEnumSchema,
-  amount: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()])
-});
+// src/models/manager.ts
+var Manager = class extends BaseModel {
+  static schema = ManagerSchema;
+  _buyPrice;
+  _buyVolume;
+  _capacity;
+  _maxHolding;
+  _sellPrice;
+  _sellVolume;
+  constructor(data) {
+    super();
+    this.buyPrice = data.buyPrice;
+    this.buyVolume = data.buyVolume;
+    this.capacity = data.capacity;
+    this.maxHolding = data.maxHolding;
+    this.sellPrice = data.sellPrice;
+    this.sellVolume = data.sellVolume;
+  }
+  get buyPrice() {
+    return this._buyPrice;
+  }
+  set buyPrice(value) {
+    this._buyPrice = value;
+  }
+  get buyVolume() {
+    return this._buyVolume;
+  }
+  set buyVolume(value) {
+    this._buyVolume = value;
+  }
+  get capacity() {
+    return this._capacity;
+  }
+  set capacity(value) {
+    this._capacity = value;
+  }
+  get maxHolding() {
+    return this._maxHolding;
+  }
+  set maxHolding(value) {
+    this._maxHolding = value;
+  }
+  get sellPrice() {
+    return this._sellPrice;
+  }
+  set sellPrice(value) {
+    this._sellPrice = value;
+  }
+  get sellVolume() {
+    return this._sellVolume;
+  }
+  set sellVolume(value) {
+    this._sellVolume = value;
+  }
+  get buying() {
+    return this.buyPrice !== null && this.buyVolume !== null;
+  }
+  get maxBuyPrice() {
+    return this.buyPrice * this.buyVolume;
+  }
+  get maxSellPrice() {
+    return this.sellPrice * this.sellVolume;
+  }
+  get selling() {
+    return this.sellPrice !== null && this.sellVolume !== null;
+  }
+};
 
-// src/schema/RecipeSchema.ts
-var RecipeSchema = import_zod60.z.object({
-  name: RecipeEnumSchema,
-  tier: import_zod60.z.union([import_zod60.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod60.z.number()]),
-  building: BuildingTypeEnumSchema,
-  size: import_zod60.z.union([import_zod60.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod60.z.number()]),
-  product_class: SkillEnumSchema.optional().describe("class"),
-  points: import_zod60.z.union([import_zod60.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod60.z.number()]).optional(),
-  inputs: import_zod60.z.array(IngredientSchema).optional().default([]),
-  outputs: import_zod60.z.array(IngredientSchema).optional().default([])
-});
+// src/models/operation.ts
+var Operation = class extends BaseModel {
+  static schema = OperationSchema;
+  target;
+  production;
+  provision;
+  reference;
+  recipe;
+  volume;
+  tax_rate;
+  tax;
+  delivery_cost;
+  flows;
+  get surplus() {
+    return (this.production || 0) - (this.target || 0);
+  }
+  get shortfall() {
+    return (this.target || 0) - (this.production || 0);
+  }
+};
+
+// src/models/path.ts
+var Path = class extends BaseModel {
+  static schema = PathSchema;
+  x;
+  y;
+  c;
+};
+
+// src/models/producer.ts
+var Producer = class extends BaseModel {
+  static schema = ProducerSchema;
+  inventory;
+  operation;
+  limited;
+  manager;
+  previous_operation;
+  provider_id;
+  recipe;
+  reference;
+  target;
+};
 
 // src/models/recipe.ts
 var Recipe = class extends BaseModel {
@@ -1954,100 +3007,31 @@ var Ingredient = class extends BaseModel {
   amount;
 };
 
-// src/schema/TransportSchema.ts
-var import_zod66 = require("zod");
+// src/models/region.ts
+var Region = class extends BaseModel {
+  static schema = RegionSchema;
+  id;
+  name;
+  description;
+  center;
+  size;
+};
 
-// src/schema/TransportCargoSchema.ts
-var import_zod61 = require("zod");
-var TransportCargoSchema = import_zod61.z.object({
-  reference: import_zod61.z.string(),
-  inventory: InventorySchema.optional()
-});
+// src/models/structure.ts
+var Structure = class extends BaseModel {
+  static schema = StructureSchema;
+  id;
+  type;
+  tags;
+};
 
-// src/schema/TradeRouteSchema.ts
-var import_zod62 = require("zod");
-var TradeRouteSchema = import_zod62.z.object({
-  id: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  reference: import_zod62.z.string(),
-  local_town: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  remote_town: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  capacity: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  reserved_import: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  reserved_export: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  distance: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  moves: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  provider_id: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
-  account_id: import_zod62.z.string(),
-  account: AccountSchema,
-  managers: import_zod62.z.record(ItemEnumSchema, ManagerSchema),
-  current_flows: import_zod62.z.record(ItemEnumSchema, FlowSchema),
-  previous_flows: import_zod62.z.record(ItemEnumSchema, FlowSchema)
-});
-
-// src/schema/TransportJourneySchema.ts
-var import_zod65 = require("zod");
-
-// src/schema/TransportJourneyLegSchema.ts
-var import_zod64 = require("zod");
-
-// src/schema/PathSchema.ts
-var import_zod63 = require("zod");
-var PathSchema = import_zod63.z.object({
-  x: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
-  y: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
-  c: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()])
-});
-
-// src/schema/TransportJourneyLegSchema.ts
-var TransportJourneyLegSchema = import_zod64.z.object({
-  path: import_zod64.z.array(PathSchema)
-});
-
-// src/schema/TransportJourneySchema.ts
-var TransportJourneySchema = import_zod65.z.object({
-  category: import_zod65.z.string(),
-  start_town_id: import_zod65.z.union([import_zod65.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod65.z.number()]),
-  distance: import_zod65.z.union([import_zod65.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod65.z.number()]),
-  moves: import_zod65.z.union([import_zod65.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod65.z.number()]),
-  legs: import_zod65.z.array(TransportJourneyLegSchema)
-});
-
-// src/schema/TransportSchema.ts
-var TransportSchema = import_zod66.z.object({
-  id: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]),
-  reference: import_zod66.z.string(),
-  type: TransportTypeEnumSchema,
-  size: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]),
-  name: import_zod66.z.string(),
-  owner_id: import_zod66.z.string(),
-  hometown_id: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]),
-  location: LocationSchema,
-  domain: import_zod66.z.array(LocationSchema).optional(),
-  capacity: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]),
-  fish_quantity: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]).optional(),
-  inventory: InventorySchema,
-  cargo: TransportCargoSchema.optional(),
-  previous_operations: OperationSchema.optional(),
-  provider_id: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]).optional(),
-  producer: ProducerSchema.optional(),
-  route: TradeRouteSchema.optional(),
-  journey: TransportJourneySchema
-});
-
-// src/schema/TransportTypeSchema.ts
-var import_zod67 = require("zod");
-var TransportTypeSchema = import_zod67.z.object({
-  type: TransportTypeEnumSchema,
-  category: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
-  tier: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
-  capacity: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
-  speed: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
-  journey_duration: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]).optional(),
-  effective_days: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]).optional(),
-  operating_costs: import_zod67.z.record(ItemEnumSchema, import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()])),
-  catches: import_zod67.z.string().optional(),
-  fishing_range: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]).optional()
-});
+// src/models/tile.ts
+var Tile = class extends BaseModel {
+  static schema = TileSchema;
+  owner_id;
+  structure;
+  ask_price;
+};
 
 // src/models/transport.ts
 var Transport = class extends BaseModel {
@@ -2120,7 +3104,97 @@ var TransportType = class extends BaseModel {
   fishing_range;
 };
 
+// src/api/buildings.ts
+var import_lodash = require("lodash");
+var _ = __toESM(require("lodash"));
+var BuildingsAPI = class extends baseAPI_default {
+  endpoint = apiRoutes.buildings;
+  /**
+   * Get data for a building.
+   * @param id - The ID of the building.
+   * @returns The data for the building.
+   */
+  async get({ id } = {}) {
+    try {
+      const response = await super.get({ id });
+      return Building.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch building with ID ${id}: ${error.message}`);
+    }
+  }
+  async getOperations(id) {
+    try {
+      const response = await super.get({ endpoint: apiRoutes.buildingOperations, id });
+      if (response.status == 404) {
+        return new BuildingOperation();
+      }
+      return BuildingOperation.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch building with ID ${id}: ${error.message}`);
+    }
+  }
+  async setManager(id, item, manager) {
+    try {
+      const json = convertFloatsToStrings((0, import_lodash.pickBy)(manager, _.identity));
+      const response = await super.patch({ endpoint: apiRoutes.buildingSetManager, id, item, data: json });
+      if (response.status && response.status == 200) {
+        return Building.validate(response.data["_embedded"][`/buildings/${id}`]);
+      } else {
+        throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${response.statusText}`);
+      }
+    } catch (error) {
+      throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${error.message}`);
+    }
+  }
+  async setProductionTargetMultiplier(id, target, autosetBuying = true, autosetSelling = true) {
+    const payload = { target, autoset_buying: autosetBuying, autoset_selling: autosetSelling };
+    const json = convertFloatsToStrings(payload);
+    const response = await super.patch({ endpoint: apiRoutes.producer, id, data: json });
+    return response.status == 200;
+  }
+};
+var buildings_default = BuildingsAPI;
+
+// src/api/businesses.ts
+var BusinessesAPI = class extends baseAPI_default {
+  endpoint = apiRoutes.business;
+  /**
+   Get a business by its ID.
+   * @param {number} id - The ID of the business.
+   * @returns The business with the given ID.
+   */
+  async get({ id } = {}) {
+    try {
+      const response = await super.get({ id });
+      return Business.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch business with ID ${id}: ${error.message}`);
+    }
+  }
+};
+var businesses_default = BusinessesAPI;
+
+// src/api/regions.ts
+var RegionAPI = class extends baseAPI_default {
+  endpoint = apiRoutes.regions;
+  /**
+   * Get a list of all regions in the game.
+   * @returns A list of all regions in the game.
+   */
+  async getAll() {
+    try {
+      const response = await super.get();
+      return response.map((regionData) => Region.validate(regionData));
+    } catch (error) {
+      throw new Error(`Failed to fetch regions: ${error.message}`);
+    }
+  }
+};
+var regions_default = RegionAPI;
+
 // src/api/static.ts
+var import_axios = __toESM(require("axios"));
+var import_lru_cache = require("lru-cache");
 var StaticAPI = class extends baseAPI_default {
   endpoint = staticUrl;
   cache;
@@ -2260,109 +3334,6 @@ var Town2 = class {
   }
 };
 
-// src/models/enums/itemEnum.ts
-var ItemEnum = /* @__PURE__ */ ((ItemEnum2) => {
-  ItemEnum2["Alembics"] = "alembics";
-  ItemEnum2["Arms"] = "arms";
-  ItemEnum2["Axes"] = "axes";
-  ItemEnum2["Beer"] = "beer";
-  ItemEnum2["Belts"] = "belts";
-  ItemEnum2["Blades"] = "blades";
-  ItemEnum2["Bread"] = "bread";
-  ItemEnum2["Bricks"] = "bricks";
-  ItemEnum2["Butter"] = "butter";
-  ItemEnum2["Candles"] = "candles";
-  ItemEnum2["Carting"] = "carting";
-  ItemEnum2["Casks"] = "casks";
-  ItemEnum2["Cattle"] = "cattle";
-  ItemEnum2["Charcoal"] = "charcoal";
-  ItemEnum2["Cheese"] = "cheese";
-  ItemEnum2["Clay"] = "clay";
-  ItemEnum2["Cloth"] = "cloth";
-  ItemEnum2["Coats"] = "coats";
-  ItemEnum2["Cog"] = "cog";
-  ItemEnum2["Cookware"] = "cookware";
-  ItemEnum2["CopperIngots"] = "copper ingots";
-  ItemEnum2["CopperOre"] = "copper ore";
-  ItemEnum2["CuredFish"] = "cured fish";
-  ItemEnum2["CuredMeat"] = "cured meat";
-  ItemEnum2["Donations"] = "donations";
-  ItemEnum2["Dye"] = "dye";
-  ItemEnum2["DyedCloth"] = "dyed cloth";
-  ItemEnum2["Firewood"] = "firewood";
-  ItemEnum2["Fish"] = "fish";
-  ItemEnum2["FlaxFibres"] = "flax fibres";
-  ItemEnum2["FlaxPlants"] = "flax plants";
-  ItemEnum2["Flour"] = "flour";
-  ItemEnum2["Furniture"] = "furniture";
-  ItemEnum2["Garments"] = "garments";
-  ItemEnum2["Glass"] = "glass";
-  ItemEnum2["Glassware"] = "glassware";
-  ItemEnum2["GoldBars"] = "gold bars";
-  ItemEnum2["GoldOre"] = "gold ore";
-  ItemEnum2["Grain"] = "grain";
-  ItemEnum2["Grindstones"] = "grindstones";
-  ItemEnum2["Ham"] = "ham";
-  ItemEnum2["Handcart"] = "handcart";
-  ItemEnum2["Harnesses"] = "harnesses";
-  ItemEnum2["Herbs"] = "herbs";
-  ItemEnum2["Hides"] = "hides";
-  ItemEnum2["Honey"] = "honey";
-  ItemEnum2["HopBeer"] = "hop beer";
-  ItemEnum2["Hulk"] = "hulk";
-  ItemEnum2["IronOre"] = "iron ore";
-  ItemEnum2["Jewellery"] = "jewellery";
-  ItemEnum2["Labour"] = "labour";
-  ItemEnum2["LeadBars"] = "lead bars";
-  ItemEnum2["LeadOre"] = "lead ore";
-  ItemEnum2["Leather"] = "leather";
-  ItemEnum2["LightArmor"] = "light armor";
-  ItemEnum2["Limestone"] = "limestone";
-  ItemEnum2["Lodging"] = "lodging";
-  ItemEnum2["Lumber"] = "lumber";
-  ItemEnum2["Malt"] = "malt";
-  ItemEnum2["Manure"] = "manure";
-  ItemEnum2["Meat"] = "meat";
-  ItemEnum2["Medicine"] = "medicine";
-  ItemEnum2["Milk"] = "milk";
-  ItemEnum2["Money"] = "money";
-  ItemEnum2["Mouldboards"] = "mouldboards";
-  ItemEnum2["Nails"] = "nails";
-  ItemEnum2["Nets"] = "nets";
-  ItemEnum2["OxPower"] = "ox power";
-  ItemEnum2["Pasties"] = "pasties";
-  ItemEnum2["Pickaxes"] = "pickaxes";
-  ItemEnum2["Pies"] = "pies";
-  ItemEnum2["Ploughs"] = "ploughs";
-  ItemEnum2["Protection"] = "protection";
-  ItemEnum2["Resin"] = "resin";
-  ItemEnum2["Rope"] = "rope";
-  ItemEnum2["Sails"] = "sails";
-  ItemEnum2["Salt"] = "salt";
-  ItemEnum2["Scythes"] = "scythes";
-  ItemEnum2["SilverBars"] = "silver bars";
-  ItemEnum2["SlakedLime"] = "slaked lime";
-  ItemEnum2["Snekkja"] = "snekkja";
-  ItemEnum2["Spirits"] = "spirits";
-  ItemEnum2["SteelIngots"] = "steel ingots";
-  ItemEnum2["Stockfish"] = "stockfish";
-  ItemEnum2["Swords"] = "swords";
-  ItemEnum2["Tar"] = "tar";
-  ItemEnum2["Thread"] = "thread";
-  ItemEnum2["Tiles"] = "tiles";
-  ItemEnum2["Timber"] = "timber";
-  ItemEnum2["Tools"] = "tools";
-  ItemEnum2["Tumbrel"] = "tumbrel";
-  ItemEnum2["Wax"] = "wax";
-  ItemEnum2["Wheels"] = "wheels";
-  ItemEnum2["Windows"] = "windows";
-  ItemEnum2["Wine"] = "wine";
-  ItemEnum2["Wool"] = "wool";
-  ItemEnum2["WroughtIron"] = "wrought iron";
-  ItemEnum2["Yarn"] = "yarn";
-  return ItemEnum2;
-})(ItemEnum || {});
-
 // src/game/recipe.ts
 var Recipe2 = class {
   name;
@@ -2453,8 +3424,8 @@ var Building3 = class {
   }
   get flows() {
     if (this.buildingOperation && this.buildingOperation.totalFlow) {
-      console.log("Giving total flow");
-      return this.buildingOperation.data.total_flow;
+      console.log("Giving total flow: " + JSON.stringify(this.buildingOperation.totalFlow));
+      return this.buildingOperation.totalFlow;
     } else if (this.operation) {
       return this.operation.data.flows;
     } else {
@@ -2465,7 +3436,10 @@ var Building3 = class {
     return this.data && this.data.storage ? this.data.storage.inventory : null;
   }
   get items() {
-    return this.data && this.data.storage ? this.data.storage.inventory.account.assets : null;
+    return this.data && this.data.storage ? new Map(Object.entries(this.data.storage.inventory.account.assets).map(([key, value]) => [key, value])) : null;
+  }
+  get producerItems() {
+    return this.data && this.data.producer ? new Map(Object.entries(this.data.producer.inventory.account.assets).map(([key, value]) => [key, value])) : null;
   }
   get operation() {
     return this.operations && this.operations.length === 1 ? this.operations[0] : null;
@@ -2537,13 +3511,13 @@ var Building3 = class {
         if (this.items) {
           inventoryAssets = this.items;
         } else if (this.data && this.data.producer) {
-          inventoryAssets = this.data.producer.inventory.account.assets;
+          inventoryAssets = this.producerItems;
         }
         let inventoryManagers;
         if (this.data && this.data.storage) {
-          inventoryManagers = this.data.storage.inventory.managers;
+          inventoryManagers = this.data.storage.inventory.managersMap;
         } else if (this.data && this.data.producer) {
-          inventoryManagers = this.data.producer.inventory.managers;
+          inventoryManagers = this.data.producer.inventory.managersMap;
         }
         return recipe.calculateTargetLabor(
           this.targetProduction,
@@ -2913,6 +3887,7 @@ var BuildingOperation2 = class {
   async load() {
     this.data = await this._client.buildingsApi.getOperations(this.buildingId);
     if (this.data && this.data.operations) {
+      console.log(JSON.stringify(this.data.total_flow));
       this.operations = new OperationsList(
         ...await Promise.all(
           this.data.operations.map((operation) => {
@@ -2928,7 +3903,7 @@ var BuildingOperation2 = class {
     return this.player.buildings.byId(this.buildingId);
   }
   get totalFlow() {
-    return this.data.total_flow;
+    return new Map(Object.entries(this.data.total_flow).map(([key, value]) => [key, value]));
   }
 };
 var BuildingOperationList = class extends Array {
@@ -2983,7 +3958,7 @@ var BuildingOperationsDict = class extends Map {
     );
   }
 };
-var Operation = class {
+var Operation2 = class {
   data;
   recipe;
   _client;
@@ -3054,112 +4029,6 @@ var OperationsList = class _OperationsList extends Array {
     return new _OperationsList(
       ...this.filter((operation) => operation.buildingId === buildingId)
     );
-  }
-};
-
-// src/models/account.ts
-var Account = class extends BaseModel {
-  static schema = AccountSchema;
-  assets;
-  id;
-  master_id;
-  name;
-  owner_id;
-  sponsor_id;
-};
-var AccountAsset = class extends BaseModel {
-  static schema = AccountAssetSchema;
-  balance;
-  capacity;
-  purchase;
-  purchase_price;
-  reserved;
-  reserved_capacity;
-  sale;
-  sale_price;
-  unit_cost;
-  get purchased() {
-    return this.purchase !== null;
-  }
-  get sold() {
-    return this.sale !== null;
-  }
-  get totalPurchase() {
-    return this.purchase * this.purchase_price;
-  }
-  get totalSale() {
-    return this.sale * this.sale_price;
-  }
-  get totalValue() {
-    return this.balance * this.unit_cost;
-  }
-};
-
-// src/models/manager.ts
-var Manager = class extends BaseModel {
-  static schema = ManagerSchema;
-  _buyPrice;
-  _buyVolume;
-  _capacity;
-  _maxHolding;
-  _sellPrice;
-  _sellVolume;
-  constructor(data) {
-    super();
-    this.buyPrice = data.buyPrice;
-    this.buyVolume = data.buyVolume;
-    this.capacity = data.capacity;
-    this.maxHolding = data.maxHolding;
-    this.sellPrice = data.sellPrice;
-    this.sellVolume = data.sellVolume;
-  }
-  get buyPrice() {
-    return this._buyPrice;
-  }
-  set buyPrice(value) {
-    this._buyPrice = value;
-  }
-  get buyVolume() {
-    return this._buyVolume;
-  }
-  set buyVolume(value) {
-    this._buyVolume = value;
-  }
-  get capacity() {
-    return this._capacity;
-  }
-  set capacity(value) {
-    this._capacity = value;
-  }
-  get maxHolding() {
-    return this._maxHolding;
-  }
-  set maxHolding(value) {
-    this._maxHolding = value;
-  }
-  get sellPrice() {
-    return this._sellPrice;
-  }
-  set sellPrice(value) {
-    this._sellPrice = value;
-  }
-  get sellVolume() {
-    return this._sellVolume;
-  }
-  set sellVolume(value) {
-    this._sellVolume = value;
-  }
-  get buying() {
-    return this.buyPrice !== null && this.buyVolume !== null;
-  }
-  get maxBuyPrice() {
-    return this.buyPrice * this.buyVolume;
-  }
-  get maxSellPrice() {
-    return this.sellPrice * this.sellVolume;
-  }
-  get selling() {
-    return this.sellPrice !== null && this.sellVolume !== null;
   }
 };
 
@@ -3301,541 +4170,6 @@ var TownItem = class {
   }
 };
 
-// src/models/enums/index.ts
-var enums_exports2 = {};
-__export(enums_exports2, {
-  AssetEnum: () => AssetEnum,
-  BuildingTypeEnum: () => BuildingTypeEnum,
-  BuildingUpgradeTypeEnum: () => BuildingUpgradeTypeEnum,
-  ClimateEnum: () => ClimateEnum,
-  ItemEnum: () => ItemEnum,
-  ItemTypeEnum: () => ItemTypeEnum,
-  RecipeEnum: () => RecipeEnum,
-  SkillEnum: () => SkillEnum,
-  SkillLevelEnum: () => SkillLevelEnum,
-  TransportTypeEnum: () => TransportTypeEnum
-});
-
-// src/models/enums/assetEnum.ts
-var AssetEnum = /* @__PURE__ */ ((AssetEnum2) => {
-  AssetEnum2["Cog"] = "cog";
-  AssetEnum2["Handcart"] = "handcart";
-  AssetEnum2["Hulk"] = "hulk";
-  AssetEnum2["Money"] = "money";
-  AssetEnum2["Snekkja"] = "snekkja";
-  AssetEnum2["Tumbrel"] = "tumbrel";
-  return AssetEnum2;
-})(AssetEnum || {});
-
-// src/models/enums/buildingTypeEnum.ts
-var BuildingTypeEnum = /* @__PURE__ */ ((BuildingTypeEnum2) => {
-  BuildingTypeEnum2["Apothecary"] = "apothecary";
-  BuildingTypeEnum2["Bakery"] = "bakery";
-  BuildingTypeEnum2["Bloomery"] = "bloomery";
-  BuildingTypeEnum2["BoardingHouse"] = "boardinghouse";
-  BuildingTypeEnum2["Brewery"] = "brewery";
-  BuildingTypeEnum2["Brickworks"] = "brickworks";
-  BuildingTypeEnum2["Butchery"] = "butchery";
-  BuildingTypeEnum2["Carpentry"] = "carpentry";
-  BuildingTypeEnum2["Cartshed"] = "cartshed";
-  BuildingTypeEnum2["Cathedral"] = "cathedral";
-  BuildingTypeEnum2["Center"] = "center";
-  BuildingTypeEnum2["CeramicKiln"] = "ceramic kiln";
-  BuildingTypeEnum2["Chandlery"] = "chandlery";
-  BuildingTypeEnum2["Chapel"] = "chapel";
-  BuildingTypeEnum2["CharcoalHut"] = "charcoal hut";
-  BuildingTypeEnum2["CharcoalKiln"] = "charcoal kiln";
-  BuildingTypeEnum2["Church"] = "church";
-  BuildingTypeEnum2["ClayPit"] = "clay pit";
-  BuildingTypeEnum2["CopperMine"] = "copper mine";
-  BuildingTypeEnum2["Coppersmith"] = "coppersmith";
-  BuildingTypeEnum2["Cottage"] = "cottage";
-  BuildingTypeEnum2["Dairy"] = "dairy";
-  BuildingTypeEnum2["DyeBoiler"] = "dye boiler";
-  BuildingTypeEnum2["Dyeworks"] = "dyeworks";
-  BuildingTypeEnum2["Farmstead"] = "farmstead";
-  BuildingTypeEnum2["Fisher"] = "fisher";
-  BuildingTypeEnum2["FishingShack"] = "fishing shack";
-  BuildingTypeEnum2["FlaxFarm"] = "flax farm";
-  BuildingTypeEnum2["Foundry"] = "foundry";
-  BuildingTypeEnum2["GlassBlower"] = "glass blower";
-  BuildingTypeEnum2["GlassHouse"] = "glass house";
-  BuildingTypeEnum2["GoldMine"] = "gold mine";
-  BuildingTypeEnum2["GrainFarm"] = "grain farm";
-  BuildingTypeEnum2["Guardhouse"] = "guardhouse";
-  BuildingTypeEnum2["HerbGarden"] = "herb garden";
-  BuildingTypeEnum2["Hjell"] = "hjell";
-  BuildingTypeEnum2["Household"] = "household";
-  BuildingTypeEnum2["HuntingLodge"] = "hunting lodge";
-  BuildingTypeEnum2["IronMine"] = "iron mine";
-  BuildingTypeEnum2["Jeweller"] = "jeweller";
-  BuildingTypeEnum2["LeadMine"] = "lead mine";
-  BuildingTypeEnum2["Leatherworks"] = "leatherworks";
-  BuildingTypeEnum2["LoggingCamp"] = "logging camp";
-  BuildingTypeEnum2["Markethall"] = "markethall";
-  BuildingTypeEnum2["Malthouse"] = "malthouse";
-  BuildingTypeEnum2["Mansion"] = "mansion";
-  BuildingTypeEnum2["Mint"] = "mint";
-  BuildingTypeEnum2["NetMaker"] = "net maker";
-  BuildingTypeEnum2["Outpost"] = "outpost";
-  BuildingTypeEnum2["Park"] = "park";
-  BuildingTypeEnum2["Pasture"] = "pasture";
-  BuildingTypeEnum2["Quarry"] = "quarry";
-  BuildingTypeEnum2["RettingPit"] = "retting pit";
-  BuildingTypeEnum2["Ropewalk"] = "ropewalk";
-  BuildingTypeEnum2["SailLoft"] = "sail loft";
-  BuildingTypeEnum2["Saltery"] = "saltery";
-  BuildingTypeEnum2["SaltMine"] = "salt mine";
-  BuildingTypeEnum2["Sawmill"] = "sawmill";
-  BuildingTypeEnum2["SewingShop"] = "sewing shop";
-  BuildingTypeEnum2["Shipyard"] = "shipyard";
-  BuildingTypeEnum2["Smithy"] = "smithy";
-  BuildingTypeEnum2["Smokery"] = "smokery";
-  BuildingTypeEnum2["Spinnery"] = "spinnery";
-  BuildingTypeEnum2["Stable"] = "stable";
-  BuildingTypeEnum2["Storehouse"] = "storehouse";
-  BuildingTypeEnum2["Square"] = "square";
-  BuildingTypeEnum2["Tannery"] = "tannery";
-  BuildingTypeEnum2["TarKiln"] = "tar kiln";
-  BuildingTypeEnum2["Toolworks"] = "toolworks";
-  BuildingTypeEnum2["Townhall"] = "townhall";
-  BuildingTypeEnum2["Townhouse"] = "townhouse";
-  BuildingTypeEnum2["Townroad"] = "townroad";
-  BuildingTypeEnum2["Vignoble"] = "vignoble";
-  BuildingTypeEnum2["Warehouse"] = "warehouse";
-  BuildingTypeEnum2["Weavery"] = "weavery";
-  BuildingTypeEnum2["Windmill"] = "windmill";
-  return BuildingTypeEnum2;
-})(BuildingTypeEnum || {});
-
-// src/models/enums/buildingUpgradeTypeEnum.ts
-var BuildingUpgradeTypeEnum = /* @__PURE__ */ ((BuildingUpgradeTypeEnum2) => {
-  BuildingUpgradeTypeEnum2["Armsrack"] = "armsrack";
-  BuildingUpgradeTypeEnum2["Beehives"] = "beehives";
-  BuildingUpgradeTypeEnum2["Bellows"] = "bellows";
-  BuildingUpgradeTypeEnum2["ButtonCast"] = "button cast";
-  BuildingUpgradeTypeEnum2["Cowshed"] = "cowshed";
-  BuildingUpgradeTypeEnum2["Crane"] = "crane";
-  BuildingUpgradeTypeEnum2["CraneLift"] = "crane lift";
-  BuildingUpgradeTypeEnum2["CuringChamber"] = "curing chamber";
-  BuildingUpgradeTypeEnum2["CuttingTable"] = "cutting table";
-  BuildingUpgradeTypeEnum2["Fermentory"] = "fermentory";
-  BuildingUpgradeTypeEnum2["Grindstone"] = "grindstone";
-  BuildingUpgradeTypeEnum2["GroovedBedstone"] = "grooved bedstone";
-  BuildingUpgradeTypeEnum2["GuardBooth"] = "guard booth";
-  BuildingUpgradeTypeEnum2["HoppingVessels"] = "hopping vessels";
-  BuildingUpgradeTypeEnum2["LimeKiln"] = "lime kiln";
-  BuildingUpgradeTypeEnum2["LimingPots"] = "liming pots";
-  BuildingUpgradeTypeEnum2["MaltMill"] = "malt mill";
-  BuildingUpgradeTypeEnum2["MaltSieve"] = "malt sieve";
-  BuildingUpgradeTypeEnum2["ManurePit"] = "manure pit";
-  BuildingUpgradeTypeEnum2["PloughHouse"] = "plough house";
-  BuildingUpgradeTypeEnum2["SkinningTable"] = "skinning table";
-  BuildingUpgradeTypeEnum2["SpinningWheel"] = "spinning wheel";
-  BuildingUpgradeTypeEnum2["SteelAnvil"] = "steel anvil";
-  BuildingUpgradeTypeEnum2["StoneOven"] = "stone oven";
-  BuildingUpgradeTypeEnum2["StonecuttersHut"] = "stonecutter's hut";
-  BuildingUpgradeTypeEnum2["TileMoulds"] = "tile moulds";
-  BuildingUpgradeTypeEnum2["Toolshed"] = "toolshed";
-  BuildingUpgradeTypeEnum2["Transmission"] = "transmission";
-  BuildingUpgradeTypeEnum2["TreadleLoom"] = "treadle loom";
-  BuildingUpgradeTypeEnum2["UpholstryBench"] = "upholstry bench";
-  BuildingUpgradeTypeEnum2["Warehouse"] = "warehouse";
-  BuildingUpgradeTypeEnum2["Weaponsrack"] = "weaponsrack";
-  return BuildingUpgradeTypeEnum2;
-})(BuildingUpgradeTypeEnum || {});
-
-// src/models/enums/climateEnum.ts
-var ClimateEnum = /* @__PURE__ */ ((ClimateEnum2) => {
-  ClimateEnum2["Cold"] = "cold";
-  ClimateEnum2["Warm"] = "warm";
-  return ClimateEnum2;
-})(ClimateEnum || {});
-
-// src/models/enums/itemTypeEnum.ts
-var ItemTypeEnum = /* @__PURE__ */ ((ItemTypeEnum2) => {
-  ItemTypeEnum2["Commodity"] = "commodity";
-  ItemTypeEnum2["Service"] = "service";
-  ItemTypeEnum2["Special"] = "special";
-  return ItemTypeEnum2;
-})(ItemTypeEnum || {});
-
-// src/models/enums/recipeEnum.ts
-var RecipeEnum = /* @__PURE__ */ ((RecipeEnum2) => {
-  RecipeEnum2["BakeBread1"] = "bake bread 1";
-  RecipeEnum2["BakeBread2"] = "bake bread 2";
-  RecipeEnum2["BakePasties1"] = "bake pasties 1";
-  RecipeEnum2["BakePasties2"] = "bake pasties 2";
-  RecipeEnum2["BakePies1"] = "bake pies 1";
-  RecipeEnum2["BindGarments1"] = "bind garments 1";
-  RecipeEnum2["BindGarments2"] = "bind garments 2";
-  RecipeEnum2["BlowGlassware1"] = "blow glassware 1";
-  RecipeEnum2["BlowGlassware2"] = "blow glassware 2";
-  RecipeEnum2["BoilDye1"] = "boil dye 1";
-  RecipeEnum2["BoilDye2"] = "boil dye 2";
-  RecipeEnum2["BorderPatrol1"] = "border patrol 1";
-  RecipeEnum2["BorderPatrol2"] = "border patrol 2";
-  RecipeEnum2["BreedCattle1a"] = "breed cattle 1a";
-  RecipeEnum2["BreedCattle1b"] = "breed cattle 1b";
-  RecipeEnum2["BreedCattle2a"] = "breed cattle 2a";
-  RecipeEnum2["BreedCattle2b"] = "breed cattle 2b";
-  RecipeEnum2["BrewBeer1"] = "brew beer 1";
-  RecipeEnum2["BrewBeer2"] = "brew beer 2";
-  RecipeEnum2["BrewBeer3"] = "brew beer 3";
-  RecipeEnum2["BrewBeer4"] = "brew beer 4";
-  RecipeEnum2["BrewHopBeer1"] = "brew hop beer 1";
-  RecipeEnum2["BrewHopBeer2"] = "brew hop beer 2";
-  RecipeEnum2["BuildCog1"] = "build cog 1";
-  RecipeEnum2["BuildCog2"] = "build cog 2";
-  RecipeEnum2["BuildHandcart1"] = "build handcart 1";
-  RecipeEnum2["BuildHandcart2"] = "build handcart 2";
-  RecipeEnum2["BuildHulk1"] = "build hulk 1";
-  RecipeEnum2["BuildSnekkja1"] = "build snekkja 1";
-  RecipeEnum2["BuildSnekkja2"] = "build snekkja 2";
-  RecipeEnum2["BuildTumbrel1"] = "build tumbrel 1";
-  RecipeEnum2["BurnBricks1"] = "burn bricks 1";
-  RecipeEnum2["BurnCharcoal1"] = "burn charcoal 1";
-  RecipeEnum2["BurnCharcoal2"] = "burn charcoal 2";
-  RecipeEnum2["BurnCharcoal3"] = "burn charcoal 3";
-  RecipeEnum2["BurnCharcoal4"] = "burn charcoal 4";
-  RecipeEnum2["BurnCookware1"] = "burn cookware 1";
-  RecipeEnum2["BurnCookware2"] = "burn cookware 2";
-  RecipeEnum2["BurnGlass1"] = "burn glass 1";
-  RecipeEnum2["BurnLime1"] = "burn lime 1";
-  RecipeEnum2["BurnTar1"] = "burn tar 1";
-  RecipeEnum2["BurnTar2"] = "burn tar 2";
-  RecipeEnum2["BurnTiles1"] = "burn tiles 1";
-  RecipeEnum2["BurnTiles2"] = "burn tiles 2";
-  RecipeEnum2["ButcherCattle1a"] = "butcher cattle 1a";
-  RecipeEnum2["ButcherCattle1b"] = "butcher cattle 1b";
-  RecipeEnum2["ButcherCattle2"] = "butcher cattle 2";
-  RecipeEnum2["Carting1"] = "carting 1";
-  RecipeEnum2["Carting2"] = "carting 2";
-  RecipeEnum2["ChurnButter1"] = "churn butter 1";
-  RecipeEnum2["ChurnButter2"] = "churn butter 2";
-  RecipeEnum2["CogOperations"] = "cog operations";
-  RecipeEnum2["CraftArms1"] = "craft arms 1";
-  RecipeEnum2["CraftBelts1"] = "craft belts 1";
-  RecipeEnum2["CraftBelts2"] = "craft belts 2";
-  RecipeEnum2["CraftBelts3"] = "craft belts 3";
-  RecipeEnum2["CraftBelts4"] = "craft belts 4";
-  RecipeEnum2["CraftCookware1"] = "craft cookware 1";
-  RecipeEnum2["CraftFurniture1"] = "craft furniture 1";
-  RecipeEnum2["CraftFurniture2"] = "craft furniture 2";
-  RecipeEnum2["CraftFurniture3"] = "craft furniture 3";
-  RecipeEnum2["CraftFurniture4"] = "craft furniture 4";
-  RecipeEnum2["CraftPloughs1"] = "craft ploughs 1";
-  RecipeEnum2["CraftPloughs2"] = "craft ploughs 2";
-  RecipeEnum2["CraftPloughs3"] = "craft ploughs 3";
-  RecipeEnum2["CraftScythes1"] = "craft scythes 1";
-  RecipeEnum2["CraftScythes2"] = "craft scythes 2";
-  RecipeEnum2["CraftTools1"] = "craft tools 1";
-  RecipeEnum2["CraftTools2"] = "craft tools 2";
-  RecipeEnum2["CraftWheels1"] = "craft wheels 1";
-  RecipeEnum2["CraftWheels2"] = "craft wheels 2";
-  RecipeEnum2["CraftWheels3"] = "craft wheels 3";
-  RecipeEnum2["CutBricks1"] = "cut bricks 1";
-  RecipeEnum2["CutGrindstones1"] = "cut grindstones 1";
-  RecipeEnum2["DeliveryDuty1"] = "delivery duty 1";
-  RecipeEnum2["DeliveryDuty2"] = "delivery duty 2";
-  RecipeEnum2["DigClay1"] = "dig clay 1";
-  RecipeEnum2["DigClay2"] = "dig clay 2";
-  RecipeEnum2["DistillSpirits2"] = "distill spirits 2";
-  RecipeEnum2["DryFish1"] = "dry fish 1";
-  RecipeEnum2["DryFish2"] = "dry fish 2";
-  RecipeEnum2["DryStockfish1"] = "dry stockfish 1";
-  RecipeEnum2["DryStockfish2"] = "dry stockfish 2";
-  RecipeEnum2["DyeCloth1"] = "dye cloth 1";
-  RecipeEnum2["DyeCloth2"] = "dye cloth 2";
-  RecipeEnum2["ExtractStone1"] = "extract stone 1";
-  RecipeEnum2["ExtractStone2"] = "extract stone 2";
-  RecipeEnum2["ExtractStone3"] = "extract stone 3";
-  RecipeEnum2["Fishing1"] = "fishing 1";
-  RecipeEnum2["Fishing2a"] = "fishing 2a";
-  RecipeEnum2["Fishing2b"] = "fishing 2b";
-  RecipeEnum2["Fishing3"] = "fishing 3";
-  RecipeEnum2["ForgeArms1"] = "forge arms 1";
-  RecipeEnum2["ForgeArms2"] = "forge arms 2";
-  RecipeEnum2["ForgeArms2b"] = "forge arms 2b";
-  RecipeEnum2["ForgeAxes1"] = "forge axes 1";
-  RecipeEnum2["ForgeAxes1b"] = "forge axes 1b";
-  RecipeEnum2["ForgeAxes2"] = "forge axes 2";
-  RecipeEnum2["ForgeAxes2b"] = "forge axes 2b";
-  RecipeEnum2["ForgeBlades1"] = "forge blades 1";
-  RecipeEnum2["ForgeBlades1b"] = "forge blades 1b";
-  RecipeEnum2["ForgeBlades2"] = "forge blades 2";
-  RecipeEnum2["ForgeBlades2b"] = "forge blades 2b";
-  RecipeEnum2["ForgeMouldboards1"] = "forge mouldboards 1";
-  RecipeEnum2["ForgePickaxes1"] = "forge pickaxes 1";
-  RecipeEnum2["ForgePickaxes1b"] = "forge pickaxes 1b";
-  RecipeEnum2["ForgePickaxes2"] = "forge pickaxes 2";
-  RecipeEnum2["ForgePickaxes2b"] = "forge pickaxes 2b";
-  RecipeEnum2["ForgeSwords1"] = "forge swords 1";
-  RecipeEnum2["ForgeSwords1b"] = "forge swords 1b";
-  RecipeEnum2["ForgeSwords2"] = "forge swords 2";
-  RecipeEnum2["ForgeSwords2b"] = "forge swords 2b";
-  RecipeEnum2["ForgeTools1"] = "forge tools 1";
-  RecipeEnum2["ForgeTools2"] = "forge tools 2";
-  RecipeEnum2["ForgeTools3"] = "forge tools 3";
-  RecipeEnum2["GatherFirewood1"] = "gather firewood 1";
-  RecipeEnum2["GatherFirewood2"] = "gather firewood 2";
-  RecipeEnum2["GatherResin1"] = "gather resin 1";
-  RecipeEnum2["GatherResin2"] = "gather resin 2";
-  RecipeEnum2["GrainPayment"] = "grain payment";
-  RecipeEnum2["GrowFlax1"] = "grow flax 1";
-  RecipeEnum2["GrowFlax2"] = "grow flax 2";
-  RecipeEnum2["GrowFlax3"] = "grow flax 3";
-  RecipeEnum2["GrowFlax4a"] = "grow flax 4a";
-  RecipeEnum2["GrowFlax4b"] = "grow flax 4b";
-  RecipeEnum2["GrowGrain1"] = "grow grain 1";
-  RecipeEnum2["GrowGrain2"] = "grow grain 2";
-  RecipeEnum2["GrowGrain3a"] = "grow grain 3a";
-  RecipeEnum2["GrowGrain3b"] = "grow grain 3b";
-  RecipeEnum2["GrowGrain4a"] = "grow grain 4a";
-  RecipeEnum2["GrowGrain4b"] = "grow grain 4b";
-  RecipeEnum2["GrowHerbs1"] = "grow herbs 1";
-  RecipeEnum2["GrowHerbs2"] = "grow herbs 2";
-  RecipeEnum2["HammerNails1"] = "hammer nails 1";
-  RecipeEnum2["HandcartOperations"] = "handcart operations";
-  RecipeEnum2["HarnessOx1"] = "harness ox 1";
-  RecipeEnum2["HarnessOx2a"] = "harness ox 2a";
-  RecipeEnum2["HarnessOx2b"] = "harness ox 2b";
-  RecipeEnum2["HarnessOx3a"] = "harness ox 3a";
-  RecipeEnum2["HarnessOx3b"] = "harness ox 3b";
-  RecipeEnum2["HarnessOx4a"] = "harness ox 4a";
-  RecipeEnum2["HarnessOx4b"] = "harness ox 4b";
-  RecipeEnum2["HerdSheep1"] = "herd sheep 1";
-  RecipeEnum2["HerdSheep2"] = "herd sheep 2";
-  RecipeEnum2["HoldBanquet1a"] = "hold banquet 1a";
-  RecipeEnum2["HoldBanquet1b"] = "hold banquet 1b";
-  RecipeEnum2["HoldBanquet2a"] = "hold banquet 2a";
-  RecipeEnum2["HoldBanquet2b"] = "hold banquet 2b";
-  RecipeEnum2["HoldBanquet2c"] = "hold banquet 2c";
-  RecipeEnum2["HoldBanquet3a"] = "hold banquet 3a";
-  RecipeEnum2["HoldBanquet3b"] = "hold banquet 3b";
-  RecipeEnum2["HoldBanquet3c"] = "hold banquet 3c";
-  RecipeEnum2["HoldBanquet4a"] = "hold banquet 4a";
-  RecipeEnum2["HoldBanquet4b"] = "hold banquet 4b";
-  RecipeEnum2["HoldFeast1"] = "hold feast 1";
-  RecipeEnum2["HoldFeast2"] = "hold feast 2";
-  RecipeEnum2["HoldFeast3"] = "hold feast 3";
-  RecipeEnum2["HoldMass1"] = "hold mass 1";
-  RecipeEnum2["HoldMass2"] = "hold mass 2";
-  RecipeEnum2["HoldMass3"] = "hold mass 3";
-  RecipeEnum2["HoldPrayer1"] = "hold prayer 1";
-  RecipeEnum2["HoldPrayer2"] = "hold prayer 2";
-  RecipeEnum2["HoldPrayer3"] = "hold prayer 3";
-  RecipeEnum2["HoldSermon1"] = "hold sermon 1";
-  RecipeEnum2["HoldSermon2a"] = "hold sermon 2a";
-  RecipeEnum2["HoldSermon2b"] = "hold sermon 2b";
-  RecipeEnum2["HoldSermon3a"] = "hold sermon 3a";
-  RecipeEnum2["HoldSermon3b"] = "hold sermon 3b";
-  RecipeEnum2["HulkOperations"] = "hulk operations";
-  RecipeEnum2["Hunting1"] = "hunting 1";
-  RecipeEnum2["Hunting2"] = "hunting 2";
-  RecipeEnum2["Hunting3"] = "hunting 3";
-  RecipeEnum2["Hunting4"] = "hunting 4";
-  RecipeEnum2["Hunting5"] = "hunting 5";
-  RecipeEnum2["KeepBees1"] = "keep bees 1";
-  RecipeEnum2["KnightDuty1"] = "knight duty 1";
-  RecipeEnum2["KnightDuty2"] = "knight duty 2";
-  RecipeEnum2["KnightDuty3"] = "knight duty 3";
-  RecipeEnum2["KnightDuty4"] = "knight duty 4";
-  RecipeEnum2["KnitGarments1"] = "knit garments 1";
-  RecipeEnum2["KnitGarments2"] = "knit garments 2";
-  RecipeEnum2["LetCottages1"] = "let cottages 1";
-  RecipeEnum2["LetCottages2"] = "let cottages 2";
-  RecipeEnum2["Logging1"] = "logging 1";
-  RecipeEnum2["Logging2"] = "logging 2";
-  RecipeEnum2["Logging3"] = "logging 3";
-  RecipeEnum2["Maintain1"] = "maintain 1";
-  RecipeEnum2["MakeAlembics1"] = "make alembics 1";
-  RecipeEnum2["MakeAlembics2"] = "make alembics 2";
-  RecipeEnum2["MakeBricks1"] = "make bricks 1";
-  RecipeEnum2["MakeBricks2"] = "make bricks 2";
-  RecipeEnum2["MakeCandles1"] = "make candles 1";
-  RecipeEnum2["MakeCandles2"] = "make candles 2";
-  RecipeEnum2["MakeCasks1"] = "make casks 1";
-  RecipeEnum2["MakeCasks2"] = "make casks 2";
-  RecipeEnum2["MakeCheese1"] = "make cheese 1";
-  RecipeEnum2["MakeCheese2"] = "make cheese 2";
-  RecipeEnum2["MakeCheese3"] = "make cheese 3";
-  RecipeEnum2["MakeCheese4"] = "make cheese 4";
-  RecipeEnum2["MakeCheese5"] = "make cheese 5";
-  RecipeEnum2["MakeHarnesses1"] = "make harnesses 1";
-  RecipeEnum2["MakeHarnesses2"] = "make harnesses 2";
-  RecipeEnum2["MakeHarnesses2b"] = "make harnesses 2b";
-  RecipeEnum2["MakeJewellery1"] = "make jewellery 1";
-  RecipeEnum2["MakeJewellery2"] = "make jewellery 2";
-  RecipeEnum2["MakeLeatherArmor1"] = "make leather armor 1";
-  RecipeEnum2["MakeMedicine1"] = "make medicine 1";
-  RecipeEnum2["MakeMedicine2"] = "make medicine 2";
-  RecipeEnum2["MakeNets1"] = "make nets 1";
-  RecipeEnum2["MakeNets2"] = "make nets 2";
-  RecipeEnum2["MakeNets3"] = "make nets 3";
-  RecipeEnum2["MakeRope1"] = "make rope 1";
-  RecipeEnum2["MakeWindows1"] = "make windows 1";
-  RecipeEnum2["MakeWine1"] = "make wine 1";
-  RecipeEnum2["MakeWine2"] = "make wine 2";
-  RecipeEnum2["MakeWine3"] = "make wine 3";
-  RecipeEnum2["Malting1"] = "malting 1";
-  RecipeEnum2["Malting2"] = "malting 2";
-  RecipeEnum2["Milling1"] = "milling 1";
-  RecipeEnum2["Milling2"] = "milling 2";
-  RecipeEnum2["Milling3"] = "milling 3";
-  RecipeEnum2["MineCopper1"] = "mine copper 1";
-  RecipeEnum2["MineCopper2"] = "mine copper 2";
-  RecipeEnum2["MineCopper3"] = "mine copper 3";
-  RecipeEnum2["MineCopper4"] = "mine copper 4";
-  RecipeEnum2["MineCopper5"] = "mine copper 5";
-  RecipeEnum2["MineGold1"] = "mine gold 1";
-  RecipeEnum2["MineGold1b"] = "mine gold 1b";
-  RecipeEnum2["MineGold2"] = "mine gold 2";
-  RecipeEnum2["MineGold2b"] = "mine gold 2b";
-  RecipeEnum2["MineGold3"] = "mine gold 3";
-  RecipeEnum2["MineIron1"] = "mine iron 1";
-  RecipeEnum2["MineIron2"] = "mine iron 2";
-  RecipeEnum2["MineIron3"] = "mine iron 3";
-  RecipeEnum2["MineIron4"] = "mine iron 4";
-  RecipeEnum2["MineIron5"] = "mine iron 5";
-  RecipeEnum2["MineLead1"] = "mine lead 1";
-  RecipeEnum2["MineLead2"] = "mine lead 2";
-  RecipeEnum2["MineLead2b"] = "mine lead 2b";
-  RecipeEnum2["MineLead3"] = "mine lead 3";
-  RecipeEnum2["MineLead3b"] = "mine lead 3b";
-  RecipeEnum2["MineLead4"] = "mine lead 4";
-  RecipeEnum2["MineSalt1"] = "mine salt 1";
-  RecipeEnum2["MineSalt2"] = "mine salt 2";
-  RecipeEnum2["MineSalt3"] = "mine salt 3";
-  RecipeEnum2["MintCopperCoins1"] = "mint copper coins 1";
-  RecipeEnum2["MintCopperCoins2"] = "mint copper coins 2";
-  RecipeEnum2["MintCopperCoins3"] = "mint copper coins 3";
-  RecipeEnum2["MintGoldCoins1"] = "mint gold coins 1";
-  RecipeEnum2["MintGoldCoins2"] = "mint gold coins 2";
-  RecipeEnum2["MintGoldCoins3"] = "mint gold coins 3";
-  RecipeEnum2["MintLeatherCoins1"] = "mint leather coins 1";
-  RecipeEnum2["MintSilverCoins1"] = "mint silver coins 1";
-  RecipeEnum2["MintSilverCoins2"] = "mint silver coins 2";
-  RecipeEnum2["MintSilverCoins3"] = "mint silver coins 3";
-  RecipeEnum2["MintSteelCoins1"] = "mint steel coins 1";
-  RecipeEnum2["Patrol1"] = "patrol 1";
-  RecipeEnum2["Patrol2a"] = "patrol 2a";
-  RecipeEnum2["Patrol2b"] = "patrol 2b";
-  RecipeEnum2["Patrol3a"] = "patrol 3a";
-  RecipeEnum2["Patrol3b"] = "patrol 3b";
-  RecipeEnum2["RefineSteel1"] = "refine steel 1";
-  RecipeEnum2["RefineSteel1b"] = "refine steel 1b";
-  RecipeEnum2["RefineSteel2"] = "refine steel 2";
-  RecipeEnum2["RefineSteel2b"] = "refine steel 2b";
-  RecipeEnum2["Retting1"] = "retting 1";
-  RecipeEnum2["Retting2"] = "retting 2";
-  RecipeEnum2["SaltingFish1"] = "salting fish 1";
-  RecipeEnum2["SaltingFish2"] = "salting fish 2";
-  RecipeEnum2["SaltingMeat1"] = "salting meat 1";
-  RecipeEnum2["SaltingMeat2"] = "salting meat 2";
-  RecipeEnum2["Sawing1"] = "sawing 1";
-  RecipeEnum2["Sawing2"] = "sawing 2";
-  RecipeEnum2["Sawing3"] = "sawing 3";
-  RecipeEnum2["Sawing4"] = "sawing 4";
-  RecipeEnum2["Service1"] = "service 1";
-  RecipeEnum2["Service2"] = "service 2";
-  RecipeEnum2["Service3"] = "service 3";
-  RecipeEnum2["Service4"] = "service 4";
-  RecipeEnum2["SewCoats1a"] = "sew coats 1a";
-  RecipeEnum2["SewCoats1b"] = "sew coats 1b";
-  RecipeEnum2["SewCoats2a"] = "sew coats 2a";
-  RecipeEnum2["SewCoats2b"] = "sew coats 2b";
-  RecipeEnum2["SewGambeson1"] = "sew gambeson 1";
-  RecipeEnum2["SewGarments1"] = "sew garments 1";
-  RecipeEnum2["SewGarments2a"] = "sew garments 2a";
-  RecipeEnum2["SewGarments2b"] = "sew garments 2b";
-  RecipeEnum2["SewGarments3a"] = "sew garments 3a";
-  RecipeEnum2["SewGarments3b"] = "sew garments 3b";
-  RecipeEnum2["SewGarments4a"] = "sew garments 4a";
-  RecipeEnum2["SewGarments4b"] = "sew garments 4b";
-  RecipeEnum2["SewSails1"] = "sew sails 1";
-  RecipeEnum2["SewSails2"] = "sew sails 2";
-  RecipeEnum2["ShearSheep1"] = "shear sheep 1";
-  RecipeEnum2["ShearSheep2"] = "shear sheep 2";
-  RecipeEnum2["ShearSheep3"] = "shear sheep 3";
-  RecipeEnum2["SmeltCopper1"] = "smelt copper 1";
-  RecipeEnum2["SmeltCopper2"] = "smelt copper 2";
-  RecipeEnum2["SmeltGold1"] = "smelt gold 1";
-  RecipeEnum2["SmeltGold2"] = "smelt gold 2";
-  RecipeEnum2["SmeltIron1"] = "smelt iron 1";
-  RecipeEnum2["SmeltIron2"] = "smelt iron 2";
-  RecipeEnum2["SmeltLead1"] = "smelt lead 1";
-  RecipeEnum2["SmeltLead2a"] = "smelt lead 2a";
-  RecipeEnum2["SmeltLead2b"] = "smelt lead 2b";
-  RecipeEnum2["SmeltLead3"] = "smelt lead 3 (silver)";
-  RecipeEnum2["SmokingFish1"] = "smoking fish 1";
-  RecipeEnum2["SmokingFish2"] = "smoking fish 2";
-  RecipeEnum2["SmokingHam1"] = "smoking ham 1";
-  RecipeEnum2["SmokingHam2"] = "smoking ham 2";
-  RecipeEnum2["SmokingMeat1"] = "smoking meat 1";
-  RecipeEnum2["SmokingMeat2"] = "smoking meat 2";
-  RecipeEnum2["SnekkjaOperations"] = "snekkja operations";
-  RecipeEnum2["SpinThread1"] = "spin thread 1";
-  RecipeEnum2["SpinThread2"] = "spin thread 2";
-  RecipeEnum2["SpinYarn1"] = "spin yarn 1";
-  RecipeEnum2["SpinYarn2"] = "spin yarn 2";
-  RecipeEnum2["SplitTimber1"] = "split timber 1";
-  RecipeEnum2["SplitTimber2"] = "split timber 2";
-  RecipeEnum2["TanHides1"] = "tan hides 1";
-  RecipeEnum2["TanHides2"] = "tan hides 2";
-  RecipeEnum2["TrapFish1"] = "trap fish 1";
-  RecipeEnum2["TrapFish2"] = "trap fish 2";
-  RecipeEnum2["TrapFish3"] = "trap fish 3";
-  RecipeEnum2["Trapping1"] = "trapping 1";
-  RecipeEnum2["Trapping2"] = "trapping 2";
-  RecipeEnum2["TumbrelOperations"] = "tumbrel operations";
-  RecipeEnum2["WeaveCloth1"] = "weave cloth 1";
-  RecipeEnum2["WeaveCloth2a"] = "weave cloth 2a";
-  RecipeEnum2["WeaveCloth2b"] = "weave cloth 2b";
-  RecipeEnum2["WeaveCloth3a"] = "weave cloth 3a";
-  RecipeEnum2["WeaveCloth3b"] = "weave cloth 3b";
-  RecipeEnum2["WeaveCloth4a"] = "weave cloth 4a";
-  RecipeEnum2["WeaveCloth4b"] = "weave cloth 4b";
-  RecipeEnum2["YokeOx1a"] = "yoke ox 1a";
-  RecipeEnum2["YokeOx1b"] = "yoke ox 1b";
-  RecipeEnum2["YokeOx2a"] = "yoke ox 2a";
-  RecipeEnum2["YokeOx2b"] = "yoke ox 2b";
-  RecipeEnum2["YokeOx3"] = "yoke ox 3";
-  RecipeEnum2["YokeOx3manure"] = "yoke ox 3 (manure)";
-  return RecipeEnum2;
-})(RecipeEnum || {});
-
-// src/models/enums/skillEnum.ts
-var SkillEnum = /* @__PURE__ */ ((SkillEnum2) => {
-  SkillEnum2["Crafting"] = "crafting";
-  SkillEnum2["Forging"] = "forging";
-  SkillEnum2["Maritime"] = "maritime";
-  SkillEnum2["Mercantile"] = "mercantile";
-  SkillEnum2["Nutrition"] = "nutrition";
-  SkillEnum2["Textile"] = "textile";
-  SkillEnum2["Weaponry"] = "weaponry";
-  return SkillEnum2;
-})(SkillEnum || {});
-
-// src/models/enums/skillLevelEnum.ts
-var SkillLevelEnum = /* @__PURE__ */ ((SkillLevelEnum2) => {
-  SkillLevelEnum2[SkillLevelEnum2["Novice"] = 99] = "Novice";
-  SkillLevelEnum2[SkillLevelEnum2["Worker"] = 599] = "Worker";
-  SkillLevelEnum2[SkillLevelEnum2["Journeyman"] = 2699] = "Journeyman";
-  SkillLevelEnum2[SkillLevelEnum2["Master"] = 9999] = "Master";
-  return SkillLevelEnum2;
-})(SkillLevelEnum || {});
-
-// src/models/enums/transportTypeEnum.ts
-var TransportTypeEnum = /* @__PURE__ */ ((TransportTypeEnum2) => {
-  TransportTypeEnum2["Cog"] = "cog";
-  TransportTypeEnum2["Handcart"] = "handcart";
-  TransportTypeEnum2["Hulk"] = "hulk";
-  TransportTypeEnum2["Snekkja"] = "snekkja";
-  TransportTypeEnum2["Tumbrel"] = "tumbrel";
-  return TransportTypeEnum2;
-})(TransportTypeEnum || {});
-
 // src/game/player.ts
 var Player2 = class {
   _client;
@@ -3907,7 +4241,7 @@ var Player2 = class {
     return this.data.household;
   }
   get money() {
-    return this.business.account.assets.get("money" /* Money */).balance;
+    return this.business.account.assetsMap.get("money" /* Money */).balance;
   }
   get prestige() {
     return this.data.household.prestige;
@@ -3923,7 +4257,7 @@ var Player2 = class {
     return totalCost;
   }
   get sustenanceItems() {
-    return Array.from(this.data.household.sustenance.inventory.managers.keys());
+    return Array.from(this.data.household.sustenance.inventory.managersMap.keys());
   }
   sustenanceItemConsumption(item) {
     return this.data.household.sustenance.inventory.previous_flows[item].consumption;
@@ -4252,7 +4586,7 @@ var Client = class {
     return buildingOperation;
   }
   async getOperation(player, buildingOperation, operation) {
-    const op = new Operation(this, player, buildingOperation, operation);
+    const op = new Operation2(this, player, buildingOperation, operation);
     await op.load();
     return op;
   }
@@ -4289,7 +4623,7 @@ __export(game_exports, {
   Imports: () => Imports,
   ImportsList: () => ImportsList,
   ImportsSummed: () => ImportsSummed,
-  Operation: () => Operation,
+  Operation: () => Operation2,
   OperationsList: () => OperationsList,
   Player: () => Player2,
   Recipe: () => Recipe2,
@@ -4303,276 +4637,6 @@ __export(game_exports, {
 
 // src/api/index.ts
 var api_exports = {};
-
-// src/models/index.ts
-var models_exports = {};
-__export(models_exports, {
-  Account: () => Account,
-  AccountAsset: () => AccountAsset,
-  Building: () => Building,
-  BuildingConstruction: () => BuildingConstruction,
-  BuildingOperation: () => BuildingOperation,
-  BuildingStorage: () => BuildingStorage,
-  BuildingType: () => BuildingType,
-  Business: () => Business,
-  BusinessBuilding: () => BusinessBuilding,
-  Commoners: () => Commoners,
-  DeliveryCost: () => DeliveryCost,
-  Flow: () => Flow,
-  Household: () => Household,
-  Ingredient: () => Ingredient,
-  Inventory: () => Inventory,
-  Item: () => Item,
-  ItemTrade: () => ItemTrade,
-  ItemTradeResult: () => ItemTradeResult,
-  ItemTradeSettlement: () => ItemTradeSettlement,
-  Location: () => Location,
-  Manager: () => Manager,
-  Market: () => Market,
-  MarketItem: () => MarketItem,
-  MarketItemDetails: () => MarketItemDetails,
-  NotificationSettings: () => NotificationSettings,
-  Operation: () => Operation2,
-  Path: () => Path,
-  Player: () => Player,
-  PrestigeImpact: () => PrestigeImpact,
-  Producer: () => Producer,
-  Recipe: () => Recipe,
-  Region: () => Region,
-  Settings: () => Settings,
-  Structure: () => Structure,
-  Sustenance: () => Sustenance,
-  Tile: () => Tile,
-  Town: () => Town,
-  TownData: () => TownData,
-  TownDemand: () => TownDemand,
-  TownDemandCategory: () => TownDemandCategory,
-  TradeRoute: () => TradeRoute,
-  Transport: () => Transport,
-  TransportCargo: () => TransportCargo,
-  TransportJourney: () => TransportJourney,
-  TransportJourneyLeg: () => TransportJourneyLeg,
-  TransportType: () => TransportType,
-  Turn: () => Turn,
-  Worker: () => Worker,
-  enums: () => enums_exports2
-});
-
-// src/models/commoners.ts
-var Commoners = class extends BaseModel {
-  static schema = CommonersSchema;
-  account_id;
-  count;
-  migration;
-  sustenance;
-  get demands() {
-    return this.sustenance.flatMap((category) => category.products);
-  }
-};
-
-// src/models/deliveryCost.ts
-var DeliveryCost = class extends BaseModel {
-  static schema = DeliveryCostSchema;
-  land_distance;
-  ferry_fee;
-};
-
-// src/models/flow.ts
-var Flow = class extends BaseModel {
-  static schema = FlowSchema;
-  consumption;
-  expiration;
-  export;
-  imported;
-  production;
-  production_cost;
-  purchase;
-  purchase_cost;
-  resident;
-  sale;
-  sale_value;
-  shortfall;
-  constructor(data) {
-    super();
-    this.consumption = data.consumption;
-    this.expiration = data.expiration;
-    this.export = data.export;
-    this.imported = data.imported;
-    this.production = data.production;
-    this.production_cost = data.production_cost;
-    this.purchase = data.purchase;
-    this.purchase_cost = data.purchase_cost;
-    this.resident = data.resident;
-    this.sale = data.sale;
-    this.sale_value = data.sale_value;
-    this.shortfall = data.shortfall;
-  }
-};
-
-// src/models/inventory.ts
-var Inventory = class extends BaseModel {
-  static schema = InventorySchema;
-  account;
-  assets;
-  capacity;
-  managers;
-  previous_flows;
-  reserved;
-  get items() {
-    return this.account.assets;
-  }
-};
-
-// src/models/location.ts
-var Location = class extends BaseModel {
-  static schema = LocationSchema;
-  x;
-  y;
-};
-
-// src/models/operation.ts
-var Operation2 = class extends BaseModel {
-  static schema = OperationSchema;
-  target;
-  production;
-  provision;
-  reference;
-  recipe;
-  volume;
-  tax_rate;
-  tax;
-  delivery_cost;
-  flows;
-  get surplus() {
-    return (this.production || 0) - (this.target || 0);
-  }
-  get shortfall() {
-    return (this.target || 0) - (this.production || 0);
-  }
-};
-
-// src/models/path.ts
-var Path = class extends BaseModel {
-  static schema = PathSchema;
-  x;
-  y;
-  c;
-};
-
-// src/models/producer.ts
-var Producer = class extends BaseModel {
-  static schema = ProducerSchema;
-  inventory;
-  operation;
-  limited;
-  manager;
-  previous_operation;
-  provider_id;
-  recipe;
-  reference;
-  target;
-};
-
-// src/models/structure.ts
-var Structure = class extends BaseModel {
-  static schema = StructureSchema;
-  id;
-  type;
-  tags;
-};
-
-// src/models/tile.ts
-var Tile = class extends BaseModel {
-  static schema = TileSchema;
-  owner_id;
-  structure;
-  ask_price;
-};
-
-// src/schema/index.ts
-var schema_exports = {};
-__export(schema_exports, {
-  AccountAssetSchema: () => AccountAssetSchema,
-  AccountSchema: () => AccountSchema,
-  BuildingConstructionEffortSchema: () => BuildingConstructionEffortSchema,
-  BuildingConstructionSchema: () => BuildingConstructionSchema,
-  BuildingOperationSchema: () => BuildingOperationSchema,
-  BuildingRequirementSchema: () => BuildingRequirementSchema,
-  BuildingRequirementsSchema: () => BuildingRequirementsSchema,
-  BuildingSchema: () => BuildingSchema,
-  BuildingStorageSchema: () => BuildingStorageSchema,
-  BuildingTypeSchema: () => BuildingTypeSchema,
-  BuildingUpgradeSchema: () => BuildingUpgradeSchema,
-  BusinessBuildingSchema: () => BusinessBuildingSchema,
-  BusinessSchema: () => BusinessSchema,
-  CommonersSchema: () => CommonersSchema,
-  DeliveryCostSchema: () => DeliveryCostSchema,
-  FlowSchema: () => FlowSchema,
-  HouseholdSchema: () => HouseholdSchema,
-  IngredientSchema: () => IngredientSchema,
-  InventorySchema: () => InventorySchema,
-  ItemOrderSchema: () => ItemOrderSchema,
-  ItemPriceSchema: () => ItemPriceSchema,
-  ItemSchema: () => ItemSchema,
-  ItemTradeResultSchema: () => ItemTradeResultSchema,
-  ItemTradeSchema: () => ItemTradeSchema,
-  ItemTradeSettlementSchema: () => ItemTradeSettlementSchema,
-  LocationSchema: () => LocationSchema,
-  ManagerSchema: () => ManagerSchema,
-  MarketItemDetailsSchema: () => MarketItemDetailsSchema,
-  MarketItemSchema: () => MarketItemSchema,
-  MarketSchema: () => MarketSchema,
-  NotificationSettingsSchema: () => NotificationSettingsSchema,
-  OperationSchema: () => OperationSchema,
-  PathSchema: () => PathSchema,
-  PlayerSchema: () => PlayerSchema,
-  PrestigeImpactSchema: () => PrestigeImpactSchema,
-  ProducerSchema: () => ProducerSchema,
-  RecipeSchema: () => RecipeSchema,
-  RegionSchema: () => RegionSchema,
-  SettingsSchema: () => SettingsSchema,
-  StructureSchema: () => StructureSchema,
-  SustenanceSchema: () => SustenanceSchema,
-  TileRequirementSchema: () => TileRequirementSchema,
-  TileSchema: () => TileSchema,
-  TownChurchSchema: () => TownChurchSchema,
-  TownCultureSchema: () => TownCultureSchema,
-  TownDataSchema: () => TownDataSchema,
-  TownDemandCategorySchema: () => TownDemandCategorySchema,
-  TownDemandSchema: () => TownDemandSchema,
-  TownGovernmentSchema: () => TownGovernmentSchema,
-  TownGovernmentTaxesSchema: () => TownGovernmentTaxesSchema,
-  TownSchema: () => TownSchema,
-  TradeRouteSchema: () => TradeRouteSchema,
-  TransportCargoSchema: () => TransportCargoSchema,
-  TransportJourneyLegSchema: () => TransportJourneyLegSchema,
-  TransportJourneySchema: () => TransportJourneySchema,
-  TransportSchema: () => TransportSchema,
-  TransportTypeSchema: () => TransportTypeSchema,
-  TurnSchema: () => TurnSchema,
-  WorkerSchema: () => WorkerSchema,
-  enums: () => enums_exports
-});
-
-// src/schema/BuildingConstructionEffortSchema.ts
-var import_zod68 = require("zod");
-var BuildingConstructionEffortSchema = import_zod68.z.object({
-  inventory: InventorySchema,
-  progress: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
-  reference: import_zod68.z.string(),
-  stage: import_zod68.z.string(),
-  time: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional(),
-  upgrade_type: BuildingUpgradeTypeEnumSchema.optional()
-});
-
-// src/schema/BuildingRequirementSchema.ts
-var import_zod69 = require("zod");
-var BuildingRequirementSchema = import_zod69.z.object({
-  center: import_zod69.z.boolean().optional().default(false),
-  climate: ClimateEnumSchema.optional(),
-  min: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional(),
-  resource: ItemEnumSchema.optional()
-});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   AssetEnum,

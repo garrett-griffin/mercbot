@@ -53,6 +53,7 @@ export enum BuildingTypeEnum {
     Quarry = "quarry",
     RettingPit = "retting pit",
     Ropewalk = "ropewalk",
+    Rowhouse = "rowhouse",
     SailLoft = "sail loft",
     Saltery = "saltery",
     SaltMine = "salt mine",

@@ -44,6 +44,10 @@ export class BuildingConstruction extends BaseModel implements BuildingConstruct
     discount: number | null;
     time: number;
     materials: Record<ItemEnumType, number>;
+
+    get materialsMap() : Map<ItemEnumType, number> {
+        return new Map(Object.entries(this.materials).map(([key, value]) => [key as ItemEnumType, value]));
+    }
 }
 
 export class BuildingStorage extends BaseModel implements BuildingStorageType {
@@ -57,7 +61,7 @@ export class BuildingStorage extends BaseModel implements BuildingStorageType {
 export class BuildingOperation extends BaseModel implements BuildingOperationType {
     static schema = BuildingOperationSchema;
 
-    total_flow: Map<ItemEnumType, Flow> | null;
+    total_flow: Record<ItemEnumType, Flow> | null;
     operations: Operation[] | null;
 }
 

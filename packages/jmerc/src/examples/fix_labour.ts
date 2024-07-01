@@ -5,7 +5,7 @@ import {Client} from "../../";
 dotenv.config();
 
 async function balanceItem(player: jmerc.Player, item: jmerc.ItemEnumType, buyShortfall: boolean = false, _sellExcess: boolean = false): Promise<boolean> {
-    const manager = player.storehouse.data.inventory.managers.get(item);
+    const manager = player.storehouse.data.inventory.managers[item];
     const flow = player.storehouse.data.flows.get(item);
     let buyVolume: number | null = null;
 

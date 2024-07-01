@@ -3,11 +3,11 @@ import { BuildingOperation as BuildingOperationModel } from "../models/building"
 import Client from "../client";
 import {Player} from "./player";
 import {Building} from "./building";
-import {Flow} from "../models/flow";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
+import {Flow} from "../models";
+import {ItemEnumType} from "../schema/enums";
+import {BuildingTypeEnumType} from "../schema/enums";
 import { Operation as OperationModel } from "../models/operation";
-import {Ingredient} from "../models/recipe";
+import {Ingredient} from "../models";
 import {Recipe} from "./recipe";
 
 // Define the BuildingOperation class
@@ -27,6 +27,7 @@ export class BuildingOperation {
     async load(): Promise<void> {
         this.data = await this._client.buildingsApi.getOperations(this.buildingId);
         if (this.data && this.data.operations) {
+            console.log(JSON.stringify(this.data.total_flow));
             this.operations = new OperationsList(
                 ...(await Promise.all(
                     this.data.operations.map((operation) => {
@@ -44,7 +45,7 @@ export class BuildingOperation {
     }
 
     get totalFlow(): Map<ItemEnumType, Flow> | null {
-        return this.data.total_flow;
+        return new Map(Object.entries(this.data.total_flow).map(([key, value]) => [key as ItemEnumType, value]));
     }
 }
 

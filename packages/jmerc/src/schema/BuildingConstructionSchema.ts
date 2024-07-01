@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ItemEnumSchema } from './enums/ItemEnumSchema';
+import { ItemEnumSchema } from './enums';
 
 export const BuildingConstructionSchema = z.object({
     range: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),

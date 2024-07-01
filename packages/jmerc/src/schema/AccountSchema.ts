@@ -3,7 +3,7 @@ import { ItemEnumSchema } from './enums';
 import { AccountAssetSchema } from './AccountAssetSchema';
 
 export const AccountSchema = z.object({
-    assets: z.object({}).transform(obj => new Map(Object.entries(obj))).transform(map => z.map(ItemEnumSchema, AccountAssetSchema).parse(map)),
+    assets: z.record(ItemEnumSchema, AccountAssetSchema),
     id: z.string(),
     master_id: z.string().optional(),
     name: z.string().optional(),

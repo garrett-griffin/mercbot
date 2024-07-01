@@ -103,7 +103,7 @@ export class Player {
     }
 
     get money() {
-        return this.business.account.assets.get(AssetEnum.Money).balance;
+        return this.business.account.assetsMap.get(AssetEnum.Money).balance;
     }
 
     get prestige() {
@@ -123,7 +123,7 @@ export class Player {
     }
 
     get sustenanceItems() {
-        return Array.from(this.data.household.sustenance.inventory.managers.keys());
+        return Array.from(this.data.household.sustenance.inventory.managersMap.keys());
     }
 
     sustenanceItemConsumption(item: ItemEnumType) {

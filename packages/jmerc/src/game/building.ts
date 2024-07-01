@@ -31,8 +31,8 @@ export class Building {
 
     get flows() {
         if (this.buildingOperation && this.buildingOperation.totalFlow) {
-            console.log("Giving total flow");
-            return this.buildingOperation.data.total_flow;
+            console.log("Giving total flow: "+JSON.stringify(this.buildingOperation.totalFlow));
+            return this.buildingOperation.totalFlow;
         } else if (this.operation) {
             return this.operation.data.flows;
         } else {
@@ -45,7 +45,11 @@ export class Building {
     }
 
     get items() {
-        return this.data && this.data.storage ? this.data.storage.inventory.account.assets : null;
+        return this.data && this.data.storage ? new Map(Object.entries(this.data.storage.inventory.account.assets).map(([key, value]) => [key as ItemEnumType, value])) : null;
+    }
+
+    get producerItems() {
+        return this.data && this.data.producer ? new Map(Object.entries(this.data.producer.inventory.account.assets).map(([key, value]) => [key as ItemEnumType, value])) : null;
     }
 
     get operation() {
@@ -141,14 +145,14 @@ export class Building {
                 if (this.items) {
                     inventoryAssets = this.items;
                 } else if (this.data && this.data.producer) {
-                    inventoryAssets = this.data.producer.inventory.account.assets;
+                    inventoryAssets = this.producerItems;
                 }
 
                 let inventoryManagers: Map<ItemEnumType, Manager>;
                 if (this.data && this.data.storage) {
-                    inventoryManagers = this.data.storage.inventory.managers;
+                    inventoryManagers = this.data.storage.inventory.managersMap;
                 } else if (this.data && this.data.producer) {
-                    inventoryManagers = this.data.producer.inventory.managers;
+                    inventoryManagers = this.data.producer.inventory.managersMap;
                 }
 
                 return recipe.calculateTargetLabor(
