@@ -1,10 +1,10 @@
 import Client from "../client";
 import {Ingredient, Recipe as RecipeModel} from "../models/recipe";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {ItemEnum} from "../models/enums/itemEnum";
-import {AccountAsset} from "../models/account";
-import {Manager} from "../models/manager";
-import {RecipeEnumType} from "../schema/enums/RecipeEnumSchema";
+import {ItemEnumType} from "../schema/enums";
+import {ItemEnum} from "../models/enums";
+import {AccountAsset} from "../models";
+import {Manager} from "../models";
+import {RecipeEnumType} from "../schema/enums";
 
 export class Recipe {
     name: string;

@@ -1,9 +1,9 @@
-import { AccountAsset } from "../models/account";
-import { Flow } from "../models/flow";
-import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
+import { AccountAsset } from "../models";
+import { Flow } from "../models";
+import { ItemEnumType } from "../schema/enums";
 import { Town } from './town';
 import { Transport } from './transport';
-import { Manager } from "../models/manager";
+import { Manager } from "../models";
 
 export class Export {
     asset: AccountAsset;

@@ -1,7 +1,7 @@
 import BaseAPI from './baseAPI';
 import { apiRoutes } from "./api-routes";
-import { Region } from '../models/region';
-import { RegionType } from '../schema/RegionSchema';
+import { Region } from '../models';
+import { RegionType } from '../schema';
 
 class RegionAPI extends BaseAPI {
     endpoint: string = apiRoutes.regions;

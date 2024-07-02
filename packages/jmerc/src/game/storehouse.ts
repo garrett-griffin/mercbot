@@ -2,18 +2,15 @@
 import Client from "../client";
 import {Building} from './building'
 import { Player } from "./player";
-import {Flow} from "../models/flow";
-import {Account, AccountAsset} from "../models/account";
-import {Manager} from "../models/manager";
-import {ItemEnum} from "../models/enums/itemEnum";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {ItemTradeResultType} from "../schema/ItemTradeResultSchema";
+import {Flow} from "../models";
+import {Account, AccountAsset} from "../models";
+import {Manager} from "../models";
+import {ItemEnumType} from "../schema/enums";
 import { ExportsList } from './exports'
 import { ImportsList } from './imports'
-import { BuildingTypeEnum} from "../models/enums/buildingTypeEnum";
-import {MarketItem, MarketItemDetails} from "../models/market";
-import {ItemTradeResult} from "../models/itemTrade";
-import {Item} from "../models/item";
+import { BuildingTypeEnum} from "../models/enums";
+import {MarketItem, MarketItemDetails} from "../models";
+import {ItemTradeResult} from "../models";
 
 export class Storehouse {
     _client: Client;
@@ -54,22 +51,32 @@ export class Storehouse {
     }
 
     async buy(item: ItemEnumType, volume: number, price: number) {
-        const result = await this.player.town.buy(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-        const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
-        this.updateAccount(validatedAccount);
-        return result;
+        try {
+            const result = await this.player.town.buy(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
+            const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+            this.updateAccount(validatedAccount);
+            return result;
+        } catch (error) {
+            throw new Error(`Failed to buy item ${item}: ${(error as Error).message}`);
+        }
     }
+
 
     async patchManager(item: ItemEnumType, data: any) {
         await this.data.patchManager(item, data);
     }
 
     async sell(item: ItemEnumType, volume: number, price: number) {
-        const result = await this.player.town.sell(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-        const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
-        this.updateAccount(validatedAccount);
-        return result;
+        try {
+            const result = await this.player.town.sell(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
+            const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+            this.updateAccount(validatedAccount);
+            return result;
+        } catch (error) {
+            throw new Error(`Failed to sell item ${item}: ${(error as Error).message}`);
+        }
     }
+
 
     async setManager(item: ItemEnumType, manager: Manager) {
         await this._client.buildingsApi.setManager(this.data.id, item, manager);

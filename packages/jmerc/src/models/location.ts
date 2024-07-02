@@ -1,9 +1,20 @@
-import { LocationSchema, LocationType } from '../schema/LocationSchema';
-import {BaseModel} from "./baseModel";
+import { LocationSchema, LocationType } from '../schema';
+import { BaseModel } from "./baseModel";
 
+/**
+ * Represents a geographical location with coordinates.
+ */
 export class Location extends BaseModel implements LocationType {
     static schema = LocationSchema;
 
     x: number;
     y: number;
+
+    /**
+     * Creates an instance of Location.
+     * @param data - The data to initialize the location.
+     */
+    constructor(data: LocationType) {
+        super(data);
+    }
 }

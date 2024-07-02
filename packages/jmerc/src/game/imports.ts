@@ -1,10 +1,10 @@
 // imports.ts
 import { Town } from './town';
 import { Transport } from './transport';
-import {AccountAsset} from "../models/account";
-import {Flow} from "../models/flow";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {Manager} from "../models/manager";
+import {AccountAsset} from "../models";
+import {Flow} from "../models";
+import {ItemEnumType} from "../schema/enums";
+import {Manager} from "../models";
 
 export class Import {
     asset: AccountAsset

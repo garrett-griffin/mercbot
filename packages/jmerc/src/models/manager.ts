@@ -1,6 +1,9 @@
 import { BaseModel } from './baseModel';
 import { ManagerSchema, ManagerType } from '../schema/ManagerSchema';
 
+/**
+ * Represents a manager with associated attributes and operations.
+ */
 export class Manager extends BaseModel implements ManagerType {
     static schema = ManagerSchema;
 
@@ -11,6 +14,10 @@ export class Manager extends BaseModel implements ManagerType {
     private _sellPrice: number | null;
     private _sellVolume: number | null;
 
+    /**
+     * Creates an instance of Manager.
+     * @param data - The data to initialize the manager.
+     */
     constructor(data: {
         buyPrice?: number | null,
         buyVolume?: number | null,
@@ -19,13 +26,7 @@ export class Manager extends BaseModel implements ManagerType {
         sellPrice?: number | null,
         sellVolume?: number | null,
     }) {
-        super();
-        this.buyPrice = data.buyPrice;
-        this.buyVolume = data.buyVolume;
-        this.capacity = data.capacity;
-        this.maxHolding = data.maxHolding;
-        this.sellPrice = data.sellPrice;
-        this.sellVolume = data.sellVolume;
+        super(data);
     }
 
     get buyPrice(): number | null {
@@ -76,18 +77,30 @@ export class Manager extends BaseModel implements ManagerType {
         this._sellVolume = value;
     }
 
+    /**
+     * Checks if the manager is currently buying.
+     */
     get buying(): boolean {
         return this.buyPrice !== null && this.buyVolume !== null;
     }
 
+    /**
+     * Calculates the maximum buy price.
+     */
     get maxBuyPrice(): number {
-        return this.buyPrice * this.buyVolume;
+        return (this.buyPrice ?? 0) * (this.buyVolume ?? 0);
     }
 
+    /**
+     * Calculates the maximum sell price.
+     */
     get maxSellPrice(): number {
-        return this.sellPrice * this.sellVolume;
+        return (this.sellPrice ?? 0) * (this.sellVolume ?? 0);
     }
 
+    /**
+     * Checks if the manager is currently selling.
+     */
     get selling(): boolean {
         return this.sellPrice !== null && this.sellVolume !== null;
     }

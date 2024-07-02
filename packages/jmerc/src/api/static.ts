@@ -2,11 +2,11 @@ import axios, { AxiosInstance } from 'axios';
 import BaseAPI from './baseAPI';
 import Client from '../client';
 import { staticUrl, rootUrl } from "./api-routes";
-import {Building, BuildingType} from '../models/building'
+import {Building, BuildingType} from '../models'
 import { LRUCache } from "lru-cache";
-import { Item } from '../models/item';
-import { Recipe } from '../models/recipe';
-import {Transport, TransportType} from '../models/transport';
+import { Item } from '../models';
+import { Recipe } from '../models';
+import {Transport, TransportType} from '../models';
 
 class StaticAPI extends BaseAPI {
     endpoint: string = staticUrl;

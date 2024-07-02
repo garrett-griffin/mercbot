@@ -1,10 +1,13 @@
 import { BaseModel } from './baseModel';
-import { BusinessSchema, BusinessType } from '../schema/BusinessSchema';
-import { BusinessBuildingSchema, BusinessBuildingType } from '../schema/BusinessBuildingSchema';
-import {Account} from "./account";
-import {Building} from "./building";
-import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
+import { BusinessSchema, BusinessType } from '../schema';
+import { BusinessBuildingSchema, BusinessBuildingType } from '../schema';
+import { Account } from './account';
+import { Building } from './building';
+import { BuildingTypeEnumType } from '../schema/enums';
 
+/**
+ * Represents a business with associated attributes.
+ */
 export class Business extends BaseModel implements BusinessType {
     static schema = BusinessSchema;
 
@@ -18,12 +21,29 @@ export class Business extends BaseModel implements BusinessType {
     owner_id: string;
     transport_ids: number[] | null;
 
+    /**
+     * Creates an instance of Business.
+     * @param data - The data to initialize the business.
+     */
+    constructor(data: BusinessType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents a building within a business.
+ */
 export class BusinessBuilding extends BaseModel implements BusinessBuildingType {
     static schema = BusinessBuildingSchema;
 
     id: number;
     type: BuildingTypeEnumType;
 
+    /**
+     * Creates an instance of BusinessBuilding.
+     * @param data - The data to initialize the business building.
+     */
+    constructor(data: BusinessBuildingType) {
+        super(data);
+    }
 }

@@ -1,6 +1,6 @@
 import BaseAPI from './baseAPI';
 import { apiRoutes } from "./api-routes";
-import { Player } from '../models/player';
+import { Player } from '../models';
 
 class PlayersAPI extends BaseAPI {
     endpoint: string = apiRoutes.player;

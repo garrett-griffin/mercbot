@@ -1,6 +1,6 @@
 import BaseAPI from './baseAPI';
 import { apiRoutes } from "./api-routes";
-import { Turn } from '../models/turn';
+import { Turn } from '../models';
 
 class TurnsAPI extends BaseAPI {
     endpoint: string = apiRoutes.turn;

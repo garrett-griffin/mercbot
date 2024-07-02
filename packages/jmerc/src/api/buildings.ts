@@ -30,7 +30,11 @@ class BuildingsAPI extends BaseAPI {
         try {
             const response: ResponseObject = await super.get({ endpoint: apiRoutes.buildingOperations, id });
             if(response.status == 404) {
-                return new BuildingOperation();
+                // Provide default values for BuildingOperation properties
+                return new BuildingOperation({
+                    total_flow: null,
+                    operations: null
+                });
             }
             return BuildingOperation.validate(response);
         } catch (error) {

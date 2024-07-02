@@ -1,17 +1,32 @@
 import { BaseModel } from './baseModel';
-import { MarketSchema, MarketType } from '../schema/MarketSchema';
-import { MarketItemDetailsSchema, MarketItemDetailsType } from '../schema/MarketItemDetailsSchema';
-import { MarketItemSchema, MarketItemType } from "../schema/MarketItemSchema";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {ItemOrderType} from "../schema/ItemOrderSchema";
+import { MarketSchema, MarketType } from '../schema';
+import { MarketItemDetailsSchema, MarketItemDetailsType } from '../schema';
+import { MarketItemSchema, MarketItemType } from "../schema";
+import { ItemEnumType } from "../schema/enums";
+import { ItemOrderType } from "../schema";
 
+/**
+ * Represents the market with associated attributes.
+ */
 export class Market extends BaseModel implements MarketType {
     static schema = MarketSchema;
 
     markets: Record<ItemEnumType, MarketItem>;
     _ts: number;
+
+    /**
+     * Creates an instance of Market.
+     * @param data - The data to initialize the market.
+     */
+    constructor(data: MarketType) {
+        super(data);
+    }
 }
-export class    MarketItem extends BaseModel implements MarketItemType {
+
+/**
+ * Represents a market item with associated attributes.
+ */
+export class MarketItem extends BaseModel implements MarketItemType {
     static schema = MarketItemSchema;
 
     price: number | null;
@@ -24,8 +39,19 @@ export class    MarketItem extends BaseModel implements MarketItemType {
     volume_prev_12: number | null;
     bid_volume_10: number | null;
     ask_volume_10: number | null;
+
+    /**
+     * Creates an instance of MarketItem.
+     * @param data - The data to initialize the market item.
+     */
+    constructor(data: MarketItemType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents detailed information about a market item.
+ */
 export class MarketItemDetails extends BaseModel implements MarketItemDetailsType {
     static schema = MarketItemDetailsSchema;
 
@@ -36,4 +62,12 @@ export class MarketItemDetails extends BaseModel implements MarketItemDetailsTyp
     bids: ItemOrderType[];
     asks: ItemOrderType[];
     data: MarketItem;
+
+    /**
+     * Creates an instance of MarketItemDetails.
+     * @param data - The data to initialize the market item details.
+     */
+    constructor(data: MarketItemDetailsType) {
+        super(data);
+    }
 }

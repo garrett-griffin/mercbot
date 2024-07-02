@@ -1,16 +1,16 @@
-import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
-import { Inventory } from '../models/inventory';
+import { ItemEnumType } from "../schema/enums";
+import { Inventory } from '../models';
 import { Town } from './town';
-import {Market, MarketItem, MarketItemDetails} from '../models/market';
-import { TradeRoute } from '../models/transport';
+import {MarketItem, MarketItemDetails} from '../models';
+import { TradeRoute } from '../models';
 import { Exports, Export } from './exports';
 import { Imports, Import } from './imports';
 import Client from '../client';
 import { Player } from './player';
 import { Transport as TransportModel } from '../models/transport'
-import { ItemTradeResult } from "../models/itemTrade";
-import { Account, AccountAsset } from "../models/account";
-import { Manager } from "../models/manager";
+import { ItemTradeResult } from "../models";
+import { Account } from "../models";
+import { Manager } from "../models";
 
 export class Transport {
     id: number;
@@ -45,6 +45,7 @@ export class Transport {
         this.data = await this._client.transportsApi.get({id: this.id});
         if (this.data.route) {
             const data = await this._client.townsApi.getTown(this.data.route.remote_town);
+            this.town = new Town(this._client, this.data.route.remote_town, data);
         }
         this.loadImportsExports();
     }

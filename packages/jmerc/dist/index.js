@@ -190,1388 +190,6 @@ var BaseAPI = class {
 };
 var baseAPI_default = BaseAPI;
 
-// src/models/baseModel.ts
-var BaseModel = class {
-  static schema;
-  static async validate(data) {
-    try {
-      if (Array.isArray(data)) {
-        return await Promise.all(data.map((item) => this.schema.parse(item)));
-      } else {
-        return await this.schema.parse(data);
-      }
-    } catch (errors) {
-      throw new Error("Validation failed: " + errors + " - data: " + JSON.stringify(data));
-    }
-  }
-};
-
-// src/schema/TurnSchema.ts
-var import_zod = require("zod");
-var TurnSchema = import_zod.z.object({
-  turn: import_zod.z.union([import_zod.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod.z.number()]),
-  month: import_zod.z.string().optional(),
-  year: import_zod.z.union([import_zod.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod.z.number()]).optional()
-});
-
-// src/models/turn.ts
-var Turn = class extends BaseModel {
-  static schema = TurnSchema;
-  turn;
-  month;
-  year;
-};
-
-// src/api/turns.ts
-var TurnsAPI = class extends baseAPI_default {
-  endpoint = apiRoutes.turn;
-  /**
-   * Get the current turn data.
-   * @returns The current turn data.
-   */
-  async get() {
-    try {
-      const response = await super.get();
-      return Turn.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch turn data: ${error.message}`);
-    }
-  }
-};
-var turns_default = TurnsAPI;
-
-// src/schema/PlayerSchema.ts
-var import_zod23 = require("zod");
-
-// src/schema/HouseholdSchema.ts
-var import_zod20 = require("zod");
-
-// src/schema/PrestigeImpactSchema.ts
-var import_zod2 = require("zod");
-var PrestigeImpactSchema = import_zod2.z.object({
-  factor: import_zod2.z.string(),
-  impact: import_zod2.z.union([import_zod2.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod2.z.number()])
-});
-
-// src/schema/WorkerSchema.ts
-var import_zod4 = require("zod");
-
-// src/schema/enums/SkillEnumSchema.ts
-var import_zod3 = require("zod");
-var SkillEnumSchema = import_zod3.z.enum([
-  "crafting",
-  "forging",
-  "maritime",
-  "mercantile",
-  "nutrition",
-  "textile",
-  "weaponry"
-]);
-
-// src/schema/WorkerSchema.ts
-var WorkerSchema = import_zod4.z.object({
-  assignment: import_zod4.z.string(),
-  capacity: import_zod4.z.union([import_zod4.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod4.z.number()]),
-  name: import_zod4.z.string(),
-  skills: import_zod4.z.record(SkillEnumSchema, import_zod4.z.union([import_zod4.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod4.z.number()]))
-});
-
-// src/schema/SustenanceSchema.ts
-var import_zod19 = require("zod");
-
-// src/schema/InventorySchema.ts
-var import_zod18 = require("zod");
-
-// src/schema/enums/index.ts
-var enums_exports = {};
-__export(enums_exports, {
-  AssetEnumSchema: () => AssetEnumSchema,
-  BuildingTypeEnumSchema: () => BuildingTypeEnumSchema,
-  BuildingUpgradeTypeEnumSchema: () => BuildingUpgradeTypeEnumSchema,
-  ClimateEnumSchema: () => ClimateEnumSchema,
-  ItemEnumSchema: () => ItemEnumSchema,
-  ItemTypeEnumSchema: () => ItemTypeEnumSchema,
-  RecipeEnumSchema: () => RecipeEnumSchema,
-  SkillEnumSchema: () => SkillEnumSchema,
-  SkillLevelEnumSchema: () => SkillLevelEnumSchema,
-  TransportTypeEnumSchema: () => TransportTypeEnumSchema
-});
-
-// src/schema/enums/AssetEnumSchema.ts
-var import_zod5 = require("zod");
-var AssetEnumSchema = import_zod5.z.enum([
-  "cog",
-  "handcart",
-  "hulk",
-  "money",
-  "snekkja",
-  "tumbrel"
-]);
-
-// src/schema/enums/BuildingTypeEnumSchema.ts
-var import_zod6 = require("zod");
-var BuildingTypeEnumSchema = import_zod6.z.enum([
-  "apothecary",
-  "bakery",
-  "bloomery",
-  "boardinghouse",
-  "brewery",
-  "brickworks",
-  "butchery",
-  "carpentry",
-  "cartshed",
-  "cathedral",
-  "center",
-  "ceramic kiln",
-  "chandlery",
-  "chapel",
-  "charcoal hut",
-  "charcoal kiln",
-  "church",
-  "clay pit",
-  "copper mine",
-  "coppersmith",
-  "cottage",
-  "dairy",
-  "dye boiler",
-  "dyeworks",
-  "farmstead",
-  "fisher",
-  "fishing shack",
-  "flax farm",
-  "foundry",
-  "glass blower",
-  "glass house",
-  "gold mine",
-  "grain farm",
-  "guardhouse",
-  "herb garden",
-  "hjell",
-  "household",
-  "hunting lodge",
-  "iron mine",
-  "jeweller",
-  "lead mine",
-  "leatherworks",
-  "logging camp",
-  "markethall",
-  "malthouse",
-  "mansion",
-  "mint",
-  "net maker",
-  "outpost",
-  "park",
-  "pasture",
-  "quarry",
-  "retting pit",
-  "ropewalk",
-  "rowhouse",
-  "sail loft",
-  "saltery",
-  "salt mine",
-  "sawmill",
-  "sewing shop",
-  "shipyard",
-  "smithy",
-  "smokery",
-  "spinnery",
-  "stable",
-  "storehouse",
-  "square",
-  "tannery",
-  "tar kiln",
-  "toolworks",
-  "townhall",
-  "townhouse",
-  "townroad",
-  "vignoble",
-  "warehouse",
-  "weavery",
-  "windmill"
-]);
-
-// src/schema/enums/BuildingUpgradeTypeEnumSchema.ts
-var import_zod7 = require("zod");
-var BuildingUpgradeTypeEnumSchema = import_zod7.z.enum([
-  "armsrack",
-  "beehives",
-  "bellows",
-  "button cast",
-  "cowshed",
-  "crane",
-  "crane lift",
-  "curing chamber",
-  "cutting table",
-  "fermentory",
-  "grindstone",
-  "grooved bedstone",
-  "guard booth",
-  "hopping vessels",
-  "lime kiln",
-  "liming pots",
-  "malt mill",
-  "malt sieve",
-  "manure pit",
-  "plough house",
-  "skinning table",
-  "spinning wheel",
-  "steel anvil",
-  "stone oven",
-  "stonecutter's hut",
-  "tile moulds",
-  "toolshed",
-  "transmission",
-  "treadle loom",
-  "upholstry bench",
-  "warehouse",
-  "weaponsrack"
-]);
-
-// src/schema/enums/ClimateEnumSchema.ts
-var import_zod8 = require("zod");
-var ClimateEnumSchema = import_zod8.z.enum([
-  "cold",
-  "warm"
-]);
-
-// src/schema/enums/ItemEnumSchema.ts
-var import_zod9 = require("zod");
-var ItemEnumSchema = import_zod9.z.enum([
-  "alembics",
-  "arms",
-  "axes",
-  "beer",
-  "belts",
-  "blades",
-  "bread",
-  "bricks",
-  "butter",
-  "candles",
-  "carting",
-  "casks",
-  "cattle",
-  "charcoal",
-  "cheese",
-  "clay",
-  "cloth",
-  "coats",
-  "cog",
-  "cookware",
-  "copper ingots",
-  "copper ore",
-  "cured fish",
-  "cured meat",
-  "donations",
-  "dye",
-  "dyed cloth",
-  "firewood",
-  "fish",
-  "flax fibres",
-  "flax plants",
-  "flour",
-  "furniture",
-  "garments",
-  "glass",
-  "glassware",
-  "gold bars",
-  "gold ore",
-  "grain",
-  "grindstones",
-  "ham",
-  "handcart",
-  "harnesses",
-  "herbs",
-  "hides",
-  "honey",
-  "hop beer",
-  "hulk",
-  "iron ore",
-  "jewellery",
-  "labour",
-  "lead bars",
-  "lead ore",
-  "leather",
-  "light armor",
-  "limestone",
-  "lodging",
-  "lumber",
-  "malt",
-  "manure",
-  "meat",
-  "medicine",
-  "milk",
-  "money",
-  "mouldboards",
-  "nails",
-  "nets",
-  "ox power",
-  "pasties",
-  "pickaxes",
-  "pies",
-  "ploughs",
-  "protection",
-  "resin",
-  "rope",
-  "sails",
-  "salt",
-  "scythes",
-  "silver bars",
-  "slaked lime",
-  "snekkja",
-  "spirits",
-  "steel ingots",
-  "stockfish",
-  "swords",
-  "tar",
-  "thread",
-  "tiles",
-  "timber",
-  "tools",
-  "tumbrel",
-  "wax",
-  "wheels",
-  "windows",
-  "wine",
-  "wool",
-  "wrought iron",
-  "yarn"
-]);
-
-// src/schema/enums/ItemTypeEnumSchema.ts
-var import_zod10 = require("zod");
-var ItemTypeEnumSchema = import_zod10.z.enum([
-  "commodity",
-  "service",
-  "special"
-]);
-
-// src/schema/enums/RecipeEnumSchema.ts
-var import_zod11 = require("zod");
-var RecipeEnumSchema = import_zod11.z.enum([
-  "bake bread 1",
-  "bake bread 2",
-  "bake pasties 1",
-  "bake pasties 2",
-  "bake pies 1",
-  "bind garments 1",
-  "bind garments 2",
-  "blow glassware 1",
-  "blow glassware 2",
-  "boil dye 1",
-  "boil dye 2",
-  "border patrol 1",
-  "border patrol 2",
-  "breed cattle 1a",
-  "breed cattle 1b",
-  "breed cattle 2a",
-  "breed cattle 2b",
-  "brew beer 1",
-  "brew beer 2",
-  "brew beer 3",
-  "brew beer 4",
-  "brew hop beer 1",
-  "brew hop beer 2",
-  "build cog 1",
-  "build cog 2",
-  "build handcart 1",
-  "build handcart 2",
-  "build hulk 1",
-  "build snekkja 1",
-  "build snekkja 2",
-  "build tumbrel 1",
-  "burn bricks 1",
-  "burn charcoal 1",
-  "burn charcoal 2",
-  "burn charcoal 3",
-  "burn charcoal 4",
-  "burn cookware 1",
-  "burn cookware 2",
-  "burn glass 1",
-  "burn lime 1",
-  "burn tar 1",
-  "burn tar 2",
-  "burn tiles 1",
-  "burn tiles 2",
-  "butcher cattle 1a",
-  "butcher cattle 1b",
-  "butcher cattle 2",
-  "carting 1",
-  "carting 2",
-  "churn butter 1",
-  "churn butter 2",
-  "cog operations",
-  "craft arms 1",
-  "craft belts 1",
-  "craft belts 2",
-  "craft belts 3",
-  "craft belts 4",
-  "craft cookware 1",
-  "craft furniture 1",
-  "craft furniture 2",
-  "craft furniture 3",
-  "craft furniture 4",
-  "craft ploughs 1",
-  "craft ploughs 2",
-  "craft ploughs 3",
-  "craft scythes 1",
-  "craft scythes 2",
-  "craft tools 1",
-  "craft tools 2",
-  "craft wheels 1",
-  "craft wheels 2",
-  "craft wheels 3",
-  "cut bricks 1",
-  "cut grindstones 1",
-  "delivery duty 1",
-  "delivery duty 2",
-  "dig clay 1",
-  "dig clay 2",
-  "distill spirits 1",
-  "distill spirits 2",
-  "dry fish 1",
-  "dry fish 2",
-  "dry stockfish 1",
-  "dry stockfish 2",
-  "dye cloth 1",
-  "dye cloth 2",
-  "extract stone 1",
-  "extract stone 2",
-  "extract stone 3",
-  "fishing 1",
-  "fishing 2a",
-  "fishing 2b",
-  "fishing 3",
-  "forge arms 1",
-  "forge arms 2",
-  "forge arms 2b",
-  "forge axes 1",
-  "forge axes 1b",
-  "forge axes 2",
-  "forge axes 2b",
-  "forge blades 1",
-  "forge blades 1b",
-  "forge blades 2",
-  "forge blades 2b",
-  "forge mouldboards 1",
-  "forge pickaxes 1",
-  "forge pickaxes 1b",
-  "forge pickaxes 2",
-  "forge pickaxes 2b",
-  "forge swords 1",
-  "forge swords 1b",
-  "forge swords 2",
-  "forge swords 2b",
-  "forge tools 1",
-  "forge tools 2",
-  "forge tools 3",
-  "gather firewood 1",
-  "gather firewood 2",
-  "gather firewood 3",
-  "gather resin 1",
-  "gather resin 2",
-  "grain payment",
-  "grow flax 1",
-  "grow flax 2",
-  "grow flax 3",
-  "grow flax 4a",
-  "grow flax 4b",
-  "grow grain 1",
-  "grow grain 2",
-  "grow grain 3a",
-  "grow grain 3b",
-  "grow grain 4a",
-  "grow grain 4b",
-  "grow herbs 1",
-  "grow herbs 2",
-  "hammer nails 1",
-  "handcart operations",
-  "harness ox 1",
-  "harness ox 2a",
-  "harness ox 2b",
-  "harness ox 3a",
-  "harness ox 3b",
-  "harness ox 4a",
-  "harness ox 4b",
-  "herd sheep 1",
-  "herd sheep 2",
-  "hold banquet 1a",
-  "hold banquet 1b",
-  "hold banquet 2a",
-  "hold banquet 2b",
-  "hold banquet 2c",
-  "hold banquet 3a",
-  "hold banquet 3b",
-  "hold banquet 3c",
-  "hold banquet 4a",
-  "hold banquet 4b",
-  "hold feast 1",
-  "hold feast 2",
-  "hold feast 3",
-  "hold mass 1",
-  "hold mass 2",
-  "hold mass 3",
-  "hold prayer 1",
-  "hold prayer 2",
-  "hold prayer 3",
-  "hold sermon 1",
-  "hold sermon 2a",
-  "hold sermon 2b",
-  "hold sermon 3a",
-  "hold sermon 3b",
-  "hulk operations",
-  "hunting 1",
-  "hunting 2",
-  "hunting 3",
-  "hunting 4",
-  "hunting 5",
-  "keep bees 1",
-  "knight duty 1",
-  "knight duty 2",
-  "knight duty 3",
-  "knight duty 4",
-  "knit garments 1",
-  "knit garments 2",
-  "let cottages 1",
-  "let cottages 2",
-  "let rowhouses 1",
-  "let rowhouses 2",
-  "let rowhouses 3",
-  "logging 1",
-  "logging 2",
-  "logging 3",
-  "logging 4",
-  "maintain 1",
-  "make alembics 1",
-  "make alembics 2",
-  "make bricks 1",
-  "make bricks 2",
-  "make candles 1",
-  "make candles 2",
-  "make casks 1",
-  "make casks 2",
-  "make cheese 1",
-  "make cheese 2",
-  "make cheese 3",
-  "make cheese 4",
-  "make cheese 5",
-  "make harnesses 1",
-  "make harnesses 2",
-  "make harnesses 2b",
-  "make jewellery 1",
-  "make jewellery 2",
-  "make leather armor 1",
-  "make medicine 1",
-  "make medicine 2",
-  "make nets 1",
-  "make nets 2",
-  "make nets 3",
-  "make rope 1",
-  "make rope 2",
-  "make rope 3",
-  "make windows 1",
-  "make windows 2",
-  "make wine 1",
-  "make wine 2",
-  "make wine 3",
-  "malting 1",
-  "malting 2",
-  "milling 1",
-  "milling 2",
-  "milling 3",
-  "mine copper 1",
-  "mine copper 2",
-  "mine copper 3",
-  "mine copper 4",
-  "mine copper 5",
-  "mine gold 1",
-  "mine gold 1b",
-  "mine gold 2",
-  "mine gold 2b",
-  "mine gold 3",
-  "mine iron 1",
-  "mine iron 2",
-  "mine iron 3",
-  "mine iron 4",
-  "mine iron 5",
-  "mine lead 1",
-  "mine lead 2",
-  "mine lead 2b",
-  "mine lead 3",
-  "mine lead 3b",
-  "mine lead 4",
-  "mine salt 1",
-  "mine salt 2",
-  "mine salt 3",
-  "mint copper coins 1",
-  "mint copper coins 2",
-  "mint copper coins 3",
-  "mint gold coins 1",
-  "mint gold coins 2",
-  "mint gold coins 3",
-  "mint leather coins 1",
-  "mint silver coins 1",
-  "mint silver coins 2",
-  "mint silver coins 3",
-  "mint steel coins 1",
-  "patrol 1",
-  "patrol 2a",
-  "patrol 2b",
-  "patrol 3a",
-  "patrol 3b",
-  "refine steel 1",
-  "refine steel 1b",
-  "refine steel 2",
-  "refine steel 2b",
-  "retting 1",
-  "retting 2",
-  "salting fish 1",
-  "salting fish 2",
-  "salting meat 1",
-  "salting meat 2",
-  "sawing 1",
-  "sawing 2",
-  "sawing 3",
-  "sawing 3 (firewood)",
-  "sawing 4",
-  "service 1",
-  "service 2",
-  "service 3",
-  "service 4",
-  "sew coats 1a",
-  "sew coats 1b",
-  "sew coats 2a",
-  "sew coats 2b",
-  "sew gambeson 1",
-  "sew garments 1",
-  "sew garments 2a",
-  "sew garments 2b",
-  "sew garments 3a",
-  "sew garments 3b",
-  "sew garments 4a",
-  "sew garments 4b",
-  "sew sails 1",
-  "sew sails 2",
-  "shear sheep 1",
-  "shear sheep 2",
-  "shear sheep 3",
-  "smelt copper 1",
-  "smelt copper 2",
-  "smelt gold 1",
-  "smelt gold 2",
-  "smelt iron 1",
-  "smelt iron 2",
-  "smelt lead 1",
-  "smelt lead 2a",
-  "smelt lead 2b",
-  "smelt lead 3 (silver)",
-  "smoking fish 1",
-  "smoking fish 2",
-  "smoking ham 1",
-  "smoking ham 2",
-  "smoking meat 1",
-  "smoking meat 2",
-  "snekkja operations",
-  "spin thread 1",
-  "spin thread 2",
-  "spin yarn 1",
-  "spin yarn 2",
-  "split timber 1",
-  "split timber 2",
-  "split timber 3",
-  "tan hides 1",
-  "tan hides 2",
-  "tan hides 3",
-  "trap fish 1",
-  "trap fish 2",
-  "trap fish 3",
-  "trapping 1",
-  "trapping 2",
-  "tumbrel operations",
-  "weave cloth 1",
-  "weave cloth 2a",
-  "weave cloth 2b",
-  "weave cloth 3a",
-  "weave cloth 3b",
-  "weave cloth 4a",
-  "weave cloth 4b",
-  "yoke ox 1a",
-  "yoke ox 1b",
-  "yoke ox 2a",
-  "yoke ox 2b",
-  "yoke ox 3",
-  "yoke ox 3 (manure)"
-]);
-
-// src/schema/enums/SkillLevelEnumSchema.ts
-var import_zod12 = require("zod");
-var SkillLevelEnumSchema = import_zod12.z.enum([
-  "99",
-  "599",
-  "2699",
-  "9999"
-]);
-
-// src/schema/enums/TransportTypeEnumSchema.ts
-var import_zod13 = require("zod");
-var TransportTypeEnumSchema = import_zod13.z.enum([
-  "cog",
-  "handcart",
-  "hulk",
-  "snekkja",
-  "tumbrel"
-]);
-
-// src/schema/AccountSchema.ts
-var import_zod15 = require("zod");
-
-// src/schema/AccountAssetSchema.ts
-var import_zod14 = require("zod");
-var AccountAssetSchema = import_zod14.z.object({
-  balance: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]),
-  capacity: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
-  purchase: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
-  purchase_price: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
-  reserved: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]),
-  reserved_capacity: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
-  sale: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
-  sale_price: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
-  unit_cost: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional()
-});
-
-// src/schema/AccountSchema.ts
-var AccountSchema = import_zod15.z.object({
-  assets: import_zod15.z.record(ItemEnumSchema, AccountAssetSchema),
-  id: import_zod15.z.string(),
-  master_id: import_zod15.z.string().optional(),
-  name: import_zod15.z.string().optional(),
-  owner_id: import_zod15.z.string(),
-  sponsor_id: import_zod15.z.string().optional()
-});
-
-// src/schema/ManagerSchema.ts
-var import_zod16 = require("zod");
-var ManagerSchema = import_zod16.z.object({
-  buy_price: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]).optional(),
-  buy_volume: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]).optional(),
-  capacity: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]).optional(),
-  max_holding: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]).optional(),
-  sell_price: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]).optional(),
-  sell_volume: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]).optional()
-});
-
-// src/schema/FlowSchema.ts
-var import_zod17 = require("zod");
-var FlowSchema = import_zod17.z.object({
-  consumption: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().default(String(0)),
-  expiration: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().default(String(0)),
-  export: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional(),
-  imported: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().nullable().default(null).describe("import"),
-  production: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().default(String(0)),
-  production_cost: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().default(String(0)),
-  purchase: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional(),
-  purchase_cost: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().default(String(0)),
-  resident: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional(),
-  sale: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional(),
-  sale_value: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().default(String(0)),
-  shortfall: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional().default(String(0))
-});
-
-// src/schema/InventorySchema.ts
-var InventorySchema = import_zod18.z.object({
-  account: AccountSchema,
-  capacity: import_zod18.z.union([import_zod18.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod18.z.number()]),
-  managers: import_zod18.z.record(ItemEnumSchema, ManagerSchema).optional(),
-  previous_flows: import_zod18.z.record(ItemEnumSchema, FlowSchema).optional().default({}),
-  reserved: import_zod18.z.union([import_zod18.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod18.z.number()]).optional()
-});
-
-// src/schema/SustenanceSchema.ts
-var SustenanceSchema = import_zod19.z.object({
-  reference: import_zod19.z.string(),
-  inventory: InventorySchema,
-  provider_id: import_zod19.z.string().optional()
-});
-
-// src/schema/HouseholdSchema.ts
-var HouseholdSchema = import_zod20.z.object({
-  id: import_zod20.z.string(),
-  name: import_zod20.z.string(),
-  town_id: import_zod20.z.union([import_zod20.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod20.z.number()]),
-  portrait: import_zod20.z.string(),
-  gender: import_zod20.z.string(),
-  account_id: import_zod20.z.string(),
-  business_ids: import_zod20.z.array(import_zod20.z.string()),
-  prestige: import_zod20.z.union([import_zod20.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod20.z.number()]),
-  prestige_impacts: import_zod20.z.array(PrestigeImpactSchema).optional(),
-  workers: import_zod20.z.array(WorkerSchema),
-  operations: import_zod20.z.array(import_zod20.z.string()),
-  caps: import_zod20.z.record(import_zod20.z.string(), import_zod20.z.union([import_zod20.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod20.z.number()])),
-  sustenance: SustenanceSchema
-});
-
-// src/schema/SettingsSchema.ts
-var import_zod22 = require("zod");
-
-// src/schema/NotificationSettingsSchema.ts
-var import_zod21 = require("zod");
-var NotificationSettingsSchema = import_zod21.z.object({
-  discord: import_zod21.z.boolean(),
-  mutes: import_zod21.z.nullable(import_zod21.z.array(import_zod21.z.string())).optional().default([])
-});
-
-// src/schema/SettingsSchema.ts
-var SettingsSchema = import_zod22.z.object({
-  sound_volume: import_zod22.z.union([import_zod22.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod22.z.number()]),
-  notifications: NotificationSettingsSchema,
-  commoners_splash: import_zod22.z.boolean(),
-  construction_splash: import_zod22.z.boolean(),
-  land_purchase_splash: import_zod22.z.boolean(),
-  operations_splash: import_zod22.z.boolean(),
-  production_splash: import_zod22.z.boolean(),
-  recipes_splash: import_zod22.z.boolean(),
-  sustenance_splash: import_zod22.z.boolean(),
-  trading_splash: import_zod22.z.boolean(),
-  trade_config_splash: import_zod22.z.boolean(),
-  welcome_splash: import_zod22.z.boolean(),
-  first_building_splash: import_zod22.z.boolean(),
-  warehouse_splash: import_zod22.z.boolean()
-});
-
-// src/schema/PlayerSchema.ts
-var PlayerSchema = import_zod23.z.object({
-  username: import_zod23.z.string(),
-  household: HouseholdSchema,
-  discord_id: import_zod23.z.string().optional(),
-  settings: SettingsSchema,
-  active: import_zod23.z.boolean()
-});
-
-// src/models/player.ts
-var Player = class extends BaseModel {
-  static schema = PlayerSchema;
-  username;
-  household;
-  discord_id;
-  settings;
-  active;
-};
-var Household = class extends BaseModel {
-  static schema = HouseholdSchema;
-  id;
-  name;
-  town_id;
-  portrait;
-  gender;
-  account_id;
-  business_ids;
-  prestige;
-  prestige_impacts;
-  workers;
-  operations;
-  caps;
-  sustenance;
-};
-var PrestigeImpact = class extends BaseModel {
-  static schema = PrestigeImpactSchema;
-  factor;
-  impact;
-};
-var Worker = class extends BaseModel {
-  static schema = WorkerSchema;
-  assignment;
-  capacity;
-  name;
-  skills;
-};
-var Sustenance = class extends BaseModel {
-  static schema = SustenanceSchema;
-  reference;
-  inventory;
-  provider_id;
-};
-var Settings = class extends BaseModel {
-  static schema = SettingsSchema;
-  sound_volume;
-  notifications;
-  commoners_splash;
-  construction_splash;
-  land_purchase_splash;
-  operations_splash;
-  production_splash;
-  recipes_splash;
-  sustenance_splash;
-  trading_splash;
-  trade_config_splash;
-  welcome_splash;
-  first_building_splash;
-  warehouse_splash;
-};
-var NotificationSettings = class extends BaseModel {
-  static schema = NotificationSettingsSchema;
-  discord;
-  mutes;
-};
-
-// src/api/players.ts
-var PlayersAPI = class extends baseAPI_default {
-  endpoint = apiRoutes.player;
-  async get() {
-    try {
-      const response = await super.get();
-      return Player.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch player data: ${error.message}`);
-    }
-  }
-};
-var players_default = PlayersAPI;
-
-// src/schema/TownSchema.ts
-var import_zod25 = require("zod");
-
-// src/schema/LocationSchema.ts
-var import_zod24 = require("zod");
-var LocationSchema = import_zod24.z.object({
-  x: import_zod24.z.union([import_zod24.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod24.z.number()]),
-  y: import_zod24.z.union([import_zod24.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod24.z.number()])
-});
-
-// src/schema/TownSchema.ts
-var TownSchema = import_zod25.z.object({
-  id: import_zod25.z.union([import_zod25.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod25.z.number()]),
-  name: import_zod25.z.string(),
-  location: LocationSchema,
-  region: import_zod25.z.union([import_zod25.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod25.z.number()]),
-  capital: import_zod25.z.boolean().default(false)
-});
-
-// src/schema/TownDataSchema.ts
-var import_zod35 = require("zod");
-
-// src/schema/TileSchema.ts
-var import_zod27 = require("zod");
-
-// src/schema/StructureSchema.ts
-var import_zod26 = require("zod");
-var StructureSchema = import_zod26.z.object({
-  id: import_zod26.z.string(),
-  type: BuildingTypeEnumSchema,
-  tags: import_zod26.z.array(import_zod26.z.string()).optional()
-});
-
-// src/schema/TileSchema.ts
-var TileSchema = import_zod27.z.object({
-  owner_id: import_zod27.z.string().optional(),
-  structure: StructureSchema.optional(),
-  ask_price: import_zod27.z.string().optional()
-});
-
-// src/schema/CommonersSchema.ts
-var import_zod30 = require("zod");
-
-// src/schema/TownDemandCategorySchema.ts
-var import_zod29 = require("zod");
-
-// src/schema/TownDemandSchema.ts
-var import_zod28 = require("zod");
-var TownDemandSchema = import_zod28.z.object({
-  product: ItemEnumSchema,
-  bonus: import_zod28.z.union([import_zod28.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod28.z.number()]).default(String(0)),
-  desire: import_zod28.z.union([import_zod28.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod28.z.number()]).default(String(0)),
-  request: import_zod28.z.union([import_zod28.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod28.z.number()]).default(String(0)),
-  result: import_zod28.z.union([import_zod28.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod28.z.number()]).default(String(0))
-});
-
-// src/schema/TownDemandCategorySchema.ts
-var TownDemandCategorySchema = import_zod29.z.object({
-  name: import_zod29.z.string(),
-  products: import_zod29.z.array(TownDemandSchema)
-});
-
-// src/schema/CommonersSchema.ts
-var CommonersSchema = import_zod30.z.object({
-  account_id: import_zod30.z.string(),
-  count: import_zod30.z.union([import_zod30.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod30.z.number()]),
-  migration: import_zod30.z.union([import_zod30.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod30.z.number()]),
-  sustenance: import_zod30.z.array(TownDemandCategorySchema)
-});
-
-// src/schema/TownGovernmentSchema.ts
-var import_zod32 = require("zod");
-
-// src/schema/TownGovernmentTaxesSchema.ts
-var import_zod31 = require("zod");
-var TownGovernmentTaxesSchema = import_zod31.z.object({
-  land_tax: import_zod31.z.union([import_zod31.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod31.z.number()]).optional().default(String(0)),
-  structure_tax: import_zod31.z.union([import_zod31.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod31.z.number()]).optional().default(String(0)),
-  ferry_fees: import_zod31.z.union([import_zod31.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod31.z.number()]).optional().default(String(0))
-});
-
-// src/schema/TownGovernmentSchema.ts
-var TownGovernmentSchema = import_zod32.z.object({
-  account_id: import_zod32.z.string(),
-  demands: import_zod32.z.array(TownDemandSchema),
-  taxes_collected: TownGovernmentTaxesSchema
-});
-
-// src/schema/TownChurchSchema.ts
-var import_zod33 = require("zod");
-var TownChurchSchema = import_zod33.z.object({
-  project_ids: import_zod33.z.array(import_zod33.z.string()).optional().nullable()
-});
-
-// src/schema/TownCultureSchema.ts
-var import_zod34 = require("zod");
-var TownCultureSchema = import_zod34.z.object({
-  special_market_pressure: import_zod34.z.record(import_zod34.z.union([import_zod34.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod34.z.number()]), import_zod34.z.union([import_zod34.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod34.z.number()])).optional()
-});
-
-// src/schema/TownDataSchema.ts
-var TownDataSchema = import_zod35.z.object({
-  id: import_zod35.z.string(),
-  name: import_zod35.z.string(),
-  location: LocationSchema,
-  region: import_zod35.z.union([import_zod35.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod35.z.number()]),
-  center_ids: import_zod35.z.array(import_zod35.z.union([import_zod35.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod35.z.number()])),
-  domain: import_zod35.z.record(import_zod35.z.string(), TileSchema),
-  household_ids: import_zod35.z.array(import_zod35.z.string()),
-  commoners: CommonersSchema,
-  government: TownGovernmentSchema,
-  church: TownChurchSchema,
-  navigation_zones: import_zod35.z.record(import_zod35.z.union([import_zod35.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod35.z.number()]), import_zod35.z.union([import_zod35.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod35.z.number()])),
-  culture: TownCultureSchema
-});
-
-// src/models/town.ts
-var Town = class extends BaseModel {
-  static schema = TownSchema;
-  id;
-  name;
-  location;
-  region;
-  capital;
-};
-var TownData = class extends BaseModel {
-  static schema = TownDataSchema;
-  id;
-  name;
-  location;
-  region;
-  center_ids;
-  domain;
-  household_ids;
-  commoners;
-  government;
-  church;
-  navigation_zones;
-  culture;
-};
-var TownDemand = class extends BaseModel {
-  static schema = TownDemandSchema;
-  product;
-  bonus;
-  desire;
-  request;
-  result;
-};
-var TownDemandCategory = class extends BaseModel {
-  static schema = TownDemandCategorySchema;
-  name;
-  products;
-};
-
-// src/schema/MarketSchema.ts
-var import_zod37 = require("zod");
-
-// src/schema/MarketItemSchema.ts
-var import_zod36 = require("zod");
-var MarketItemSchema = import_zod36.z.object({
-  price: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  last_price: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  average_price: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  moving_average: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  highest_bid: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  lowest_ask: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  volume: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]),
-  volume_prev_12: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  bid_volume_10: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0)),
-  ask_volume_10: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]).optional().default(String(0))
-});
-
-// src/schema/MarketSchema.ts
-var MarketSchema = import_zod37.z.object({
-  markets: import_zod37.z.record(ItemEnumSchema, MarketItemSchema),
-  _ts: import_zod37.z.union([import_zod37.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod37.z.number()]).describe("_ts")
-});
-
-// src/schema/MarketItemDetailsSchema.ts
-var import_zod39 = require("zod");
-
-// src/schema/ItemOrderSchema.ts
-var import_zod38 = require("zod");
-var ItemOrderSchema = import_zod38.z.object({
-  volume: import_zod38.z.union([import_zod38.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod38.z.number()]),
-  price: import_zod38.z.union([import_zod38.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod38.z.number()])
-});
-
-// src/schema/MarketItemDetailsSchema.ts
-var MarketItemDetailsSchema = import_zod39.z.object({
-  id: import_zod39.z.union([import_zod39.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod39.z.number()]),
-  product: ItemEnumSchema,
-  asset: ItemEnumSchema,
-  currency: import_zod39.z.string(),
-  bids: import_zod39.z.array(ItemOrderSchema),
-  asks: import_zod39.z.array(ItemOrderSchema),
-  data: MarketItemSchema
-});
-
-// src/models/market.ts
-var Market = class extends BaseModel {
-  static schema = MarketSchema;
-  markets;
-  _ts;
-};
-var MarketItem = class extends BaseModel {
-  static schema = MarketItemSchema;
-  price;
-  last_price;
-  average_price;
-  moving_average;
-  highest_bid;
-  lowest_ask;
-  volume;
-  volume_prev_12;
-  bid_volume_10;
-  ask_volume_10;
-};
-var MarketItemDetails = class extends BaseModel {
-  static schema = MarketItemDetailsSchema;
-  id;
-  product;
-  asset;
-  currency;
-  bids;
-  asks;
-  data;
-};
-
-// src/schema/ItemTradeSchema.ts
-var import_zod40 = require("zod");
-var ItemTradeSchema = import_zod40.z.object({
-  direction: import_zod40.z.string(),
-  expected_balance: import_zod40.z.union([import_zod40.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod40.z.number()]),
-  operation: import_zod40.z.string(),
-  price: import_zod40.z.union([import_zod40.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod40.z.number()]),
-  volume: import_zod40.z.union([import_zod40.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod40.z.number()])
-});
-
-// src/schema/ItemTradeResultSchema.ts
-var import_zod42 = require("zod");
-
-// src/schema/ItemTradeSettlementSchema.ts
-var import_zod41 = require("zod");
-var ItemTradeSettlementSchema = import_zod41.z.object({
-  volume: import_zod41.z.union([import_zod41.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod41.z.number()]),
-  price: import_zod41.z.union([import_zod41.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod41.z.number()])
-});
-
-// src/schema/ItemTradeResultSchema.ts
-var ItemTradeResultSchema = import_zod42.z.object({
-  settlements: import_zod42.z.array(ItemTradeSettlementSchema).optional(),
-  order_id: import_zod42.z.union([import_zod42.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod42.z.number()]).optional(),
-  embedded: import_zod42.z.record(import_zod42.z.string(), import_zod42.z.any()).optional().default({})
-});
-
-// src/models/itemTrade.ts
-var ItemTrade = class extends BaseModel {
-  direction;
-  expectedBalance;
-  operation;
-  price;
-  volume;
-  constructor(direction, expectedBalance, operation, price, volume) {
-    super();
-    this.direction = direction;
-    this.expectedBalance = expectedBalance;
-    this.operation = operation;
-    this.price = price;
-    this.volume = volume;
-  }
-  static schema = ItemTradeSchema;
-};
-var ItemTradeResult = class extends BaseModel {
-  static schema = ItemTradeResultSchema;
-  settlements;
-  order_id;
-  embedded;
-};
-var ItemTradeSettlement = class extends BaseModel {
-  static schema = ItemTradeSettlementSchema;
-  volume;
-  price;
-};
-
-// src/utils/index.ts
-var utils_exports = {};
-__export(utils_exports, {
-  BuySellOrderFailedException: () => BuySellOrderFailedException,
-  SetManagerFailedException: () => SetManagerFailedException,
-  TurnInProgressException: () => TurnInProgressException,
-  convertFloatsToStrings: () => convertFloatsToStrings
-});
-
-// src/utils/conversion.ts
-function convertFloatsToStrings(obj) {
-  if (typeof obj !== "object" || obj === null) {
-    return obj;
-  }
-  const convertedObj = {};
-  for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === "object" && value !== null) {
-      convertedObj[key] = convertFloatsToStrings(value);
-    } else if (typeof value === "number" && !Number.isInteger(value)) {
-      convertedObj[key] = value.toString();
-    } else {
-      convertedObj[key] = value;
-    }
-  }
-  return convertedObj;
-}
-
-// src/utils/errors.ts
-var TurnInProgressException = class extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "TurnInProgressException";
-  }
-};
-var BuySellOrderFailedException = class extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "BuySellOrderFailedException";
-  }
-};
-var SetManagerFailedException = class extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "SetManagerFailedException";
-  }
-};
-
-// src/api/towns.ts
-var TownsAPI = class extends baseAPI_default {
-  endpoint = apiRoutes.towns;
-  /**
-   * Get a list of all towns in the game.
-   * @returns A list of all towns in the game.
-   */
-  async getAll() {
-    try {
-      const response = await super.get();
-      return Town.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch towns: ${error.message}`);
-    }
-  }
-  /**
-   * Get data for a town.
-   * @param id - The ID of the town.
-   * @returns The data for the town.
-   */
-  async get({ id } = {}) {
-    try {
-      const response = await super.get({ endpoint: apiRoutes.townData, id });
-      return TownData.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch town data for ID ${id}: ${error.message}`);
-    }
-  }
-  /**
-   * Get data for a town.
-   * @param id - The ID of the town.
-   * @returns The data for the town.
-   */
-  async getTown(id) {
-    return await this.get({ id });
-  }
-  /**
-   * Get data for a town.
-   * @param id - The ID of the town.
-   * @returns The data for the town.
-   */
-  async getTownData(id) {
-    return await this.get({ id });
-  }
-  /**
-   * Get market data for a town.
-   * @param id - The ID of the town.
-   * @returns The market data for the town.
-   */
-  async getMarketData(id) {
-    try {
-      const response = await super.get({ endpoint: apiRoutes.marketData, id });
-      return Market.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch market data for town ID ${id}: ${error.message}`);
-    }
-  }
-  /**
-   * Get the market overview for an item in a town.
-   * @param townId - The ID of the town.
-   * @param item - The item to get the overview for.
-   * @returns The market overview for the town.
-   */
-  async getMarketItem(townId, item) {
-    try {
-      const response = await super.get({ endpoint: apiRoutes.marketItem, id: townId, item });
-      return MarketItemDetails.validate(response);
-    } catch (error) {
-      throw new Error(`Failed to fetch market item data for town ID ${townId} and item ${item}: ${error.message}`);
-    }
-  }
-  async sendBuyOrder(item, id, expectedBalance, operation, price, volume) {
-    return await this._sendOrder(
-      item,
-      id,
-      expectedBalance,
-      operation,
-      price,
-      volume,
-      "bid"
-    );
-  }
-  async sendSellOrder(item, id, expectedBalance, operation, price, volume) {
-    return await this._sendOrder(
-      item,
-      id,
-      expectedBalance,
-      operation,
-      price,
-      volume,
-      "ask"
-    );
-  }
-  async _sendOrder(item, id, expectedBalance, operation, price, volume, direction) {
-    const trade = new ItemTrade(
-      direction,
-      expectedBalance,
-      operation,
-      price,
-      volume
-    );
-    const json = convertFloatsToStrings(trade);
-    const response = await super.post({ endpoint: apiRoutes.orders, id, item, data: json });
-    if (response.status == 200) {
-      return ItemTradeResult.validate(response);
-    } else {
-      throw new BuySellOrderFailedException(
-        `Failed to send ${direction} order: ${response.statusText}`
-      );
-    }
-  }
-};
-var towns_default = TownsAPI;
-
 // src/models/index.ts
 var models_exports = {};
 __export(models_exports, {
@@ -1623,12 +241,12 @@ __export(models_exports, {
   TransportType: () => TransportType,
   Turn: () => Turn,
   Worker: () => Worker,
-  enums: () => enums_exports2
+  enums: () => enums_exports
 });
 
 // src/models/enums/index.ts
-var enums_exports2 = {};
-__export(enums_exports2, {
+var enums_exports = {};
+__export(enums_exports, {
   AssetEnum: () => AssetEnum,
   BuildingTypeEnum: () => BuildingTypeEnum,
   BuildingUpgradeTypeEnum: () => BuildingUpgradeTypeEnum,
@@ -2276,6 +894,58 @@ var TransportTypeEnum = /* @__PURE__ */ ((TransportTypeEnum2) => {
   return TransportTypeEnum2;
 })(TransportTypeEnum || {});
 
+// src/models/baseModel.ts
+var BaseModel = class {
+  static schema;
+  initialized = false;
+  constructor(data) {
+    Object.assign(this, data);
+    this.initializeSubProperties();
+  }
+  /**
+   * Validates the input data against the schema and creates an instance of the class.
+   * @param data - The input data to validate and instantiate.
+   * @returns A promise that resolves to an instance of the class.
+   */
+  static async validate(data) {
+    const parsedData = await this.schema.parseAsync(data);
+    const instance = new this(parsedData);
+    instance.initializeSubProperties();
+    return instance;
+  }
+  /**
+   * Validates an array of input data against the schema and creates instances of the class.
+   * @param data - The input data to validate and instantiate.
+   * @returns A promise that resolves to an array of instances of the class.
+   */
+  static async validateArray(data) {
+    const parsedDataArray = await Promise.all(data.map((item) => this.schema.parseAsync(item)));
+    return parsedDataArray.map((parsedData) => {
+      const instance = new this(parsedData);
+      instance.initializeSubProperties();
+      return instance;
+    });
+  }
+  /**
+   * Initializes sub-properties of the class instance that are also instances of other classes.
+   * It checks each property, and if it's an object with a schema, it creates a new instance of that class.
+   */
+  initializeSubProperties() {
+    if (this.initialized) return;
+    for (const key of Object.keys(this)) {
+      const value = this[key];
+      if (value && typeof value === "object" && "schema" in value.constructor) {
+        this[key] = new value.constructor(value);
+      } else if (Array.isArray(value)) {
+        this[key] = value.map(
+          (item) => item && typeof item === "object" && "schema" in item.constructor ? new item.constructor(item) : item
+        );
+      }
+    }
+    this.initialized = true;
+  }
+};
+
 // src/schema/index.ts
 var schema_exports = {};
 __export(schema_exports, {
@@ -2338,341 +1008,1321 @@ __export(schema_exports, {
   TransportTypeSchema: () => TransportTypeSchema,
   TurnSchema: () => TurnSchema,
   WorkerSchema: () => WorkerSchema,
-  enums: () => enums_exports
+  enums: () => enums_exports2
+});
+
+// src/schema/enums/index.ts
+var enums_exports2 = {};
+__export(enums_exports2, {
+  AssetEnumSchema: () => AssetEnumSchema,
+  BuildingTypeEnumSchema: () => BuildingTypeEnumSchema,
+  BuildingUpgradeTypeEnumSchema: () => BuildingUpgradeTypeEnumSchema,
+  ClimateEnumSchema: () => ClimateEnumSchema,
+  ItemEnumSchema: () => ItemEnumSchema,
+  ItemTypeEnumSchema: () => ItemTypeEnumSchema,
+  RecipeEnumSchema: () => RecipeEnumSchema,
+  SkillEnumSchema: () => SkillEnumSchema,
+  SkillLevelEnumSchema: () => SkillLevelEnumSchema,
+  TransportTypeEnumSchema: () => TransportTypeEnumSchema
+});
+
+// src/schema/enums/AssetEnumSchema.ts
+var import_zod = require("zod");
+var AssetEnumSchema = import_zod.z.enum([
+  "cog",
+  "handcart",
+  "hulk",
+  "money",
+  "snekkja",
+  "tumbrel"
+]);
+
+// src/schema/enums/BuildingTypeEnumSchema.ts
+var import_zod2 = require("zod");
+var BuildingTypeEnumSchema = import_zod2.z.enum([
+  "apothecary",
+  "bakery",
+  "bloomery",
+  "boardinghouse",
+  "brewery",
+  "brickworks",
+  "butchery",
+  "carpentry",
+  "cartshed",
+  "cathedral",
+  "center",
+  "ceramic kiln",
+  "chandlery",
+  "chapel",
+  "charcoal hut",
+  "charcoal kiln",
+  "church",
+  "clay pit",
+  "copper mine",
+  "coppersmith",
+  "cottage",
+  "dairy",
+  "dye boiler",
+  "dyeworks",
+  "farmstead",
+  "fisher",
+  "fishing shack",
+  "flax farm",
+  "foundry",
+  "glass blower",
+  "glass house",
+  "gold mine",
+  "grain farm",
+  "guardhouse",
+  "herb garden",
+  "hjell",
+  "household",
+  "hunting lodge",
+  "iron mine",
+  "jeweller",
+  "lead mine",
+  "leatherworks",
+  "logging camp",
+  "markethall",
+  "malthouse",
+  "mansion",
+  "mint",
+  "net maker",
+  "outpost",
+  "park",
+  "pasture",
+  "quarry",
+  "retting pit",
+  "ropewalk",
+  "rowhouse",
+  "sail loft",
+  "saltery",
+  "salt mine",
+  "sawmill",
+  "sewing shop",
+  "shipyard",
+  "smithy",
+  "smokery",
+  "spinnery",
+  "stable",
+  "storehouse",
+  "square",
+  "tannery",
+  "tar kiln",
+  "toolworks",
+  "townhall",
+  "townhouse",
+  "townroad",
+  "vignoble",
+  "warehouse",
+  "weavery",
+  "windmill"
+]);
+
+// src/schema/enums/BuildingUpgradeTypeEnumSchema.ts
+var import_zod3 = require("zod");
+var BuildingUpgradeTypeEnumSchema = import_zod3.z.enum([
+  "armsrack",
+  "beehives",
+  "bellows",
+  "button cast",
+  "cowshed",
+  "crane",
+  "crane lift",
+  "curing chamber",
+  "cutting table",
+  "fermentory",
+  "grindstone",
+  "grooved bedstone",
+  "guard booth",
+  "hopping vessels",
+  "lime kiln",
+  "liming pots",
+  "malt mill",
+  "malt sieve",
+  "manure pit",
+  "plough house",
+  "skinning table",
+  "spinning wheel",
+  "steel anvil",
+  "stone oven",
+  "stonecutter's hut",
+  "tile moulds",
+  "toolshed",
+  "transmission",
+  "treadle loom",
+  "upholstry bench",
+  "warehouse",
+  "weaponsrack"
+]);
+
+// src/schema/enums/ClimateEnumSchema.ts
+var import_zod4 = require("zod");
+var ClimateEnumSchema = import_zod4.z.enum([
+  "cold",
+  "warm"
+]);
+
+// src/schema/enums/ItemEnumSchema.ts
+var import_zod5 = require("zod");
+var ItemEnumSchema = import_zod5.z.enum([
+  "alembics",
+  "arms",
+  "axes",
+  "beer",
+  "belts",
+  "blades",
+  "bread",
+  "bricks",
+  "butter",
+  "candles",
+  "carting",
+  "casks",
+  "cattle",
+  "charcoal",
+  "cheese",
+  "clay",
+  "cloth",
+  "coats",
+  "cog",
+  "cookware",
+  "copper ingots",
+  "copper ore",
+  "cured fish",
+  "cured meat",
+  "donations",
+  "dye",
+  "dyed cloth",
+  "firewood",
+  "fish",
+  "flax fibres",
+  "flax plants",
+  "flour",
+  "furniture",
+  "garments",
+  "glass",
+  "glassware",
+  "gold bars",
+  "gold ore",
+  "grain",
+  "grindstones",
+  "ham",
+  "handcart",
+  "harnesses",
+  "herbs",
+  "hides",
+  "honey",
+  "hop beer",
+  "hulk",
+  "iron ore",
+  "jewellery",
+  "labour",
+  "lead bars",
+  "lead ore",
+  "leather",
+  "light armor",
+  "limestone",
+  "lodging",
+  "lumber",
+  "malt",
+  "manure",
+  "meat",
+  "medicine",
+  "milk",
+  "money",
+  "mouldboards",
+  "nails",
+  "nets",
+  "ox power",
+  "pasties",
+  "pickaxes",
+  "pies",
+  "ploughs",
+  "protection",
+  "resin",
+  "rope",
+  "sails",
+  "salt",
+  "scythes",
+  "silver bars",
+  "slaked lime",
+  "snekkja",
+  "spirits",
+  "steel ingots",
+  "stockfish",
+  "swords",
+  "tar",
+  "thread",
+  "tiles",
+  "timber",
+  "tools",
+  "tumbrel",
+  "wax",
+  "wheels",
+  "windows",
+  "wine",
+  "wool",
+  "wrought iron",
+  "yarn"
+]);
+
+// src/schema/enums/ItemTypeEnumSchema.ts
+var import_zod6 = require("zod");
+var ItemTypeEnumSchema = import_zod6.z.enum([
+  "commodity",
+  "service",
+  "special"
+]);
+
+// src/schema/enums/RecipeEnumSchema.ts
+var import_zod7 = require("zod");
+var RecipeEnumSchema = import_zod7.z.enum([
+  "bake bread 1",
+  "bake bread 2",
+  "bake pasties 1",
+  "bake pasties 2",
+  "bake pies 1",
+  "bind garments 1",
+  "bind garments 2",
+  "blow glassware 1",
+  "blow glassware 2",
+  "boil dye 1",
+  "boil dye 2",
+  "border patrol 1",
+  "border patrol 2",
+  "breed cattle 1a",
+  "breed cattle 1b",
+  "breed cattle 2a",
+  "breed cattle 2b",
+  "brew beer 1",
+  "brew beer 2",
+  "brew beer 3",
+  "brew beer 4",
+  "brew hop beer 1",
+  "brew hop beer 2",
+  "build cog 1",
+  "build cog 2",
+  "build handcart 1",
+  "build handcart 2",
+  "build hulk 1",
+  "build snekkja 1",
+  "build snekkja 2",
+  "build tumbrel 1",
+  "burn bricks 1",
+  "burn charcoal 1",
+  "burn charcoal 2",
+  "burn charcoal 3",
+  "burn charcoal 4",
+  "burn cookware 1",
+  "burn cookware 2",
+  "burn glass 1",
+  "burn lime 1",
+  "burn tar 1",
+  "burn tar 2",
+  "burn tiles 1",
+  "burn tiles 2",
+  "butcher cattle 1a",
+  "butcher cattle 1b",
+  "butcher cattle 2",
+  "carting 1",
+  "carting 2",
+  "churn butter 1",
+  "churn butter 2",
+  "cog operations",
+  "craft arms 1",
+  "craft belts 1",
+  "craft belts 2",
+  "craft belts 3",
+  "craft belts 4",
+  "craft cookware 1",
+  "craft furniture 1",
+  "craft furniture 2",
+  "craft furniture 3",
+  "craft furniture 4",
+  "craft ploughs 1",
+  "craft ploughs 2",
+  "craft ploughs 3",
+  "craft scythes 1",
+  "craft scythes 2",
+  "craft tools 1",
+  "craft tools 2",
+  "craft wheels 1",
+  "craft wheels 2",
+  "craft wheels 3",
+  "cut bricks 1",
+  "cut grindstones 1",
+  "delivery duty 1",
+  "delivery duty 2",
+  "dig clay 1",
+  "dig clay 2",
+  "distill spirits 1",
+  "distill spirits 2",
+  "dry fish 1",
+  "dry fish 2",
+  "dry stockfish 1",
+  "dry stockfish 2",
+  "dye cloth 1",
+  "dye cloth 2",
+  "extract stone 1",
+  "extract stone 2",
+  "extract stone 3",
+  "fishing 1",
+  "fishing 2a",
+  "fishing 2b",
+  "fishing 3",
+  "forge arms 1",
+  "forge arms 2",
+  "forge arms 2b",
+  "forge axes 1",
+  "forge axes 1b",
+  "forge axes 2",
+  "forge axes 2b",
+  "forge blades 1",
+  "forge blades 1b",
+  "forge blades 2",
+  "forge blades 2b",
+  "forge mouldboards 1",
+  "forge pickaxes 1",
+  "forge pickaxes 1b",
+  "forge pickaxes 2",
+  "forge pickaxes 2b",
+  "forge swords 1",
+  "forge swords 1b",
+  "forge swords 2",
+  "forge swords 2b",
+  "forge tools 1",
+  "forge tools 2",
+  "forge tools 3",
+  "gather firewood 1",
+  "gather firewood 2",
+  "gather firewood 3",
+  "gather resin 1",
+  "gather resin 2",
+  "grain payment",
+  "grow flax 1",
+  "grow flax 2",
+  "grow flax 3",
+  "grow flax 4a",
+  "grow flax 4b",
+  "grow grain 1",
+  "grow grain 2",
+  "grow grain 3a",
+  "grow grain 3b",
+  "grow grain 4a",
+  "grow grain 4b",
+  "grow herbs 1",
+  "grow herbs 2",
+  "hammer nails 1",
+  "handcart operations",
+  "harness ox 1",
+  "harness ox 2a",
+  "harness ox 2b",
+  "harness ox 3a",
+  "harness ox 3b",
+  "harness ox 4a",
+  "harness ox 4b",
+  "herd sheep 1",
+  "herd sheep 2",
+  "hold banquet 1a",
+  "hold banquet 1b",
+  "hold banquet 2a",
+  "hold banquet 2b",
+  "hold banquet 2c",
+  "hold banquet 3a",
+  "hold banquet 3b",
+  "hold banquet 3c",
+  "hold banquet 4a",
+  "hold banquet 4b",
+  "hold feast 1",
+  "hold feast 2",
+  "hold feast 3",
+  "hold mass 1",
+  "hold mass 2",
+  "hold mass 3",
+  "hold prayer 1",
+  "hold prayer 2",
+  "hold prayer 3",
+  "hold sermon 1",
+  "hold sermon 2a",
+  "hold sermon 2b",
+  "hold sermon 3a",
+  "hold sermon 3b",
+  "hulk operations",
+  "hunting 1",
+  "hunting 2",
+  "hunting 3",
+  "hunting 4",
+  "hunting 5",
+  "keep bees 1",
+  "knight duty 1",
+  "knight duty 2",
+  "knight duty 3",
+  "knight duty 4",
+  "knit garments 1",
+  "knit garments 2",
+  "let cottages 1",
+  "let cottages 2",
+  "let rowhouses 1",
+  "let rowhouses 2",
+  "let rowhouses 3",
+  "logging 1",
+  "logging 2",
+  "logging 3",
+  "logging 4",
+  "maintain 1",
+  "make alembics 1",
+  "make alembics 2",
+  "make bricks 1",
+  "make bricks 2",
+  "make candles 1",
+  "make candles 2",
+  "make casks 1",
+  "make casks 2",
+  "make cheese 1",
+  "make cheese 2",
+  "make cheese 3",
+  "make cheese 4",
+  "make cheese 5",
+  "make harnesses 1",
+  "make harnesses 2",
+  "make harnesses 2b",
+  "make jewellery 1",
+  "make jewellery 2",
+  "make leather armor 1",
+  "make medicine 1",
+  "make medicine 2",
+  "make nets 1",
+  "make nets 2",
+  "make nets 3",
+  "make rope 1",
+  "make rope 2",
+  "make rope 3",
+  "make windows 1",
+  "make windows 2",
+  "make wine 1",
+  "make wine 2",
+  "make wine 3",
+  "malting 1",
+  "malting 2",
+  "milling 1",
+  "milling 2",
+  "milling 3",
+  "mine copper 1",
+  "mine copper 2",
+  "mine copper 3",
+  "mine copper 4",
+  "mine copper 5",
+  "mine gold 1",
+  "mine gold 1b",
+  "mine gold 2",
+  "mine gold 2b",
+  "mine gold 3",
+  "mine iron 1",
+  "mine iron 2",
+  "mine iron 3",
+  "mine iron 4",
+  "mine iron 5",
+  "mine lead 1",
+  "mine lead 2",
+  "mine lead 2b",
+  "mine lead 3",
+  "mine lead 3b",
+  "mine lead 4",
+  "mine salt 1",
+  "mine salt 2",
+  "mine salt 3",
+  "mint copper coins 1",
+  "mint copper coins 2",
+  "mint copper coins 3",
+  "mint gold coins 1",
+  "mint gold coins 2",
+  "mint gold coins 3",
+  "mint leather coins 1",
+  "mint silver coins 1",
+  "mint silver coins 2",
+  "mint silver coins 3",
+  "mint steel coins 1",
+  "patrol 1",
+  "patrol 2a",
+  "patrol 2b",
+  "patrol 3a",
+  "patrol 3b",
+  "refine steel 1",
+  "refine steel 1b",
+  "refine steel 2",
+  "refine steel 2b",
+  "retting 1",
+  "retting 2",
+  "salting fish 1",
+  "salting fish 2",
+  "salting meat 1",
+  "salting meat 2",
+  "sawing 1",
+  "sawing 2",
+  "sawing 3",
+  "sawing 3 (firewood)",
+  "sawing 4",
+  "service 1",
+  "service 2",
+  "service 3",
+  "service 4",
+  "sew coats 1a",
+  "sew coats 1b",
+  "sew coats 2a",
+  "sew coats 2b",
+  "sew gambeson 1",
+  "sew garments 1",
+  "sew garments 2a",
+  "sew garments 2b",
+  "sew garments 3a",
+  "sew garments 3b",
+  "sew garments 4a",
+  "sew garments 4b",
+  "sew sails 1",
+  "sew sails 2",
+  "shear sheep 1",
+  "shear sheep 2",
+  "shear sheep 3",
+  "smelt copper 1",
+  "smelt copper 2",
+  "smelt gold 1",
+  "smelt gold 2",
+  "smelt iron 1",
+  "smelt iron 2",
+  "smelt lead 1",
+  "smelt lead 2a",
+  "smelt lead 2b",
+  "smelt lead 3 (silver)",
+  "smoking fish 1",
+  "smoking fish 2",
+  "smoking ham 1",
+  "smoking ham 2",
+  "smoking meat 1",
+  "smoking meat 2",
+  "snekkja operations",
+  "spin thread 1",
+  "spin thread 2",
+  "spin yarn 1",
+  "spin yarn 2",
+  "split timber 1",
+  "split timber 2",
+  "split timber 3",
+  "tan hides 1",
+  "tan hides 2",
+  "tan hides 3",
+  "trap fish 1",
+  "trap fish 2",
+  "trap fish 3",
+  "trapping 1",
+  "trapping 2",
+  "tumbrel operations",
+  "weave cloth 1",
+  "weave cloth 2a",
+  "weave cloth 2b",
+  "weave cloth 3a",
+  "weave cloth 3b",
+  "weave cloth 4a",
+  "weave cloth 4b",
+  "yoke ox 1a",
+  "yoke ox 1b",
+  "yoke ox 2a",
+  "yoke ox 2b",
+  "yoke ox 3",
+  "yoke ox 3 (manure)"
+]);
+
+// src/schema/enums/SkillEnumSchema.ts
+var import_zod8 = require("zod");
+var SkillEnumSchema = import_zod8.z.enum([
+  "crafting",
+  "forging",
+  "maritime",
+  "mercantile",
+  "nutrition",
+  "textile",
+  "weaponry"
+]);
+
+// src/schema/enums/SkillLevelEnumSchema.ts
+var import_zod9 = require("zod");
+var SkillLevelEnumSchema = import_zod9.z.enum([
+  "99",
+  "599",
+  "2699",
+  "9999"
+]);
+
+// src/schema/enums/TransportTypeEnumSchema.ts
+var import_zod10 = require("zod");
+var TransportTypeEnumSchema = import_zod10.z.enum([
+  "cog",
+  "handcart",
+  "hulk",
+  "snekkja",
+  "tumbrel"
+]);
+
+// src/schema/AccountAssetSchema.ts
+var import_zod11 = require("zod");
+var AccountAssetSchema = import_zod11.z.object({
+  balance: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]),
+  capacity: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]).optional(),
+  purchase: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]).optional(),
+  purchase_price: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]).optional(),
+  reserved: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]),
+  reserved_capacity: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]).optional(),
+  sale: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]).optional(),
+  sale_price: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]).optional(),
+  unit_cost: import_zod11.z.union([import_zod11.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod11.z.number()]).optional()
+});
+
+// src/schema/AccountSchema.ts
+var import_zod12 = require("zod");
+var AccountSchema = import_zod12.z.object({
+  assets: import_zod12.z.record(ItemEnumSchema, AccountAssetSchema.optional()),
+  id: import_zod12.z.string(),
+  master_id: import_zod12.z.string().optional(),
+  name: import_zod12.z.string().optional(),
+  owner_id: import_zod12.z.string(),
+  sponsor_id: import_zod12.z.string().optional()
 });
 
 // src/schema/BuildingConstructionEffortSchema.ts
-var import_zod43 = require("zod");
-var BuildingConstructionEffortSchema = import_zod43.z.object({
+var import_zod16 = require("zod");
+
+// src/schema/InventorySchema.ts
+var import_zod15 = require("zod");
+
+// src/schema/ManagerSchema.ts
+var import_zod13 = require("zod");
+var ManagerSchema = import_zod13.z.object({
+  buy_price: import_zod13.z.union([import_zod13.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod13.z.number()]).optional(),
+  buy_volume: import_zod13.z.union([import_zod13.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod13.z.number()]).optional(),
+  capacity: import_zod13.z.union([import_zod13.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod13.z.number()]).optional(),
+  max_holding: import_zod13.z.union([import_zod13.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod13.z.number()]).optional(),
+  sell_price: import_zod13.z.union([import_zod13.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod13.z.number()]).optional(),
+  sell_volume: import_zod13.z.union([import_zod13.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod13.z.number()]).optional()
+});
+
+// src/schema/FlowSchema.ts
+var import_zod14 = require("zod");
+var FlowSchema = import_zod14.z.object({
+  consumption: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().default(String(0)),
+  expiration: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().default(String(0)),
+  export: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
+  imported: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().nullable().default(null).describe("import"),
+  production: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().default(String(0)),
+  production_cost: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().default(String(0)),
+  purchase: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
+  purchase_cost: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().default(String(0)),
+  resident: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
+  sale: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional(),
+  sale_value: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().default(String(0)),
+  shortfall: import_zod14.z.union([import_zod14.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod14.z.number()]).optional().default(String(0))
+});
+
+// src/schema/InventorySchema.ts
+var InventorySchema = import_zod15.z.object({
+  account: AccountSchema,
+  capacity: import_zod15.z.union([import_zod15.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod15.z.number()]),
+  managers: import_zod15.z.record(ItemEnumSchema, ManagerSchema).optional(),
+  previous_flows: import_zod15.z.record(ItemEnumSchema, FlowSchema).optional().default({}),
+  reserved: import_zod15.z.union([import_zod15.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod15.z.number()]).optional()
+});
+
+// src/schema/BuildingConstructionEffortSchema.ts
+var BuildingConstructionEffortSchema = import_zod16.z.object({
   inventory: InventorySchema,
-  progress: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]),
-  reference: import_zod43.z.string(),
-  stage: import_zod43.z.string(),
-  time: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]).optional(),
+  progress: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]),
+  reference: import_zod16.z.string(),
+  stage: import_zod16.z.string(),
+  time: import_zod16.z.union([import_zod16.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod16.z.number()]).optional(),
   upgrade_type: BuildingUpgradeTypeEnumSchema.optional()
 });
 
 // src/schema/BuildingConstructionSchema.ts
-var import_zod44 = require("zod");
-var BuildingConstructionSchema = import_zod44.z.object({
-  range: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
-  size: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
-  discount: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
-  time: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]),
-  materials: import_zod44.z.record(ItemEnumSchema, import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]))
+var import_zod17 = require("zod");
+var BuildingConstructionSchema = import_zod17.z.object({
+  range: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional(),
+  size: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional(),
+  discount: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]).optional(),
+  time: import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]),
+  materials: import_zod17.z.record(ItemEnumSchema, import_zod17.z.union([import_zod17.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod17.z.number()]))
 });
 
 // src/schema/BuildingOperationSchema.ts
-var import_zod47 = require("zod");
+var import_zod20 = require("zod");
 
 // src/schema/OperationSchema.ts
-var import_zod46 = require("zod");
+var import_zod19 = require("zod");
 
 // src/schema/DeliveryCostSchema.ts
-var import_zod45 = require("zod");
-var DeliveryCostSchema = import_zod45.z.object({
-  land_distance: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]),
-  ferry_fee: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]).optional()
+var import_zod18 = require("zod");
+var DeliveryCostSchema = import_zod18.z.object({
+  land_distance: import_zod18.z.union([import_zod18.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod18.z.number()]),
+  ferry_fee: import_zod18.z.union([import_zod18.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod18.z.number()]).optional()
 });
 
 // src/schema/OperationSchema.ts
-var OperationSchema = import_zod46.z.object({
-  target: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]),
-  production: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
-  provision: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
-  reference: import_zod46.z.string().optional(),
+var OperationSchema = import_zod19.z.object({
+  target: import_zod19.z.union([import_zod19.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod19.z.number()]),
+  production: import_zod19.z.union([import_zod19.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod19.z.number()]).optional(),
+  provision: import_zod19.z.union([import_zod19.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod19.z.number()]).optional(),
+  reference: import_zod19.z.string().optional(),
   recipe: RecipeEnumSchema.optional(),
-  volume: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
-  tax_rate: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
-  tax: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional(),
+  volume: import_zod19.z.union([import_zod19.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod19.z.number()]).optional(),
+  tax_rate: import_zod19.z.union([import_zod19.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod19.z.number()]).optional(),
+  tax: import_zod19.z.union([import_zod19.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod19.z.number()]).optional(),
   delivery_cost: DeliveryCostSchema.optional(),
-  flows: import_zod46.z.record(ItemEnumSchema, FlowSchema).optional()
+  flows: import_zod19.z.record(ItemEnumSchema, FlowSchema).optional()
 });
 
 // src/schema/BuildingOperationSchema.ts
-var BuildingOperationSchema = import_zod47.z.object({
-  total_flow: import_zod47.z.record(ItemEnumSchema, FlowSchema),
-  operations: import_zod47.z.array(OperationSchema).optional().nullable()
+var BuildingOperationSchema = import_zod20.z.object({
+  total_flow: import_zod20.z.record(ItemEnumSchema, FlowSchema),
+  operations: import_zod20.z.array(OperationSchema).optional().nullable()
 });
 
 // src/schema/BuildingRequirementSchema.ts
-var import_zod48 = require("zod");
-var BuildingRequirementSchema = import_zod48.z.object({
-  center: import_zod48.z.boolean().optional().default(false),
+var import_zod21 = require("zod");
+var BuildingRequirementSchema = import_zod21.z.object({
+  center: import_zod21.z.boolean().optional().default(false),
   climate: ClimateEnumSchema.optional(),
-  min: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]).optional(),
+  min: import_zod21.z.union([import_zod21.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod21.z.number()]).optional(),
   resource: ItemEnumSchema.optional()
 });
 
 // src/schema/BuildingRequirementsSchema.ts
-var import_zod50 = require("zod");
+var import_zod23 = require("zod");
 
 // src/schema/TileRequirementSchema.ts
-var import_zod49 = require("zod");
-var TileRequirementSchema = import_zod49.z.object({
-  min: import_zod49.z.union([import_zod49.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod49.z.number()]).optional(),
-  max: import_zod49.z.union([import_zod49.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod49.z.number()]).optional()
+var import_zod22 = require("zod");
+var TileRequirementSchema = import_zod22.z.object({
+  min: import_zod22.z.union([import_zod22.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod22.z.number()]).optional(),
+  max: import_zod22.z.union([import_zod22.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod22.z.number()]).optional()
 });
 
 // src/schema/BuildingRequirementsSchema.ts
-var BuildingRequirementsSchema = import_zod50.z.object({
+var BuildingRequirementsSchema = import_zod23.z.object({
   fertility: TileRequirementSchema.optional(),
   forest: TileRequirementSchema.optional(),
   climate: ClimateEnumSchema.optional()
 });
 
 // src/schema/BuildingSchema.ts
-var import_zod53 = require("zod");
+var import_zod27 = require("zod");
+
+// src/schema/LocationSchema.ts
+var import_zod24 = require("zod");
+var LocationSchema = import_zod24.z.object({
+  x: import_zod24.z.union([import_zod24.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod24.z.number()]),
+  y: import_zod24.z.union([import_zod24.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod24.z.number()])
+});
 
 // src/schema/ProducerSchema.ts
-var import_zod51 = require("zod");
-var ProducerSchema = import_zod51.z.object({
+var import_zod25 = require("zod");
+var ProducerSchema = import_zod25.z.object({
   inventory: InventorySchema,
-  limited: import_zod51.z.boolean(),
-  manager: import_zod51.z.string(),
+  limited: import_zod25.z.boolean(),
+  manager: import_zod25.z.string(),
   previous_operation: OperationSchema,
-  provider_id: import_zod51.z.union([import_zod51.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod51.z.number()]).optional(),
+  provider_id: import_zod25.z.union([import_zod25.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod25.z.number()]).optional(),
   recipe: RecipeEnumSchema,
-  reference: import_zod51.z.string(),
-  target: import_zod51.z.union([import_zod51.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod51.z.number()]).optional()
+  reference: import_zod25.z.string(),
+  target: import_zod25.z.union([import_zod25.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod25.z.number()]).optional()
 });
 
 // src/schema/BuildingStorageSchema.ts
-var import_zod52 = require("zod");
-var BuildingStorageSchema = import_zod52.z.object({
+var import_zod26 = require("zod");
+var BuildingStorageSchema = import_zod26.z.object({
   inventory: InventorySchema,
-  operations: import_zod52.z.array(import_zod52.z.string()),
-  reference: import_zod52.z.string()
+  operations: import_zod26.z.array(import_zod26.z.string()),
+  reference: import_zod26.z.string()
 });
 
 // src/schema/BuildingSchema.ts
-var BuildingSchema = import_zod53.z.object({
-  capacity: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+var BuildingSchema = import_zod27.z.object({
+  capacity: import_zod27.z.union([import_zod27.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod27.z.number()]).optional(),
   construction: BuildingConstructionSchema.optional().nullable(),
   delivery_cost: DeliveryCostSchema.optional(),
-  id: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]),
-  land: import_zod53.z.array(LocationSchema).optional(),
+  id: import_zod27.z.union([import_zod27.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod27.z.number()]),
+  land: import_zod27.z.array(LocationSchema).optional(),
   location: LocationSchema.optional(),
-  name: import_zod53.z.string().optional(),
-  owner_id: import_zod53.z.string().optional(),
+  name: import_zod27.z.string().optional(),
+  owner_id: import_zod27.z.string().optional(),
   producer: ProducerSchema.optional(),
-  provider_id: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
-  size: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+  provider_id: import_zod27.z.union([import_zod27.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod27.z.number()]).optional(),
+  size: import_zod27.z.union([import_zod27.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod27.z.number()]).optional(),
   storage: BuildingStorageSchema.optional(),
   sublocation: LocationSchema.optional(),
-  town_id: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+  town_id: import_zod27.z.union([import_zod27.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod27.z.number()]).optional(),
   type: BuildingTypeEnumSchema,
-  upgrades: import_zod53.z.array(BuildingUpgradeTypeEnumSchema).optional()
+  upgrades: import_zod27.z.array(BuildingUpgradeTypeEnumSchema).optional()
 });
 
 // src/schema/BuildingTypeSchema.ts
-var import_zod55 = require("zod");
+var import_zod29 = require("zod");
 
 // src/schema/BuildingUpgradeSchema.ts
-var import_zod54 = require("zod");
-var BuildingUpgradeSchema = import_zod54.z.object({
+var import_zod28 = require("zod");
+var BuildingUpgradeSchema = import_zod28.z.object({
   type: BuildingUpgradeTypeEnumSchema,
   construction: BuildingConstructionSchema
 });
 
 // src/schema/BuildingTypeSchema.ts
-var BuildingTypeSchema = import_zod55.z.object({
+var BuildingTypeSchema = import_zod29.z.object({
   type: BuildingTypeEnumSchema,
-  supports_boost: import_zod55.z.boolean().optional().default(false),
+  supports_boost: import_zod29.z.boolean().optional().default(false),
   requires: BuildingRequirementsSchema,
   construction: BuildingConstructionSchema.optional(),
-  upgrades: import_zod55.z.array(BuildingUpgradeSchema).optional().default([])
+  upgrades: import_zod29.z.array(BuildingUpgradeSchema).optional().default([])
 });
 
 // src/schema/BusinessBuildingSchema.ts
-var import_zod56 = require("zod");
-var BusinessBuildingSchema = import_zod56.z.object({
-  id: import_zod56.z.union([import_zod56.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod56.z.number()]),
+var import_zod30 = require("zod");
+var BusinessBuildingSchema = import_zod30.z.object({
+  id: import_zod30.z.union([import_zod30.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod30.z.number()]),
   type: BuildingTypeEnumSchema
 });
 
 // src/schema/BusinessSchema.ts
-var import_zod57 = require("zod");
-var BusinessSchema = import_zod57.z.object({
+var import_zod31 = require("zod");
+var BusinessSchema = import_zod31.z.object({
   account: AccountSchema,
-  account_id: import_zod57.z.string(),
-  building_ids: import_zod57.z.array(import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()])).optional(),
-  buildings: import_zod57.z.array(BuildingSchema).optional(),
-  contract_ids: import_zod57.z.array(import_zod57.z.string()).optional().nullable(),
-  id: import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()]),
-  name: import_zod57.z.string(),
-  owner_id: import_zod57.z.string(),
-  transport_ids: import_zod57.z.array(import_zod57.z.union([import_zod57.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod57.z.number()])).optional().nullable()
+  account_id: import_zod31.z.string(),
+  building_ids: import_zod31.z.array(import_zod31.z.union([import_zod31.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod31.z.number()])).optional(),
+  buildings: import_zod31.z.array(BuildingSchema).optional(),
+  contract_ids: import_zod31.z.array(import_zod31.z.string()).optional().nullable(),
+  id: import_zod31.z.union([import_zod31.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod31.z.number()]),
+  name: import_zod31.z.string(),
+  owner_id: import_zod31.z.string(),
+  transport_ids: import_zod31.z.array(import_zod31.z.union([import_zod31.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod31.z.number()])).optional().nullable()
+});
+
+// src/schema/CommonersSchema.ts
+var import_zod34 = require("zod");
+
+// src/schema/TownDemandCategorySchema.ts
+var import_zod33 = require("zod");
+
+// src/schema/TownDemandSchema.ts
+var import_zod32 = require("zod");
+var TownDemandSchema = import_zod32.z.object({
+  product: ItemEnumSchema,
+  bonus: import_zod32.z.union([import_zod32.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod32.z.number()]).default(String(0)),
+  desire: import_zod32.z.union([import_zod32.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod32.z.number()]).default(String(0)),
+  request: import_zod32.z.union([import_zod32.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod32.z.number()]).default(String(0)),
+  result: import_zod32.z.union([import_zod32.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod32.z.number()]).default(String(0))
+});
+
+// src/schema/TownDemandCategorySchema.ts
+var TownDemandCategorySchema = import_zod33.z.object({
+  name: import_zod33.z.string(),
+  products: import_zod33.z.array(TownDemandSchema)
+});
+
+// src/schema/CommonersSchema.ts
+var CommonersSchema = import_zod34.z.object({
+  account_id: import_zod34.z.string(),
+  count: import_zod34.z.union([import_zod34.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod34.z.number()]),
+  migration: import_zod34.z.union([import_zod34.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod34.z.number()]),
+  sustenance: import_zod34.z.array(TownDemandCategorySchema)
+});
+
+// src/schema/HouseholdSchema.ts
+var import_zod38 = require("zod");
+
+// src/schema/PrestigeImpactSchema.ts
+var import_zod35 = require("zod");
+var PrestigeImpactSchema = import_zod35.z.object({
+  factor: import_zod35.z.string(),
+  impact: import_zod35.z.union([import_zod35.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod35.z.number()])
+});
+
+// src/schema/WorkerSchema.ts
+var import_zod36 = require("zod");
+var WorkerSchema = import_zod36.z.object({
+  assignment: import_zod36.z.string(),
+  capacity: import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]),
+  name: import_zod36.z.string(),
+  skills: import_zod36.z.record(SkillEnumSchema, import_zod36.z.union([import_zod36.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod36.z.number()]))
+});
+
+// src/schema/SustenanceSchema.ts
+var import_zod37 = require("zod");
+var SustenanceSchema = import_zod37.z.object({
+  reference: import_zod37.z.string(),
+  inventory: InventorySchema,
+  provider_id: import_zod37.z.string().optional()
+});
+
+// src/schema/HouseholdSchema.ts
+var HouseholdSchema = import_zod38.z.object({
+  id: import_zod38.z.string(),
+  name: import_zod38.z.string(),
+  town_id: import_zod38.z.union([import_zod38.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod38.z.number()]),
+  portrait: import_zod38.z.string(),
+  gender: import_zod38.z.string(),
+  account_id: import_zod38.z.string(),
+  business_ids: import_zod38.z.array(import_zod38.z.string()),
+  prestige: import_zod38.z.union([import_zod38.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod38.z.number()]),
+  prestige_impacts: import_zod38.z.array(PrestigeImpactSchema).optional(),
+  workers: import_zod38.z.array(WorkerSchema),
+  operations: import_zod38.z.array(import_zod38.z.string()),
+  caps: import_zod38.z.record(import_zod38.z.string(), import_zod38.z.union([import_zod38.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod38.z.number()])),
+  sustenance: SustenanceSchema
 });
 
 // src/schema/IngredientSchema.ts
-var import_zod58 = require("zod");
-var IngredientSchema = import_zod58.z.object({
+var import_zod39 = require("zod");
+var IngredientSchema = import_zod39.z.object({
   product: ItemEnumSchema,
-  amount: import_zod58.z.union([import_zod58.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod58.z.number()])
+  amount: import_zod39.z.union([import_zod39.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod39.z.number()])
+});
+
+// src/schema/ItemOrderSchema.ts
+var import_zod40 = require("zod");
+var ItemOrderSchema = import_zod40.z.object({
+  volume: import_zod40.z.union([import_zod40.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod40.z.number()]),
+  price: import_zod40.z.union([import_zod40.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod40.z.number()])
 });
 
 // src/schema/ItemPriceSchema.ts
-var import_zod59 = require("zod");
-var ItemPriceSchema = import_zod59.z.object({
-  low: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]).optional(),
-  typical: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]),
-  high: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]).optional()
+var import_zod41 = require("zod");
+var ItemPriceSchema = import_zod41.z.object({
+  low: import_zod41.z.union([import_zod41.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod41.z.number()]).optional(),
+  typical: import_zod41.z.union([import_zod41.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod41.z.number()]),
+  high: import_zod41.z.union([import_zod41.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod41.z.number()]).optional()
 });
 
 // src/schema/ItemSchema.ts
-var import_zod60 = require("zod");
-var ItemSchema = import_zod60.z.object({
+var import_zod42 = require("zod");
+var ItemSchema = import_zod42.z.object({
   name: ItemEnumSchema,
   type: ItemTypeEnumSchema,
-  unit: import_zod60.z.string(),
-  weight: import_zod60.z.union([import_zod60.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod60.z.number()]).optional(),
-  tier: import_zod60.z.union([import_zod60.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod60.z.number()]),
-  classes: import_zod60.z.array(SkillEnumSchema).optional().default([]),
+  unit: import_zod42.z.string(),
+  weight: import_zod42.z.union([import_zod42.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod42.z.number()]).optional(),
+  tier: import_zod42.z.union([import_zod42.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod42.z.number()]),
+  classes: import_zod42.z.array(SkillEnumSchema).optional().default([]),
   price: ItemPriceSchema
 });
 
+// src/schema/ItemTradeResultSchema.ts
+var import_zod44 = require("zod");
+
+// src/schema/ItemTradeSettlementSchema.ts
+var import_zod43 = require("zod");
+var ItemTradeSettlementSchema = import_zod43.z.object({
+  volume: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()]),
+  price: import_zod43.z.union([import_zod43.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod43.z.number()])
+});
+
+// src/schema/ItemTradeResultSchema.ts
+var ItemTradeResultSchema = import_zod44.z.object({
+  settlements: import_zod44.z.array(ItemTradeSettlementSchema).optional(),
+  order_id: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
+  embedded: import_zod44.z.record(import_zod44.z.string(), import_zod44.z.any()).optional().default({})
+});
+
+// src/schema/ItemTradeSchema.ts
+var import_zod45 = require("zod");
+var ItemTradeSchema = import_zod45.z.object({
+  direction: import_zod45.z.string(),
+  expected_balance: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]),
+  operation: import_zod45.z.string(),
+  price: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()]),
+  volume: import_zod45.z.union([import_zod45.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod45.z.number()])
+});
+
+// src/schema/MarketItemDetailsSchema.ts
+var import_zod47 = require("zod");
+
+// src/schema/MarketItemSchema.ts
+var import_zod46 = require("zod");
+var MarketItemSchema = import_zod46.z.object({
+  price: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  last_price: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  average_price: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  moving_average: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  highest_bid: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  lowest_ask: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  volume: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]),
+  volume_prev_12: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  bid_volume_10: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0)),
+  ask_volume_10: import_zod46.z.union([import_zod46.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod46.z.number()]).optional().default(String(0))
+});
+
+// src/schema/MarketItemDetailsSchema.ts
+var MarketItemDetailsSchema = import_zod47.z.object({
+  id: import_zod47.z.union([import_zod47.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod47.z.number()]),
+  product: ItemEnumSchema,
+  asset: ItemEnumSchema,
+  currency: import_zod47.z.string(),
+  bids: import_zod47.z.array(ItemOrderSchema),
+  asks: import_zod47.z.array(ItemOrderSchema),
+  data: MarketItemSchema
+});
+
+// src/schema/MarketSchema.ts
+var import_zod48 = require("zod");
+var MarketSchema = import_zod48.z.object({
+  markets: import_zod48.z.record(ItemEnumSchema, MarketItemSchema),
+  _ts: import_zod48.z.union([import_zod48.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod48.z.number()]).describe("_ts")
+});
+
+// src/schema/NotificationSettingsSchema.ts
+var import_zod49 = require("zod");
+var NotificationSettingsSchema = import_zod49.z.object({
+  discord: import_zod49.z.boolean(),
+  mutes: import_zod49.z.nullable(import_zod49.z.array(import_zod49.z.string())).optional().default([])
+});
+
 // src/schema/PathSchema.ts
-var import_zod61 = require("zod");
-var PathSchema = import_zod61.z.object({
-  x: import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()]),
-  y: import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()]),
-  c: import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()])
+var import_zod50 = require("zod");
+var PathSchema = import_zod50.z.object({
+  x: import_zod50.z.union([import_zod50.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod50.z.number()]),
+  y: import_zod50.z.union([import_zod50.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod50.z.number()]),
+  c: import_zod50.z.union([import_zod50.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod50.z.number()])
+});
+
+// src/schema/PlayerSchema.ts
+var import_zod52 = require("zod");
+
+// src/schema/SettingsSchema.ts
+var import_zod51 = require("zod");
+var SettingsSchema = import_zod51.z.object({
+  sound_volume: import_zod51.z.union([import_zod51.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod51.z.number()]),
+  notifications: NotificationSettingsSchema,
+  commoners_splash: import_zod51.z.boolean(),
+  construction_splash: import_zod51.z.boolean(),
+  land_purchase_splash: import_zod51.z.boolean(),
+  operations_splash: import_zod51.z.boolean(),
+  production_splash: import_zod51.z.boolean(),
+  recipes_splash: import_zod51.z.boolean(),
+  sustenance_splash: import_zod51.z.boolean(),
+  trading_splash: import_zod51.z.boolean(),
+  trade_config_splash: import_zod51.z.boolean(),
+  welcome_splash: import_zod51.z.boolean(),
+  first_building_splash: import_zod51.z.boolean(),
+  warehouse_splash: import_zod51.z.boolean()
+});
+
+// src/schema/PlayerSchema.ts
+var PlayerSchema = import_zod52.z.object({
+  username: import_zod52.z.string(),
+  household: HouseholdSchema,
+  discord_id: import_zod52.z.string().optional(),
+  settings: SettingsSchema,
+  active: import_zod52.z.boolean()
 });
 
 // src/schema/RecipeSchema.ts
-var import_zod62 = require("zod");
-var RecipeSchema = import_zod62.z.object({
+var import_zod53 = require("zod");
+var RecipeSchema = import_zod53.z.object({
   name: RecipeEnumSchema,
-  tier: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
+  tier: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]),
   building: BuildingTypeEnumSchema,
-  size: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
+  size: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]),
   product_class: SkillEnumSchema.optional().describe("class"),
-  points: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]).optional(),
-  inputs: import_zod62.z.array(IngredientSchema).optional().default([]),
-  outputs: import_zod62.z.array(IngredientSchema).optional().default([])
+  points: import_zod53.z.union([import_zod53.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod53.z.number()]).optional(),
+  inputs: import_zod53.z.array(IngredientSchema).optional().default([]),
+  outputs: import_zod53.z.array(IngredientSchema).optional().default([])
 });
 
 // src/schema/RegionSchema.ts
-var import_zod63 = require("zod");
-var RegionSchema = import_zod63.z.object({
-  id: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
-  name: import_zod63.z.string(),
-  description: import_zod63.z.string().optional(),
+var import_zod54 = require("zod");
+var RegionSchema = import_zod54.z.object({
+  id: import_zod54.z.union([import_zod54.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod54.z.number()]),
+  name: import_zod54.z.string(),
+  description: import_zod54.z.string().optional(),
   center: LocationSchema.optional(),
-  size: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]).optional()
+  size: import_zod54.z.union([import_zod54.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod54.z.number()]).optional()
+});
+
+// src/schema/StructureSchema.ts
+var import_zod55 = require("zod");
+var StructureSchema = import_zod55.z.object({
+  id: import_zod55.z.string(),
+  type: BuildingTypeEnumSchema,
+  tags: import_zod55.z.array(import_zod55.z.string()).optional()
+});
+
+// src/schema/TileSchema.ts
+var import_zod56 = require("zod");
+var TileSchema = import_zod56.z.object({
+  owner_id: import_zod56.z.string().optional(),
+  structure: StructureSchema.optional(),
+  ask_price: import_zod56.z.string().optional()
+});
+
+// src/schema/TownChurchSchema.ts
+var import_zod57 = require("zod");
+var TownChurchSchema = import_zod57.z.object({
+  project_ids: import_zod57.z.array(import_zod57.z.string()).optional().nullable()
+});
+
+// src/schema/TownCultureSchema.ts
+var import_zod58 = require("zod");
+var TownCultureSchema = import_zod58.z.object({
+  special_market_pressure: import_zod58.z.record(import_zod58.z.union([import_zod58.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod58.z.number()]), import_zod58.z.union([import_zod58.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod58.z.number()])).optional()
+});
+
+// src/schema/TownDataSchema.ts
+var import_zod61 = require("zod");
+
+// src/schema/TownGovernmentSchema.ts
+var import_zod60 = require("zod");
+
+// src/schema/TownGovernmentTaxesSchema.ts
+var import_zod59 = require("zod");
+var TownGovernmentTaxesSchema = import_zod59.z.object({
+  land_tax: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]).optional().default(String(0)),
+  structure_tax: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]).optional().default(String(0)),
+  ferry_fees: import_zod59.z.union([import_zod59.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod59.z.number()]).optional().default(String(0))
+});
+
+// src/schema/TownGovernmentSchema.ts
+var TownGovernmentSchema = import_zod60.z.object({
+  account_id: import_zod60.z.string(),
+  demands: import_zod60.z.array(TownDemandSchema),
+  taxes_collected: TownGovernmentTaxesSchema
+});
+
+// src/schema/TownDataSchema.ts
+var TownDataSchema = import_zod61.z.object({
+  id: import_zod61.z.string(),
+  name: import_zod61.z.string(),
+  location: LocationSchema,
+  region: import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()]),
+  center_ids: import_zod61.z.array(import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()])),
+  domain: import_zod61.z.record(import_zod61.z.string(), TileSchema),
+  household_ids: import_zod61.z.array(import_zod61.z.string()),
+  commoners: CommonersSchema,
+  government: TownGovernmentSchema,
+  church: TownChurchSchema,
+  navigation_zones: import_zod61.z.record(import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()]), import_zod61.z.union([import_zod61.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod61.z.number()])),
+  culture: TownCultureSchema
+});
+
+// src/schema/TownSchema.ts
+var import_zod62 = require("zod");
+var TownSchema = import_zod62.z.object({
+  id: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
+  name: import_zod62.z.string(),
+  location: LocationSchema,
+  region: import_zod62.z.union([import_zod62.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod62.z.number()]),
+  capital: import_zod62.z.boolean().default(false)
 });
 
 // src/schema/TradeRouteSchema.ts
-var import_zod64 = require("zod");
-var TradeRouteSchema = import_zod64.z.object({
-  id: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  reference: import_zod64.z.string(),
-  local_town: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  remote_town: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  capacity: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  reserved_import: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  reserved_export: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  distance: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  moves: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  provider_id: import_zod64.z.union([import_zod64.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod64.z.number()]),
-  account_id: import_zod64.z.string(),
+var import_zod63 = require("zod");
+var TradeRouteSchema = import_zod63.z.object({
+  id: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  reference: import_zod63.z.string(),
+  local_town: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  remote_town: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  capacity: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  reserved_import: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  reserved_export: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  distance: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  moves: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  provider_id: import_zod63.z.union([import_zod63.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod63.z.number()]),
+  account_id: import_zod63.z.string(),
   account: AccountSchema,
-  managers: import_zod64.z.record(ItemEnumSchema, ManagerSchema),
-  current_flows: import_zod64.z.record(ItemEnumSchema, FlowSchema),
-  previous_flows: import_zod64.z.record(ItemEnumSchema, FlowSchema)
+  managers: import_zod63.z.record(ItemEnumSchema, ManagerSchema),
+  current_flows: import_zod63.z.record(ItemEnumSchema, FlowSchema),
+  previous_flows: import_zod63.z.record(ItemEnumSchema, FlowSchema)
 });
 
 // src/schema/TransportCargoSchema.ts
-var import_zod65 = require("zod");
-var TransportCargoSchema = import_zod65.z.object({
-  reference: import_zod65.z.string(),
+var import_zod64 = require("zod");
+var TransportCargoSchema = import_zod64.z.object({
+  reference: import_zod64.z.string(),
   inventory: InventorySchema.optional()
 });
 
 // src/schema/TransportJourneyLegSchema.ts
-var import_zod66 = require("zod");
-var TransportJourneyLegSchema = import_zod66.z.object({
-  path: import_zod66.z.array(PathSchema)
+var import_zod65 = require("zod");
+var TransportJourneyLegSchema = import_zod65.z.object({
+  path: import_zod65.z.array(PathSchema)
 });
 
 // src/schema/TransportJourneySchema.ts
-var import_zod67 = require("zod");
-var TransportJourneySchema = import_zod67.z.object({
-  category: import_zod67.z.string(),
-  start_town_id: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
-  distance: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
-  moves: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
-  legs: import_zod67.z.array(TransportJourneyLegSchema)
+var import_zod66 = require("zod");
+var TransportJourneySchema = import_zod66.z.object({
+  category: import_zod66.z.string(),
+  start_town_id: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]),
+  distance: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]),
+  moves: import_zod66.z.union([import_zod66.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod66.z.number()]),
+  legs: import_zod66.z.array(TransportJourneyLegSchema)
 });
 
 // src/schema/TransportSchema.ts
-var import_zod68 = require("zod");
-var TransportSchema = import_zod68.z.object({
-  id: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
-  reference: import_zod68.z.string(),
+var import_zod67 = require("zod");
+var TransportSchema = import_zod67.z.object({
+  id: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
+  reference: import_zod67.z.string(),
   type: TransportTypeEnumSchema,
-  size: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
-  name: import_zod68.z.string(),
-  owner_id: import_zod68.z.string(),
-  hometown_id: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  size: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
+  name: import_zod67.z.string(),
+  owner_id: import_zod67.z.string(),
+  hometown_id: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
   location: LocationSchema,
-  domain: import_zod68.z.array(LocationSchema).optional(),
-  capacity: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
-  fish_quantity: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional(),
+  domain: import_zod67.z.array(LocationSchema).optional(),
+  capacity: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]),
+  fish_quantity: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]).optional(),
   inventory: InventorySchema,
   cargo: TransportCargoSchema.optional(),
   previous_operations: OperationSchema.optional(),
-  provider_id: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional(),
+  provider_id: import_zod67.z.union([import_zod67.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod67.z.number()]).optional(),
   producer: ProducerSchema.optional(),
   route: TradeRouteSchema.optional(),
   journey: TransportJourneySchema
 });
 
 // src/schema/TransportTypeSchema.ts
-var import_zod69 = require("zod");
-var TransportTypeSchema = import_zod69.z.object({
+var import_zod68 = require("zod");
+var TransportTypeSchema = import_zod68.z.object({
   type: TransportTypeEnumSchema,
-  category: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
-  tier: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
-  capacity: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
-  speed: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
-  journey_duration: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional(),
-  effective_days: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional(),
-  operating_costs: import_zod69.z.record(ItemEnumSchema, import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()])),
-  catches: import_zod69.z.string().optional(),
-  fishing_range: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional()
+  category: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  tier: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  capacity: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  speed: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]),
+  journey_duration: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional(),
+  effective_days: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional(),
+  operating_costs: import_zod68.z.record(ItemEnumSchema, import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()])),
+  catches: import_zod68.z.string().optional(),
+  fishing_range: import_zod68.z.union([import_zod68.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod68.z.number()]).optional()
+});
+
+// src/schema/TurnSchema.ts
+var import_zod69 = require("zod");
+var TurnSchema = import_zod69.z.object({
+  turn: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]),
+  month: import_zod69.z.string().optional(),
+  year: import_zod69.z.union([import_zod69.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod69.z.number()]).optional()
 });
 
 // src/models/account.ts
 var Account = class extends BaseModel {
   static schema = AccountSchema;
   assets;
-  // assetsMap: Map<ItemEnumType, AccountAsset> = new Map();
   id;
   master_id;
   name;
   owner_id;
   sponsor_id;
-  // constructor(data: AccountType) {
-  //     super();
-  //     this.id = data.id;
-  //     this.master_id = data.master_id;
-  //     this.name = data.name;
-  //     this.owner_id = data.owner_id;
-  //     this.sponsor_id = data.sponsor_id;
-  //     this.assets = {} as Record<ItemEnumType, AccountAsset>;
-  //
-  //     // Convert assets record to Map and store in assetsMap
-  //     for (const key in data.assets) {
-  //         if (data.assets.hasOwnProperty(key)) {
-  //             const assetData = data.assets[key];
-  //             const asset = new AccountAsset(assetData);
-  //             this.assets[key as ItemEnumType] = asset;
-  //             this.assetsMap.set(key as ItemEnumType, asset);
-  //         }
-  //     }
-  // }
+  /**
+   * Creates an instance of Account.
+   * @param data - The data to initialize the account.
+   */
+  constructor(data) {
+    super(data);
+  }
+  /**
+   * Returns a map of the account's assets.
+   */
   get assetsMap() {
     return new Map(Object.entries(this.assets).map(([key, value]) => [key, value]));
   }
@@ -2688,32 +2338,35 @@ var AccountAsset = class extends BaseModel {
   sale;
   sale_price;
   unit_cost;
-  // constructor(data: Partial<AccountAssetType>) {
-  //     super();
-  //     this.balance = data.balance ?? 0;
-  //     this.capacity = data.capacity ?? null;
-  //     this.purchase = data.purchase ?? null;
-  //     this.purchase_price = data.purchase_price ?? null;
-  //     this.reserved = data.reserved ?? 0;
-  //     this.reserved_capacity = data.reserved_capacity ?? null;
-  //     this.sale = data.sale ?? null;
-  //     this.sale_price = data.sale_price ?? null;
-  //     this.unit_cost = data.unit_cost ?? null;
-  // }
+  /**
+   * Checks if the asset has been purchased.
+   */
   get purchased() {
     return this.purchase !== null;
   }
+  /**
+   * Checks if the asset has been sold.
+   */
   get sold() {
     return this.sale !== null;
   }
+  /**
+   * Calculates the total purchase value of the asset.
+   */
   get totalPurchase() {
-    return this.purchase * this.purchase_price;
+    return (this.purchase ?? 0) * (this.purchase_price ?? 0);
   }
+  /**
+   * Calculates the total sale value of the asset.
+   */
   get totalSale() {
-    return this.sale * this.sale_price;
+    return (this.sale ?? 0) * (this.sale_price ?? 0);
   }
+  /**
+   * Calculates the total value of the asset based on its balance and unit cost.
+   */
   get totalValue() {
-    return this.balance * this.unit_cost;
+    return (this.balance ?? 0) * (this.unit_cost ?? 0);
   }
 };
 
@@ -2735,6 +2388,13 @@ var Building = class extends BaseModel {
   town_id;
   type;
   upgrades;
+  /**
+   * Creates an instance of Building.
+   * @param data - The data to initialize the building.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var BuildingConstruction = class extends BaseModel {
   static schema = BuildingConstructionSchema;
@@ -2743,6 +2403,16 @@ var BuildingConstruction = class extends BaseModel {
   discount;
   time;
   materials;
+  /**
+   * Creates an instance of BuildingConstruction.
+   * @param data - The data to initialize the building construction.
+   */
+  constructor(data) {
+    super(data);
+  }
+  /**
+   * Returns a map of the materials required for construction.
+   */
   get materialsMap() {
     return new Map(Object.entries(this.materials).map(([key, value]) => [key, value]));
   }
@@ -2752,11 +2422,25 @@ var BuildingStorage = class extends BaseModel {
   inventory;
   operations;
   reference;
+  /**
+   * Creates an instance of BuildingStorage.
+   * @param data - The data to initialize the building storage.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var BuildingOperation = class extends BaseModel {
   static schema = BuildingOperationSchema;
   total_flow;
   operations;
+  /**
+   * Creates an instance of BuildingOperation.
+   * @param data - The data to initialize the building operation.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var BuildingType = class extends BaseModel {
   static schema = BuildingTypeSchema;
@@ -2765,6 +2449,13 @@ var BuildingType = class extends BaseModel {
   requires;
   construction;
   upgrades;
+  /**
+   * Creates an instance of BuildingType.
+   * @param data - The data to initialize the building type.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/business.ts
@@ -2779,11 +2470,25 @@ var Business = class extends BaseModel {
   name;
   owner_id;
   transport_ids;
+  /**
+   * Creates an instance of Business.
+   * @param data - The data to initialize the business.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var BusinessBuilding = class extends BaseModel {
   static schema = BusinessBuildingSchema;
   id;
   type;
+  /**
+   * Creates an instance of BusinessBuilding.
+   * @param data - The data to initialize the business building.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/commoners.ts
@@ -2793,6 +2498,16 @@ var Commoners = class extends BaseModel {
   count;
   migration;
   sustenance;
+  /**
+   * Creates an instance of Commoners.
+   * @param data - The data to initialize the commoners.
+   */
+  constructor(data) {
+    super(data);
+  }
+  /**
+   * Returns the demands of the commoners by flattening the sustenance categories.
+   */
   get demands() {
     return this.sustenance.flatMap((category) => category.products);
   }
@@ -2803,6 +2518,13 @@ var DeliveryCost = class extends BaseModel {
   static schema = DeliveryCostSchema;
   land_distance;
   ferry_fee;
+  /**
+   * Creates an instance of DeliveryCost.
+   * @param data - The data to initialize the delivery cost.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/flow.ts
@@ -2820,20 +2542,12 @@ var Flow = class extends BaseModel {
   sale;
   sale_value;
   shortfall;
+  /**
+   * Creates an instance of Flow.
+   * @param data - The data to initialize the flow.
+   */
   constructor(data) {
-    super();
-    this.consumption = data.consumption;
-    this.expiration = data.expiration;
-    this.export = data.export;
-    this.imported = data.imported;
-    this.production = data.production;
-    this.production_cost = data.production_cost;
-    this.purchase = data.purchase;
-    this.purchase_cost = data.purchase_cost;
-    this.resident = data.resident;
-    this.sale = data.sale;
-    this.sale_value = data.sale_value;
-    this.shortfall = data.shortfall;
+    super(data);
   }
 };
 
@@ -2846,14 +2560,30 @@ var Inventory = class extends BaseModel {
   managers;
   previous_flows;
   reserved;
+  /**
+   * Creates an instance of Inventory.
+   * @param data - The data to initialize the inventory.
+   */
+  constructor(data) {
+    super(data);
+  }
+  /**
+   * Returns a map of the items in the inventory.
+   */
   get items() {
     return new Map(Object.entries(this.account.assets).map(([key, value]) => [key, value]));
   }
+  /**
+   * Returns a map of the managers in the inventory.
+   */
   get managersMap() {
     console.log("Accessing managersMap");
     console.log("Managers: ", this.managers);
     return new Map(Object.entries(this.managers).map(([key, value]) => [key, value]));
   }
+  /**
+   * Returns a map of the previous flows in the inventory.
+   */
   get previousFlowsMap() {
     return new Map(Object.entries(this.previous_flows).map(([key, value]) => [key, value]));
   }
@@ -2869,6 +2599,55 @@ var Item = class extends BaseModel {
   tier;
   classes;
   price;
+  /**
+   * Creates an instance of Item.
+   * @param data - The data to initialize the item.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+
+// src/models/itemTrade.ts
+var ItemTrade = class extends BaseModel {
+  static schema = ItemTradeSchema;
+  direction;
+  expected_balance;
+  operation;
+  price;
+  volume;
+  /**
+   * Creates an instance of ItemTrade.
+   * @param data - The data to initialize the item trade.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var ItemTradeResult = class extends BaseModel {
+  static schema = ItemTradeResultSchema;
+  settlements;
+  order_id;
+  embedded;
+  /**
+   * Creates an instance of ItemTradeResult.
+   * @param data - The data to initialize the item trade result.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var ItemTradeSettlement = class extends BaseModel {
+  static schema = ItemTradeSettlementSchema;
+  volume;
+  price;
+  /**
+   * Creates an instance of ItemTradeSettlement.
+   * @param data - The data to initialize the item trade settlement.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/location.ts
@@ -2876,6 +2655,13 @@ var Location = class extends BaseModel {
   static schema = LocationSchema;
   x;
   y;
+  /**
+   * Creates an instance of Location.
+   * @param data - The data to initialize the location.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/manager.ts
@@ -2887,14 +2673,12 @@ var Manager = class extends BaseModel {
   _maxHolding;
   _sellPrice;
   _sellVolume;
+  /**
+   * Creates an instance of Manager.
+   * @param data - The data to initialize the manager.
+   */
   constructor(data) {
-    super();
-    this.buyPrice = data.buyPrice;
-    this.buyVolume = data.buyVolume;
-    this.capacity = data.capacity;
-    this.maxHolding = data.maxHolding;
-    this.sellPrice = data.sellPrice;
-    this.sellVolume = data.sellVolume;
+    super(data);
   }
   get buyPrice() {
     return this._buyPrice;
@@ -2932,17 +2716,80 @@ var Manager = class extends BaseModel {
   set sellVolume(value) {
     this._sellVolume = value;
   }
+  /**
+   * Checks if the manager is currently buying.
+   */
   get buying() {
     return this.buyPrice !== null && this.buyVolume !== null;
   }
+  /**
+   * Calculates the maximum buy price.
+   */
   get maxBuyPrice() {
-    return this.buyPrice * this.buyVolume;
+    return (this.buyPrice ?? 0) * (this.buyVolume ?? 0);
   }
+  /**
+   * Calculates the maximum sell price.
+   */
   get maxSellPrice() {
-    return this.sellPrice * this.sellVolume;
+    return (this.sellPrice ?? 0) * (this.sellVolume ?? 0);
   }
+  /**
+   * Checks if the manager is currently selling.
+   */
   get selling() {
     return this.sellPrice !== null && this.sellVolume !== null;
+  }
+};
+
+// src/models/market.ts
+var Market = class extends BaseModel {
+  static schema = MarketSchema;
+  markets;
+  _ts;
+  /**
+   * Creates an instance of Market.
+   * @param data - The data to initialize the market.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var MarketItem = class extends BaseModel {
+  static schema = MarketItemSchema;
+  price;
+  last_price;
+  average_price;
+  moving_average;
+  highest_bid;
+  lowest_ask;
+  volume;
+  volume_prev_12;
+  bid_volume_10;
+  ask_volume_10;
+  /**
+   * Creates an instance of MarketItem.
+   * @param data - The data to initialize the market item.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var MarketItemDetails = class extends BaseModel {
+  static schema = MarketItemDetailsSchema;
+  id;
+  product;
+  asset;
+  currency;
+  bids;
+  asks;
+  data;
+  /**
+   * Creates an instance of MarketItemDetails.
+   * @param data - The data to initialize the market item details.
+   */
+  constructor(data) {
+    super(data);
   }
 };
 
@@ -2959,9 +2806,22 @@ var Operation = class extends BaseModel {
   tax;
   delivery_cost;
   flows;
+  /**
+   * Creates an instance of Operation.
+   * @param data - The data to initialize the operation.
+   */
+  constructor(data) {
+    super(data);
+  }
+  /**
+   * Calculates the surplus of the operation.
+   */
   get surplus() {
     return (this.production || 0) - (this.target || 0);
   }
+  /**
+   * Calculates the shortfall of the operation.
+   */
   get shortfall() {
     return (this.target || 0) - (this.production || 0);
   }
@@ -2973,6 +2833,128 @@ var Path = class extends BaseModel {
   x;
   y;
   c;
+  /**
+   * Creates an instance of Path.
+   * @param data - The data to initialize the path.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+
+// src/models/player.ts
+var Player = class extends BaseModel {
+  static schema = PlayerSchema;
+  username;
+  household;
+  discord_id;
+  settings;
+  active;
+  /**
+   * Creates an instance of Player.
+   * @param data - The data to initialize the player.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var Household = class extends BaseModel {
+  static schema = HouseholdSchema;
+  id;
+  name;
+  town_id;
+  portrait;
+  gender;
+  account_id;
+  business_ids;
+  prestige;
+  prestige_impacts;
+  workers;
+  operations;
+  caps;
+  sustenance;
+  /**
+   * Creates an instance of Household.
+   * @param data - The data to initialize the household.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var PrestigeImpact = class extends BaseModel {
+  static schema = PrestigeImpactSchema;
+  factor;
+  impact;
+  /**
+   * Creates an instance of PrestigeImpact.
+   * @param data - The data to initialize the prestige impact.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var Worker = class extends BaseModel {
+  static schema = WorkerSchema;
+  assignment;
+  capacity;
+  name;
+  skills;
+  /**
+   * Creates an instance of Worker.
+   * @param data - The data to initialize the worker.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var Sustenance = class extends BaseModel {
+  static schema = SustenanceSchema;
+  reference;
+  inventory;
+  provider_id;
+  /**
+   * Creates an instance of Sustenance.
+   * @param data - The data to initialize the sustenance.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var Settings = class extends BaseModel {
+  static schema = SettingsSchema;
+  sound_volume;
+  notifications;
+  commoners_splash;
+  construction_splash;
+  land_purchase_splash;
+  operations_splash;
+  production_splash;
+  recipes_splash;
+  sustenance_splash;
+  trading_splash;
+  trade_config_splash;
+  welcome_splash;
+  first_building_splash;
+  warehouse_splash;
+  /**
+   * Creates an instance of Settings.
+   * @param data - The data to initialize the settings.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var NotificationSettings = class extends BaseModel {
+  static schema = NotificationSettingsSchema;
+  discord;
+  mutes;
+  /**
+   * Creates an instance of NotificationSettings.
+   * @param data - The data to initialize the notification settings.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/producer.ts
@@ -2987,6 +2969,13 @@ var Producer = class extends BaseModel {
   recipe;
   reference;
   target;
+  /**
+   * Creates an instance of Producer.
+   * @param data - The data to initialize the producer.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/recipe.ts
@@ -3000,11 +2989,25 @@ var Recipe = class extends BaseModel {
   points;
   inputs;
   outputs;
+  /**
+   * Creates an instance of Recipe.
+   * @param data - The data to initialize the recipe.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var Ingredient = class extends BaseModel {
   static schema = IngredientSchema;
   product;
   amount;
+  /**
+   * Creates an instance of Ingredient.
+   * @param data - The data to initialize the ingredient.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/region.ts
@@ -3015,6 +3018,13 @@ var Region = class extends BaseModel {
   description;
   center;
   size;
+  /**
+   * Creates an instance of Region.
+   * @param data - The data to initialize the region.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/structure.ts
@@ -3023,6 +3033,13 @@ var Structure = class extends BaseModel {
   id;
   type;
   tags;
+  /**
+   * Creates an instance of Structure.
+   * @param data - The data to initialize the structure.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/tile.ts
@@ -3031,6 +3048,79 @@ var Tile = class extends BaseModel {
   owner_id;
   structure;
   ask_price;
+  /**
+   * Creates an instance of Tile.
+   * @param data - The data to initialize the tile.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+
+// src/models/town.ts
+var Town = class extends BaseModel {
+  static schema = TownSchema;
+  id;
+  name;
+  location;
+  region;
+  capital;
+  /**
+   * Creates an instance of Town.
+   * @param data - The data to initialize the town.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var TownData = class extends BaseModel {
+  static schema = TownDataSchema;
+  id;
+  name;
+  location;
+  region;
+  center_ids;
+  domain;
+  household_ids;
+  commoners;
+  government;
+  church;
+  navigation_zones;
+  culture;
+  /**
+   * Creates an instance of TownData.
+   * @param data - The data to initialize the town data.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var TownDemand = class extends BaseModel {
+  static schema = TownDemandSchema;
+  product;
+  bonus;
+  desire;
+  request;
+  result;
+  /**
+   * Creates an instance of TownDemand.
+   * @param data - The data to initialize the town demand.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var TownDemandCategory = class extends BaseModel {
+  static schema = TownDemandCategorySchema;
+  name;
+  products;
+  /**
+   * Creates an instance of TownDemandCategory.
+   * @param data - The data to initialize the town demand category.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 
 // src/models/transport.ts
@@ -3054,6 +3144,13 @@ var Transport = class extends BaseModel {
   producer;
   route;
   journey;
+  /**
+   * Creates an instance of Transport.
+   * @param data - The data to initialize the transport.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var TradeRoute = class extends BaseModel {
   static schema = TradeRouteSchema;
@@ -3072,11 +3169,25 @@ var TradeRoute = class extends BaseModel {
   managers;
   current_flows;
   previous_flows;
+  /**
+   * Creates an instance of TradeRoute.
+   * @param data - The data to initialize the trade route.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var TransportCargo = class extends BaseModel {
   static schema = TransportCargoSchema;
   reference;
   inventory;
+  /**
+   * Creates an instance of TransportCargo.
+   * @param data - The data to initialize the transport cargo.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var TransportJourney = class extends BaseModel {
   static schema = TransportJourneySchema;
@@ -3085,10 +3196,24 @@ var TransportJourney = class extends BaseModel {
   distance;
   moves;
   legs;
+  /**
+   * Creates an instance of TransportJourney.
+   * @param data - The data to initialize the transport journey.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var TransportJourneyLeg = class extends BaseModel {
   static schema = TransportJourneyLegSchema;
   path;
+  /**
+   * Creates an instance of TransportJourneyLeg.
+   * @param data - The data to initialize the transport journey leg.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
 var TransportType = class extends BaseModel {
   static schema = TransportTypeSchema;
@@ -3102,7 +3227,220 @@ var TransportType = class extends BaseModel {
   operating_costs;
   catches;
   fishing_range;
+  /**
+   * Creates an instance of TransportType.
+   * @param data - The data to initialize the transport type.
+   */
+  constructor(data) {
+    super(data);
+  }
 };
+
+// src/models/turn.ts
+var Turn = class extends BaseModel {
+  static schema = TurnSchema;
+  turn;
+  month;
+  year;
+  /**
+   * Creates an instance of Turn.
+   * @param data - The data to initialize the turn.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+
+// src/api/turns.ts
+var TurnsAPI = class extends baseAPI_default {
+  endpoint = apiRoutes.turn;
+  /**
+   * Get the current turn data.
+   * @returns The current turn data.
+   */
+  async get() {
+    try {
+      const response = await super.get();
+      return Turn.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch turn data: ${error.message}`);
+    }
+  }
+};
+var turns_default = TurnsAPI;
+
+// src/api/players.ts
+var PlayersAPI = class extends baseAPI_default {
+  endpoint = apiRoutes.player;
+  async get() {
+    try {
+      const response = await super.get();
+      return Player.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch player data: ${error.message}`);
+    }
+  }
+};
+var players_default = PlayersAPI;
+
+// src/utils/index.ts
+var utils_exports = {};
+__export(utils_exports, {
+  BuySellOrderFailedException: () => BuySellOrderFailedException,
+  SetManagerFailedException: () => SetManagerFailedException,
+  TurnInProgressException: () => TurnInProgressException,
+  convertFloatsToStrings: () => convertFloatsToStrings
+});
+
+// src/utils/conversion.ts
+function convertFloatsToStrings(obj) {
+  if (typeof obj !== "object" || obj === null) {
+    return obj;
+  }
+  const convertedObj = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === "object" && value !== null) {
+      convertedObj[key] = convertFloatsToStrings(value);
+    } else if (typeof value === "number" && !Number.isInteger(value)) {
+      convertedObj[key] = value.toString();
+    } else {
+      convertedObj[key] = value;
+    }
+  }
+  return convertedObj;
+}
+
+// src/utils/errors.ts
+var TurnInProgressException = class extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "TurnInProgressException";
+  }
+};
+var BuySellOrderFailedException = class extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "BuySellOrderFailedException";
+  }
+};
+var SetManagerFailedException = class extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "SetManagerFailedException";
+  }
+};
+
+// src/api/towns.ts
+var TownsAPI = class extends baseAPI_default {
+  endpoint = apiRoutes.towns;
+  /**
+   * Get a list of all towns in the game.
+   * @returns A list of all towns in the game.
+   */
+  async getAll() {
+    try {
+      const response = await super.get();
+      return Town.validateArray(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch towns: ${error.message}`);
+    }
+  }
+  /**
+   * Get data for a town.
+   * @param id - The ID of the town.
+   * @returns The data for the town.
+   */
+  async get({ id } = {}) {
+    try {
+      const response = await super.get({ endpoint: apiRoutes.townData, id });
+      return TownData.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch town data for ID ${id}: ${error.message}`);
+    }
+  }
+  /**
+   * Get data for a town.
+   * @param id - The ID of the town.
+   * @returns The data for the town.
+   */
+  async getTown(id) {
+    return await this.get({ id });
+  }
+  /**
+   * Get data for a town.
+   * @param id - The ID of the town.
+   * @returns The data for the town.
+   */
+  async getTownData(id) {
+    return await this.get({ id });
+  }
+  /**
+   * Get market data for a town.
+   * @param id - The ID of the town.
+   * @returns The market data for the town.
+   */
+  async getMarketData(id) {
+    try {
+      const response = await super.get({ endpoint: apiRoutes.marketData, id });
+      return Market.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch market data for town ID ${id}: ${error.message}`);
+    }
+  }
+  /**
+   * Get the market overview for an item in a town.
+   * @param townId - The ID of the town.
+   * @param item - The item to get the overview for.
+   * @returns The market overview for the town.
+   */
+  async getMarketItem(townId, item) {
+    try {
+      const response = await super.get({ endpoint: apiRoutes.marketItem, id: townId, item });
+      return MarketItemDetails.validate(response);
+    } catch (error) {
+      throw new Error(`Failed to fetch market item data for town ID ${townId} and item ${item}: ${error.message}`);
+    }
+  }
+  async sendBuyOrder(item, id, expectedBalance, operation, price, volume) {
+    return await this._sendOrder(
+      item,
+      id,
+      expectedBalance,
+      operation,
+      price,
+      volume,
+      "bid"
+    );
+  }
+  async sendSellOrder(item, id, expectedBalance, operation, price, volume) {
+    return await this._sendOrder(
+      item,
+      id,
+      expectedBalance,
+      operation,
+      price,
+      volume,
+      "ask"
+    );
+  }
+  async _sendOrder(item, id, expected_balance, operation, price, volume, direction) {
+    const trade = new ItemTrade({
+      direction,
+      expected_balance,
+      operation,
+      price,
+      volume
+    });
+    const json = convertFloatsToStrings(trade);
+    const response = await super.post({ endpoint: apiRoutes.orders, id, item, data: json });
+    if (response.status === 200) {
+      return await ItemTradeResult.validate(response);
+    } else {
+      throw new BuySellOrderFailedException(`Failed to send ${direction} order: ${response.statusText}`);
+    }
+  }
+};
+var towns_default = TownsAPI;
 
 // src/api/buildings.ts
 var import_lodash = require("lodash");
@@ -3126,7 +3464,10 @@ var BuildingsAPI = class extends baseAPI_default {
     try {
       const response = await super.get({ endpoint: apiRoutes.buildingOperations, id });
       if (response.status == 404) {
-        return new BuildingOperation();
+        return new BuildingOperation({
+          total_flow: null,
+          operations: null
+        });
       }
       return BuildingOperation.validate(response);
     } catch (error) {
@@ -4062,6 +4403,7 @@ var Transport3 = class {
     this.data = await this._client.transportsApi.get({ id: this.id });
     if (this.data.route) {
       const data = await this._client.townsApi.getTown(this.data.route.remote_town);
+      this.town = new Town2(this._client, this.data.route.remote_town, data);
     }
     this.loadImportsExports();
   }
@@ -4299,19 +4641,27 @@ var Storehouse = class {
     return this.data.previous_flows;
   }
   async buy(item, volume, price) {
-    const result = await this.player.town.buy(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-    const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
-    this.updateAccount(validatedAccount);
-    return result;
+    try {
+      const result = await this.player.town.buy(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
+      const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+      this.updateAccount(validatedAccount);
+      return result;
+    } catch (error) {
+      throw new Error(`Failed to buy item ${item}: ${error.message}`);
+    }
   }
   async patchManager(item, data) {
     await this.data.patchManager(item, data);
   }
   async sell(item, volume, price) {
-    const result = await this.player.town.sell(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-    const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
-    this.updateAccount(validatedAccount);
-    return result;
+    try {
+      const result = await this.player.town.sell(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
+      const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+      this.updateAccount(validatedAccount);
+      return result;
+    } catch (error) {
+      throw new Error(`Failed to sell item ${item}: ${error.message}`);
+    }
   }
   async setManager(item, manager) {
     await this._client.buildingsApi.setManager(this.data.id, item, manager);

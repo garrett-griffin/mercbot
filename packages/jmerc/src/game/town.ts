@@ -1,10 +1,10 @@
 import Client from '../client'
-import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
-import { Commoners } from "../models/commoners";
-import { Market, MarketItem, MarketItemDetails } from "../models/market";
-import { Structure } from "../models/structure";
-import { TownData, TownDemand } from "../models/town";
-import { ItemTradeResult } from "../models/itemTrade";
+import { ItemEnumType } from "../schema/enums";
+import { Commoners } from "../models";
+import { Market, MarketItem, MarketItemDetails } from "../models";
+import { Structure } from "../models";
+import { TownData, TownDemand } from "../models";
+import { ItemTradeResult } from "../models";
 
 export class Town {
     _client: Client;

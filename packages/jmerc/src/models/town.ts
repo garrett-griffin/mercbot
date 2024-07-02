@@ -1,16 +1,19 @@
 import { BaseModel } from './baseModel';
-import { TownSchema, TownType } from '../schema/TownSchema';
-import { TownDataSchema, TownDataType } from '../schema/TownDataSchema';
-import {TownDemandCategorySchema, TownDemandCategoryType} from "../schema/TownDemandCategorySchema";
-import {TownDemandSchema, TownDemandType} from "../schema/TownDemandSchema";
-import { Location } from './location'
-import {Commoners} from "./commoners";
-import {TownGovernmentType} from "../schema/TownGovernmentSchema";
-import {TownChurchType} from "../schema/TownChurchSchema";
-import {TownCultureType} from "../schema/TownCultureSchema";
-import {Tile} from "./tile";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
+import { TownSchema, TownType } from '../schema';
+import { TownDataSchema, TownDataType } from '../schema';
+import { TownDemandCategorySchema, TownDemandCategoryType } from "../schema";
+import { TownDemandSchema, TownDemandType } from "../schema";
+import { Location } from './location';
+import { Commoners } from "./commoners";
+import { TownGovernmentType } from "../schema";
+import { TownChurchType } from "../schema";
+import { TownCultureType } from "../schema";
+import { Tile } from "./tile";
+import { ItemEnumType } from "../schema/enums";
 
+/**
+ * Represents a town with associated attributes.
+ */
 export class Town extends BaseModel implements TownType {
     static schema = TownSchema;
 
@@ -19,8 +22,19 @@ export class Town extends BaseModel implements TownType {
     location: Location;
     region: number;
     capital: boolean;
+
+    /**
+     * Creates an instance of Town.
+     * @param data - The data to initialize the town.
+     */
+    constructor(data: TownType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents detailed information about a town.
+ */
 export class TownData extends BaseModel implements TownDataType {
     static schema = TownDataSchema;
 
@@ -36,8 +50,19 @@ export class TownData extends BaseModel implements TownDataType {
     church: TownChurchType;
     navigation_zones: Record<number, number>;
     culture: TownCultureType;
+
+    /**
+     * Creates an instance of TownData.
+     * @param data - The data to initialize the town data.
+     */
+    constructor(data: TownDataType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents a demand for a product in a town.
+ */
 export class TownDemand extends BaseModel implements TownDemandType {
     static schema = TownDemandSchema;
 
@@ -46,10 +71,30 @@ export class TownDemand extends BaseModel implements TownDemandType {
     desire: number;
     request: number;
     result: number;
+
+    /**
+     * Creates an instance of TownDemand.
+     * @param data - The data to initialize the town demand.
+     */
+    constructor(data: TownDemandType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents a category of demands in a town.
+ */
 export class TownDemandCategory extends BaseModel implements TownDemandCategoryType {
     static schema = TownDemandCategorySchema;
+
     name: string;
     products: TownDemand[];
+
+    /**
+     * Creates an instance of TownDemandCategory.
+     * @param data - The data to initialize the town demand category.
+     */
+    constructor(data: TownDemandCategoryType) {
+        super(data);
+    }
 }

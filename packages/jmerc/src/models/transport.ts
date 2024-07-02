@@ -1,21 +1,24 @@
 import { BaseModel } from './baseModel';
 import { TransportSchema, TransportType as TransportSchemaType } from '../schema/TransportSchema';
-import { TradeRouteSchema, TradeRouteType } from '../schema/TradeRouteSchema';
-import { TransportCargoSchema, TransportCargoType } from '../schema/TransportCargoSchema';
-import { TransportJourneySchema, TransportJourneyType } from '../schema/TransportJourneySchema';
-import { TransportJourneyLegSchema, TransportJourneyLegType } from '../schema/TransportJourneyLegSchema';
-import {TransportTypeSchema, TransportTypeType} from "../schema/TransportTypeSchema";
+import { TradeRouteSchema, TradeRouteType } from '../schema';
+import { TransportCargoSchema, TransportCargoType } from '../schema';
+import { TransportJourneySchema, TransportJourneyType } from '../schema';
+import { TransportJourneyLegSchema, TransportJourneyLegType } from '../schema';
+import { TransportTypeSchema, TransportTypeType } from "../schema";
 import { Location } from './location';
-import {Inventory} from "./inventory";
-import {Operation} from "./operation";
-import {Producer} from "./producer";
-import {Account} from "./account";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {Manager} from "./manager";
-import {Flow} from "./flow";
-import {Path} from "./path";
-import {TransportTypeEnumType} from "../schema/enums/TransportTypeEnumSchema";
+import { Inventory } from "./inventory";
+import { Operation } from "./operation";
+import { Producer } from "./producer";
+import { Account } from "./account";
+import { ItemEnumType } from "../schema/enums";
+import { Manager } from "./manager";
+import { Flow } from "./flow";
+import { Path } from "./path";
+import { TransportTypeEnumType } from "../schema/enums";
 
+/**
+ * Represents transport with associated attributes.
+ */
 export class Transport extends BaseModel implements TransportSchemaType {
     static schema = TransportSchema;
 
@@ -37,8 +40,19 @@ export class Transport extends BaseModel implements TransportSchemaType {
     producer: Producer | null;
     route: TradeRoute | null;
     journey: TransportJourney;
+
+    /**
+     * Creates an instance of Transport.
+     * @param data - The data to initialize the transport.
+     */
+    constructor(data: TransportSchemaType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents a trade route with associated attributes.
+ */
 export class TradeRoute extends BaseModel implements TradeRouteType {
     static schema = TradeRouteSchema;
 
@@ -57,15 +71,37 @@ export class TradeRoute extends BaseModel implements TradeRouteType {
     managers: Record<ItemEnumType, Manager>;
     current_flows: Record<ItemEnumType, Flow>;
     previous_flows: Record<ItemEnumType, Flow>;
+
+    /**
+     * Creates an instance of TradeRoute.
+     * @param data - The data to initialize the trade route.
+     */
+    constructor(data: TradeRouteType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents the cargo of transport with associated attributes.
+ */
 export class TransportCargo extends BaseModel implements TransportCargoType {
     static schema = TransportCargoSchema;
 
     reference: string;
     inventory: Inventory | null;
+
+    /**
+     * Creates an instance of TransportCargo.
+     * @param data - The data to initialize the transport cargo.
+     */
+    constructor(data: TransportCargoType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents a transport journey with associated attributes.
+ */
 export class TransportJourney extends BaseModel implements TransportJourneyType {
     static schema = TransportJourneySchema;
 
@@ -74,14 +110,36 @@ export class TransportJourney extends BaseModel implements TransportJourneyType 
     distance: number;
     moves: number;
     legs: TransportJourneyLeg[];
+
+    /**
+     * Creates an instance of TransportJourney.
+     * @param data - The data to initialize the transport journey.
+     */
+    constructor(data: TransportJourneyType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents a leg of a transport journey with associated attributes.
+ */
 export class TransportJourneyLeg extends BaseModel implements TransportJourneyLegType {
     static schema = TransportJourneyLegSchema;
 
     path: Path[];
+
+    /**
+     * Creates an instance of TransportJourneyLeg.
+     * @param data - The data to initialize the transport journey leg.
+     */
+    constructor(data: TransportJourneyLegType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents a type of transport with associated attributes.
+ */
 export class TransportType extends BaseModel implements TransportTypeType {
     static schema = TransportTypeSchema;
 
@@ -95,4 +153,12 @@ export class TransportType extends BaseModel implements TransportTypeType {
     operating_costs: Record<ItemEnumType, number>;
     catches: string | null;
     fishing_range: number | null;
+
+    /**
+     * Creates an instance of TransportType.
+     * @param data - The data to initialize the transport type.
+     */
+    constructor(data: TransportTypeType) {
+        super(data);
+    }
 }

@@ -1,12 +1,12 @@
 import BaseAPI from './baseAPI';
 import { ResponseObject } from "./baseAPI";
 import { apiRoutes } from "./api-routes";
-import {Transport, TradeRoute} from '../models/transport';
-import { Manager } from "../models/manager";
+import {Transport, TradeRoute} from '../models';
+import { Manager } from "../models";
 import { SetManagerFailedException, convertFloatsToStrings } from "../utils";
 import { pickBy } from 'lodash';
 import * as _ from 'lodash';
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
+import {ItemEnumType} from "../schema/enums";
 
 class TransportsAPI extends BaseAPI {
 

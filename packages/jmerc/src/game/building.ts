@@ -1,11 +1,11 @@
 import { Building as BuildingModel } from '../models/building';
 import Client from "../client";
 import { Player } from './player';
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {Manager} from "../models/manager";
-import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
+import {ItemEnumType} from "../schema/enums";
+import {Manager} from "../models";
+import {BuildingTypeEnumType} from "../schema/enums";
 import {Recipe} from "./recipe";
-import {AccountAsset} from "../models/account";
+import {AccountAsset} from "../models";
 
 export class Building {
     _client: Client;

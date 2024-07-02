@@ -1,6 +1,9 @@
 import { BaseModel } from './baseModel';
-import { FlowSchema, FlowType } from '../schema/FlowSchema';
+import { FlowSchema, FlowType } from '../schema';
 
+/**
+ * Represents the flow of resources with associated attributes.
+ */
 export class Flow extends BaseModel implements FlowType {
     static schema = FlowSchema;
 
@@ -17,19 +20,11 @@ export class Flow extends BaseModel implements FlowType {
     sale_value: number;
     shortfall: number;
 
+    /**
+     * Creates an instance of Flow.
+     * @param data - The data to initialize the flow.
+     */
     constructor(data: FlowType) {
-        super();
-        this.consumption = data.consumption;
-        this.expiration = data.expiration;
-        this.export = data.export;
-        this.imported = data.imported;
-        this.production = data.production;
-        this.production_cost = data.production_cost;
-        this.purchase = data.purchase;
-        this.purchase_cost = data.purchase_cost;
-        this.resident = data.resident;
-        this.sale = data.sale;
-        this.sale_value = data.sale_value;
-        this.shortfall = data.shortfall;
+        super(data);
     }
 }

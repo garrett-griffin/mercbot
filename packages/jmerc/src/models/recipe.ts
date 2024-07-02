@@ -1,11 +1,14 @@
 import { BaseModel } from './baseModel';
-import { RecipeSchema, RecipeType } from '../schema/RecipeSchema';
-import { IngredientSchema, IngredientType } from '../schema/IngredientSchema';
-import {RecipeEnumType} from "../schema/enums/RecipeEnumSchema";
-import {BuildingTypeEnumType} from "../schema/enums/BuildingTypeEnumSchema";
-import {SkillEnumType} from "../schema/enums/SkillEnumSchema";
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
+import { RecipeSchema, RecipeType } from '../schema';
+import { IngredientSchema, IngredientType } from '../schema';
+import { RecipeEnumType } from "../schema/enums";
+import { BuildingTypeEnumType } from "../schema/enums";
+import { SkillEnumType } from "../schema/enums";
+import { ItemEnumType } from "../schema/enums";
 
+/**
+ * Represents a recipe for producing items with associated details.
+ */
 export class Recipe extends BaseModel implements RecipeType {
     static schema = RecipeSchema;
 
@@ -17,11 +20,30 @@ export class Recipe extends BaseModel implements RecipeType {
     points: number | null;
     inputs: Ingredient[];
     outputs: Ingredient[];
+
+    /**
+     * Creates an instance of Recipe.
+     * @param data - The data to initialize the recipe.
+     */
+    constructor(data: RecipeType) {
+        super(data);
+    }
 }
 
+/**
+ * Represents an ingredient used in a recipe.
+ */
 export class Ingredient extends BaseModel implements IngredientType {
     static schema = IngredientSchema;
 
     product: ItemEnumType;
     amount: number;
+
+    /**
+     * Creates an instance of Ingredient.
+     * @param data - The data to initialize the ingredient.
+     */
+    constructor(data: IngredientType) {
+        super(data);
+    }
 }

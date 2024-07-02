@@ -1,11 +1,10 @@
-import BaseAPI from './baseAPI';
-import { ResponseObject } from "./baseAPI";
-import { apiRoutes } from "./api-routes";
-import { Town, TownData } from '../models/town';
-import { Market, MarketItemDetails } from '../models/market';
-import { ItemEnumType } from "../schema/enums/ItemEnumSchema";
+import BaseAPI, {ResponseObject} from './baseAPI';
+import {apiRoutes} from "./api-routes";
+import {Town, TownData} from '../models/town';
+import {Market, MarketItemDetails} from '../models/market';
+import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
 import {ItemTrade, ItemTradeResult} from "../models/itemTrade";
-import { convertFloatsToStrings, BuySellOrderFailedException } from '../utils'
+import {BuySellOrderFailedException, convertFloatsToStrings} from '../utils'
 
 class TownsAPI extends BaseAPI {
 
@@ -18,7 +17,7 @@ class TownsAPI extends BaseAPI {
     async getAll(): Promise<Town[]> {
         try {
             const response = await super.get() as unknown[];
-            return Town.validate(response);
+            return Town.validateArray(response);
         } catch (error) {
             throw new Error(`Failed to fetch towns: ${(error as Error).message}`);
         }
@@ -114,30 +113,29 @@ class TownsAPI extends BaseAPI {
     async _sendOrder(
         item: ItemEnumType,
         id: number,
-        expectedBalance: number,
+        expected_balance: number,
         operation: string,
         price: number,
         volume: number,
         direction: string
     ): Promise<ItemTradeResult> {
-        const trade = new ItemTrade(
+        const trade = new ItemTrade({
             direction,
-            expectedBalance,
+            expected_balance,
             operation,
             price,
             volume
-        );
+        });
         const json = convertFloatsToStrings(trade);
-        const response: ResponseObject = await super.post( { endpoint: apiRoutes.orders, id, item, data: json });
+        const response: ResponseObject = await super.post({ endpoint: apiRoutes.orders, id, item, data: json });
 
-        if (response.status == 200) {
-            return ItemTradeResult.validate(response);
+        if (response.status === 200) {
+            return await ItemTradeResult.validate(response);
         } else {
-            throw new BuySellOrderFailedException(
-                `Failed to send ${direction} order: ${response.statusText}`
-            );
+            throw new BuySellOrderFailedException(`Failed to send ${direction} order: ${response.statusText}`);
         }
     }
+
 }
 
 export default TownsAPI;

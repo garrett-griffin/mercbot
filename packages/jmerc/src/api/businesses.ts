@@ -1,6 +1,6 @@
 import BaseAPI from './baseAPI';
 import { apiRoutes } from "./api-routes";
-import {Business} from "../models/business";
+import {Business} from "../models";
 
 class BusinessesAPI extends BaseAPI {
 
