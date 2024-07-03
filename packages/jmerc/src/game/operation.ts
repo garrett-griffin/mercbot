@@ -27,7 +27,6 @@ export class BuildingOperation {
     async load(): Promise<void> {
         this.data = await this._client.buildingsApi.getOperations(this.buildingId);
         if (this.data && this.data.operations) {
-            console.log(JSON.stringify(this.data.total_flow));
             this.operations = new OperationsList(
                 ...(await Promise.all(
                     this.data.operations.map((operation) => {

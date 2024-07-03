@@ -12,7 +12,6 @@ export class Inventory extends BaseModel implements InventoryType {
     static schema = InventorySchema;
 
     account: Account;
-    assets: AccountAsset[];
     capacity: number;
     managers: Record<ItemEnumType, Manager> | null;
     previous_flows: Record<ItemEnumType, Flow> | null;
@@ -29,10 +28,7 @@ export class Inventory extends BaseModel implements InventoryType {
     _initializeSubProperties() {
         super._initializeSubProperties();
 
-        console.log(this.assets);
-
         this.account = new Account(this.account);
-        this.assets = Object.values(this.assets).map(asset => new AccountAsset(asset));
         if(this.managers !== null) {
             // Ensure each item in `assets` is a proper instance of AccountAsset
             Object.keys(this.managers).forEach((key: ItemEnumType) => {
@@ -50,6 +46,10 @@ export class Inventory extends BaseModel implements InventoryType {
 
     }
 
+    get assets(): Map<ItemEnumType, AccountAsset> {
+        return this.items;
+    }
+
     /**
      * Returns a map of the items in the inventory.
      */
@@ -61,8 +61,6 @@ export class Inventory extends BaseModel implements InventoryType {
      * Returns a map of the managers in the inventory.
      */
     get managersMap(): Map<ItemEnumType, Manager> {
-        console.log("Accessing managersMap");
-        console.log("Managers: ", this.managers);
         return new Map(Object.entries(this.managers).map(([key, value]) => [key as ItemEnumType, value]));
     }
 

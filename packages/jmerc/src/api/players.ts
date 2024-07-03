@@ -8,7 +8,9 @@ class PlayersAPI extends BaseAPI {
     async get(): Promise<Player> {
         try {
             const response = await super.get();
-            return Player.validate(response);
+            let result = await Player.validate(response);
+            result.initializeSubProperties();
+            return result;
         } catch (error) {
             throw new Error(`Failed to fetch player data: ${error.message}`);
         }

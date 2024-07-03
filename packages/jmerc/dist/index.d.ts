@@ -12204,10 +12204,6 @@ declare class Inventory extends BaseModel implements InventoryType {
             buy_volume: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
             capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
             max_holding: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-            /**
-             * Creates an instance of Inventory.
-             * @param data - The data to initialize the inventory.
-             */
             sell_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
             sell_volume: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
         }, "strip", zod.ZodTypeAny, {
@@ -12354,7 +12350,6 @@ declare class Inventory extends BaseModel implements InventoryType {
         }>>;
     }>;
     account: Account;
-    assets: AccountAsset[];
     capacity: number;
     managers: Record<ItemEnumType, Manager> | null;
     previous_flows: Record<ItemEnumType, Flow> | null;
@@ -12365,6 +12360,7 @@ declare class Inventory extends BaseModel implements InventoryType {
      */
     constructor(data: InventoryType);
     _initializeSubProperties(): void;
+    get assets(): Map<ItemEnumType, AccountAsset>;
     /**
      * Returns a map of the items in the inventory.
      */
@@ -18016,15 +18012,8 @@ declare class Player$1 extends BaseModel implements PlayerType {
                             capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                             purchase: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                             purchase_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-                            /**
-                             * Represents a player with associated attributes.
-                             */
                             reserved: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
                             reserved_capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-                            /**
-                             * Creates an instance of Player.
-                             * @param data - The data to initialize the player.
-                             */
                             sale: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                             sale_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                             unit_cost: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
@@ -18787,15 +18776,8 @@ declare class Household extends BaseModel implements HouseholdType {
                         capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                         purchase: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                         purchase_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-                        /**
-                         * Represents a player with associated attributes.
-                         */
                         reserved: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
                         reserved_capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-                        /**
-                         * Creates an instance of Player.
-                         * @param data - The data to initialize the player.
-                         */
                         sale: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                         sale_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                         unit_cost: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
@@ -19335,15 +19317,8 @@ declare class Sustenance extends BaseModel implements SustenanceType {
                     capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     purchase: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     purchase_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-                    /**
-                     * Represents a player with associated attributes.
-                     */
                     reserved: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
                     reserved_capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-                    /**
-                     * Creates an instance of Player.
-                     * @param data - The data to initialize the player.
-                     */
                     sale: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     sale_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     unit_cost: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;

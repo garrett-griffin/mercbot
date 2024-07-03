@@ -18,6 +18,7 @@ import {Building} from "./game/building";
 import {Transport} from "./game/transport";
 import {Storehouse} from "./game/storehouse";
 import { Operation as OperationModel } from "./models/operation"
+import {Household} from "./models";
 
 /**
  * Client for interacting with the Mercatorio API.

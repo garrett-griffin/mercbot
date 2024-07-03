@@ -31,7 +31,6 @@ export class Building {
 
     get flows() {
         if (this.buildingOperation && this.buildingOperation.totalFlow) {
-            console.log("Giving total flow: "+JSON.stringify(this.buildingOperation.totalFlow));
             return this.buildingOperation.totalFlow;
         } else if (this.operation) {
             return this.operation.data.flows;

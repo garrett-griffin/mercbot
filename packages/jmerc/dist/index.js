@@ -901,6 +901,13 @@ var BaseModel = class {
   constructor(data) {
     Object.assign(this, data);
     this.initializeSubProperties();
+    if (Object.keys(this).includes("household")) {
+      Object.entries(this).forEach(([key, value]) => {
+        if (key == "household") {
+          console.log(typeof value);
+        }
+      });
+    }
   }
   /**
    * Validates the input data against the schema and creates an instance of the class.
@@ -2476,7 +2483,6 @@ var Flow = class extends BaseModel {
 var Inventory = class extends BaseModel {
   static schema = InventorySchema;
   account;
-  assets;
   capacity;
   managers;
   previous_flows;
@@ -2490,9 +2496,7 @@ var Inventory = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    console.log(this.assets);
     this.account = new Account(this.account);
-    this.assets = Object.values(this.assets).map((asset) => new AccountAsset(asset));
     if (this.managers !== null) {
       Object.keys(this.managers).forEach((key) => {
         const manager = this.managers[key];
@@ -2506,6 +2510,9 @@ var Inventory = class extends BaseModel {
       });
     }
   }
+  get assets() {
+    return this.items;
+  }
   /**
    * Returns a map of the items in the inventory.
    */
@@ -2516,8 +2523,6 @@ var Inventory = class extends BaseModel {
    * Returns a map of the managers in the inventory.
    */
   get managersMap() {
-    console.log("Accessing managersMap");
-    console.log("Managers: ", this.managers);
     return new Map(Object.entries(this.managers).map(([key, value]) => [key, value]));
   }
   /**
@@ -3071,13 +3076,7 @@ var Player = class extends BaseModel {
    * @param data - The data to initialize the player.
    */
   constructor(data) {
-    console.log(data);
     super(data);
-    console.log(this.username);
-    console.log(this.discord_id);
-    console.log(this.active);
-    console.log(this.household);
-    console.log(this.settings);
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
@@ -3529,7 +3528,9 @@ var PlayersAPI = class extends baseAPI_default {
   async get() {
     try {
       const response = await super.get();
-      return Player.validate(response);
+      let result = await Player.validate(response);
+      result.initializeSubProperties();
+      return result;
     } catch (error) {
       throw new Error(`Failed to fetch player data: ${error.message}`);
     }
@@ -4019,7 +4020,6 @@ var Building3 = class {
   }
   get flows() {
     if (this.buildingOperation && this.buildingOperation.totalFlow) {
-      console.log("Giving total flow: " + JSON.stringify(this.buildingOperation.totalFlow));
       return this.buildingOperation.totalFlow;
     } else if (this.operation) {
       return this.operation.data.flows;
@@ -4482,7 +4482,6 @@ var BuildingOperation2 = class {
   async load() {
     this.data = await this._client.buildingsApi.getOperations(this.buildingId);
     if (this.data && this.data.operations) {
-      console.log(JSON.stringify(this.data.total_flow));
       this.operations = new OperationsList(
         ...await Promise.all(
           this.data.operations.map((operation) => {

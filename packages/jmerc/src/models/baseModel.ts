@@ -12,6 +12,14 @@ export class BaseModel {
     constructor(data: any) {
         Object.assign(this, data);
         this.initializeSubProperties();
+        if(Object.keys(this).includes("household")) {
+            Object.entries(this).forEach(([key, value]) => {
+                if(key == "household") {
+                    console.log(typeof value);
+                }
+            })
+        }
+        //console.log("KEYS: "+JSON.stringify(Object.keys(this)));
     }
 
     /**

@@ -6,10 +6,8 @@ import { WorkerSchema, WorkerType } from '../schema';
 import { SustenanceSchema, SustenanceType } from '../schema';
 import { SettingsSchema, SettingsType } from '../schema';
 import { NotificationSettingsSchema, NotificationSettingsType } from '../schema';
-import {ItemEnumType, SkillEnumType} from "../schema/enums";
+import {SkillEnumType} from "../schema/enums";
 import { Inventory } from "./inventory";
-import {Manager} from "./manager";
-import {Flow} from "./flow";
 
 /**
  * Represents a player with associated attributes.
@@ -28,13 +26,7 @@ export class Player extends BaseModel implements PlayerType {
      * @param data - The data to initialize the player.
      */
     constructor(data: PlayerType) {
-        console.log(data);
         super(data);
-        console.log(this.username);
-        console.log(this.discord_id);
-        console.log(this.active);
-        console.log(this.household);
-        console.log(this.settings)
     }
 
     _initializeSubProperties() {
