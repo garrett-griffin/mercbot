@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import {Player} from "./player";
 
 /**
  * A base model class that provides schema validation and initialization of sub-properties.
@@ -6,7 +7,7 @@ import { z } from 'zod';
  */
 export class BaseModel {
     static schema: z.Schema;
-    private initialized = false;
+    initialized = false;
 
     constructor(data: any) {
         Object.assign(this, data);
@@ -45,18 +46,9 @@ export class BaseModel {
      */
     initializeSubProperties() {
         if (this.initialized) return;
-        for (const key of Object.keys(this)) {
-            const value = this[key];
-            if (value && typeof value === 'object' && 'schema' in value.constructor) {
-                // Re-instantiate property if it has a schema
-                this[key] = new (value.constructor as any)(value);
-            } else if (Array.isArray(value)) {
-                // Re-instantiate array items if they have a schema
-                this[key] = value.map((item: any) =>
-                    item && typeof item === 'object' && 'schema' in item.constructor ? new (item.constructor as any)(item) : item
-                );
-            }
-        }
+        this._initializeSubProperties();
         this.initialized = true;
     }
+
+    _initializeSubProperties() {}
 }

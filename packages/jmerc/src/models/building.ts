@@ -15,6 +15,7 @@ import { Operation } from './operation';
 import { BuildingTypeSchema, BuildingTypeType } from '../schema';
 import { BuildingRequirementsType } from '../schema';
 import { BuildingUpgradeType } from '../schema';
+import {AccountAsset} from "./account";
 
 /**
  * Represents a building with various attributes.
@@ -45,6 +46,36 @@ export class Building extends BaseModel implements BuildingSchemaType {
     constructor(data: BuildingSchemaType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+
+        if(this.construction !== null) {
+            this.construction = new BuildingConstruction(this.construction);
+        }
+
+        if(this.delivery_cost !== null) {
+            this.delivery_cost = new DeliveryCost(this.delivery_cost);
+        }
+
+        if(this.land !== null) {
+            for(let i=0; i<this.land.length; i++) {
+                this.land[i] = new Location(this.land[i]);
+            }
+        }
+
+        if(this.producer !== null) {
+            this.producer = new Producer(this.producer);
+        }
+
+        if(this.storage !== null) {
+            this.storage = new BuildingStorage(this.storage);
+        }
+
+        if(this.sublocation !== null) {
+            this.sublocation = new Location(this.sublocation);
+        }
+    }
 }
 
 /**
@@ -65,6 +96,10 @@ export class BuildingConstruction extends BaseModel implements BuildingConstruct
      */
     constructor(data: BuildingConstructionType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 
     /**
@@ -92,6 +127,12 @@ export class BuildingStorage extends BaseModel implements BuildingStorageType {
     constructor(data: BuildingStorageType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+
+        this.inventory = new Inventory(this.inventory);
+    }
 }
 
 /**
@@ -109,6 +150,24 @@ export class BuildingOperation extends BaseModel implements BuildingOperationTyp
      */
     constructor(data: BuildingOperationType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+
+        if(this.total_flow !== null) {
+            // Ensure each item in `assets` is a proper instance of AccountAsset
+            Object.keys(this.total_flow).forEach((key: ItemEnumType) => {
+                const total_flow = this.total_flow[key];
+                this.total_flow[key] = new Flow(total_flow);
+            });
+        }
+
+        if(this.operations !== null) {
+            for(let i=0; i<this.operations.length; i++) {
+                this.operations[i] = new Operation(this.operations[i]);
+            }
+        }
     }
 }
 
@@ -130,5 +189,9 @@ export class BuildingType extends BaseModel implements BuildingTypeType {
      */
     constructor(data: BuildingTypeType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }

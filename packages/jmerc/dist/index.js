@@ -895,7 +895,7 @@ var TransportTypeEnum = /* @__PURE__ */ ((TransportTypeEnum2) => {
 })(TransportTypeEnum || {});
 
 // src/models/baseModel.ts
-var BaseModel = class {
+var BaseModel = class _BaseModel {
   static schema;
   initialized = false;
   constructor(data) {
@@ -934,6 +934,10 @@ var BaseModel = class {
     if (this.initialized) return;
     for (const key of Object.keys(this)) {
       const value = this[key];
+      console.log(value + " - " + typeof value + " - " + (value instanceof _BaseModel) + " -- " + value.initialized);
+      if (value instanceof _BaseModel && !value.initialized) {
+        value.initializeSubProperties();
+      }
       if (value && typeof value === "object" && "schema" in value.constructor) {
         this[key] = new value.constructor(value);
       } else if (Array.isArray(value)) {
@@ -2855,7 +2859,13 @@ var Player = class extends BaseModel {
    * @param data - The data to initialize the player.
    */
   constructor(data) {
+    console.log(data);
     super(data);
+    console.log(this.username);
+    console.log(this.discord_id);
+    console.log(this.active);
+    console.log(this.household);
+    console.log(this.settings);
   }
 };
 var Household = class extends BaseModel {

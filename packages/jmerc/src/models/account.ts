@@ -25,6 +25,24 @@ export class Account extends BaseModel implements AccountType {
     }
 
     /**
+     * Override _initializeSubProperties to customize initialization for Account class.
+     */
+    _initializeSubProperties() {
+        super._initializeSubProperties(); // Call superclass method first
+
+        // Initialize `assets` if it's not initialized
+        if (!this.assets) {
+            this.assets = {};
+        }
+
+        // Ensure each item in `assets` is a proper instance of AccountAsset
+        Object.keys(this.assets).forEach((key: ItemEnumType) => {
+            const asset = this.assets[key];
+            this.assets[key] = new AccountAsset(asset);
+        });
+    }
+
+    /**
      * Returns a map of the account's assets.
      */
     get assetsMap(): Map<ItemEnumType, AccountAsset> {
@@ -47,6 +65,14 @@ export class AccountAsset extends BaseModel implements AccountAssetType {
     sale: number | null;
     sale_price: number | null;
     unit_cost: number | null;
+
+    /**
+     * Creates an instance of AccountAsset.
+     * @param data - The data to initialize the account asset.
+     */
+    constructor(data: AccountAssetType) {
+        super(data);
+    }
 
     /**
      * Checks if the asset has been purchased.

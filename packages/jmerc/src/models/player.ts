@@ -26,7 +26,13 @@ export class Player extends BaseModel implements PlayerType {
      * @param data - The data to initialize the player.
      */
     constructor(data: PlayerType) {
+        console.log(data);
         super(data);
+        console.log(this.username);
+        console.log(this.discord_id);
+        console.log(this.active);
+        console.log(this.household);
+        console.log(this.settings)
     }
 }
 

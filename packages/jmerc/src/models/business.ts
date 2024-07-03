@@ -28,6 +28,20 @@ export class Business extends BaseModel implements BusinessType {
     constructor(data: BusinessType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+
+        if(this.account !== null) {
+            this.account = new Account(this.account);
+        }
+
+        if(this.buildings !== null) {
+            for(let i=0; i<this.buildings.length; i++) {
+                this.buildings[i] = new Building(this.buildings[i]);
+            }
+        }
+    }
 }
 
 /**
@@ -45,5 +59,9 @@ export class BusinessBuilding extends BaseModel implements BusinessBuildingType 
      */
     constructor(data: BusinessBuildingType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }
