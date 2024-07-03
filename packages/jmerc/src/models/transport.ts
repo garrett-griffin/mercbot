@@ -9,12 +9,14 @@ import { Location } from './location';
 import { Inventory } from "./inventory";
 import { Operation } from "./operation";
 import { Producer } from "./producer";
-import { Account } from "./account";
+import {Account, AccountAsset} from "./account";
 import { ItemEnumType } from "../schema/enums";
 import { Manager } from "./manager";
 import { Flow } from "./flow";
 import { Path } from "./path";
 import { TransportTypeEnumType } from "../schema/enums";
+import {Ingredient} from "./recipe";
+import {Item} from "./item";
 
 /**
  * Represents transport with associated attributes.
@@ -48,6 +50,18 @@ export class Transport extends BaseModel implements TransportSchemaType {
     constructor(data: TransportSchemaType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.location = new Location(this.location);
+        this.domain = this.domain ? this.domain.map((item: Location) => new Location(item)) : null;
+        this.inventory = new Inventory(this.inventory);
+        this.cargo = this.cargo ? new TransportCargo(this.cargo) : null;
+        this.previous_operations = this.previous_operations ? new Operation(this.previous_operations) : null;
+        this.producer = this.producer ? new Producer(this.producer) : null;
+        this.route = this.route ? new TradeRoute(this.route) : null;
+        this.journey = new TransportJourney(this.journey);
+    }
 }
 
 /**
@@ -79,6 +93,38 @@ export class TradeRoute extends BaseModel implements TradeRouteType {
     constructor(data: TradeRouteType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.account = new Account(this.account);
+
+        Object.keys(this.managers).forEach((key: ItemEnumType) => {
+            const manager = this.managers[key];
+            this.managers[key] = new Manager(manager);
+        });
+
+        Object.keys(this.current_flows).forEach((key: ItemEnumType) => {
+            const flow = this.current_flows[key];
+            this.current_flows[key] = new Flow(flow);
+        });
+
+        Object.keys(this.previous_flows).forEach((key: ItemEnumType) => {
+            const flow = this.previous_flows[key];
+            this.previous_flows[key] = new Flow(flow);
+        });
+    }
+
+    get managersMap() : Map<ItemEnumType, Manager> {
+        return new Map(Object.entries(this.managers).map(([key, value]) => [key as ItemEnumType, value]));
+    }
+
+    get currentFlowsMap() : Map<ItemEnumType, Flow> {
+        return new Map(Object.entries(this.current_flows).map(([key, value]) => [key as ItemEnumType, value]));
+    }
+
+    get previousFlowsMap() : Map<ItemEnumType, Flow> {
+        return new Map(Object.entries(this.previous_flows).map(([key, value]) => [key as ItemEnumType, value]));
+    }
 }
 
 /**
@@ -96,6 +142,10 @@ export class TransportCargo extends BaseModel implements TransportCargoType {
      */
     constructor(data: TransportCargoType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }
 
@@ -118,6 +168,13 @@ export class TransportJourney extends BaseModel implements TransportJourneyType 
     constructor(data: TransportJourneyType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        for(let i: number; i<this.legs.length; i++) {
+            this.legs[i] = new TransportJourneyLeg(this.legs[i]);
+        }
+    }
 }
 
 /**
@@ -134,6 +191,13 @@ export class TransportJourneyLeg extends BaseModel implements TransportJourneyLe
      */
     constructor(data: TransportJourneyLegType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        for(let i: number; i<this.path.length; i++) {
+            this.path[i] = new Path(this.path[i]);
+        }
     }
 }
 
@@ -160,5 +224,13 @@ export class TransportType extends BaseModel implements TransportTypeType {
      */
     constructor(data: TransportTypeType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+    }
+
+    get operatingCostsMap(): Map<ItemEnumType, number> {
+        return new Map(Object.entries(this.operating_costs).map(([key, value]) => [key as ItemEnumType, value]));
     }
 }

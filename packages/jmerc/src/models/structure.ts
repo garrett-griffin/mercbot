@@ -1,6 +1,7 @@
 import { BaseModel } from './baseModel';
 import { StructureSchema, StructureType } from '../schema';
 import { BuildingTypeEnumType } from "../schema/enums";
+import {Ingredient} from "./recipe";
 
 /**
  * Represents a structure with associated attributes.
@@ -18,5 +19,9 @@ export class Structure extends BaseModel implements StructureType {
      */
     constructor(data: StructureType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }

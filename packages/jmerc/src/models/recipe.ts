@@ -28,6 +28,12 @@ export class Recipe extends BaseModel implements RecipeType {
     constructor(data: RecipeType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.inputs = this.inputs.map(input => new Ingredient(input));
+        this.outputs = this.outputs.map(output => new Ingredient(output));
+    }
 }
 
 /**
@@ -45,5 +51,9 @@ export class Ingredient extends BaseModel implements IngredientType {
      */
     constructor(data: IngredientType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }

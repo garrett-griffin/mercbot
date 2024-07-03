@@ -18,4 +18,8 @@ export class Turn extends BaseModel implements TurnType {
     constructor(data: TurnType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+    }
 }

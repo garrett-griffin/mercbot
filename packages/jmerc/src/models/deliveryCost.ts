@@ -17,4 +17,8 @@ export class DeliveryCost extends BaseModel implements DeliveryCostType {
     constructor(data: DeliveryCostType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+    }
 }

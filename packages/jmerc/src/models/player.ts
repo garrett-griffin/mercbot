@@ -6,8 +6,10 @@ import { WorkerSchema, WorkerType } from '../schema';
 import { SustenanceSchema, SustenanceType } from '../schema';
 import { SettingsSchema, SettingsType } from '../schema';
 import { NotificationSettingsSchema, NotificationSettingsType } from '../schema';
-import { SkillEnumType } from "../schema/enums";
+import {ItemEnumType, SkillEnumType} from "../schema/enums";
 import { Inventory } from "./inventory";
+import {Manager} from "./manager";
+import {Flow} from "./flow";
 
 /**
  * Represents a player with associated attributes.
@@ -33,6 +35,12 @@ export class Player extends BaseModel implements PlayerType {
         console.log(this.active);
         console.log(this.household);
         console.log(this.settings)
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.household =  new Household(this.household);
+        this.settings = new Settings(this.settings);
     }
 }
 
@@ -63,6 +71,23 @@ export class Household extends BaseModel implements HouseholdType {
     constructor(data: HouseholdType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        if(this.prestige_impacts !== null) {
+            for(let i=0; i<this.prestige_impacts.length; i++) {
+                this.prestige_impacts[i] = new PrestigeImpact(this.prestige_impacts[i]);
+            }
+        }
+        for(let i=0; i<this.workers.length; i++) {
+            this.workers[i] = new Worker(this.workers[i]);
+        }
+        this.sustenance = new Sustenance(this.sustenance);
+    }
+
+    get capsMap(): Map<string, number> {
+        return new Map(Object.entries(this.caps).map(([key, value]) => [key as string, value]));
+    }
 }
 
 /**
@@ -80,6 +105,10 @@ export class PrestigeImpact extends BaseModel implements PrestigeImpactType {
      */
     constructor(data: PrestigeImpactType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }
 
@@ -101,6 +130,14 @@ export class Worker extends BaseModel implements WorkerType {
     constructor(data: WorkerType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+    }
+
+    get skillsMap(): Map<SkillEnumType, number> {
+        return new Map(Object.entries(this.skills).map(([key, value]) => [key as SkillEnumType, value]));
+    }
 }
 
 /**
@@ -119,6 +156,11 @@ export class Sustenance extends BaseModel implements SustenanceType {
      */
     constructor(data: SustenanceType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.inventory = new Inventory(this.inventory);
     }
 }
 
@@ -150,6 +192,11 @@ export class Settings extends BaseModel implements SettingsType {
     constructor(data: SettingsType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.notifications = new NotificationSettings(this.notifications);
+    }
 }
 
 /**
@@ -167,5 +214,9 @@ export class NotificationSettings extends BaseModel implements NotificationSetti
      */
     constructor(data: NotificationSettingsType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }

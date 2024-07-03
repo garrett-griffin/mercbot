@@ -4,6 +4,7 @@ import { MarketItemDetailsSchema, MarketItemDetailsType } from '../schema';
 import { MarketItemSchema, MarketItemType } from "../schema";
 import { ItemEnumType } from "../schema/enums";
 import { ItemOrderType } from "../schema";
+import {AccountAsset} from "./account";
 
 /**
  * Represents the market with associated attributes.
@@ -20,6 +21,16 @@ export class Market extends BaseModel implements MarketType {
      */
     constructor(data: MarketType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+
+        // Ensure each item in `assets` is a proper instance of AccountAsset
+        Object.keys(this.markets).forEach((key: ItemEnumType) => {
+            const market = this.markets[key];
+            this.markets[key] = new MarketItem(market);
+        });
     }
 }
 
@@ -69,5 +80,10 @@ export class MarketItemDetails extends BaseModel implements MarketItemDetailsTyp
      */
     constructor(data: MarketItemDetailsType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.data = new MarketItem(this.data);
     }
 }

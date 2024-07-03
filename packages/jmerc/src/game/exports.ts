@@ -43,7 +43,7 @@ export class Export {
     }
 
     get volume() {
-        return this.manager.sellVolume;
+        return this.manager.sell_volume;
     }
 
     get volumeFlowed() {

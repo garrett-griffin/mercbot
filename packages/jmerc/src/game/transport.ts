@@ -64,7 +64,7 @@ export class Transport {
         if (!this.docked) {
             throw new Error('The transport must be docked to export an item.');
         }
-        const manager = new Manager({ sellVolume: volume, sellPrice: price });
+        const manager = new Manager({ sell_volume: volume, sell_price: price });
         await this.setManager(item, manager);
     }
 
@@ -72,7 +72,7 @@ export class Transport {
         if (!this.docked) {
             throw new Error('The transport must be docked to import an item.');
         }
-        const manager = new Manager({ buyVolume: volume, buyPrice: price });
+        const manager = new Manager({ buy_volume: volume, buy_price: price });
         await this.setManager(item, manager);
     }
 
@@ -84,10 +84,10 @@ export class Transport {
             throw new Error('The item does not have a manager.');
         }
         const manager = this.data.route.managers[item];
-        if (buyPrice !== undefined) manager.buyPrice = buyPrice;
-        if (buyVolume !== undefined) manager.buyVolume = buyVolume;
-        if (sellPrice !== undefined) manager.sellPrice = sellPrice;
-        if (sellVolume !== undefined) manager.sellVolume = sellVolume;
+        if (buyPrice !== undefined) manager.buy_price = buyPrice;
+        if (buyVolume !== undefined) manager.buy_volume = buyVolume;
+        if (sellPrice !== undefined) manager.sell_price = sellPrice;
+        if (sellVolume !== undefined) manager.sell_volume = sellVolume;
         this.updateRoute(await this._client.transportsApi.setManager(this.id, item, manager));
     }
 

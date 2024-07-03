@@ -1,5 +1,7 @@
 import { LocationSchema, LocationType } from '../schema';
 import { BaseModel } from "./baseModel";
+import {ItemEnumType} from "../schema/enums";
+import {ItemTradeSettlement} from "./itemTrade";
 
 /**
  * Represents a geographical location with coordinates.
@@ -16,5 +18,9 @@ export class Location extends BaseModel implements LocationType {
      */
     constructor(data: LocationType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }

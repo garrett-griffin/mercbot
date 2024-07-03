@@ -4,6 +4,10 @@ import { RecipeEnumType } from '../schema/enums';
 import { DeliveryCost } from './deliveryCost';
 import { Flow } from './flow';
 import { ItemEnumType } from "../schema/enums";
+import {MarketItem} from "./market";
+import {ItemTradeSettlement} from "./itemTrade";
+import {AccountAsset} from "./account";
+import {Manager} from "./manager";
 
 /**
  * Represents an operation with associated attributes and calculations.
@@ -28,6 +32,21 @@ export class Operation extends BaseModel implements OperationType {
      */
     constructor(data: OperationType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.delivery_cost = this.delivery_cost ? new DeliveryCost(this.delivery_cost) : null;
+
+        // Ensure each item in `assets` is a proper instance of AccountAsset
+        Object.keys(this.flows).forEach((key: ItemEnumType) => {
+            const flow = this.flows[key];
+            this.flows[key] = new Flow(flow);
+        });
+    }
+
+    get flowsMap(): Map<ItemEnumType, Flow> {
+        return new Map(Object.entries(this.flows).map(([key, value]) => [key as ItemEnumType, value]));
     }
 
     /**

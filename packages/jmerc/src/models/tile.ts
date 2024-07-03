@@ -1,6 +1,7 @@
 import { BaseModel } from './baseModel';
 import { TileSchema, TileType } from '../schema/TileSchema';
 import { Structure } from './structure';
+import {Ingredient} from "./recipe";
 
 /**
  * Represents a tile with associated attributes.
@@ -18,5 +19,10 @@ export class Tile extends BaseModel implements TileType {
      */
     constructor(data: TileType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.structure = this.structure ? new Structure(this.structure) : null;
     }
 }

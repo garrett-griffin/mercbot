@@ -26,4 +26,8 @@ export class Item extends BaseModel implements ItemType {
     constructor(data: ItemType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+    }
 }

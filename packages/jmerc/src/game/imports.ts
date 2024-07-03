@@ -44,7 +44,7 @@ export class Import {
     }
 
     get volume() {
-        return this.manager.buyVolume;
+        return this.manager.buy_volume;
     }
 
     get volumeFlowed() {

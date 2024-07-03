@@ -1,6 +1,7 @@
 import { BaseModel } from './baseModel';
 import { TownDemandCategory, TownDemand } from './town';
 import { CommonersSchema, CommonersType } from '../schema';
+import {Building} from "./building";
 
 /**
  * Represents the commoners in a town with their associated attributes.
@@ -18,6 +19,16 @@ export class Commoners extends BaseModel implements CommonersType {
      */
     constructor(data: CommonersType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+
+        if(this.sustenance !== null) {
+            for(let i=0; i<this.sustenance.length; i++) {
+                this.sustenance[i] = new TownDemandCategory(this.sustenance[i]);
+            }
+        }
     }
 
     /**

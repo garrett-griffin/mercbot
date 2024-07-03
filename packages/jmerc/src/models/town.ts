@@ -10,6 +10,7 @@ import { TownChurchType } from "../schema";
 import { TownCultureType } from "../schema";
 import { Tile } from "./tile";
 import { ItemEnumType } from "../schema/enums";
+import {Ingredient} from "./recipe";
 
 /**
  * Represents a town with associated attributes.
@@ -96,5 +97,10 @@ export class TownDemandCategory extends BaseModel implements TownDemandCategoryT
      */
     constructor(data: TownDemandCategoryType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.products = this.products.map(product => new TownDemand(product));
     }
 }

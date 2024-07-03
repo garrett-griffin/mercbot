@@ -2,6 +2,8 @@ import { BaseModel } from './baseModel';
 import { ItemTradeSchema, ItemTradeType } from '../schema';
 import { ItemTradeResultSchema, ItemTradeResultType } from "../schema";
 import { ItemTradeSettlementSchema, ItemTradeSettlementType } from "../schema";
+import {ItemEnumType} from "../schema/enums";
+import {AccountAsset} from "./account";
 
 /**
  * Represents an item trade with associated attributes.
@@ -22,6 +24,10 @@ export class ItemTrade extends BaseModel implements ItemTradeType {
     constructor(data: ItemTradeType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+    }
 }
 
 /**
@@ -41,6 +47,18 @@ export class ItemTradeResult extends BaseModel implements ItemTradeResultType {
     constructor(data: ItemTradeResultType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        if(this.settlements !== null) {
+
+            // Ensure each item in `assets` is a proper instance of AccountAsset
+            Object.keys(this.settlements).forEach((key: ItemEnumType) => {
+                const settlement = this.settlements[key];
+                this.settlements[key] = new ItemTradeSettlement(settlement);
+            });
+        }
+    }
 }
 
 /**
@@ -58,5 +76,9 @@ export class ItemTradeSettlement extends BaseModel implements ItemTradeSettlemen
      */
     constructor(data: ItemTradeSettlementType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
     }
 }

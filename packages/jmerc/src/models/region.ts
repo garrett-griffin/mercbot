@@ -1,6 +1,7 @@
 import { BaseModel } from './baseModel';
 import { RegionSchema, RegionType } from '../schema';
 import { Location } from "./location";
+import {Ingredient} from "./recipe";
 
 /**
  * Represents a geographical region with associated attributes.
@@ -20,5 +21,10 @@ export class Region extends BaseModel implements RegionType {
      */
     constructor(data: RegionType) {
         super(data);
+    }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+        this.center = this.center ? new Location(this.center) : null;
     }
 }

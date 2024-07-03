@@ -27,9 +27,9 @@ async function balanceItem(player: jmerc.Player, item: jmerc.ItemEnumType, buySh
     }
 
     console.log(`\tCurrently consuming ${consumed} ${item}`);
-    console.log(`\tCurrently buying ${manager.buyVolume} ${item}`);
+    console.log(`\tCurrently buying ${manager.buy_volume} ${item}`);
 
-    const oldVolume = manager.buyVolume;
+    const oldVolume = manager.buy_volume;
     buyVolume = Math.ceil(consumed);
     const sellVolume = 0 - buyVolume;
 
@@ -38,17 +38,17 @@ async function balanceItem(player: jmerc.Player, item: jmerc.ItemEnumType, buySh
         await player.storehouse.items.get(item).buy(Math.ceil(flow.shortfall), Math.ceil(player.storehouse.items.get(item).averageCost * 2));
     }
 
-    if (consumed === manager.buyVolume) {
+    if (consumed === manager.buy_volume) {
         return false;
     }
 
-    if ((0 < buyVolume && buyVolume === oldVolume) || (0 < sellVolume && sellVolume === manager.sellVolume) || (buyVolume === 0 && sellVolume === 0)) {
+    if ((0 < buyVolume && buyVolume === oldVolume) || (0 < sellVolume && sellVolume === manager.sell_volume) || (buyVolume === 0 && sellVolume === 0)) {
         console.log(`\t${item} consumption is balanced (wasting less than 1.0 ${item})`);
         return false;
     }
 
     console.log(`Old volume: ${oldVolume} - Buy volume: ${buyVolume}`);
-    console.log(`Old sell volume: ${manager.sellVolume} - Sell volume: ${sellVolume}`);
+    console.log(`Old sell volume: ${manager.sell_volume} - Sell volume: ${sellVolume}`);
 
     if (buyVolume > 0.0) {
         console.log(`     Adjusting ${item} purchase amount to ${buyVolume}`);

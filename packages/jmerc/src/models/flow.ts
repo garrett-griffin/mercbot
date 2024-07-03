@@ -27,4 +27,8 @@ export class Flow extends BaseModel implements FlowType {
     constructor(data: FlowType) {
         super(data);
     }
+
+    _initializeSubProperties() {
+        super._initializeSubProperties();
+    }
 }

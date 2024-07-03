@@ -828,7 +828,7 @@ var TransportTypeEnum = /* @__PURE__ */ ((TransportTypeEnum2) => {
 })(TransportTypeEnum || {});
 
 // src/models/baseModel.ts
-var BaseModel = class _BaseModel {
+var BaseModel = class {
   static schema;
   initialized = false;
   constructor(data) {
@@ -865,21 +865,10 @@ var BaseModel = class _BaseModel {
    */
   initializeSubProperties() {
     if (this.initialized) return;
-    for (const key of Object.keys(this)) {
-      const value = this[key];
-      console.log(value + " - " + typeof value + " - " + (value instanceof _BaseModel) + " -- " + value.initialized);
-      if (value instanceof _BaseModel && !value.initialized) {
-        value.initializeSubProperties();
-      }
-      if (value && typeof value === "object" && "schema" in value.constructor) {
-        this[key] = new value.constructor(value);
-      } else if (Array.isArray(value)) {
-        this[key] = value.map(
-          (item) => item && typeof item === "object" && "schema" in item.constructor ? new item.constructor(item) : item
-        );
-      }
-    }
+    this._initializeSubProperties();
     this.initialized = true;
+  }
+  _initializeSubProperties() {
   }
 };
 
@@ -2258,6 +2247,19 @@ var Account = class extends BaseModel {
     super(data);
   }
   /**
+   * Override _initializeSubProperties to customize initialization for Account class.
+   */
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    if (!this.assets) {
+      this.assets = {};
+    }
+    Object.keys(this.assets).forEach((key) => {
+      const asset = this.assets[key];
+      this.assets[key] = new AccountAsset(asset);
+    });
+  }
+  /**
    * Returns a map of the account's assets.
    */
   get assetsMap() {
@@ -2275,6 +2277,13 @@ var AccountAsset = class extends BaseModel {
   sale;
   sale_price;
   unit_cost;
+  /**
+   * Creates an instance of AccountAsset.
+   * @param data - The data to initialize the account asset.
+   */
+  constructor(data) {
+    super(data);
+  }
   /**
    * Checks if the asset has been purchased.
    */
@@ -2307,149 +2316,6 @@ var AccountAsset = class extends BaseModel {
   }
 };
 
-// src/models/building.ts
-var Building = class extends BaseModel {
-  static schema = BuildingSchema;
-  capacity;
-  construction;
-  delivery_cost;
-  id;
-  land;
-  name;
-  owner_id;
-  producer;
-  provider_id;
-  size;
-  storage;
-  sublocation;
-  town_id;
-  type;
-  upgrades;
-  /**
-   * Creates an instance of Building.
-   * @param data - The data to initialize the building.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var BuildingConstruction = class extends BaseModel {
-  static schema = BuildingConstructionSchema;
-  range;
-  size;
-  discount;
-  time;
-  materials;
-  /**
-   * Creates an instance of BuildingConstruction.
-   * @param data - The data to initialize the building construction.
-   */
-  constructor(data) {
-    super(data);
-  }
-  /**
-   * Returns a map of the materials required for construction.
-   */
-  get materialsMap() {
-    return new Map(Object.entries(this.materials).map(([key, value]) => [key, value]));
-  }
-};
-var BuildingStorage = class extends BaseModel {
-  static schema = BuildingStorageSchema;
-  inventory;
-  operations;
-  reference;
-  /**
-   * Creates an instance of BuildingStorage.
-   * @param data - The data to initialize the building storage.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var BuildingOperation = class extends BaseModel {
-  static schema = BuildingOperationSchema;
-  total_flow;
-  operations;
-  /**
-   * Creates an instance of BuildingOperation.
-   * @param data - The data to initialize the building operation.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var BuildingType = class extends BaseModel {
-  static schema = BuildingTypeSchema;
-  type;
-  supports_boost;
-  requires;
-  construction;
-  upgrades;
-  /**
-   * Creates an instance of BuildingType.
-   * @param data - The data to initialize the building type.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-
-// src/models/business.ts
-var Business = class extends BaseModel {
-  static schema = BusinessSchema;
-  account;
-  account_id;
-  building_ids;
-  buildings;
-  contract_ids;
-  id;
-  name;
-  owner_id;
-  transport_ids;
-  /**
-   * Creates an instance of Business.
-   * @param data - The data to initialize the business.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var BusinessBuilding = class extends BaseModel {
-  static schema = BusinessBuildingSchema;
-  id;
-  type;
-  /**
-   * Creates an instance of BusinessBuilding.
-   * @param data - The data to initialize the business building.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-
-// src/models/commoners.ts
-var Commoners = class extends BaseModel {
-  static schema = CommonersSchema;
-  account_id;
-  count;
-  migration;
-  sustenance;
-  /**
-   * Creates an instance of Commoners.
-   * @param data - The data to initialize the commoners.
-   */
-  constructor(data) {
-    super(data);
-  }
-  /**
-   * Returns the demands of the commoners by flattening the sustenance categories.
-   */
-  get demands() {
-    return this.sustenance.flatMap((category) => category.products);
-  }
-};
-
 // src/models/deliveryCost.ts
 var DeliveryCost = class extends BaseModel {
   static schema = DeliveryCostSchema;
@@ -2461,6 +2327,54 @@ var DeliveryCost = class extends BaseModel {
    */
   constructor(data) {
     super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/manager.ts
+var Manager = class extends BaseModel {
+  static schema = ManagerSchema;
+  buy_price;
+  buy_volume;
+  capacity;
+  max_holding;
+  sell_price;
+  sell_volume;
+  /**
+   * Creates an instance of Manager.
+   * @param data - The data to initialize the manager.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+  /**
+   * Checks if the manager is currently buying.
+   */
+  get buying() {
+    return this.buy_price !== null && this.buy_volume !== null;
+  }
+  /**
+   * Calculates the maximum buy price.
+   */
+  get maxBuyPrice() {
+    return (this.buy_price ?? 0) * (this.buy_volume ?? 0);
+  }
+  /**
+   * Calculates the maximum sell price.
+   */
+  get maxSellPrice() {
+    return (this.sell_price ?? 0) * (this.sell_volume ?? 0);
+  }
+  /**
+   * Checks if the manager is currently selling.
+   */
+  get selling() {
+    return this.sell_price !== null && this.sell_volume !== null;
   }
 };
 
@@ -2486,6 +2400,9 @@ var Flow = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
 };
 
 // src/models/inventory.ts
@@ -2503,6 +2420,24 @@ var Inventory = class extends BaseModel {
    */
   constructor(data) {
     super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    console.log(this.assets);
+    this.account = new Account(this.account);
+    this.assets = Object.values(this.assets).map((asset) => new AccountAsset(asset));
+    if (this.managers !== null) {
+      Object.keys(this.managers).forEach((key) => {
+        const manager = this.managers[key];
+        this.managers[key] = new Manager(manager);
+      });
+    }
+    if (this.previous_flows !== null) {
+      Object.keys(this.previous_flows).forEach((key) => {
+        const flow = this.previous_flows[key];
+        this.previous_flows[key] = new Flow(flow);
+      });
+    }
   }
   /**
    * Returns a map of the items in the inventory.
@@ -2526,210 +2461,6 @@ var Inventory = class extends BaseModel {
   }
 };
 
-// src/models/item.ts
-var Item = class extends BaseModel {
-  static schema = ItemSchema;
-  name;
-  type;
-  unit;
-  weight;
-  tier;
-  classes;
-  price;
-  /**
-   * Creates an instance of Item.
-   * @param data - The data to initialize the item.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-
-// src/models/itemTrade.ts
-var ItemTrade = class extends BaseModel {
-  static schema = ItemTradeSchema;
-  direction;
-  expected_balance;
-  operation;
-  price;
-  volume;
-  /**
-   * Creates an instance of ItemTrade.
-   * @param data - The data to initialize the item trade.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var ItemTradeResult = class extends BaseModel {
-  static schema = ItemTradeResultSchema;
-  settlements;
-  order_id;
-  embedded;
-  /**
-   * Creates an instance of ItemTradeResult.
-   * @param data - The data to initialize the item trade result.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var ItemTradeSettlement = class extends BaseModel {
-  static schema = ItemTradeSettlementSchema;
-  volume;
-  price;
-  /**
-   * Creates an instance of ItemTradeSettlement.
-   * @param data - The data to initialize the item trade settlement.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-
-// src/models/location.ts
-var Location = class extends BaseModel {
-  static schema = LocationSchema;
-  x;
-  y;
-  /**
-   * Creates an instance of Location.
-   * @param data - The data to initialize the location.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-
-// src/models/manager.ts
-var Manager = class extends BaseModel {
-  static schema = ManagerSchema;
-  _buyPrice;
-  _buyVolume;
-  _capacity;
-  _maxHolding;
-  _sellPrice;
-  _sellVolume;
-  /**
-   * Creates an instance of Manager.
-   * @param data - The data to initialize the manager.
-   */
-  constructor(data) {
-    super(data);
-  }
-  get buyPrice() {
-    return this._buyPrice;
-  }
-  set buyPrice(value) {
-    this._buyPrice = value;
-  }
-  get buyVolume() {
-    return this._buyVolume;
-  }
-  set buyVolume(value) {
-    this._buyVolume = value;
-  }
-  get capacity() {
-    return this._capacity;
-  }
-  set capacity(value) {
-    this._capacity = value;
-  }
-  get maxHolding() {
-    return this._maxHolding;
-  }
-  set maxHolding(value) {
-    this._maxHolding = value;
-  }
-  get sellPrice() {
-    return this._sellPrice;
-  }
-  set sellPrice(value) {
-    this._sellPrice = value;
-  }
-  get sellVolume() {
-    return this._sellVolume;
-  }
-  set sellVolume(value) {
-    this._sellVolume = value;
-  }
-  /**
-   * Checks if the manager is currently buying.
-   */
-  get buying() {
-    return this.buyPrice !== null && this.buyVolume !== null;
-  }
-  /**
-   * Calculates the maximum buy price.
-   */
-  get maxBuyPrice() {
-    return (this.buyPrice ?? 0) * (this.buyVolume ?? 0);
-  }
-  /**
-   * Calculates the maximum sell price.
-   */
-  get maxSellPrice() {
-    return (this.sellPrice ?? 0) * (this.sellVolume ?? 0);
-  }
-  /**
-   * Checks if the manager is currently selling.
-   */
-  get selling() {
-    return this.sellPrice !== null && this.sellVolume !== null;
-  }
-};
-
-// src/models/market.ts
-var Market = class extends BaseModel {
-  static schema = MarketSchema;
-  markets;
-  _ts;
-  /**
-   * Creates an instance of Market.
-   * @param data - The data to initialize the market.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var MarketItem = class extends BaseModel {
-  static schema = MarketItemSchema;
-  price;
-  last_price;
-  average_price;
-  moving_average;
-  highest_bid;
-  lowest_ask;
-  volume;
-  volume_prev_12;
-  bid_volume_10;
-  ask_volume_10;
-  /**
-   * Creates an instance of MarketItem.
-   * @param data - The data to initialize the market item.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var MarketItemDetails = class extends BaseModel {
-  static schema = MarketItemDetailsSchema;
-  id;
-  product;
-  asset;
-  currency;
-  bids;
-  asks;
-  data;
-  /**
-   * Creates an instance of MarketItemDetails.
-   * @param data - The data to initialize the market item details.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-
 // src/models/operation.ts
 var Operation = class extends BaseModel {
   static schema = OperationSchema;
@@ -2750,6 +2481,17 @@ var Operation = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.delivery_cost = this.delivery_cost ? new DeliveryCost(this.delivery_cost) : null;
+    Object.keys(this.flows).forEach((key) => {
+      const flow = this.flows[key];
+      this.flows[key] = new Flow(flow);
+    });
+  }
+  get flowsMap() {
+    return new Map(Object.entries(this.flows).map(([key, value]) => [key, value]));
+  }
   /**
    * Calculates the surplus of the operation.
    */
@@ -2761,142 +2503,6 @@ var Operation = class extends BaseModel {
    */
   get shortfall() {
     return (this.target || 0) - (this.production || 0);
-  }
-};
-
-// src/models/path.ts
-var Path = class extends BaseModel {
-  static schema = PathSchema;
-  x;
-  y;
-  c;
-  /**
-   * Creates an instance of Path.
-   * @param data - The data to initialize the path.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-
-// src/models/player.ts
-var Player = class extends BaseModel {
-  static schema = PlayerSchema;
-  username;
-  household;
-  discord_id;
-  settings;
-  active;
-  /**
-   * Creates an instance of Player.
-   * @param data - The data to initialize the player.
-   */
-  constructor(data) {
-    console.log(data);
-    super(data);
-    console.log(this.username);
-    console.log(this.discord_id);
-    console.log(this.active);
-    console.log(this.household);
-    console.log(this.settings);
-  }
-};
-var Household = class extends BaseModel {
-  static schema = HouseholdSchema;
-  id;
-  name;
-  town_id;
-  portrait;
-  gender;
-  account_id;
-  business_ids;
-  prestige;
-  prestige_impacts;
-  workers;
-  operations;
-  caps;
-  sustenance;
-  /**
-   * Creates an instance of Household.
-   * @param data - The data to initialize the household.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var PrestigeImpact = class extends BaseModel {
-  static schema = PrestigeImpactSchema;
-  factor;
-  impact;
-  /**
-   * Creates an instance of PrestigeImpact.
-   * @param data - The data to initialize the prestige impact.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var Worker = class extends BaseModel {
-  static schema = WorkerSchema;
-  assignment;
-  capacity;
-  name;
-  skills;
-  /**
-   * Creates an instance of Worker.
-   * @param data - The data to initialize the worker.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var Sustenance = class extends BaseModel {
-  static schema = SustenanceSchema;
-  reference;
-  inventory;
-  provider_id;
-  /**
-   * Creates an instance of Sustenance.
-   * @param data - The data to initialize the sustenance.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var Settings = class extends BaseModel {
-  static schema = SettingsSchema;
-  sound_volume;
-  notifications;
-  commoners_splash;
-  construction_splash;
-  land_purchase_splash;
-  operations_splash;
-  production_splash;
-  recipes_splash;
-  sustenance_splash;
-  trading_splash;
-  trade_config_splash;
-  welcome_splash;
-  first_building_splash;
-  warehouse_splash;
-  /**
-   * Creates an instance of Settings.
-   * @param data - The data to initialize the settings.
-   */
-  constructor(data) {
-    super(data);
-  }
-};
-var NotificationSettings = class extends BaseModel {
-  static schema = NotificationSettingsSchema;
-  discord;
-  mutes;
-  /**
-   * Creates an instance of NotificationSettings.
-   * @param data - The data to initialize the notification settings.
-   */
-  constructor(data) {
-    super(data);
   }
 };
 
@@ -2919,84 +2525,210 @@ var Producer = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.inventory = new Inventory(this.inventory);
+    this.operation = new Operation(this.operation);
+    this.previous_operation = new Operation(this.previous_operation);
+  }
 };
 
-// src/models/recipe.ts
-var Recipe = class extends BaseModel {
-  static schema = RecipeSchema;
+// src/models/location.ts
+var Location = class extends BaseModel {
+  static schema = LocationSchema;
+  x;
+  y;
+  /**
+   * Creates an instance of Location.
+   * @param data - The data to initialize the location.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/building.ts
+var Building = class extends BaseModel {
+  static schema = BuildingSchema;
+  capacity;
+  construction;
+  delivery_cost;
+  id;
+  land;
   name;
-  tier;
-  building;
+  owner_id;
+  producer;
+  provider_id;
   size;
-  product_class;
-  points;
-  inputs;
-  outputs;
+  storage;
+  sublocation;
+  town_id;
+  type;
+  upgrades;
   /**
-   * Creates an instance of Recipe.
-   * @param data - The data to initialize the recipe.
+   * Creates an instance of Building.
+   * @param data - The data to initialize the building.
    */
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    if (this.construction !== null) {
+      this.construction = new BuildingConstruction(this.construction);
+    }
+    if (this.delivery_cost !== null) {
+      this.delivery_cost = new DeliveryCost(this.delivery_cost);
+    }
+    if (this.land !== null) {
+      for (let i = 0; i < this.land.length; i++) {
+        this.land[i] = new Location(this.land[i]);
+      }
+    }
+    if (this.producer !== null) {
+      this.producer = new Producer(this.producer);
+    }
+    if (this.storage !== null) {
+      this.storage = new BuildingStorage(this.storage);
+    }
+    if (this.sublocation !== null) {
+      this.sublocation = new Location(this.sublocation);
+    }
+  }
 };
-var Ingredient = class extends BaseModel {
-  static schema = IngredientSchema;
-  product;
-  amount;
+var BuildingConstruction = class extends BaseModel {
+  static schema = BuildingConstructionSchema;
+  range;
+  size;
+  discount;
+  time;
+  materials;
   /**
-   * Creates an instance of Ingredient.
-   * @param data - The data to initialize the ingredient.
+   * Creates an instance of BuildingConstruction.
+   * @param data - The data to initialize the building construction.
    */
   constructor(data) {
     super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+  /**
+   * Returns a map of the materials required for construction.
+   */
+  get materialsMap() {
+    return new Map(Object.entries(this.materials).map(([key, value]) => [key, value]));
+  }
+};
+var BuildingStorage = class extends BaseModel {
+  static schema = BuildingStorageSchema;
+  inventory;
+  operations;
+  reference;
+  /**
+   * Creates an instance of BuildingStorage.
+   * @param data - The data to initialize the building storage.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.inventory = new Inventory(this.inventory);
+  }
+};
+var BuildingOperation = class extends BaseModel {
+  static schema = BuildingOperationSchema;
+  total_flow;
+  operations;
+  /**
+   * Creates an instance of BuildingOperation.
+   * @param data - The data to initialize the building operation.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    if (this.total_flow !== null) {
+      Object.keys(this.total_flow).forEach((key) => {
+        const total_flow = this.total_flow[key];
+        this.total_flow[key] = new Flow(total_flow);
+      });
+    }
+    if (this.operations !== null) {
+      for (let i = 0; i < this.operations.length; i++) {
+        this.operations[i] = new Operation(this.operations[i]);
+      }
+    }
+  }
+};
+var BuildingType = class extends BaseModel {
+  static schema = BuildingTypeSchema;
+  type;
+  supports_boost;
+  requires;
+  construction;
+  upgrades;
+  /**
+   * Creates an instance of BuildingType.
+   * @param data - The data to initialize the building type.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
   }
 };
 
-// src/models/region.ts
-var Region = class extends BaseModel {
-  static schema = RegionSchema;
+// src/models/business.ts
+var Business = class extends BaseModel {
+  static schema = BusinessSchema;
+  account;
+  account_id;
+  building_ids;
+  buildings;
+  contract_ids;
   id;
   name;
-  description;
-  center;
-  size;
+  owner_id;
+  transport_ids;
   /**
-   * Creates an instance of Region.
-   * @param data - The data to initialize the region.
+   * Creates an instance of Business.
+   * @param data - The data to initialize the business.
    */
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    if (this.account !== null) {
+      this.account = new Account(this.account);
+    }
+    if (this.buildings !== null) {
+      for (let i = 0; i < this.buildings.length; i++) {
+        this.buildings[i] = new Building(this.buildings[i]);
+      }
+    }
+  }
 };
-
-// src/models/structure.ts
-var Structure = class extends BaseModel {
-  static schema = StructureSchema;
+var BusinessBuilding = class extends BaseModel {
+  static schema = BusinessBuildingSchema;
   id;
   type;
-  tags;
   /**
-   * Creates an instance of Structure.
-   * @param data - The data to initialize the structure.
+   * Creates an instance of BusinessBuilding.
+   * @param data - The data to initialize the business building.
    */
   constructor(data) {
     super(data);
   }
-};
-
-// src/models/tile.ts
-var Tile = class extends BaseModel {
-  static schema = TileSchema;
-  owner_id;
-  structure;
-  ask_price;
-  /**
-   * Creates an instance of Tile.
-   * @param data - The data to initialize the tile.
-   */
-  constructor(data) {
-    super(data);
+  _initializeSubProperties() {
+    super._initializeSubProperties();
   }
 };
 
@@ -3064,6 +2796,458 @@ var TownDemandCategory = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.products = this.products.map((product) => new TownDemand(product));
+  }
+};
+
+// src/models/commoners.ts
+var Commoners = class extends BaseModel {
+  static schema = CommonersSchema;
+  account_id;
+  count;
+  migration;
+  sustenance;
+  /**
+   * Creates an instance of Commoners.
+   * @param data - The data to initialize the commoners.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    if (this.sustenance !== null) {
+      for (let i = 0; i < this.sustenance.length; i++) {
+        this.sustenance[i] = new TownDemandCategory(this.sustenance[i]);
+      }
+    }
+  }
+  /**
+   * Returns the demands of the commoners by flattening the sustenance categories.
+   */
+  get demands() {
+    return this.sustenance.flatMap((category) => category.products);
+  }
+};
+
+// src/models/item.ts
+var Item = class extends BaseModel {
+  static schema = ItemSchema;
+  name;
+  type;
+  unit;
+  weight;
+  tier;
+  classes;
+  price;
+  /**
+   * Creates an instance of Item.
+   * @param data - The data to initialize the item.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/itemTrade.ts
+var ItemTrade = class extends BaseModel {
+  static schema = ItemTradeSchema;
+  direction;
+  expected_balance;
+  operation;
+  price;
+  volume;
+  /**
+   * Creates an instance of ItemTrade.
+   * @param data - The data to initialize the item trade.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+var ItemTradeResult = class extends BaseModel {
+  static schema = ItemTradeResultSchema;
+  settlements;
+  order_id;
+  embedded;
+  /**
+   * Creates an instance of ItemTradeResult.
+   * @param data - The data to initialize the item trade result.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    if (this.settlements !== null) {
+      Object.keys(this.settlements).forEach((key) => {
+        const settlement = this.settlements[key];
+        this.settlements[key] = new ItemTradeSettlement(settlement);
+      });
+    }
+  }
+};
+var ItemTradeSettlement = class extends BaseModel {
+  static schema = ItemTradeSettlementSchema;
+  volume;
+  price;
+  /**
+   * Creates an instance of ItemTradeSettlement.
+   * @param data - The data to initialize the item trade settlement.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/market.ts
+var Market = class extends BaseModel {
+  static schema = MarketSchema;
+  markets;
+  _ts;
+  /**
+   * Creates an instance of Market.
+   * @param data - The data to initialize the market.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    Object.keys(this.markets).forEach((key) => {
+      const market = this.markets[key];
+      this.markets[key] = new MarketItem(market);
+    });
+  }
+};
+var MarketItem = class extends BaseModel {
+  static schema = MarketItemSchema;
+  price;
+  last_price;
+  average_price;
+  moving_average;
+  highest_bid;
+  lowest_ask;
+  volume;
+  volume_prev_12;
+  bid_volume_10;
+  ask_volume_10;
+  /**
+   * Creates an instance of MarketItem.
+   * @param data - The data to initialize the market item.
+   */
+  constructor(data) {
+    super(data);
+  }
+};
+var MarketItemDetails = class extends BaseModel {
+  static schema = MarketItemDetailsSchema;
+  id;
+  product;
+  asset;
+  currency;
+  bids;
+  asks;
+  data;
+  /**
+   * Creates an instance of MarketItemDetails.
+   * @param data - The data to initialize the market item details.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.data = new MarketItem(this.data);
+  }
+};
+
+// src/models/path.ts
+var Path = class extends BaseModel {
+  static schema = PathSchema;
+  x;
+  y;
+  c;
+  /**
+   * Creates an instance of Path.
+   * @param data - The data to initialize the path.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/player.ts
+var Player = class extends BaseModel {
+  static schema = PlayerSchema;
+  username;
+  household;
+  discord_id;
+  settings;
+  active;
+  /**
+   * Creates an instance of Player.
+   * @param data - The data to initialize the player.
+   */
+  constructor(data) {
+    console.log(data);
+    super(data);
+    console.log(this.username);
+    console.log(this.discord_id);
+    console.log(this.active);
+    console.log(this.household);
+    console.log(this.settings);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.household = new Household(this.household);
+    this.settings = new Settings(this.settings);
+  }
+};
+var Household = class extends BaseModel {
+  static schema = HouseholdSchema;
+  id;
+  name;
+  town_id;
+  portrait;
+  gender;
+  account_id;
+  business_ids;
+  prestige;
+  prestige_impacts;
+  workers;
+  operations;
+  caps;
+  sustenance;
+  /**
+   * Creates an instance of Household.
+   * @param data - The data to initialize the household.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    if (this.prestige_impacts !== null) {
+      for (let i = 0; i < this.prestige_impacts.length; i++) {
+        this.prestige_impacts[i] = new PrestigeImpact(this.prestige_impacts[i]);
+      }
+    }
+    for (let i = 0; i < this.workers.length; i++) {
+      this.workers[i] = new Worker(this.workers[i]);
+    }
+    this.sustenance = new Sustenance(this.sustenance);
+  }
+  get capsMap() {
+    return new Map(Object.entries(this.caps).map(([key, value]) => [key, value]));
+  }
+};
+var PrestigeImpact = class extends BaseModel {
+  static schema = PrestigeImpactSchema;
+  factor;
+  impact;
+  /**
+   * Creates an instance of PrestigeImpact.
+   * @param data - The data to initialize the prestige impact.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+var Worker = class extends BaseModel {
+  static schema = WorkerSchema;
+  assignment;
+  capacity;
+  name;
+  skills;
+  /**
+   * Creates an instance of Worker.
+   * @param data - The data to initialize the worker.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+  get skillsMap() {
+    return new Map(Object.entries(this.skills).map(([key, value]) => [key, value]));
+  }
+};
+var Sustenance = class extends BaseModel {
+  static schema = SustenanceSchema;
+  reference;
+  inventory;
+  provider_id;
+  /**
+   * Creates an instance of Sustenance.
+   * @param data - The data to initialize the sustenance.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.inventory = new Inventory(this.inventory);
+  }
+};
+var Settings = class extends BaseModel {
+  static schema = SettingsSchema;
+  sound_volume;
+  notifications;
+  commoners_splash;
+  construction_splash;
+  land_purchase_splash;
+  operations_splash;
+  production_splash;
+  recipes_splash;
+  sustenance_splash;
+  trading_splash;
+  trade_config_splash;
+  welcome_splash;
+  first_building_splash;
+  warehouse_splash;
+  /**
+   * Creates an instance of Settings.
+   * @param data - The data to initialize the settings.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.notifications = new NotificationSettings(this.notifications);
+  }
+};
+var NotificationSettings = class extends BaseModel {
+  static schema = NotificationSettingsSchema;
+  discord;
+  mutes;
+  /**
+   * Creates an instance of NotificationSettings.
+   * @param data - The data to initialize the notification settings.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/recipe.ts
+var Recipe = class extends BaseModel {
+  static schema = RecipeSchema;
+  name;
+  tier;
+  building;
+  size;
+  product_class;
+  points;
+  inputs;
+  outputs;
+  /**
+   * Creates an instance of Recipe.
+   * @param data - The data to initialize the recipe.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.inputs = this.inputs.map((input) => new Ingredient(input));
+    this.outputs = this.outputs.map((output) => new Ingredient(output));
+  }
+};
+var Ingredient = class extends BaseModel {
+  static schema = IngredientSchema;
+  product;
+  amount;
+  /**
+   * Creates an instance of Ingredient.
+   * @param data - The data to initialize the ingredient.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/region.ts
+var Region = class extends BaseModel {
+  static schema = RegionSchema;
+  id;
+  name;
+  description;
+  center;
+  size;
+  /**
+   * Creates an instance of Region.
+   * @param data - The data to initialize the region.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.center = this.center ? new Location(this.center) : null;
+  }
+};
+
+// src/models/structure.ts
+var Structure = class extends BaseModel {
+  static schema = StructureSchema;
+  id;
+  type;
+  tags;
+  /**
+   * Creates an instance of Structure.
+   * @param data - The data to initialize the structure.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+};
+
+// src/models/tile.ts
+var Tile = class extends BaseModel {
+  static schema = TileSchema;
+  owner_id;
+  structure;
+  ask_price;
+  /**
+   * Creates an instance of Tile.
+   * @param data - The data to initialize the tile.
+   */
+  constructor(data) {
+    super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.structure = this.structure ? new Structure(this.structure) : null;
+  }
 };
 
 // src/models/transport.ts
@@ -3094,6 +3278,17 @@ var Transport = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.location = new Location(this.location);
+    this.domain = this.domain ? this.domain.map((item) => new Location(item)) : null;
+    this.inventory = new Inventory(this.inventory);
+    this.cargo = this.cargo ? new TransportCargo(this.cargo) : null;
+    this.previous_operations = this.previous_operations ? new Operation(this.previous_operations) : null;
+    this.producer = this.producer ? new Producer(this.producer) : null;
+    this.route = this.route ? new TradeRoute(this.route) : null;
+    this.journey = new TransportJourney(this.journey);
+  }
 };
 var TradeRoute = class extends BaseModel {
   static schema = TradeRouteSchema;
@@ -3119,6 +3314,31 @@ var TradeRoute = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    this.account = new Account(this.account);
+    Object.keys(this.managers).forEach((key) => {
+      const manager = this.managers[key];
+      this.managers[key] = new Manager(manager);
+    });
+    Object.keys(this.current_flows).forEach((key) => {
+      const flow = this.current_flows[key];
+      this.current_flows[key] = new Flow(flow);
+    });
+    Object.keys(this.previous_flows).forEach((key) => {
+      const flow = this.previous_flows[key];
+      this.previous_flows[key] = new Flow(flow);
+    });
+  }
+  get managersMap() {
+    return new Map(Object.entries(this.managers).map(([key, value]) => [key, value]));
+  }
+  get currentFlowsMap() {
+    return new Map(Object.entries(this.current_flows).map(([key, value]) => [key, value]));
+  }
+  get previousFlowsMap() {
+    return new Map(Object.entries(this.previous_flows).map(([key, value]) => [key, value]));
+  }
 };
 var TransportCargo = class extends BaseModel {
   static schema = TransportCargoSchema;
@@ -3130,6 +3350,9 @@ var TransportCargo = class extends BaseModel {
    */
   constructor(data) {
     super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
   }
 };
 var TransportJourney = class extends BaseModel {
@@ -3146,6 +3369,12 @@ var TransportJourney = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    for (let i; i < this.legs.length; i++) {
+      this.legs[i] = new TransportJourneyLeg(this.legs[i]);
+    }
+  }
 };
 var TransportJourneyLeg = class extends BaseModel {
   static schema = TransportJourneyLegSchema;
@@ -3156,6 +3385,12 @@ var TransportJourneyLeg = class extends BaseModel {
    */
   constructor(data) {
     super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+    for (let i; i < this.path.length; i++) {
+      this.path[i] = new Path(this.path[i]);
+    }
   }
 };
 var TransportType = class extends BaseModel {
@@ -3177,6 +3412,12 @@ var TransportType = class extends BaseModel {
   constructor(data) {
     super(data);
   }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
+  }
+  get operatingCostsMap() {
+    return new Map(Object.entries(this.operating_costs).map(([key, value]) => [key, value]));
+  }
 };
 
 // src/models/turn.ts
@@ -3191,6 +3432,9 @@ var Turn = class extends BaseModel {
    */
   constructor(data) {
     super(data);
+  }
+  _initializeSubProperties() {
+    super._initializeSubProperties();
   }
 };
 
@@ -3675,7 +3919,7 @@ var Recipe2 = class {
       const asset = inventoryAssets[inputIngredient.product];
       if (asset) {
         const manager = inventoryManagers[inputIngredient.product];
-        const buyVolume = manager ? manager.buyVolume : 0;
+        const buyVolume = manager ? manager.buy_volume : 0;
         const capacity = asset.capacity || asset.balance + buyVolume;
         availableAmount = Math.min(asset.balance - asset.reserved + buyVolume, capacity);
       }
@@ -3854,7 +4098,7 @@ var Export = class {
     return this.asset.sale * this.asset.sale_price;
   }
   get volume() {
-    return this.manager.sellVolume;
+    return this.manager.sell_volume;
   }
   get volumeFlowed() {
     return this.flow.export || 0;
@@ -4026,7 +4270,7 @@ var Import = class {
     return this.town.market[this.item];
   }
   get volume() {
-    return this.manager.buyVolume;
+    return this.manager.buy_volume;
   }
   get volumeFlowed() {
     return this.flow.imported || 0;
@@ -4363,14 +4607,14 @@ var Transport3 = class {
     if (!this.docked) {
       throw new Error("The transport must be docked to export an item.");
     }
-    const manager = new Manager({ sellVolume: volume, sellPrice: price });
+    const manager = new Manager({ sell_volume: volume, sell_price: price });
     await this.setManager(item, manager);
   }
   async importItem(item, volume, price) {
     if (!this.docked) {
       throw new Error("The transport must be docked to import an item.");
     }
-    const manager = new Manager({ buyVolume: volume, buyPrice: price });
+    const manager = new Manager({ buy_volume: volume, buy_price: price });
     await this.setManager(item, manager);
   }
   async patchManager(item, buyPrice, buyVolume, sellPrice, sellVolume) {
@@ -4381,10 +4625,10 @@ var Transport3 = class {
       throw new Error("The item does not have a manager.");
     }
     const manager = this.data.route.managers[item];
-    if (buyPrice !== void 0) manager.buyPrice = buyPrice;
-    if (buyVolume !== void 0) manager.buyVolume = buyVolume;
-    if (sellPrice !== void 0) manager.sellPrice = sellPrice;
-    if (sellVolume !== void 0) manager.sellVolume = sellVolume;
+    if (buyPrice !== void 0) manager.buy_price = buyPrice;
+    if (buyVolume !== void 0) manager.buy_volume = buyVolume;
+    if (sellPrice !== void 0) manager.sell_price = sellPrice;
+    if (sellVolume !== void 0) manager.sell_volume = sellVolume;
     this.updateRoute(await this._client.transportsApi.setManager(this.id, item, manager));
   }
   async sell(item, volume, price) {

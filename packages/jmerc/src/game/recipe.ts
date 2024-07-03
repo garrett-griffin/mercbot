@@ -77,7 +77,7 @@ export class Recipe {
             const asset = inventoryAssets[inputIngredient.product];
             if (asset) {
                 const manager = inventoryManagers[inputIngredient.product];
-                const buyVolume = manager ? manager.buyVolume : 0;
+                const buyVolume = manager ? manager.buy_volume : 0;
                 const capacity = asset.capacity || asset.balance + buyVolume;
                 availableAmount = Math.min(asset.balance - asset.reserved + buyVolume, capacity);
             }
