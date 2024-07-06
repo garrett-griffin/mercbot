@@ -709,12 +709,21 @@ declare class BaseModel {
     static schema: z.Schema;
     initialized: boolean;
     constructor(data: any);
+    loadData(data: any): void;
     /**
      * Validates the input data against the schema and creates an instance of the class.
      * @param data - The input data to validate and instantiate.
      * @returns A promise that resolves to an instance of the class.
      */
     static validate<T extends typeof BaseModel>(this: T, data: unknown): Promise<InstanceType<T>>;
+    /**
+     * Validates the input data against the schema and creates an instance of the class.
+     *
+     * @param {any} data - The input data to validate and instantiate.
+     *
+     * @returns {Promise} A promise that resolves to an instance of the class.
+     */
+    static build<T extends typeof BaseModel>(this: T, data: any): InstanceType<T>;
     /**
      * Validates an array of input data against the schema and creates instances of the class.
      * @param data - The input data to validate and instantiate.

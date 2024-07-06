@@ -25,6 +25,6 @@ export class Region extends BaseModel implements RegionType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.center = this.center ? new Location(this.center) : null;
+        this.center = this.center ? Location.build(this.center) : null;
     }
 }

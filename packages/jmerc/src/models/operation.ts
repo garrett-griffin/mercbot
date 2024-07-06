@@ -36,13 +36,14 @@ export class Operation extends BaseModel implements OperationType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.delivery_cost = this.delivery_cost ? new DeliveryCost(this.delivery_cost) : null;
-
-        // Ensure each item in `assets` is a proper instance of AccountAsset
-        Object.keys(this.flows).forEach((key: ItemEnumType) => {
-            const flow = this.flows[key];
-            this.flows[key] = new Flow(flow);
-        });
+        this.delivery_cost = this.delivery_cost ? DeliveryCost.build(this.delivery_cost) : null;
+        if(this.flows) {
+            // Ensure each item in `assets` is a proper instance of AccountAsset
+            Object.keys(this.flows).forEach((key: ItemEnumType) => {
+                const flow = this.flows[key];
+                this.flows[key] = Flow.build(flow);
+            });
+        }
     }
 
     get flowsMap(): Map<ItemEnumType, Flow> {

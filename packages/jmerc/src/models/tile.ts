@@ -23,6 +23,6 @@ export class Tile extends BaseModel implements TileType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.structure = this.structure ? new Structure(this.structure) : null;
+        this.structure = this.structure ? Structure.build(this.structure) : null;
     }
 }

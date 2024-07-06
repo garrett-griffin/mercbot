@@ -53,14 +53,14 @@ export class Transport extends BaseModel implements TransportSchemaType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.location = new Location(this.location);
-        this.domain = this.domain ? this.domain.map((item: Location) => new Location(item)) : null;
-        this.inventory = new Inventory(this.inventory);
-        this.cargo = this.cargo ? new TransportCargo(this.cargo) : null;
-        this.previous_operations = this.previous_operations ? new Operation(this.previous_operations) : null;
-        this.producer = this.producer ? new Producer(this.producer) : null;
-        this.route = this.route ? new TradeRoute(this.route) : null;
-        this.journey = new TransportJourney(this.journey);
+        this.location = Location.build(this.location);
+        this.domain = this.domain ? this.domain.map((item: Location) => Location.build(item)) : null;
+        this.inventory = Inventory.build(this.inventory);
+        this.cargo = this.cargo ? TransportCargo.build(this.cargo) : null;
+        this.previous_operations = this.previous_operations ? Operation.build(this.previous_operations) : null;
+        this.producer = this.producer ? Producer.build(this.producer) : null;
+        this.route = this.route ? TradeRoute.build(this.route) : null;
+        this.journey = TransportJourney.build(this.journey);
     }
 }
 
@@ -96,21 +96,21 @@ export class TradeRoute extends BaseModel implements TradeRouteType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.account = new Account(this.account);
+        this.account = Account.build(this.account);
 
         Object.keys(this.managers).forEach((key: ItemEnumType) => {
             const manager = this.managers[key];
-            this.managers[key] = new Manager(manager);
+            this.managers[key] = Manager.build(manager);
         });
 
         Object.keys(this.current_flows).forEach((key: ItemEnumType) => {
             const flow = this.current_flows[key];
-            this.current_flows[key] = new Flow(flow);
+            this.current_flows[key] = Flow.build(flow);
         });
 
         Object.keys(this.previous_flows).forEach((key: ItemEnumType) => {
             const flow = this.previous_flows[key];
-            this.previous_flows[key] = new Flow(flow);
+            this.previous_flows[key] = Flow.build(flow);
         });
     }
 
@@ -172,7 +172,7 @@ export class TransportJourney extends BaseModel implements TransportJourneyType 
     _initializeSubProperties() {
         super._initializeSubProperties();
         for(let i: number; i<this.legs.length; i++) {
-            this.legs[i] = new TransportJourneyLeg(this.legs[i]);
+            this.legs[i] = TransportJourneyLeg.build(this.legs[i]);
         }
     }
 }
@@ -196,7 +196,7 @@ export class TransportJourneyLeg extends BaseModel implements TransportJourneyLe
     _initializeSubProperties() {
         super._initializeSubProperties();
         for(let i: number; i<this.path.length; i++) {
-            this.path[i] = new Path(this.path[i]);
+            this.path[i] = Path.build(this.path[i]);
         }
     }
 }

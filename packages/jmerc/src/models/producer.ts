@@ -31,8 +31,8 @@ export class Producer extends BaseModel implements ProducerType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.inventory = new Inventory(this.inventory);
-        this.operation = new Operation(this.operation);
-        this.previous_operation = new Operation(this.previous_operation);
+        this.inventory = Inventory.build(this.inventory);
+        this.operation = Operation.build(this.operation);
+        this.previous_operation = Operation.build(this.previous_operation);
     }
 }

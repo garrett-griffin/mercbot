@@ -832,6 +832,9 @@ var BaseModel = class {
   static schema;
   initialized = false;
   constructor(data) {
+    this.loadData(data);
+  }
+  loadData(data) {
     Object.assign(this, data);
     this.initializeSubProperties();
     if (Object.keys(this).includes("household")) {
@@ -850,7 +853,19 @@ var BaseModel = class {
   static async validate(data) {
     const parsedData = await this.schema.parseAsync(data);
     const instance = new this(parsedData);
-    instance.initializeSubProperties();
+    instance.loadData(parsedData);
+    return instance;
+  }
+  /**
+   * Validates the input data against the schema and creates an instance of the class.
+   *
+   * @param {any} data - The input data to validate and instantiate.
+   *
+   * @returns {Promise} A promise that resolves to an instance of the class.
+   */
+  static build(data) {
+    const instance = new this(data);
+    instance.loadData(data);
     return instance;
   }
   /**
@@ -2263,7 +2278,7 @@ var Account = class extends BaseModel {
     }
     Object.keys(this.assets).forEach((key) => {
       const asset = this.assets[key];
-      this.assets[key] = new AccountAsset(asset);
+      this.assets[key] = AccountAsset.build(asset);
     });
   }
   /**
@@ -2429,17 +2444,17 @@ var Inventory = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.account = new Account(this.account);
-    if (this.managers !== null) {
+    this.account = Account.build(this.account);
+    if (this.managers !== null && this.managers !== void 0) {
       Object.keys(this.managers).forEach((key) => {
         const manager = this.managers[key];
-        this.managers[key] = new Manager(manager);
+        this.managers[key] = Manager.build(manager);
       });
     }
-    if (this.previous_flows !== null) {
+    if (this.previous_flows) {
       Object.keys(this.previous_flows).forEach((key) => {
         const flow = this.previous_flows[key];
-        this.previous_flows[key] = new Flow(flow);
+        this.previous_flows[key] = Flow.build(flow);
       });
     }
   }
@@ -2488,11 +2503,13 @@ var Operation = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.delivery_cost = this.delivery_cost ? new DeliveryCost(this.delivery_cost) : null;
-    Object.keys(this.flows).forEach((key) => {
-      const flow = this.flows[key];
-      this.flows[key] = new Flow(flow);
-    });
+    this.delivery_cost = this.delivery_cost ? DeliveryCost.build(this.delivery_cost) : null;
+    if (this.flows) {
+      Object.keys(this.flows).forEach((key) => {
+        const flow = this.flows[key];
+        this.flows[key] = Flow.build(flow);
+      });
+    }
   }
   get flowsMap() {
     return new Map(Object.entries(this.flows).map(([key, value]) => [key, value]));
@@ -2532,9 +2549,10 @@ var Producer = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.inventory = new Inventory(this.inventory);
-    this.operation = new Operation(this.operation);
-    this.previous_operation = new Operation(this.previous_operation);
+    this.inventory = Inventory.build(this.inventory);
+    console.log(JSON.stringify(this));
+    this.operation = Operation.build(this.operation);
+    this.previous_operation = Operation.build(this.previous_operation);
   }
 };
 
@@ -2583,24 +2601,24 @@ var Building = class extends BaseModel {
   _initializeSubProperties() {
     super._initializeSubProperties();
     if (this.construction !== null) {
-      this.construction = new BuildingConstruction(this.construction);
+      this.construction = BuildingConstruction.build(this.construction);
     }
     if (this.delivery_cost !== null) {
-      this.delivery_cost = new DeliveryCost(this.delivery_cost);
+      this.delivery_cost = DeliveryCost.build(this.delivery_cost);
     }
-    if (this.land !== null) {
+    if (this.land !== null && this.land !== void 0) {
       for (let i = 0; i < this.land.length; i++) {
-        this.land[i] = new Location(this.land[i]);
+        this.land[i] = Location.build(this.land[i]);
       }
     }
-    if (this.producer !== null) {
-      this.producer = new Producer(this.producer);
+    if (this.producer) {
+      this.producer = Producer.build(this.producer);
     }
     if (this.storage !== null) {
-      this.storage = new BuildingStorage(this.storage);
+      this.storage = BuildingStorage.build(this.storage);
     }
     if (this.sublocation !== null) {
-      this.sublocation = new Location(this.sublocation);
+      this.sublocation = Location.build(this.sublocation);
     }
   }
 };
@@ -2642,7 +2660,7 @@ var BuildingStorage = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.inventory = new Inventory(this.inventory);
+    this.inventory = Inventory.build(this.inventory);
   }
 };
 var BuildingOperation = class extends BaseModel {
@@ -2661,12 +2679,12 @@ var BuildingOperation = class extends BaseModel {
     if (this.total_flow !== null) {
       Object.keys(this.total_flow).forEach((key) => {
         const total_flow = this.total_flow[key];
-        this.total_flow[key] = new Flow(total_flow);
+        this.total_flow[key] = Flow.build(total_flow);
       });
     }
     if (this.operations !== null) {
       for (let i = 0; i < this.operations.length; i++) {
-        this.operations[i] = new Operation(this.operations[i]);
+        this.operations[i] = Operation.build(this.operations[i]);
       }
     }
   }
@@ -2712,11 +2730,11 @@ var Business = class extends BaseModel {
   _initializeSubProperties() {
     super._initializeSubProperties();
     if (this.account !== null) {
-      this.account = new Account(this.account);
+      this.account = Account.build(this.account);
     }
     if (this.buildings !== null) {
       for (let i = 0; i < this.buildings.length; i++) {
-        this.buildings[i] = new Building(this.buildings[i]);
+        this.buildings[i] = Building.build(this.buildings[i]);
       }
     }
   }
@@ -2803,7 +2821,7 @@ var TownDemandCategory = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.products = this.products.map((product) => new TownDemand(product));
+    this.products = this.products.map((product) => TownDemand.build(product));
   }
 };
 
@@ -2825,7 +2843,7 @@ var Commoners = class extends BaseModel {
     super._initializeSubProperties();
     if (this.sustenance !== null) {
       for (let i = 0; i < this.sustenance.length; i++) {
-        this.sustenance[i] = new TownDemandCategory(this.sustenance[i]);
+        this.sustenance[i] = TownDemandCategory.build(this.sustenance[i]);
       }
     }
   }
@@ -2895,7 +2913,7 @@ var ItemTradeResult = class extends BaseModel {
     if (this.settlements !== null) {
       Object.keys(this.settlements).forEach((key) => {
         const settlement = this.settlements[key];
-        this.settlements[key] = new ItemTradeSettlement(settlement);
+        this.settlements[key] = ItemTradeSettlement.build(settlement);
       });
     }
   }
@@ -2932,7 +2950,7 @@ var Market = class extends BaseModel {
     super._initializeSubProperties();
     Object.keys(this.markets).forEach((key) => {
       const market = this.markets[key];
-      this.markets[key] = new MarketItem(market);
+      this.markets[key] = MarketItem.build(market);
     });
   }
 };
@@ -2974,7 +2992,7 @@ var MarketItemDetails = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.data = new MarketItem(this.data);
+    this.data = MarketItem.build(this.data);
   }
 };
 
@@ -3013,8 +3031,8 @@ var Player = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.household = new Household(this.household);
-    this.settings = new Settings(this.settings);
+    this.household = Household.build(this.household);
+    this.settings = Settings.build(this.settings);
   }
 };
 var Household = class extends BaseModel {
@@ -3043,13 +3061,13 @@ var Household = class extends BaseModel {
     super._initializeSubProperties();
     if (this.prestige_impacts !== null) {
       for (let i = 0; i < this.prestige_impacts.length; i++) {
-        this.prestige_impacts[i] = new PrestigeImpact(this.prestige_impacts[i]);
+        this.prestige_impacts[i] = PrestigeImpact.build(this.prestige_impacts[i]);
       }
     }
     for (let i = 0; i < this.workers.length; i++) {
-      this.workers[i] = new Worker(this.workers[i]);
+      this.workers[i] = Worker.build(this.workers[i]);
     }
-    this.sustenance = new Sustenance(this.sustenance);
+    this.sustenance = Sustenance.build(this.sustenance);
   }
   get capsMap() {
     return new Map(Object.entries(this.caps).map(([key, value]) => [key, value]));
@@ -3104,7 +3122,7 @@ var Sustenance = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.inventory = new Inventory(this.inventory);
+    this.inventory = Inventory.build(this.inventory);
   }
 };
 var Settings = class extends BaseModel {
@@ -3132,7 +3150,7 @@ var Settings = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.notifications = new NotificationSettings(this.notifications);
+    this.notifications = NotificationSettings.build(this.notifications);
   }
 };
 var NotificationSettings = class extends BaseModel {
@@ -3171,8 +3189,8 @@ var Recipe = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.inputs = this.inputs.map((input) => new Ingredient(input));
-    this.outputs = this.outputs.map((output) => new Ingredient(output));
+    this.inputs = this.inputs.map((input) => Ingredient.build(input));
+    this.outputs = this.outputs.map((output) => Ingredient.build(output));
   }
 };
 var Ingredient = class extends BaseModel {
@@ -3208,7 +3226,7 @@ var Region = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.center = this.center ? new Location(this.center) : null;
+    this.center = this.center ? Location.build(this.center) : null;
   }
 };
 
@@ -3245,7 +3263,7 @@ var Tile = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.structure = this.structure ? new Structure(this.structure) : null;
+    this.structure = this.structure ? Structure.build(this.structure) : null;
   }
 };
 
@@ -3279,14 +3297,14 @@ var Transport = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.location = new Location(this.location);
-    this.domain = this.domain ? this.domain.map((item) => new Location(item)) : null;
-    this.inventory = new Inventory(this.inventory);
-    this.cargo = this.cargo ? new TransportCargo(this.cargo) : null;
-    this.previous_operations = this.previous_operations ? new Operation(this.previous_operations) : null;
-    this.producer = this.producer ? new Producer(this.producer) : null;
-    this.route = this.route ? new TradeRoute(this.route) : null;
-    this.journey = new TransportJourney(this.journey);
+    this.location = Location.build(this.location);
+    this.domain = this.domain ? this.domain.map((item) => Location.build(item)) : null;
+    this.inventory = Inventory.build(this.inventory);
+    this.cargo = this.cargo ? TransportCargo.build(this.cargo) : null;
+    this.previous_operations = this.previous_operations ? Operation.build(this.previous_operations) : null;
+    this.producer = this.producer ? Producer.build(this.producer) : null;
+    this.route = this.route ? TradeRoute.build(this.route) : null;
+    this.journey = TransportJourney.build(this.journey);
   }
 };
 var TradeRoute = class extends BaseModel {
@@ -3315,18 +3333,18 @@ var TradeRoute = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    this.account = new Account(this.account);
+    this.account = Account.build(this.account);
     Object.keys(this.managers).forEach((key) => {
       const manager = this.managers[key];
-      this.managers[key] = new Manager(manager);
+      this.managers[key] = Manager.build(manager);
     });
     Object.keys(this.current_flows).forEach((key) => {
       const flow = this.current_flows[key];
-      this.current_flows[key] = new Flow(flow);
+      this.current_flows[key] = Flow.build(flow);
     });
     Object.keys(this.previous_flows).forEach((key) => {
       const flow = this.previous_flows[key];
-      this.previous_flows[key] = new Flow(flow);
+      this.previous_flows[key] = Flow.build(flow);
     });
   }
   get managersMap() {
@@ -3371,7 +3389,7 @@ var TransportJourney = class extends BaseModel {
   _initializeSubProperties() {
     super._initializeSubProperties();
     for (let i; i < this.legs.length; i++) {
-      this.legs[i] = new TransportJourneyLeg(this.legs[i]);
+      this.legs[i] = TransportJourneyLeg.build(this.legs[i]);
     }
   }
 };
@@ -3388,7 +3406,7 @@ var TransportJourneyLeg = class extends BaseModel {
   _initializeSubProperties() {
     super._initializeSubProperties();
     for (let i; i < this.path.length; i++) {
-      this.path[i] = new Path(this.path[i]);
+      this.path[i] = Path.build(this.path[i]);
     }
   }
 };

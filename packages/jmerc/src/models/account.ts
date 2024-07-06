@@ -38,7 +38,7 @@ export class Account extends BaseModel implements AccountType {
         // Ensure each item in `assets` is a proper instance of AccountAsset
         Object.keys(this.assets).forEach((key: ItemEnumType) => {
             const asset = this.assets[key];
-            this.assets[key] = new AccountAsset(asset);
+            this.assets[key] = AccountAsset.build(asset);
         });
     }
 

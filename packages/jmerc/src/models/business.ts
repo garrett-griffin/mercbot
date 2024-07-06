@@ -33,12 +33,12 @@ export class Business extends BaseModel implements BusinessType {
         super._initializeSubProperties();
 
         if(this.account !== null) {
-            this.account = new Account(this.account);
+            this.account = Account.build(this.account);
         }
 
         if(this.buildings !== null) {
             for(let i=0; i<this.buildings.length; i++) {
-                this.buildings[i] = new Building(this.buildings[i]);
+                this.buildings[i] = Building.build(this.buildings[i]);
             }
         }
     }

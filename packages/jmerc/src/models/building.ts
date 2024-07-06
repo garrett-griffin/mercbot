@@ -51,29 +51,29 @@ export class Building extends BaseModel implements BuildingSchemaType {
         super._initializeSubProperties();
 
         if(this.construction !== null) {
-            this.construction = new BuildingConstruction(this.construction);
+            this.construction = BuildingConstruction.build(this.construction);
         }
 
         if(this.delivery_cost !== null) {
-            this.delivery_cost = new DeliveryCost(this.delivery_cost);
+            this.delivery_cost = DeliveryCost.build(this.delivery_cost);
         }
 
-        if(this.land !== null) {
+        if(this.land !== null && this.land !== undefined) {
             for(let i=0; i<this.land.length; i++) {
-                this.land[i] = new Location(this.land[i]);
+                this.land[i] = Location.build(this.land[i]);
             }
         }
 
-        if(this.producer !== null) {
-            this.producer = new Producer(this.producer);
+        if(this.producer) {
+            this.producer = Producer.build(this.producer);
         }
 
         if(this.storage !== null) {
-            this.storage = new BuildingStorage(this.storage);
+            this.storage = BuildingStorage.build(this.storage);
         }
 
         if(this.sublocation !== null) {
-            this.sublocation = new Location(this.sublocation);
+            this.sublocation = Location.build(this.sublocation);
         }
     }
 }
@@ -131,7 +131,7 @@ export class BuildingStorage extends BaseModel implements BuildingStorageType {
     _initializeSubProperties() {
         super._initializeSubProperties();
 
-        this.inventory = new Inventory(this.inventory);
+        this.inventory = Inventory.build(this.inventory);
     }
 }
 
@@ -159,13 +159,13 @@ export class BuildingOperation extends BaseModel implements BuildingOperationTyp
             // Ensure each item in `assets` is a proper instance of AccountAsset
             Object.keys(this.total_flow).forEach((key: ItemEnumType) => {
                 const total_flow = this.total_flow[key];
-                this.total_flow[key] = new Flow(total_flow);
+                this.total_flow[key] = Flow.build(total_flow);
             });
         }
 
         if(this.operations !== null) {
             for(let i=0; i<this.operations.length; i++) {
-                this.operations[i] = new Operation(this.operations[i]);
+                this.operations[i] = Operation.build(this.operations[i]);
             }
         }
     }

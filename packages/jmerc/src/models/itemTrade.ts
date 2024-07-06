@@ -55,7 +55,7 @@ export class ItemTradeResult extends BaseModel implements ItemTradeResultType {
             // Ensure each item in `assets` is a proper instance of AccountAsset
             Object.keys(this.settlements).forEach((key: ItemEnumType) => {
                 const settlement = this.settlements[key];
-                this.settlements[key] = new ItemTradeSettlement(settlement);
+                this.settlements[key] = ItemTradeSettlement.build(settlement);
             });
         }
     }

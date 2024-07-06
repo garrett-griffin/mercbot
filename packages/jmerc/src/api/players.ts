@@ -9,6 +9,7 @@ class PlayersAPI extends BaseAPI {
         try {
             const response = await super.get();
             let result = await Player.validate(response);
+
             result.initializeSubProperties();
             return result;
         } catch (error) {

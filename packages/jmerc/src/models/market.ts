@@ -29,7 +29,7 @@ export class Market extends BaseModel implements MarketType {
         // Ensure each item in `assets` is a proper instance of AccountAsset
         Object.keys(this.markets).forEach((key: ItemEnumType) => {
             const market = this.markets[key];
-            this.markets[key] = new MarketItem(market);
+            this.markets[key] = MarketItem.build(market);
         });
     }
 }
@@ -84,6 +84,6 @@ export class MarketItemDetails extends BaseModel implements MarketItemDetailsTyp
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.data = new MarketItem(this.data);
+        this.data = MarketItem.build(this.data);
     }
 }

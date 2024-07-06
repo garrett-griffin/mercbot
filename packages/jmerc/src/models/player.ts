@@ -31,8 +31,8 @@ export class Player extends BaseModel implements PlayerType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.household =  new Household(this.household);
-        this.settings = new Settings(this.settings);
+        this.household =  Household.build(this.household);
+        this.settings = Settings.build(this.settings);
     }
 }
 
@@ -68,13 +68,13 @@ export class Household extends BaseModel implements HouseholdType {
         super._initializeSubProperties();
         if(this.prestige_impacts !== null) {
             for(let i=0; i<this.prestige_impacts.length; i++) {
-                this.prestige_impacts[i] = new PrestigeImpact(this.prestige_impacts[i]);
+                this.prestige_impacts[i] = PrestigeImpact.build(this.prestige_impacts[i]);
             }
         }
         for(let i=0; i<this.workers.length; i++) {
-            this.workers[i] = new Worker(this.workers[i]);
+            this.workers[i] = Worker.build(this.workers[i]);
         }
-        this.sustenance = new Sustenance(this.sustenance);
+        this.sustenance = Sustenance.build(this.sustenance);
     }
 
     get capsMap(): Map<string, number> {
@@ -152,7 +152,7 @@ export class Sustenance extends BaseModel implements SustenanceType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.inventory = new Inventory(this.inventory);
+        this.inventory = Inventory.build(this.inventory);
     }
 }
 
@@ -187,7 +187,7 @@ export class Settings extends BaseModel implements SettingsType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.notifications = new NotificationSettings(this.notifications);
+        this.notifications = NotificationSettings.build(this.notifications);
     }
 }
 

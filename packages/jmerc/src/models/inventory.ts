@@ -27,20 +27,19 @@ export class Inventory extends BaseModel implements InventoryType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-
-        this.account = new Account(this.account);
-        if(this.managers !== null) {
+        this.account = Account.build(this.account);
+        if(this.managers !== null && this.managers !== undefined) {
             // Ensure each item in `assets` is a proper instance of AccountAsset
             Object.keys(this.managers).forEach((key: ItemEnumType) => {
                 const manager = this.managers[key];
-                this.managers[key] = new Manager(manager);
+                this.managers[key] = Manager.build(manager);
             });
         }
-        if(this.previous_flows !== null) {
+        if(this.previous_flows) {
             // Ensure each item in `assets` is a proper instance of AccountAsset
             Object.keys(this.previous_flows).forEach((key: ItemEnumType) => {
                 const flow = this.previous_flows[key];
-                this.previous_flows[key] = new Flow(flow);
+                this.previous_flows[key] = Flow.build(flow);
             });
         }
 

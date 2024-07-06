@@ -101,6 +101,6 @@ export class TownDemandCategory extends BaseModel implements TownDemandCategoryT
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.products = this.products.map(product => new TownDemand(product));
+        this.products = this.products.map(product => TownDemand.build(product));
     }
 }

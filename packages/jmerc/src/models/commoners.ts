@@ -26,7 +26,7 @@ export class Commoners extends BaseModel implements CommonersType {
 
         if(this.sustenance !== null) {
             for(let i=0; i<this.sustenance.length; i++) {
-                this.sustenance[i] = new TownDemandCategory(this.sustenance[i]);
+                this.sustenance[i] = TownDemandCategory.build(this.sustenance[i]);
             }
         }
     }

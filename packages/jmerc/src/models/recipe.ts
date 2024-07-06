@@ -31,8 +31,8 @@ export class Recipe extends BaseModel implements RecipeType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        this.inputs = this.inputs.map(input => new Ingredient(input));
-        this.outputs = this.outputs.map(output => new Ingredient(output));
+        this.inputs = this.inputs.map(input => Ingredient.build(input));
+        this.outputs = this.outputs.map(output => Ingredient.build(output));
     }
 }
 
