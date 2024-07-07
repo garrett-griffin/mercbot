@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BuildingTypeEnumSchema } from './enums/BuildingTypeEnumSchema';
+import { BuildingTypeEnumSchema } from './enums';
 
 export const BusinessBuildingSchema = z.object({
     id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),

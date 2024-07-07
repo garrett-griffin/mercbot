@@ -1,7 +1,6 @@
 import { BaseModel } from './baseModel';
 import { RegionSchema, RegionType } from '../schema';
 import { Location } from "./location";
-import {Ingredient} from "./recipe";
 
 /**
  * Represents a geographical region with associated attributes.

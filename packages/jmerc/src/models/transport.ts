@@ -9,14 +9,12 @@ import { Location } from './location';
 import { Inventory } from "./inventory";
 import { Operation } from "./operation";
 import { Producer } from "./producer";
-import {Account, AccountAsset} from "./account";
+import {Account} from "./account";
 import { ItemEnumType } from "../schema/enums";
 import { Manager } from "./manager";
 import { Flow } from "./flow";
 import { Path } from "./path";
 import { TransportTypeEnumType } from "../schema/enums";
-import {Ingredient} from "./recipe";
-import {Item} from "./item";
 
 /**
  * Represents transport with associated attributes.
@@ -118,10 +116,12 @@ export class TradeRoute extends BaseModel implements TradeRouteType {
         return new Map(Object.entries(this.managers).map(([key, value]) => [key as ItemEnumType, value]));
     }
 
+    // noinspection JSUnusedGlobalSymbols
     get currentFlowsMap() : Map<ItemEnumType, Flow> {
         return new Map(Object.entries(this.current_flows).map(([key, value]) => [key as ItemEnumType, value]));
     }
 
+    // noinspection JSUnusedGlobalSymbols
     get previousFlowsMap() : Map<ItemEnumType, Flow> {
         return new Map(Object.entries(this.previous_flows).map(([key, value]) => [key as ItemEnumType, value]));
     }
@@ -171,7 +171,7 @@ export class TransportJourney extends BaseModel implements TransportJourneyType 
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        for(let i: number; i<this.legs.length; i++) {
+        for(let i: number = 0; i<this.legs.length; i++) {
             this.legs[i] = TransportJourneyLeg.build(this.legs[i]);
         }
     }
@@ -195,7 +195,7 @@ export class TransportJourneyLeg extends BaseModel implements TransportJourneyLe
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        for(let i: number; i<this.path.length; i++) {
+        for(let i: number = 0; i<this.path.length; i++) {
             this.path[i] = Path.build(this.path[i]);
         }
     }
@@ -230,6 +230,7 @@ export class TransportType extends BaseModel implements TransportTypeType {
         super._initializeSubProperties();
     }
 
+    // noinspection JSUnusedGlobalSymbols
     get operatingCostsMap(): Map<ItemEnumType, number> {
         return new Map(Object.entries(this.operating_costs).map(([key, value]) => [key as ItemEnumType, value]));
     }

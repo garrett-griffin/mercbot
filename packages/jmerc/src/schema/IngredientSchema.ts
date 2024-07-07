@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ItemEnumSchema } from './enums/ItemEnumSchema';
+import { ItemEnumSchema } from './enums';
 
 export const IngredientSchema = z.object({
     product: ItemEnumSchema,

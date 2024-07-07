@@ -10,7 +10,6 @@ import { TownChurchType } from "../schema";
 import { TownCultureType } from "../schema";
 import { Tile } from "./tile";
 import { ItemEnumType } from "../schema/enums";
-import {Ingredient} from "./recipe";
 
 /**
  * Represents a town with associated attributes.

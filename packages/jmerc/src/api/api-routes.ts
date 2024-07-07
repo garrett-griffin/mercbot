@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 export const rootUrl = 'https://play.mercatorio.io/'
 export const apiUrl = rootUrl + 'api/';
 export const staticUrl = rootUrl + 'static/js/';

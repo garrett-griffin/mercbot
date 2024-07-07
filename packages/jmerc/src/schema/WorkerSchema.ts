@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { SkillEnumSchema } from './enums/SkillEnumSchema';
+import { SkillEnumSchema } from './enums';
 
 export const WorkerSchema = z.object({
     assignment: z.string(),

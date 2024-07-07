@@ -1,7 +1,6 @@
 import { BaseModel } from './baseModel';
-import { TileSchema, TileType } from '../schema/TileSchema';
+import { TileSchema, TileType } from '../schema';
 import { Structure } from './structure';
-import {Ingredient} from "./recipe";
 
 /**
  * Represents a tile with associated attributes.

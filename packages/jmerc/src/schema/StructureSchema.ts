@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BuildingTypeEnumSchema } from './enums/BuildingTypeEnumSchema';
+import { BuildingTypeEnumSchema } from './enums';
 
 export const StructureSchema = z.object({
     id: z.string(),

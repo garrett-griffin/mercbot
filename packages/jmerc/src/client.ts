@@ -1,5 +1,7 @@
+// noinspection TypeScriptFieldCanBeMadeReadonly
+
 import axios, {AxiosInstance} from 'axios';
-import {apiRoutes, apiUrl} from "./api/api-routes";
+import {apiUrl} from "./api/api-routes";
 import TurnsAPI from './api/turns';
 import PlayerAPI from './api/players';
 import TownsAPI from './api/towns';
@@ -8,17 +10,16 @@ import BusinessesAPI from './api/businesses';
 import RegionsAPI from './api/regions';
 import StaticAPI from './api/static';
 import TransportsAPI from './api/transports';
-import {RecipeEnumType} from "./schema/enums/RecipeEnumSchema";
-import { Town } from "./game/town";
-import { Player } from "./game/player";
-import { BuildingOperation, Operation } from "./game/operation"
-import {Recipe} from "./game/recipe";
+import {RecipeEnumType} from "./schema/enums";
+import { Town } from "./game";
+import { Player } from "./game";
+import { BuildingOperation, Operation } from "./game"
+import {Recipe} from "./game";
 import {Recipe as RecipeModel} from "./models/recipe"
-import {Building} from "./game/building";
-import {Transport} from "./game/transport";
-import {Storehouse} from "./game/storehouse";
+import {Building} from "./game";
+import {Transport} from "./game";
+import {Storehouse} from "./game";
 import { Operation as OperationModel } from "./models/operation"
-import {Household} from "./models";
 
 /**
  * Client for interacting with the Mercatorio API.

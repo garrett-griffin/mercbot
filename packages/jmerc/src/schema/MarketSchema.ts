@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { MarketItemSchema } from './MarketItemSchema';
-import {ItemEnumSchema} from "./enums/ItemEnumSchema";
+import {ItemEnumSchema} from "./enums";
 
 export const MarketSchema = z.object({
     markets: z.record(ItemEnumSchema, MarketItemSchema),

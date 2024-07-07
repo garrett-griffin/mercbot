@@ -4,8 +4,8 @@ import { DeliveryCostSchema } from './DeliveryCostSchema';
 import { LocationSchema } from './LocationSchema';
 import { ProducerSchema } from './ProducerSchema';
 import { BuildingStorageSchema } from './BuildingStorageSchema';
-import { BuildingUpgradeTypeEnumSchema } from './enums/BuildingUpgradeTypeEnumSchema';
-import {BuildingTypeEnumSchema} from "./enums/BuildingTypeEnumSchema";
+import { BuildingUpgradeTypeEnumSchema } from './enums';
+import {BuildingTypeEnumSchema} from "./enums";
 
 export const BuildingSchema = z.object({
     capacity: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]).optional(),

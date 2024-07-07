@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BuildingUpgradeTypeEnumSchema } from './enums/BuildingUpgradeTypeEnumSchema';
+import { BuildingUpgradeTypeEnumSchema } from './enums';
 import { BuildingConstructionSchema } from './BuildingConstructionSchema';
 
 export const BuildingUpgradeSchema = z.object({

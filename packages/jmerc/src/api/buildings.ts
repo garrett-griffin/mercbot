@@ -49,9 +49,6 @@ class BuildingsAPI extends BaseAPI {
             if(response.status && response.status == 200) {
                 return Building.validate(response.data['_embedded'][`/buildings/${id}`]);
             }
-            else {
-                throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${response.statusText}`);
-            }
         } catch (error) {
             throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${(error as Error).message}`);
         }

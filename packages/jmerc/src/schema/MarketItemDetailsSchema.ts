@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { MarketItemSchema } from './MarketItemSchema';
 import { ItemOrderSchema } from './ItemOrderSchema';
-import {ItemEnumSchema} from "./enums/ItemEnumSchema";
+import {ItemEnumSchema} from "./enums";
 
 export const MarketItemDetailsSchema = z.object({
     id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),

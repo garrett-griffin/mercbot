@@ -39,6 +39,10 @@ declare abstract class BaseAPI {
     /**
      * Makes a PUT request.
      * @param endpoint - The API endpoint.
+     * @param id
+     * @param item
+     * @param id
+     * @param item
      * @param data - The data to send.
      * @returns The response data.
      */
@@ -51,6 +55,10 @@ declare abstract class BaseAPI {
     /**
      * Makes a PATCH request.
      * @param endpoint - The API endpoint.
+     * @param id
+     * @param item
+     * @param id
+     * @param item
      * @param data - The data to send.
      * @returns The response data.
      */
@@ -12541,6 +12549,10 @@ declare class Producer extends BaseModel implements ProducerType {
                     capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     purchase: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     purchase_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
+                    /**
+                     * Creates an instance of Producer.
+                     * @param data - The data to initialize the producer.
+                     */
                     reserved: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
                     reserved_capacity: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     sale: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
@@ -12607,9 +12619,6 @@ declare class Producer extends BaseModel implements ProducerType {
                 owner_id?: string;
                 sponsor_id?: string;
             }>;
-            /**
-             * Represents a producer with associated attributes.
-             */
             capacity: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             managers: zod.ZodOptional<zod.ZodRecord<zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, zod.ZodObject<{
                 buy_price: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
@@ -12635,6 +12644,9 @@ declare class Producer extends BaseModel implements ProducerType {
             }>>>;
             previous_flows: zod.ZodDefault<zod.ZodOptional<zod.ZodRecord<zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, zod.ZodObject<{
                 consumption: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
+                /**
+                 * Represents a producer with associated attributes.
+                 */
                 expiration: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
                 export: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                 imported: zod.ZodDefault<zod.ZodNullable<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>>;
@@ -12784,6 +12796,9 @@ declare class Producer extends BaseModel implements ProducerType {
             }>>;
             flows: zod.ZodOptional<zod.ZodRecord<zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>, zod.ZodObject<{
                 consumption: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
+                /**
+                 * Represents a producer with associated attributes.
+                 */
                 expiration: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
                 export: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                 imported: zod.ZodDefault<zod.ZodNullable<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>>;
@@ -13062,10 +13077,10 @@ declare class Producer extends BaseModel implements ProducerType {
  */
 declare class Location extends BaseModel implements LocationType {
     static schema: zod.ZodObject<{
-        x: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         /**
          * Represents a geographical location with coordinates.
          */
+        x: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         y: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
     }, "strip", zod.ZodTypeAny, {
         x?: number;
@@ -15506,10 +15521,7 @@ declare class Business extends BaseModel implements BusinessType {
                 previous_operation: zod.ZodObject<{
                     target: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
                     production: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-                    provision: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>; /**
-                     * Creates an instance of Business.
-                     * @param data - The data to initialize the business.
-                     */
+                    provision: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
                     reference: zod.ZodOptional<zod.ZodString>;
                     recipe: zod.ZodOptional<zod.ZodEnum<["bake bread 1", "bake bread 2", "bake pasties 1", "bake pasties 2", "bake pies 1", "bind garments 1", "bind garments 2", "blow glassware 1", "blow glassware 2", "boil dye 1", "boil dye 2", "border patrol 1", "border patrol 2", "breed cattle 1a", "breed cattle 1b", "breed cattle 2a", "breed cattle 2b", "brew beer 1", "brew beer 2", "brew beer 3", "brew beer 4", "brew hop beer 1", "brew hop beer 2", "build cog 1", "build cog 2", "build handcart 1", "build handcart 2", "build hulk 1", "build snekkja 1", "build snekkja 2", "build tumbrel 1", "burn bricks 1", "burn charcoal 1", "burn charcoal 2", "burn charcoal 3", "burn charcoal 4", "burn cookware 1", "burn cookware 2", "burn glass 1", "burn lime 1", "burn tar 1", "burn tar 2", "burn tiles 1", "burn tiles 2", "butcher cattle 1a", "butcher cattle 1b", "butcher cattle 2", "carting 1", "carting 2", "churn butter 1", "churn butter 2", "cog operations", "craft arms 1", "craft belts 1", "craft belts 2", "craft belts 3", "craft belts 4", "craft cookware 1", "craft furniture 1", "craft furniture 2", "craft furniture 3", "craft furniture 4", "craft ploughs 1", "craft ploughs 2", "craft ploughs 3", "craft scythes 1", "craft scythes 2", "craft tools 1", "craft tools 2", "craft wheels 1", "craft wheels 2", "craft wheels 3", "cut bricks 1", "cut grindstones 1", "delivery duty 1", "delivery duty 2", "dig clay 1", "dig clay 2", "distill spirits 1", "distill spirits 2", "dry fish 1", "dry fish 2", "dry stockfish 1", "dry stockfish 2", "dye cloth 1", "dye cloth 2", "extract stone 1", "extract stone 2", "extract stone 3", "fishing 1", "fishing 2a", "fishing 2b", "fishing 3", "forge arms 1", "forge arms 2", "forge arms 2b", "forge axes 1", "forge axes 1b", "forge axes 2", "forge axes 2b", "forge blades 1", "forge blades 1b", "forge blades 2", "forge blades 2b", "forge mouldboards 1", "forge pickaxes 1", "forge pickaxes 1b", "forge pickaxes 2", "forge pickaxes 2b", "forge swords 1", "forge swords 1b", "forge swords 2", "forge swords 2b", "forge tools 1", "forge tools 2", "forge tools 3", "gather firewood 1", "gather firewood 2", "gather firewood 3", "gather resin 1", "gather resin 2", "grain payment", "grow flax 1", "grow flax 2", "grow flax 3", "grow flax 4a", "grow flax 4b", "grow grain 1", "grow grain 2", "grow grain 3a", "grow grain 3b", "grow grain 4a", "grow grain 4b", "grow herbs 1", "grow herbs 2", "hammer nails 1", "handcart operations", "harness ox 1", "harness ox 2a", "harness ox 2b", "harness ox 3a", "harness ox 3b", "harness ox 4a", "harness ox 4b", "herd sheep 1", "herd sheep 2", "hold banquet 1a", "hold banquet 1b", "hold banquet 2a", "hold banquet 2b", "hold banquet 2c", "hold banquet 3a", "hold banquet 3b", "hold banquet 3c", "hold banquet 4a", "hold banquet 4b", "hold feast 1", "hold feast 2", "hold feast 3", "hold mass 1", "hold mass 2", "hold mass 3", "hold prayer 1", "hold prayer 2", "hold prayer 3", "hold sermon 1", "hold sermon 2a", "hold sermon 2b", "hold sermon 3a", "hold sermon 3b", "hulk operations", "hunting 1", "hunting 2", "hunting 3", "hunting 4", "hunting 5", "keep bees 1", "knight duty 1", "knight duty 2", "knight duty 3", "knight duty 4", "knit garments 1", "knit garments 2", "let cottages 1", "let cottages 2", "let rowhouses 1", "let rowhouses 2", "let rowhouses 3", "logging 1", "logging 2", "logging 3", "logging 4", "maintain 1", "make alembics 1", "make alembics 2", "make bricks 1", "make bricks 2", "make candles 1", "make candles 2", "make casks 1", "make casks 2", "make cheese 1", "make cheese 2", "make cheese 3", "make cheese 4", "make cheese 5", "make harnesses 1", "make harnesses 2", "make harnesses 2b", "make jewellery 1", "make jewellery 2", "make leather armor 1", "make medicine 1", "make medicine 2", "make nets 1", "make nets 2", "make nets 3", "make rope 1", "make rope 2", "make rope 3", "make windows 1", "make windows 2", "make wine 1", "make wine 2", "make wine 3", "malting 1", "malting 2", "milling 1", "milling 2", "milling 3", "mine copper 1", "mine copper 2", "mine copper 3", "mine copper 4", "mine copper 5", "mine gold 1", "mine gold 1b", "mine gold 2", "mine gold 2b", "mine gold 3", "mine iron 1", "mine iron 2", "mine iron 3", "mine iron 4", "mine iron 5", "mine lead 1", "mine lead 2", "mine lead 2b", "mine lead 3", "mine lead 3b", "mine lead 4", "mine salt 1", "mine salt 2", "mine salt 3", "mint copper coins 1", "mint copper coins 2", "mint copper coins 3", "mint gold coins 1", "mint gold coins 2", "mint gold coins 3", "mint leather coins 1", "mint silver coins 1", "mint silver coins 2", "mint silver coins 3", "mint steel coins 1", "patrol 1", "patrol 2a", "patrol 2b", "patrol 3a", "patrol 3b", "refine steel 1", "refine steel 1b", "refine steel 2", "refine steel 2b", "retting 1", "retting 2", "salting fish 1", "salting fish 2", "salting meat 1", "salting meat 2", "sawing 1", "sawing 2", "sawing 3", "sawing 3 (firewood)", "sawing 4", "service 1", "service 2", "service 3", "service 4", "sew coats 1a", "sew coats 1b", "sew coats 2a", "sew coats 2b", "sew gambeson 1", "sew garments 1", "sew garments 2a", "sew garments 2b", "sew garments 3a", "sew garments 3b", "sew garments 4a", "sew garments 4b", "sew sails 1", "sew sails 2", "shear sheep 1", "shear sheep 2", "shear sheep 3", "smelt copper 1", "smelt copper 2", "smelt gold 1", "smelt gold 2", "smelt iron 1", "smelt iron 2", "smelt lead 1", "smelt lead 2a", "smelt lead 2b", "smelt lead 3 (silver)", "smoking fish 1", "smoking fish 2", "smoking ham 1", "smoking ham 2", "smoking meat 1", "smoking meat 2", "snekkja operations", "spin thread 1", "spin thread 2", "spin yarn 1", "spin yarn 2", "split timber 1", "split timber 2", "split timber 3", "tan hides 1", "tan hides 2", "tan hides 3", "trap fish 1", "trap fish 2", "trap fish 3", "trapping 1", "trapping 2", "tumbrel operations", "weave cloth 1", "weave cloth 2a", "weave cloth 2b", "weave cloth 3a", "weave cloth 3b", "weave cloth 4a", "weave cloth 4b", "yoke ox 1a", "yoke ox 1b", "yoke ox 2a", "yoke ox 2b", "yoke ox 3", "yoke ox 3 (manure)"]>>;
                     volume: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
@@ -16872,9 +16884,6 @@ declare class Structure extends BaseModel implements StructureType {
     static schema: zod.ZodObject<{
         id: zod.ZodString;
         type: zod.ZodEnum<["apothecary", "bakery", "bloomery", "boardinghouse", "brewery", "brickworks", "butchery", "carpentry", "cartshed", "cathedral", "center", "ceramic kiln", "chandlery", "chapel", "charcoal hut", "charcoal kiln", "church", "clay pit", "copper mine", "coppersmith", "cottage", "dairy", "dye boiler", "dyeworks", "farmstead", "fisher", "fishing shack", "flax farm", "foundry", "glass blower", "glass house", "gold mine", "grain farm", "guardhouse", "herb garden", "hjell", "household", "hunting lodge", "iron mine", "jeweller", "lead mine", "leatherworks", "logging camp", "markethall", "malthouse", "mansion", "mint", "net maker", "outpost", "park", "pasture", "quarry", "retting pit", "ropewalk", "rowhouse", "sail loft", "saltery", "salt mine", "sawmill", "sewing shop", "shipyard", "smithy", "smokery", "spinnery", "stable", "storehouse", "square", "tannery", "tar kiln", "toolworks", "townhall", "townhouse", "townroad", "vignoble", "warehouse", "weavery", "windmill"]>;
-        /**
-         * Represents a structure with associated attributes.
-         */
         tags: zod.ZodOptional<zod.ZodArray<zod.ZodString, "many">>;
     }, "strip", zod.ZodTypeAny, {
         id?: string;
@@ -17426,6 +17435,9 @@ declare class Commoners extends BaseModel implements CommonersType {
         migration: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         sustenance: zod.ZodArray<zod.ZodObject<{
             name: zod.ZodString;
+            /**
+             * Represents the commoners in a town with their associated attributes.
+             */
             products: zod.ZodArray<zod.ZodObject<{
                 product: zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>;
                 bonus: zod.ZodDefault<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
@@ -17615,9 +17627,7 @@ declare class ItemTradeResult extends BaseModel implements ItemTradeResultType {
     static schema: zod.ZodObject<{
         settlements: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
             volume: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
-            price: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>; /**
-             * Represents an item trade with associated attributes.
-             */
+            price: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         }, "strip", zod.ZodTypeAny, {
             volume?: number;
             price?: number;
@@ -17658,9 +17668,7 @@ declare class ItemTradeResult extends BaseModel implements ItemTradeResultType {
 declare class ItemTradeSettlement extends BaseModel implements ItemTradeSettlementType {
     static schema: zod.ZodObject<{
         volume: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
-        price: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>; /**
-         * Represents an item trade with associated attributes.
-         */
+        price: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
     }, "strip", zod.ZodTypeAny, {
         volume?: number;
         price?: number;
@@ -17690,6 +17698,9 @@ declare class Market extends BaseModel implements MarketType {
             moving_average: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
             highest_bid: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
             lowest_ask: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
+            /**
+             * Represents a market item with associated attributes.
+             */
             volume: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             volume_prev_12: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
             bid_volume_10: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
@@ -17767,6 +17778,9 @@ declare class MarketItem extends BaseModel implements MarketItemType {
         moving_average: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
         highest_bid: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
         lowest_ask: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
+        /**
+         * Represents a market item with associated attributes.
+         */
         volume: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         volume_prev_12: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
         bid_volume_10: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
@@ -17815,9 +17829,7 @@ declare class MarketItem extends BaseModel implements MarketItemType {
  */
 declare class MarketItemDetails extends BaseModel implements MarketItemDetailsType {
     static schema: zod.ZodObject<{
-        id: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>; /**
-         * Represents the market with associated attributes.
-         */
+        id: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         product: zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>;
         asset: zod.ZodEnum<["alembics", "arms", "axes", "beer", "belts", "blades", "bread", "bricks", "butter", "candles", "carting", "casks", "cattle", "charcoal", "cheese", "clay", "cloth", "coats", "cog", "cookware", "copper ingots", "copper ore", "cured fish", "cured meat", "donations", "dye", "dyed cloth", "firewood", "fish", "flax fibres", "flax plants", "flour", "furniture", "garments", "glass", "glassware", "gold bars", "gold ore", "grain", "grindstones", "ham", "handcart", "harnesses", "herbs", "hides", "honey", "hop beer", "hulk", "iron ore", "jewellery", "labour", "lead bars", "lead ore", "leather", "light armor", "limestone", "lodging", "lumber", "malt", "manure", "meat", "medicine", "milk", "money", "mouldboards", "nails", "nets", "ox power", "pasties", "pickaxes", "pies", "ploughs", "protection", "resin", "rope", "sails", "salt", "scythes", "silver bars", "slaked lime", "snekkja", "spirits", "steel ingots", "stockfish", "swords", "tar", "thread", "tiles", "timber", "tools", "tumbrel", "wax", "wheels", "windows", "wine", "wool", "wrought iron", "yarn"]>;
         currency: zod.ZodString;
@@ -17848,6 +17860,9 @@ declare class MarketItemDetails extends BaseModel implements MarketItemDetailsTy
             moving_average: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
             highest_bid: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
             lowest_ask: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
+            /**
+             * Represents a market item with associated attributes.
+             */
             volume: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             volume_prev_12: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
             bid_volume_10: zod.ZodDefault<zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>>;
@@ -21114,9 +21129,6 @@ declare class Transport$1 extends BaseModel implements TransportType$1 {
             remote_town: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             capacity: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             reserved_import: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
-            /**
-             * Represents transport with associated attributes.
-             */
             reserved_export: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             distance: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
             moves: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
@@ -22119,9 +22131,6 @@ declare class TradeRoute extends BaseModel implements TradeRouteType {
         remote_town: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         capacity: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         reserved_import: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
-        /**
-         * Represents transport with associated attributes.
-         */
         reserved_export: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         distance: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
         moves: zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>;
@@ -23231,105 +23240,6 @@ declare class Town {
     sell(item: ItemEnumType, expectedBalance: number, operation: string, volume: number, price: number): Promise<ItemTradeResult>;
 }
 
-declare class Recipe {
-    name: string;
-    data: Recipe$1;
-    _client: Client;
-    constructor(options: {
-        client: Client;
-        recipe?: Recipe$1;
-        recipeName?: RecipeEnumType;
-    });
-    load(): Promise<void>;
-    get inputs(): Map<ItemEnumType, Ingredient>;
-    get outputs(): Map<ItemEnumType, Ingredient>;
-    get labour(): number;
-    calculateTargetLabor(target: number, inventoryAssets?: {
-        [key: string]: AccountAsset;
-    }, inventoryManagers?: {
-        [key: string]: Manager;
-    }): number;
-}
-
-declare class BuildingOperation {
-    data: BuildingOperation$1;
-    operations: OperationsList;
-    _client: Client;
-    player: Player;
-    buildingId: number;
-    constructor(client: Client, player: Player, buildingId: number);
-    load(): Promise<void>;
-    get building(): Building | undefined;
-    get totalFlow(): Map<ItemEnumType, Flow> | null;
-}
-declare class BuildingOperationList extends Array<BuildingOperation> {
-    byBuildingId(buildingId: number): BuildingOperation;
-    byItemInput(item: ItemEnumType): OperationsList;
-    byItemOutput(item: ItemEnumType): OperationsList;
-}
-declare class BuildingOperationsDict extends Map<number, BuildingOperation> {
-    byBuildingType(buildingType: BuildingTypeEnumType): OperationsList;
-    byItemInput(item: ItemEnumType): OperationsList;
-    byItemOutput(item: ItemEnumType): OperationsList;
-}
-declare class Operation {
-    data: Operation$1;
-    recipe: Recipe | null;
-    _client: Client;
-    player: Player;
-    buildingOperation: BuildingOperation;
-    constructor(client: Client, player: Player, buildingOperation: BuildingOperation, data: Operation$1);
-    load(): Promise<void>;
-    get building(): Building | undefined;
-    get buildingId(): number;
-    get inputs(): Map<ItemEnumType, number>;
-    get outputs(): Map<ItemEnumType, number>;
-}
-declare class OperationsList extends Array<Operation> {
-    get inputs(): Map<ItemEnumType, number>;
-    get outputs(): Map<ItemEnumType, number>;
-    byBuildingId(buildingId: number): OperationsList;
-}
-
-declare class Building {
-    _client: Client;
-    _id: number;
-    id: number;
-    player: Player;
-    data: Building$1;
-    constructor(client: Client, player: Player, id: number);
-    load(): Promise<void>;
-    get buildingOperation(): BuildingOperation;
-    get flows(): any;
-    get inventory(): Inventory;
-    get items(): Map<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", AccountAsset>;
-    get producerItems(): Map<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", AccountAsset>;
-    get operation(): any;
-    get operations(): any;
-    get managers(): {};
-    get previous_flows(): Record<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", Flow>;
-    get production(): Producer;
-    get productionFlows(): Record<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", Flow>;
-    get size(): number;
-    get targetProduction(): number;
-    get type(): "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "rowhouse" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
-    get underConstruction(): boolean;
-    get upgrades(): ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
-    flow(item: ItemEnumType): Promise<Flow>;
-    item(item: ItemEnumType): Promise<AccountAsset>;
-    manager(item: ItemEnumType): Promise<Manager>;
-    patchManager(item: ItemEnumType, managerData: {
-        [key: string]: any;
-    }): Promise<void>;
-    setManager(item: ItemEnumType, manager: Manager): Promise<void>;
-    setTargetProduction(target: number, autoset_buying?: boolean, autoset_selling?: boolean): Promise<void>;
-    calculateCurrentLaborNeed(): Promise<number>;
-}
-declare class BuildingsList extends Array<Building> {
-    byId(id: number): Building;
-    byType(type: BuildingTypeEnumType): BuildingsList;
-}
-
 declare class Import {
     asset: AccountAsset;
     flow: Flow;
@@ -23559,6 +23469,155 @@ declare class Player {
     sustenanceItemCost(item: ItemEnumType): number;
 }
 
+declare class Recipe {
+    name: string;
+    data: Recipe$1;
+    _client: Client;
+    constructor(options: {
+        client: Client;
+        recipe?: Recipe$1;
+        recipeName?: RecipeEnumType;
+    });
+    load(): Promise<void>;
+    get inputs(): Map<ItemEnumType, Ingredient>;
+    get outputs(): Map<ItemEnumType, Ingredient>;
+    get labour(): number;
+    calculateTargetLabor(target: number, inventoryAssets?: {
+        [key: string]: AccountAsset;
+    }, inventoryManagers?: {
+        [key: string]: Manager;
+    }): number;
+}
+
+declare class BuildingOperation {
+    data: BuildingOperation$1;
+    operations: OperationsList;
+    _client: Client;
+    player: Player;
+    buildingId: number;
+    constructor(client: Client, player: Player, buildingId: number);
+    load(): Promise<void>;
+    get building(): Building | undefined;
+    get totalFlow(): Map<ItemEnumType, Flow> | null;
+}
+declare class BuildingOperationList extends Array<BuildingOperation> {
+    byBuildingId(buildingId: number): BuildingOperation;
+    byItemInput(item: ItemEnumType): OperationsList;
+    byItemOutput(item: ItemEnumType): OperationsList;
+}
+declare class BuildingOperationsDict extends Map<number, BuildingOperation> {
+    byBuildingType(buildingType: BuildingTypeEnumType): OperationsList;
+    byItemInput(item: ItemEnumType): OperationsList;
+    byItemOutput(item: ItemEnumType): OperationsList;
+}
+declare class Operation {
+    data: Operation$1;
+    recipe: Recipe | null;
+    _client: Client;
+    player: Player;
+    buildingOperation: BuildingOperation;
+    constructor(client: Client, player: Player, buildingOperation: BuildingOperation, data: Operation$1);
+    load(): Promise<void>;
+    get building(): Building | undefined;
+    get buildingId(): number;
+    get inputs(): Map<ItemEnumType, number>;
+    get outputs(): Map<ItemEnumType, number>;
+}
+declare class OperationsList extends Array<Operation> {
+    get inputs(): Map<ItemEnumType, number>;
+    get outputs(): Map<ItemEnumType, number>;
+    byBuildingId(buildingId: number): OperationsList;
+}
+
+declare class Building {
+    _client: Client;
+    _id: number;
+    id: number;
+    player: Player;
+    data: Building$1;
+    constructor(client: Client, player: Player, id: number);
+    load(): Promise<void>;
+    get buildingOperation(): BuildingOperation;
+    get flows(): any;
+    get inventory(): Inventory;
+    get items(): Map<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", AccountAsset>;
+    get producerItems(): Map<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", AccountAsset>;
+    get operation(): any;
+    get operations(): any;
+    get managers(): {};
+    get previous_flows(): Record<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", Flow>;
+    get production(): Producer;
+    get productionFlows(): Record<"cog" | "handcart" | "hulk" | "money" | "snekkja" | "tumbrel" | "alembics" | "arms" | "axes" | "beer" | "belts" | "blades" | "bread" | "bricks" | "butter" | "candles" | "carting" | "casks" | "cattle" | "charcoal" | "cheese" | "clay" | "cloth" | "coats" | "cookware" | "copper ingots" | "copper ore" | "cured fish" | "cured meat" | "donations" | "dye" | "dyed cloth" | "firewood" | "fish" | "flax fibres" | "flax plants" | "flour" | "furniture" | "garments" | "glass" | "glassware" | "gold bars" | "gold ore" | "grain" | "grindstones" | "ham" | "harnesses" | "herbs" | "hides" | "honey" | "hop beer" | "iron ore" | "jewellery" | "labour" | "lead bars" | "lead ore" | "leather" | "light armor" | "limestone" | "lodging" | "lumber" | "malt" | "manure" | "meat" | "medicine" | "milk" | "mouldboards" | "nails" | "nets" | "ox power" | "pasties" | "pickaxes" | "pies" | "ploughs" | "protection" | "resin" | "rope" | "sails" | "salt" | "scythes" | "silver bars" | "slaked lime" | "spirits" | "steel ingots" | "stockfish" | "swords" | "tar" | "thread" | "tiles" | "timber" | "tools" | "wax" | "wheels" | "windows" | "wine" | "wool" | "wrought iron" | "yarn", Flow>;
+    get size(): number;
+    get targetProduction(): number;
+    get type(): "apothecary" | "bakery" | "bloomery" | "boardinghouse" | "brewery" | "brickworks" | "butchery" | "carpentry" | "cartshed" | "cathedral" | "center" | "ceramic kiln" | "chandlery" | "chapel" | "charcoal hut" | "charcoal kiln" | "church" | "clay pit" | "copper mine" | "coppersmith" | "cottage" | "dairy" | "dye boiler" | "dyeworks" | "farmstead" | "fisher" | "fishing shack" | "flax farm" | "foundry" | "glass blower" | "glass house" | "gold mine" | "grain farm" | "guardhouse" | "herb garden" | "hjell" | "household" | "hunting lodge" | "iron mine" | "jeweller" | "lead mine" | "leatherworks" | "logging camp" | "markethall" | "malthouse" | "mansion" | "mint" | "net maker" | "outpost" | "park" | "pasture" | "quarry" | "retting pit" | "ropewalk" | "rowhouse" | "sail loft" | "saltery" | "salt mine" | "sawmill" | "sewing shop" | "shipyard" | "smithy" | "smokery" | "spinnery" | "stable" | "storehouse" | "square" | "tannery" | "tar kiln" | "toolworks" | "townhall" | "townhouse" | "townroad" | "vignoble" | "warehouse" | "weavery" | "windmill";
+    get underConstruction(): boolean;
+    get upgrades(): ("warehouse" | "armsrack" | "beehives" | "bellows" | "button cast" | "cowshed" | "crane" | "crane lift" | "curing chamber" | "cutting table" | "fermentory" | "grindstone" | "grooved bedstone" | "guard booth" | "hopping vessels" | "lime kiln" | "liming pots" | "malt mill" | "malt sieve" | "manure pit" | "plough house" | "skinning table" | "spinning wheel" | "steel anvil" | "stone oven" | "stonecutter's hut" | "tile moulds" | "toolshed" | "transmission" | "treadle loom" | "upholstry bench" | "weaponsrack")[];
+    flow(item: ItemEnumType): Promise<Flow>;
+    item(item: ItemEnumType): Promise<AccountAsset>;
+    manager(item: ItemEnumType): Promise<Manager>;
+    patchManager(item: ItemEnumType, managerData: {
+        [key: string]: any;
+    }): Promise<void>;
+    setManager(item: ItemEnumType, manager: Manager): Promise<void>;
+    setTargetProduction(target: number, autoset_buying?: boolean, autoset_selling?: boolean): Promise<void>;
+    calculateCurrentLaborNeed(): Promise<number>;
+}
+declare class BuildingsList extends Array<Building> {
+    byId(id: number): Building;
+    byType(type: BuildingTypeEnumType): BuildingsList;
+}
+
+type index$2_Building = Building;
+declare const index$2_Building: typeof Building;
+type index$2_BuildingOperation = BuildingOperation;
+declare const index$2_BuildingOperation: typeof BuildingOperation;
+type index$2_BuildingOperationList = BuildingOperationList;
+declare const index$2_BuildingOperationList: typeof BuildingOperationList;
+type index$2_BuildingOperationsDict = BuildingOperationsDict;
+declare const index$2_BuildingOperationsDict: typeof BuildingOperationsDict;
+type index$2_BuildingsList = BuildingsList;
+declare const index$2_BuildingsList: typeof BuildingsList;
+type index$2_Export = Export;
+declare const index$2_Export: typeof Export;
+type index$2_Exports = Exports;
+declare const index$2_Exports: typeof Exports;
+type index$2_ExportsList = ExportsList;
+declare const index$2_ExportsList: typeof ExportsList;
+type index$2_ExportsSummed = ExportsSummed;
+declare const index$2_ExportsSummed: typeof ExportsSummed;
+type index$2_Import = Import;
+declare const index$2_Import: typeof Import;
+type index$2_Imports = Imports;
+declare const index$2_Imports: typeof Imports;
+type index$2_ImportsList = ImportsList;
+declare const index$2_ImportsList: typeof ImportsList;
+type index$2_ImportsSummed = ImportsSummed;
+declare const index$2_ImportsSummed: typeof ImportsSummed;
+type index$2_Operation = Operation;
+declare const index$2_Operation: typeof Operation;
+type index$2_OperationsList = OperationsList;
+declare const index$2_OperationsList: typeof OperationsList;
+type index$2_Player = Player;
+declare const index$2_Player: typeof Player;
+type index$2_Recipe = Recipe;
+declare const index$2_Recipe: typeof Recipe;
+type index$2_Storehouse = Storehouse;
+declare const index$2_Storehouse: typeof Storehouse;
+type index$2_StorehouseItem = StorehouseItem;
+declare const index$2_StorehouseItem: typeof StorehouseItem;
+type index$2_Town = Town;
+declare const index$2_Town: typeof Town;
+type index$2_TownItem = TownItem;
+declare const index$2_TownItem: typeof TownItem;
+type index$2_Transport = Transport;
+declare const index$2_Transport: typeof Transport;
+type index$2_TransportList = TransportList;
+declare const index$2_TransportList: typeof TransportList;
+declare namespace index$2 {
+  export { index$2_Building as Building, index$2_BuildingOperation as BuildingOperation, index$2_BuildingOperationList as BuildingOperationList, index$2_BuildingOperationsDict as BuildingOperationsDict, index$2_BuildingsList as BuildingsList, index$2_Export as Export, index$2_Exports as Exports, index$2_ExportsList as ExportsList, index$2_ExportsSummed as ExportsSummed, index$2_Import as Import, index$2_Imports as Imports, index$2_ImportsList as ImportsList, index$2_ImportsSummed as ImportsSummed, index$2_Operation as Operation, index$2_OperationsList as OperationsList, index$2_Player as Player, index$2_Recipe as Recipe, index$2_Storehouse as Storehouse, index$2_StorehouseItem as StorehouseItem, index$2_Town as Town, index$2_TownItem as TownItem, index$2_Transport as Transport, index$2_TransportList as TransportList };
+}
+
 /**
  * Client for interacting with the Mercatorio API.
  */
@@ -23629,56 +23688,6 @@ declare class Client {
     }): Promise<Recipe>;
     getStorehouse(player: Player): Promise<Storehouse>;
     getTransport(player: Player, id: number): Promise<Transport>;
-}
-
-type index$2_Building = Building;
-declare const index$2_Building: typeof Building;
-type index$2_BuildingOperation = BuildingOperation;
-declare const index$2_BuildingOperation: typeof BuildingOperation;
-type index$2_BuildingOperationList = BuildingOperationList;
-declare const index$2_BuildingOperationList: typeof BuildingOperationList;
-type index$2_BuildingOperationsDict = BuildingOperationsDict;
-declare const index$2_BuildingOperationsDict: typeof BuildingOperationsDict;
-type index$2_BuildingsList = BuildingsList;
-declare const index$2_BuildingsList: typeof BuildingsList;
-type index$2_Export = Export;
-declare const index$2_Export: typeof Export;
-type index$2_Exports = Exports;
-declare const index$2_Exports: typeof Exports;
-type index$2_ExportsList = ExportsList;
-declare const index$2_ExportsList: typeof ExportsList;
-type index$2_ExportsSummed = ExportsSummed;
-declare const index$2_ExportsSummed: typeof ExportsSummed;
-type index$2_Import = Import;
-declare const index$2_Import: typeof Import;
-type index$2_Imports = Imports;
-declare const index$2_Imports: typeof Imports;
-type index$2_ImportsList = ImportsList;
-declare const index$2_ImportsList: typeof ImportsList;
-type index$2_ImportsSummed = ImportsSummed;
-declare const index$2_ImportsSummed: typeof ImportsSummed;
-type index$2_Operation = Operation;
-declare const index$2_Operation: typeof Operation;
-type index$2_OperationsList = OperationsList;
-declare const index$2_OperationsList: typeof OperationsList;
-type index$2_Player = Player;
-declare const index$2_Player: typeof Player;
-type index$2_Recipe = Recipe;
-declare const index$2_Recipe: typeof Recipe;
-type index$2_Storehouse = Storehouse;
-declare const index$2_Storehouse: typeof Storehouse;
-type index$2_StorehouseItem = StorehouseItem;
-declare const index$2_StorehouseItem: typeof StorehouseItem;
-type index$2_Town = Town;
-declare const index$2_Town: typeof Town;
-type index$2_TownItem = TownItem;
-declare const index$2_TownItem: typeof TownItem;
-type index$2_Transport = Transport;
-declare const index$2_Transport: typeof Transport;
-type index$2_TransportList = TransportList;
-declare const index$2_TransportList: typeof TransportList;
-declare namespace index$2 {
-  export { index$2_Building as Building, index$2_BuildingOperation as BuildingOperation, index$2_BuildingOperationList as BuildingOperationList, index$2_BuildingOperationsDict as BuildingOperationsDict, index$2_BuildingsList as BuildingsList, index$2_Export as Export, index$2_Exports as Exports, index$2_ExportsList as ExportsList, index$2_ExportsSummed as ExportsSummed, index$2_Import as Import, index$2_Imports as Imports, index$2_ImportsList as ImportsList, index$2_ImportsSummed as ImportsSummed, index$2_Operation as Operation, index$2_OperationsList as OperationsList, index$2_Player as Player, index$2_Recipe as Recipe, index$2_Storehouse as Storehouse, index$2_StorehouseItem as StorehouseItem, index$2_Town as Town, index$2_TownItem as TownItem, index$2_Transport as Transport, index$2_TransportList as TransportList };
 }
 
 /**

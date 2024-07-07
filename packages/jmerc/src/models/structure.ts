@@ -1,7 +1,6 @@
 import { BaseModel } from './baseModel';
 import { StructureSchema, StructureType } from '../schema';
 import { BuildingTypeEnumType } from "../schema/enums";
-import {Ingredient} from "./recipe";
 
 /**
  * Represents a structure with associated attributes.

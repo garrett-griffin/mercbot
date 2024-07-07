@@ -3,7 +3,6 @@ import { ProducerSchema, ProducerType } from '../schema';
 import { Inventory } from './inventory';
 import { Operation } from './operation';
 import { RecipeEnumType } from "../schema/enums";
-import {NotificationSettings} from "./player";
 
 /**
  * Represents a producer with associated attributes.

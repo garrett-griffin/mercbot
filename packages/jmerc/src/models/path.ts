@@ -1,8 +1,5 @@
 import { BaseModel } from './baseModel';
 import { PathSchema, PathType } from '../schema';
-import {DeliveryCost} from "./deliveryCost";
-import {ItemEnumType} from "../schema/enums";
-import {Flow} from "./flow";
 
 /**
  * Represents a path with associated coordinates and cost.

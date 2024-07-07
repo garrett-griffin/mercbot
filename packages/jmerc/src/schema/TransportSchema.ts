@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { TransportTypeSchema } from './TransportTypeSchema';
 import { LocationSchema } from './LocationSchema';
 import { InventorySchema } from './InventorySchema';
 import { TransportCargoSchema } from './TransportCargoSchema';
@@ -7,8 +6,7 @@ import { OperationSchema } from './OperationSchema';
 import { ProducerSchema } from './ProducerSchema';
 import { TradeRouteSchema } from './TradeRouteSchema';
 import { TransportJourneySchema } from './TransportJourneySchema';
-import {TransportTypeEnum} from "../models/enums/transportTypeEnum";
-import {TransportTypeEnumSchema} from "./enums/TransportTypeEnumSchema";
+import {TransportTypeEnumSchema} from "./enums";
 
 export const TransportSchema = z.object({
     id: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),

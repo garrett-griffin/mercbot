@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { InventorySchema } from './InventorySchema';
 import { OperationSchema } from './OperationSchema';
-import { RecipeEnumSchema } from './enums/RecipeEnumSchema';
+import { RecipeEnumSchema } from './enums';
 
 export const ProducerSchema = z.object({
     inventory: InventorySchema,

@@ -9,14 +9,24 @@ function convertFloatsToStrings(obj: any): any {
         return obj;
     }
 
+    if(typeof obj.initialized !== undefined) {
+        delete obj.initialized;
+    }
+
     const convertedObj: { [key: string]: any } = {};
     for (const [key, value] of Object.entries(obj)) {
         if (typeof value === 'object' && value !== null) {
             convertedObj[key] = convertFloatsToStrings(value);
-        } else if (typeof value === 'number' && !Number.isInteger(value)) {
-            convertedObj[key] = value.toString();
         } else {
-            convertedObj[key] = value;
+            if(key == "expected_balance" || key == "price") {
+                convertedObj[key] = (value as number).toFixed(3);
+            }
+            else if (typeof value === 'number' && !Number.isInteger(value)) {
+                convertedObj[key] = value.toString();
+            } else {
+                convertedObj[key] = value;
+            }
+
         }
     }
 

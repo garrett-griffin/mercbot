@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BuildingTypeEnumSchema } from './enums/BuildingTypeEnumSchema';
+import { BuildingTypeEnumSchema } from './enums';
 import { BuildingRequirementsSchema } from './BuildingRequirementsSchema';
 import { BuildingConstructionSchema } from './BuildingConstructionSchema';
 import { BuildingUpgradeSchema } from './BuildingUpgradeSchema';

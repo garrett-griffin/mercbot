@@ -1,5 +1,4 @@
 import Client from '../client';
-import AxiosResponse from 'axios';
 
 export interface ResponseObject {
     // `data` is the response that was provided by the server
@@ -85,6 +84,10 @@ abstract class BaseAPI {
     /**
      * Makes a PUT request.
      * @param endpoint - The API endpoint.
+     * @param id
+     * @param item
+     * @param id
+     * @param item
      * @param data - The data to send.
      * @returns The response data.
      */
@@ -105,6 +108,10 @@ abstract class BaseAPI {
     /**
      * Makes a PATCH request.
      * @param endpoint - The API endpoint.
+     * @param id
+     * @param item
+     * @param id
+     * @param item
      * @param data - The data to send.
      * @returns The response data.
      */

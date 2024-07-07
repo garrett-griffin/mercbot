@@ -1,3 +1,5 @@
+// noinspection TypeScriptFieldCanBeMadeReadonly,DuplicatedCode
+
 import { AccountAsset } from "../models";
 import { Flow } from "../models";
 import { ItemEnumType } from "../schema/enums";

@@ -152,6 +152,10 @@ var BaseAPI = class {
   /**
    * Makes a PUT request.
    * @param endpoint - The API endpoint.
+   * @param id
+   * @param item
+   * @param id
+   * @param item
    * @param data - The data to send.
    * @returns The response data.
    */
@@ -171,6 +175,10 @@ var BaseAPI = class {
   /**
    * Makes a PATCH request.
    * @param endpoint - The API endpoint.
+   * @param id
+   * @param item
+   * @param id
+   * @param item
    * @param data - The data to send.
    * @returns The response data.
    */
@@ -904,13 +912,6 @@ var BaseModel = class {
   loadData(data) {
     Object.assign(this, data);
     this.initializeSubProperties();
-    if (Object.keys(this).includes("household")) {
-      Object.entries(this).forEach(([key, value]) => {
-        if (key == "household") {
-          console.log(typeof value);
-        }
-      });
-    }
   }
   /**
    * Validates the input data against the schema and creates an instance of the class.
@@ -2617,7 +2618,6 @@ var Producer = class extends BaseModel {
   _initializeSubProperties() {
     super._initializeSubProperties();
     this.inventory = Inventory.build(this.inventory);
-    console.log(JSON.stringify(this));
     this.operation = Operation.build(this.operation);
     this.previous_operation = Operation.build(this.previous_operation);
   }
@@ -3417,9 +3417,11 @@ var TradeRoute = class extends BaseModel {
   get managersMap() {
     return new Map(Object.entries(this.managers).map(([key, value]) => [key, value]));
   }
+  // noinspection JSUnusedGlobalSymbols
   get currentFlowsMap() {
     return new Map(Object.entries(this.current_flows).map(([key, value]) => [key, value]));
   }
+  // noinspection JSUnusedGlobalSymbols
   get previousFlowsMap() {
     return new Map(Object.entries(this.previous_flows).map(([key, value]) => [key, value]));
   }
@@ -3455,7 +3457,7 @@ var TransportJourney = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    for (let i; i < this.legs.length; i++) {
+    for (let i = 0; i < this.legs.length; i++) {
       this.legs[i] = TransportJourneyLeg.build(this.legs[i]);
     }
   }
@@ -3472,7 +3474,7 @@ var TransportJourneyLeg = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    for (let i; i < this.path.length; i++) {
+    for (let i = 0; i < this.path.length; i++) {
       this.path[i] = Path.build(this.path[i]);
     }
   }
@@ -3499,6 +3501,7 @@ var TransportType = class extends BaseModel {
   _initializeSubProperties() {
     super._initializeSubProperties();
   }
+  // noinspection JSUnusedGlobalSymbols
   get operatingCostsMap() {
     return new Map(Object.entries(this.operating_costs).map(([key, value]) => [key, value]));
   }
@@ -3570,14 +3573,21 @@ function convertFloatsToStrings(obj) {
   if (typeof obj !== "object" || obj === null) {
     return obj;
   }
+  if (typeof obj.initialized !== void 0) {
+    delete obj.initialized;
+  }
   const convertedObj = {};
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === "object" && value !== null) {
       convertedObj[key] = convertFloatsToStrings(value);
-    } else if (typeof value === "number" && !Number.isInteger(value)) {
-      convertedObj[key] = value.toString();
     } else {
-      convertedObj[key] = value;
+      if (key == "expected_balance" || key == "price") {
+        convertedObj[key] = value.toFixed(3);
+      } else if (typeof value === "number" && !Number.isInteger(value)) {
+        convertedObj[key] = value.toString();
+      } else {
+        convertedObj[key] = value;
+      }
     }
   }
   return convertedObj;
@@ -3697,7 +3707,7 @@ var TownsAPI = class extends baseAPI_default {
     );
   }
   async _sendOrder(item, id, expected_balance, operation, price, volume, direction) {
-    const trade = new ItemTrade({
+    const trade = ItemTrade.build({
       direction,
       expected_balance,
       operation,
@@ -3705,11 +3715,12 @@ var TownsAPI = class extends baseAPI_default {
       volume
     });
     const json = convertFloatsToStrings(trade);
+    console.log(json);
     const response = await super.post({ endpoint: apiRoutes.orders, id, item, data: json });
     if (response.status === 200) {
       return await ItemTradeResult.validate(response);
     } else {
-      throw new BuySellOrderFailedException(`Failed to send ${direction} order: ${response.statusText}`);
+      throw new BuySellOrderFailedException(`Failed to send ${direction} order: status: ${response.status} - text: ${response.statusText}`);
     }
   }
 };
@@ -3753,8 +3764,6 @@ var BuildingsAPI = class extends baseAPI_default {
       const response = await super.patch({ endpoint: apiRoutes.buildingSetManager, id, item, data: json });
       if (response.status && response.status == 200) {
         return Building.validate(response.data["_embedded"][`/buildings/${id}`]);
-      } else {
-        throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${response.statusText}`);
       }
     } catch (error) {
       throw new SetManagerFailedException(`Failed to set manager for ${item} on building ${id}: ${error.message}`);
@@ -3887,66 +3896,33 @@ var TransportsAPI = class extends baseAPI_default {
 };
 var transports_default = TransportsAPI;
 
-// src/game/town.ts
-var Town2 = class {
-  constructor(client, id, data = null) {
-    this.id = id;
-    this._client = client;
-    this.data = data;
-  }
-  _client;
-  _market;
-  data;
-  async load() {
-    this.data = await this._client.townsApi.getTown(this.id);
-    this._market = await this._client.townsApi.getMarketData(this.id);
-  }
-  get commoners() {
-    return this.data.commoners;
-  }
-  get demands() {
-    return this.data.commoners.demands;
-  }
-  get market() {
-    return this._market.markets;
-  }
-  get name() {
-    return this.data.name;
-  }
-  get structures() {
-    const structures = {};
-    for (const domain in this.data.domain) {
-      if (this.data.domain[domain].structure !== null) {
-        structures[domain] = this.data.domain[domain].structure;
-      }
-    }
-    return structures;
-  }
-  get totalSatisfaction() {
-    const demands = this.data.commoners.sustenance.flatMap((category) => category.products);
-    const desireTotal = demands.reduce((acc, demand) => acc + demand.desire, 0);
-    const resultTotal = demands.reduce((acc, demand) => acc + demand.result, 0);
-    return Math.ceil(resultTotal / desireTotal * 100);
-  }
-  get totalStructures() {
-    return Object.values(this.data.domain).filter((domain) => domain.structure !== null).length;
-  }
-  get totalTaxes() {
-    return Object.values(this.data.government.taxes_collected).reduce((acc, value) => acc + value, 0);
-  }
-  async buy(item, expectedBalance, operation, volume, price) {
-    return await this._client.townsApi.sendBuyOrder(item, this.id, expectedBalance, operation, price, volume);
-  }
-  async fetchMarketItem(item) {
-    return await this._client.townsApi.getMarketItem(this.id, item);
-  }
-  item(item) {
-    return this._market.markets[item];
-  }
-  async sell(item, expectedBalance, operation, volume, price) {
-    return await this._client.townsApi.sendSellOrder(item, this.id, expectedBalance, operation, price, volume);
-  }
-};
+// src/game/index.ts
+var game_exports = {};
+__export(game_exports, {
+  Building: () => Building3,
+  BuildingOperation: () => BuildingOperation2,
+  BuildingOperationList: () => BuildingOperationList,
+  BuildingOperationsDict: () => BuildingOperationsDict,
+  BuildingsList: () => BuildingsList,
+  Export: () => Export,
+  Exports: () => Exports,
+  ExportsList: () => ExportsList,
+  ExportsSummed: () => ExportsSummed,
+  Import: () => Import,
+  Imports: () => Imports,
+  ImportsList: () => ImportsList,
+  ImportsSummed: () => ImportsSummed,
+  Operation: () => Operation2,
+  OperationsList: () => OperationsList,
+  Player: () => Player2,
+  Recipe: () => Recipe2,
+  Storehouse: () => Storehouse,
+  StorehouseItem: () => StorehouseItem,
+  Town: () => Town2,
+  TownItem: () => TownItem,
+  Transport: () => Transport3,
+  TransportList: () => TransportList
+});
 
 // src/game/recipe.ts
 var Recipe2 = class {
@@ -4644,6 +4620,67 @@ var OperationsList = class _OperationsList extends Array {
   }
 };
 
+// src/game/town.ts
+var Town2 = class {
+  constructor(client, id, data = null) {
+    this.id = id;
+    this._client = client;
+    this.data = data;
+  }
+  _client;
+  _market;
+  data;
+  async load() {
+    this.data = await this._client.townsApi.getTown(this.id);
+    this._market = await this._client.townsApi.getMarketData(this.id);
+  }
+  get commoners() {
+    return this.data.commoners;
+  }
+  get demands() {
+    return this.data.commoners.demands;
+  }
+  get market() {
+    return this._market.markets;
+  }
+  get name() {
+    return this.data.name;
+  }
+  get structures() {
+    const structures = {};
+    for (const domain in this.data.domain) {
+      if (this.data.domain[domain].structure !== null) {
+        structures[domain] = this.data.domain[domain].structure;
+      }
+    }
+    return structures;
+  }
+  get totalSatisfaction() {
+    const demands = this.data.commoners.sustenance.flatMap((category) => category.products);
+    const desireTotal = demands.reduce((acc, demand) => acc + demand.desire, 0);
+    const resultTotal = demands.reduce((acc, demand) => acc + demand.result, 0);
+    return Math.ceil(resultTotal / desireTotal * 100);
+  }
+  get totalStructures() {
+    return Object.values(this.data.domain).filter((domain) => domain.structure !== null).length;
+  }
+  get totalTaxes() {
+    return Object.values(this.data.government.taxes_collected).reduce((acc, value) => acc + value, 0);
+  }
+  async buy(item, expectedBalance, operation, volume, price) {
+    return await this._client.townsApi.sendBuyOrder(item, this.id, expectedBalance, operation, price, volume);
+  }
+  async fetchMarketItem(item) {
+    return await this._client.townsApi.getMarketItem(this.id, item);
+  }
+  item(item) {
+    return this._market.markets[item];
+  }
+  async sell(item, expectedBalance, operation, volume, price) {
+    return await this._client.townsApi.sendSellOrder(item, this.id, expectedBalance, operation, price, volume);
+  }
+};
+
 // src/game/transport.ts
 var Transport3 = class {
   id;
@@ -5227,34 +5264,6 @@ var Client = class {
     return transport;
   }
 };
-
-// src/game/index.ts
-var game_exports = {};
-__export(game_exports, {
-  Building: () => Building3,
-  BuildingOperation: () => BuildingOperation2,
-  BuildingOperationList: () => BuildingOperationList,
-  BuildingOperationsDict: () => BuildingOperationsDict,
-  BuildingsList: () => BuildingsList,
-  Export: () => Export,
-  Exports: () => Exports,
-  ExportsList: () => ExportsList,
-  ExportsSummed: () => ExportsSummed,
-  Import: () => Import,
-  Imports: () => Imports,
-  ImportsList: () => ImportsList,
-  ImportsSummed: () => ImportsSummed,
-  Operation: () => Operation2,
-  OperationsList: () => OperationsList,
-  Player: () => Player2,
-  Recipe: () => Recipe2,
-  Storehouse: () => Storehouse,
-  StorehouseItem: () => StorehouseItem,
-  Town: () => Town2,
-  TownItem: () => TownItem,
-  Transport: () => Transport3,
-  TransportList: () => TransportList
-});
 
 // src/api/index.ts
 var api_exports = {};

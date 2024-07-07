@@ -52,11 +52,11 @@ async function balanceItem(player: jmerc.Player, item: jmerc.ItemEnumType, buySh
 
     if (buyVolume > 0.0) {
         console.log(`     Adjusting ${item} purchase amount to ${buyVolume}`);
-        await player.storehouse.items[item].patchManager({ buyVolume, sellVolume: 0 });
+        await player.storehouse.items.get(item).patchManager({ buyVolume, sellVolume: 0 });
         console.log(`     ${item} purchase amount adjusted successfully`);
     } else if (sellVolume > 0.0) {
         console.log(`     Adjusting ${item} sale amount to ${sellVolume}`);
-        await player.storehouse.items[item].patchManager({ buyVolume: 0, sellVolume });
+        await player.storehouse.items.get(item).patchManager({ buyVolume: 0, sellVolume });
         console.log(`     ${item} sale amount adjusted successfully`);
     }
 
@@ -84,4 +84,5 @@ export async function main() {
     await balanceOxPower(player);
 }
 
-main();
+// noinspection JSUnusedLocalSymbols
+main().then(r => {});

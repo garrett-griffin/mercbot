@@ -3,7 +3,6 @@ import { ItemTradeSchema, ItemTradeType } from '../schema';
 import { ItemTradeResultSchema, ItemTradeResultType } from "../schema";
 import { ItemTradeSettlementSchema, ItemTradeSettlementType } from "../schema";
 import {ItemEnumType} from "../schema/enums";
-import {AccountAsset} from "./account";
 
 /**
  * Represents an item trade with associated attributes.

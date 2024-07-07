@@ -4,7 +4,6 @@ import { MarketItemDetailsSchema, MarketItemDetailsType } from '../schema';
 import { MarketItemSchema, MarketItemType } from "../schema";
 import { ItemEnumType } from "../schema/enums";
 import { ItemOrderType } from "../schema";
-import {AccountAsset} from "./account";
 
 /**
  * Represents the market with associated attributes.

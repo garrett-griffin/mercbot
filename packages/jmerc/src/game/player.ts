@@ -1,26 +1,15 @@
-import { Player as PlayerModel, Household, Sustenance } from '../models/player';
+import { Player as PlayerModel } from '../models/player';
 import { Business } from '../models';
 import { Building, BuildingsList } from './building';
 import {Export, ExportsList, ExportsSummed} from './exports';
-import {Import, Imports, ImportsList, ImportsSummed} from './imports';
-import { BuildingOperation, BuildingOperationsDict } from './operation';
+import {Import, ImportsList, ImportsSummed} from './imports';
+import { BuildingOperationsDict } from './operation';
 import { Town } from './town';
 import { Transport, TransportList } from './transport';
 import Client from "../client";
 import {Storehouse} from "./storehouse";
 import {AssetEnum} from "../models/enums";
 import {ItemEnumType} from "../schema/enums";
-
-interface PlayerType {
-    buildings: BuildingsList;
-    business: Business;
-    data: PlayerModel;
-    exports: ExportsSummed;
-    imports: ImportsSummed;
-    operations: BuildingOperationsDict;
-    town: Town;
-    transports: TransportList;
-}
 
 export class Player {
     _client: Client;

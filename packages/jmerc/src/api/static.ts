@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import BaseAPI from './baseAPI';
 import Client from '../client';
 import { staticUrl, rootUrl } from "./api-routes";

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { InventorySchema } from './InventorySchema';
-import { BuildingUpgradeTypeEnumSchema } from './enums/BuildingUpgradeTypeEnumSchema';
+import { BuildingUpgradeTypeEnumSchema } from './enums';
 
 export const BuildingConstructionEffortSchema = z.object({
     inventory: InventorySchema,

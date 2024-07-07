@@ -1,4 +1,6 @@
 // imports.ts
+// noinspection TypeScriptFieldCanBeMadeReadonly,DuplicatedCode
+
 import { Town } from './town';
 import { Transport } from './transport';
 import {AccountAsset} from "../models";

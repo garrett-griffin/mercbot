@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { RecipeEnumSchema } from './enums/RecipeEnumSchema';
-import { BuildingTypeEnumSchema } from './enums/BuildingTypeEnumSchema';
-import { SkillEnumSchema } from './enums/SkillEnumSchema';
+import { RecipeEnumSchema } from './enums';
+import { BuildingTypeEnumSchema } from './enums';
+import { SkillEnumSchema } from './enums';
 import { IngredientSchema } from './IngredientSchema';
 
 export const RecipeSchema = z.object({

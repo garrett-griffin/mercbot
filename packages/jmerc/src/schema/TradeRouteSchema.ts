@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { AccountSchema } from './AccountSchema';
-import { ItemEnumSchema } from './enums/ItemEnumSchema';
+import { ItemEnumSchema } from './enums';
 import { ManagerSchema } from './ManagerSchema';
 import { FlowSchema } from './FlowSchema';
 

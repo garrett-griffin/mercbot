@@ -1,7 +1,6 @@
 import { BaseModel } from './baseModel';
 import { TownDemandCategory, TownDemand } from './town';
 import { CommonersSchema, CommonersType } from '../schema';
-import {Building} from "./building";
 
 /**
  * Represents the commoners in a town with their associated attributes.

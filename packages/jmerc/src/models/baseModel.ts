@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import {Player} from "./player";
 
 /**
  * A base model class that provides schema validation and initialization of sub-properties.

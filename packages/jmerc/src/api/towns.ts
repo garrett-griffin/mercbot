@@ -1,9 +1,9 @@
 import BaseAPI, {ResponseObject} from './baseAPI';
 import {apiRoutes} from "./api-routes";
-import {Town, TownData} from '../models/town';
-import {Market, MarketItemDetails} from '../models/market';
-import {ItemEnumType} from "../schema/enums/ItemEnumSchema";
-import {ItemTrade, ItemTradeResult} from "../models/itemTrade";
+import {Town, TownData} from '../models';
+import {Market, MarketItemDetails} from '../models';
+import {ItemEnumType} from "../schema/enums";
+import {ItemTrade, ItemTradeResult} from "../models";
 import {BuySellOrderFailedException, convertFloatsToStrings} from '../utils'
 
 class TownsAPI extends BaseAPI {
@@ -119,7 +119,7 @@ class TownsAPI extends BaseAPI {
         volume: number,
         direction: string
     ): Promise<ItemTradeResult> {
-        const trade = new ItemTrade({
+        const trade = ItemTrade.build({
             direction,
             expected_balance,
             operation,
@@ -127,12 +127,13 @@ class TownsAPI extends BaseAPI {
             volume
         });
         const json = convertFloatsToStrings(trade);
+        console.log(json);
         const response: ResponseObject = await super.post({ endpoint: apiRoutes.orders, id, item, data: json });
 
         if (response.status === 200) {
             return await ItemTradeResult.validate(response);
         } else {
-            throw new BuySellOrderFailedException(`Failed to send ${direction} order: ${response.statusText}`);
+            throw new BuySellOrderFailedException(`Failed to send ${direction} order: status: ${response.status} - text: ${response.statusText}`);
         }
     }
 

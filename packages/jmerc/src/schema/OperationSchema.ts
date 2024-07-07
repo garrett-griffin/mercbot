@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { DeliveryCostSchema } from './DeliveryCostSchema';
-import { RecipeEnumSchema } from './enums/RecipeEnumSchema';
+import { RecipeEnumSchema } from './enums';
 import { FlowSchema } from './FlowSchema';
-import {ItemEnumSchema} from "./enums/ItemEnumSchema";
+import {ItemEnumSchema} from "./enums";
 
 export const OperationSchema = z.object({
     target: z.union([z.string().transform(v => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), z.number()]),

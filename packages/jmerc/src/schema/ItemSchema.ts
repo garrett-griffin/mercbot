@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { ItemEnumSchema } from './enums/ItemEnumSchema';
-import { ItemTypeEnumSchema } from './enums/ItemTypeEnumSchema';
-import { SkillEnumSchema } from './enums/SkillEnumSchema';
+import { ItemEnumSchema } from './enums';
+import { ItemTypeEnumSchema } from './enums';
+import { SkillEnumSchema } from './enums';
 import { ItemPriceSchema } from './ItemPriceSchema';
 
 export const ItemSchema = z.object({

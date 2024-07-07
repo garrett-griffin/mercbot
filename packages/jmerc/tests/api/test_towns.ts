@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals';
 import { client } from '../setupTests';
-import {ItemEnum} from "../../src/models/enums/itemEnum";
+import {ItemEnum} from "../../src/models/enums";
 
 let towns;
 

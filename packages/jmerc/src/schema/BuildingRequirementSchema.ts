@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { ClimateEnumSchema } from './enums/ClimateEnumSchema';
-import { ItemEnumSchema } from './enums/ItemEnumSchema';
+import { ClimateEnumSchema } from './enums';
+import { ItemEnumSchema } from './enums';
 
 export const BuildingRequirementSchema = z.object({
     center: z.boolean().optional().default(false),

@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 import { z } from 'zod';
 
 export const TownCultureSchema = z.object({

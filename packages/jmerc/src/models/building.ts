@@ -15,7 +15,6 @@ import { Operation } from './operation';
 import { BuildingTypeSchema, BuildingTypeType } from '../schema';
 import { BuildingRequirementsType } from '../schema';
 import { BuildingUpgradeType } from '../schema';
-import {AccountAsset} from "./account";
 
 /**
  * Represents a building with various attributes.

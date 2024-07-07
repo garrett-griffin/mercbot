@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TileRequirementSchema } from './TileRequirementSchema';
-import { ClimateEnumSchema } from './enums/ClimateEnumSchema';
+import { ClimateEnumSchema } from './enums';
 
 export const BuildingRequirementsSchema = z.object({
     fertility: TileRequirementSchema.optional(),

@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { TransportTypeEnumSchema } from './enums/TransportTypeEnumSchema';
-import { ItemEnumSchema } from './enums/ItemEnumSchema';
+import { TransportTypeEnumSchema } from './enums';
+import { ItemEnumSchema } from './enums';
 
 export const TransportTypeSchema = z.object({
     type: TransportTypeEnumSchema,

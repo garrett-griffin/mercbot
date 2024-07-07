@@ -1,7 +1,5 @@
 import { LocationSchema, LocationType } from '../schema';
 import { BaseModel } from "./baseModel";
-import {ItemEnumType} from "../schema/enums";
-import {ItemTradeSettlement} from "./itemTrade";
 
 /**
  * Represents a geographical location with coordinates.
