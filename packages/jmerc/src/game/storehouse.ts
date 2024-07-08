@@ -53,7 +53,7 @@ export class Storehouse {
     async buy(item: ItemEnumType, volume: number, price: number) {
         try {
             const result = await this.player.town.buy(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-            const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+            const validatedAccount = await Account.validate(result._embedded[`/accounts/${this.data.inventory.account.id}`]);
             this.updateAccount(validatedAccount);
             return result;
         } catch (error) {
@@ -69,7 +69,7 @@ export class Storehouse {
     async sell(item: ItemEnumType, volume: number, price: number) {
         try {
             const result = await this.player.town.sell(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-            const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+            const validatedAccount = await Account.validate(result._embedded[`/accounts/${this.data.inventory.account.id}`]);
             this.updateAccount(validatedAccount);
             return result;
         } catch (error) {

@@ -1,11 +1,9 @@
-import { Building as BuildingModel } from '../models/building';
+import {Building as BuildingModel} from '../models/building';
 import Client from "../client";
-import { Player } from './player';
-import {ItemEnumType} from "../schema/enums";
-import {Manager} from "../models";
-import {BuildingTypeEnumType} from "../schema/enums";
+import {Player} from './player';
+import {BuildingTypeEnumType, ItemEnumType} from "../schema/enums";
+import {AccountAsset, Manager} from "../models";
 import {Recipe} from "./recipe";
-import {AccountAsset} from "../models";
 
 export class Building {
     _client: Client;
@@ -117,18 +115,15 @@ export class Building {
             manager[key] = managerData[key];
         }
 
-        const updatedObject = await this._client.buildingsApi.setManager(this.id, item, manager);
-        Object.assign(this, updatedObject);
+        this.data = await this._client.buildingsApi.setManager(this.id, item, manager);
     }
 
     async setManager(item: ItemEnumType, manager: Manager) {
-        const updatedObject = await this._client.buildingsApi.setManager(this.id, item, manager);
-        Object.assign(this, updatedObject);
+        this.data = await this._client.buildingsApi.setManager(this.id, item, manager);
     }
 
     async setTargetProduction(target: number, autoset_buying: boolean = true, autoset_selling: boolean = true) {
-        const updatedObject = await this._client.buildingsApi.setProductionTargetMultiplier(this.id, target, autoset_buying, autoset_selling);
-        Object.assign(this, updatedObject);
+        return await this._client.buildingsApi.setProductionTargetMultiplier(this.id, target, autoset_buying, autoset_selling);
     }
 
     async calculateCurrentLaborNeed(): Promise<number> {

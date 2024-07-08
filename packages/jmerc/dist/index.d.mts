@@ -5966,21 +5966,24 @@ declare const ItemTradeResultSchema: z.ZodObject<{
         price?: string | number;
     }>, "many">>;
     order_id: z.ZodOptional<z.ZodUnion<[z.ZodEffects<z.ZodString, number, string>, z.ZodNumber]>>;
-    embedded: z.ZodDefault<z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodAny>>>;
+    _embedded: z.ZodDefault<z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodAny>>>;
+    _embedded_patch: z.ZodDefault<z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodAny>>>;
 }, "strip", z.ZodTypeAny, {
     settlements?: {
         volume?: number;
         price?: number;
     }[];
     order_id?: number;
-    embedded?: Record<string, any>;
+    _embedded?: Record<string, any>;
+    _embedded_patch?: Record<string, any>;
 }, {
     settlements?: {
         volume?: string | number;
         price?: string | number;
     }[];
     order_id?: string | number;
-    embedded?: Record<string, any>;
+    _embedded?: Record<string, any>;
+    _embedded_patch?: Record<string, any>;
 }>;
 type ItemTradeResultType = z.infer<typeof ItemTradeResultSchema>;
 
@@ -17636,25 +17639,29 @@ declare class ItemTradeResult extends BaseModel implements ItemTradeResultType {
             price?: string | number;
         }>, "many">>;
         order_id: zod.ZodOptional<zod.ZodUnion<[zod.ZodEffects<zod.ZodString, number, string>, zod.ZodNumber]>>;
-        embedded: zod.ZodDefault<zod.ZodOptional<zod.ZodRecord<zod.ZodString, zod.ZodAny>>>;
+        _embedded: zod.ZodDefault<zod.ZodOptional<zod.ZodRecord<zod.ZodString, zod.ZodAny>>>;
+        _embedded_patch: zod.ZodDefault<zod.ZodOptional<zod.ZodRecord<zod.ZodString, zod.ZodAny>>>;
     }, "strip", zod.ZodTypeAny, {
         settlements?: {
             volume?: number;
             price?: number;
         }[];
         order_id?: number;
-        embedded?: Record<string, any>;
+        _embedded?: Record<string, any>;
+        _embedded_patch?: Record<string, any>;
     }, {
         settlements?: {
             volume?: string | number;
             price?: string | number;
         }[];
         order_id?: string | number;
-        embedded?: Record<string, any>;
+        _embedded?: Record<string, any>;
+        _embedded_patch?: Record<string, any>;
     }>;
     settlements: ItemTradeSettlement[] | null;
     order_id: number | null;
-    embedded: Record<string, any>;
+    _embedded: Record<string, any>;
+    _embedded_patch: Record<string, any>;
     /**
      * Creates an instance of ItemTradeResult.
      * @param data - The data to initialize the item trade result.
@@ -23560,7 +23567,7 @@ declare class Building {
         [key: string]: any;
     }): Promise<void>;
     setManager(item: ItemEnumType, manager: Manager): Promise<void>;
-    setTargetProduction(target: number, autoset_buying?: boolean, autoset_selling?: boolean): Promise<void>;
+    setTargetProduction(target: number, autoset_buying?: boolean, autoset_selling?: boolean): Promise<boolean>;
     calculateCurrentLaborNeed(): Promise<number>;
 }
 declare class BuildingsList extends Array<Building> {

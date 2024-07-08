@@ -11,15 +11,9 @@ import RegionsAPI from './api/regions';
 import StaticAPI from './api/static';
 import TransportsAPI from './api/transports';
 import {RecipeEnumType} from "./schema/enums";
-import { Town } from "./game";
-import { Player } from "./game";
-import { BuildingOperation, Operation } from "./game"
-import {Recipe} from "./game";
+import {Building, BuildingOperation, Operation, Player, Recipe, Storehouse, Town, Transport} from "./game";
 import {Recipe as RecipeModel} from "./models/recipe"
-import {Building} from "./game";
-import {Transport} from "./game";
-import {Storehouse} from "./game";
-import { Operation as OperationModel } from "./models/operation"
+import {Operation as OperationModel} from "./models/operation"
 
 /**
  * Client for interacting with the Mercatorio API.
@@ -74,8 +68,7 @@ export class Client {
      */
     async get(endpoint: string): Promise<object> {
         try {
-            const response = await this.session.get(endpoint);
-            return response.data;
+            return await this.session.get(endpoint);
         } catch (error) {
             throw new Error(`GET ${endpoint} failed: ${(error as Error).message}`);
         }
@@ -103,8 +96,7 @@ export class Client {
      */
     async post(endpoint: string, data: object): Promise<object> {
         try {
-            const response = await this.session.post(endpoint, data);
-            return response.data;
+            return await this.session.post(endpoint, data);
         } catch (error) {
             throw new Error(`POST ${endpoint} failed: ${(error as Error).message}`);
         }

@@ -56,7 +56,7 @@ export class Transport {
         }
         const expectedBalance = this.player.storehouse.items[item].balance;
         const result = await this.town.buy(item, expectedBalance, `route/${this.id}`, volume, price);
-        this.player.storehouse.updateAccount(await Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
+        this.player.storehouse.updateAccount(await Account.validate(result._embedded[`/accounts/${this.data.route.account.id}`]));
         return result;
     }
 
@@ -97,7 +97,7 @@ export class Transport {
         }
         const expectedBalance = this.player.storehouse.items[item].balance;
         const result = await this.town.sell(item, expectedBalance, `route/${this.id}`, volume, price);
-        this.player.storehouse.updateAccount(await Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
+        this.player.storehouse.updateAccount(await Account.validate(result._embedded[`/accounts/${this.data.route.account.id}`]));
         return result;
     }
 

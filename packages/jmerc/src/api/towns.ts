@@ -16,8 +16,8 @@ class TownsAPI extends BaseAPI {
      */
     async getAll(): Promise<Town[]> {
         try {
-            const response = await super.get() as unknown[];
-            return Town.validateArray(response);
+            const response: ResponseObject = await super.get();
+            return Town.validateArray((response.data  as unknown[]));
         } catch (error) {
             throw new Error(`Failed to fetch towns: ${(error as Error).message}`);
         }
@@ -30,8 +30,8 @@ class TownsAPI extends BaseAPI {
      */
     async get({ id }: { endpoint?: string, id?: number, item?: string } = {}): Promise<TownData> {
         try {
-            const response = await super.get({ endpoint: apiRoutes.townData, id });
-            return TownData.validate(response);
+            const response: ResponseObject = await super.get({ endpoint: apiRoutes.townData, id });
+            return TownData.validate(response.data);
         } catch (error) {
             throw new Error(`Failed to fetch town data for ID ${id}: ${(error as Error).message}`);
         }
@@ -62,8 +62,8 @@ class TownsAPI extends BaseAPI {
      */
     async getMarketData(id: number): Promise<Market> {
         try {
-            const response = await super.get({ endpoint: apiRoutes.marketData, id });
-            return Market.validate(response);
+            const response: ResponseObject = await super.get({ endpoint: apiRoutes.marketData, id });
+            return Market.validate(response.data);
         } catch (error) {
             throw new Error(`Failed to fetch market data for town ID ${id}: ${(error as Error).message}`);
         }
@@ -77,8 +77,8 @@ class TownsAPI extends BaseAPI {
      */
     async getMarketItem(townId: number, item: ItemEnumType): Promise<MarketItemDetails> {
         try {
-            const response = await super.get( {endpoint: apiRoutes.marketItem, id: townId, item});
-            return MarketItemDetails.validate(response);
+            const response: ResponseObject = await super.get( {endpoint: apiRoutes.marketItem, id: townId, item});
+            return MarketItemDetails.validate(response.data);
         } catch (error) {
             throw new Error(`Failed to fetch market item data for town ID ${townId} and item ${item}: ${(error as Error).message}`);
         }
@@ -127,11 +127,10 @@ class TownsAPI extends BaseAPI {
             volume
         });
         const json = convertFloatsToStrings(trade);
-        console.log(json);
         const response: ResponseObject = await super.post({ endpoint: apiRoutes.orders, id, item, data: json });
 
         if (response.status === 200) {
-            return await ItemTradeResult.validate(response);
+            return await ItemTradeResult.validate(response.data);
         } else {
             throw new BuySellOrderFailedException(`Failed to send ${direction} order: status: ${response.status} - text: ${response.statusText}`);
         }

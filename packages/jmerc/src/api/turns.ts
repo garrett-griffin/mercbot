@@ -1,4 +1,4 @@
-import BaseAPI from './baseAPI';
+import BaseAPI, {ResponseObject} from './baseAPI';
 import { apiRoutes } from "./api-routes";
 import { Turn } from '../models';
 
@@ -11,8 +11,8 @@ class TurnsAPI extends BaseAPI {
      */
     async get(): Promise<Turn> {
         try {
-            const response = await super.get();
-            return Turn.validate(response);
+            const response: ResponseObject = await super.get();
+            return Turn.validate(response.data);
         } catch (error) {
             throw new Error(`Failed to fetch turn data: ${(error as Error).message}`);
         }

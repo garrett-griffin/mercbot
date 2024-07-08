@@ -1,4 +1,4 @@
-import BaseAPI from './baseAPI';
+import BaseAPI, {ResponseObject} from './baseAPI';
 import { apiRoutes } from "./api-routes";
 import { Player } from '../models';
 
@@ -7,8 +7,8 @@ class PlayersAPI extends BaseAPI {
 
     async get(): Promise<Player> {
         try {
-            const response = await super.get();
-            let result = await Player.validate(response);
+            const response: ResponseObject = await super.get();
+            let result = await Player.validate(response.data);
 
             result.initializeSubProperties();
             return result;

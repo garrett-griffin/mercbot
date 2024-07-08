@@ -2038,7 +2038,8 @@ var ItemTradeSettlementSchema = import_zod43.z.object({
 var ItemTradeResultSchema = import_zod44.z.object({
   settlements: import_zod44.z.array(ItemTradeSettlementSchema).optional(),
   order_id: import_zod44.z.union([import_zod44.z.string().transform((v) => /\./.test(String(v)) ? parseFloat(String(v)) : parseInt(String(v), 10)), import_zod44.z.number()]).optional(),
-  embedded: import_zod44.z.record(import_zod44.z.string(), import_zod44.z.any()).optional().default({})
+  _embedded: import_zod44.z.record(import_zod44.z.string(), import_zod44.z.any()).optional().default({}),
+  _embedded_patch: import_zod44.z.record(import_zod44.z.string(), import_zod44.z.any()).optional().default({})
 });
 
 // src/schema/ItemTradeSchema.ts
@@ -2967,7 +2968,8 @@ var ItemTradeResult = class extends BaseModel {
   static schema = ItemTradeResultSchema;
   settlements;
   order_id;
-  embedded;
+  _embedded;
+  _embedded_patch;
   /**
    * Creates an instance of ItemTradeResult.
    * @param data - The data to initialize the item trade result.
@@ -2977,7 +2979,7 @@ var ItemTradeResult = class extends BaseModel {
   }
   _initializeSubProperties() {
     super._initializeSubProperties();
-    if (this.settlements !== null) {
+    if (this.settlements) {
       Object.keys(this.settlements).forEach((key) => {
         const settlement = this.settlements[key];
         this.settlements[key] = ItemTradeSettlement.build(settlement);
@@ -3535,7 +3537,7 @@ var TurnsAPI = class extends baseAPI_default {
   async get() {
     try {
       const response = await super.get();
-      return Turn.validate(response);
+      return Turn.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch turn data: ${error.message}`);
     }
@@ -3549,7 +3551,7 @@ var PlayersAPI = class extends baseAPI_default {
   async get() {
     try {
       const response = await super.get();
-      let result = await Player.validate(response);
+      let result = await Player.validate(response.data);
       result.initializeSubProperties();
       return result;
     } catch (error) {
@@ -3623,7 +3625,7 @@ var TownsAPI = class extends baseAPI_default {
   async getAll() {
     try {
       const response = await super.get();
-      return Town.validateArray(response);
+      return Town.validateArray(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch towns: ${error.message}`);
     }
@@ -3636,7 +3638,7 @@ var TownsAPI = class extends baseAPI_default {
   async get({ id } = {}) {
     try {
       const response = await super.get({ endpoint: apiRoutes.townData, id });
-      return TownData.validate(response);
+      return TownData.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch town data for ID ${id}: ${error.message}`);
     }
@@ -3665,7 +3667,7 @@ var TownsAPI = class extends baseAPI_default {
   async getMarketData(id) {
     try {
       const response = await super.get({ endpoint: apiRoutes.marketData, id });
-      return Market.validate(response);
+      return Market.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch market data for town ID ${id}: ${error.message}`);
     }
@@ -3679,7 +3681,7 @@ var TownsAPI = class extends baseAPI_default {
   async getMarketItem(townId, item) {
     try {
       const response = await super.get({ endpoint: apiRoutes.marketItem, id: townId, item });
-      return MarketItemDetails.validate(response);
+      return MarketItemDetails.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch market item data for town ID ${townId} and item ${item}: ${error.message}`);
     }
@@ -3715,10 +3717,9 @@ var TownsAPI = class extends baseAPI_default {
       volume
     });
     const json = convertFloatsToStrings(trade);
-    console.log(json);
     const response = await super.post({ endpoint: apiRoutes.orders, id, item, data: json });
     if (response.status === 200) {
-      return await ItemTradeResult.validate(response);
+      return await ItemTradeResult.validate(response.data);
     } else {
       throw new BuySellOrderFailedException(`Failed to send ${direction} order: status: ${response.status} - text: ${response.statusText}`);
     }
@@ -3739,7 +3740,7 @@ var BuildingsAPI = class extends baseAPI_default {
   async get({ id } = {}) {
     try {
       const response = await super.get({ id });
-      return Building.validate(response);
+      return Building.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch building with ID ${id}: ${error.message}`);
     }
@@ -3753,7 +3754,7 @@ var BuildingsAPI = class extends baseAPI_default {
           operations: null
         });
       }
-      return BuildingOperation.validate(response);
+      return BuildingOperation.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch building with ID ${id}: ${error.message}`);
     }
@@ -3789,7 +3790,7 @@ var BusinessesAPI = class extends baseAPI_default {
   async get({ id } = {}) {
     try {
       const response = await super.get({ id });
-      return Business.validate(response);
+      return Business.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch business with ID ${id}: ${error.message}`);
     }
@@ -3807,7 +3808,7 @@ var RegionAPI = class extends baseAPI_default {
   async getAll() {
     try {
       const response = await super.get();
-      return response.map((regionData) => Region.validate(regionData));
+      return response.data.map((regionData) => Region.validate(regionData));
     } catch (error) {
       throw new Error(`Failed to fetch regions: ${error.message}`);
     }
@@ -3870,7 +3871,7 @@ var TransportsAPI = class extends baseAPI_default {
   async get({ id } = {}) {
     try {
       const response = await super.get({ id });
-      return Transport.validate(response);
+      return Transport.validate(response.data);
     } catch (error) {
       throw new Error(`Failed to fetch town data for ID ${id}: ${error.message}`);
     }
@@ -4080,16 +4081,13 @@ var Building3 = class {
     for (const key in managerData) {
       manager[key] = managerData[key];
     }
-    const updatedObject = await this._client.buildingsApi.setManager(this.id, item, manager);
-    Object.assign(this, updatedObject);
+    this.data = await this._client.buildingsApi.setManager(this.id, item, manager);
   }
   async setManager(item, manager) {
-    const updatedObject = await this._client.buildingsApi.setManager(this.id, item, manager);
-    Object.assign(this, updatedObject);
+    this.data = await this._client.buildingsApi.setManager(this.id, item, manager);
   }
   async setTargetProduction(target, autoset_buying = true, autoset_selling = true) {
-    const updatedObject = await this._client.buildingsApi.setProductionTargetMultiplier(this.id, target, autoset_buying, autoset_selling);
-    Object.assign(this, updatedObject);
+    return await this._client.buildingsApi.setProductionTargetMultiplier(this.id, target, autoset_buying, autoset_selling);
   }
   async calculateCurrentLaborNeed() {
     if (this.production) {
@@ -4721,7 +4719,7 @@ var Transport3 = class {
     }
     const expectedBalance = this.player.storehouse.items[item].balance;
     const result = await this.town.buy(item, expectedBalance, `route/${this.id}`, volume, price);
-    this.player.storehouse.updateAccount(await Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
+    this.player.storehouse.updateAccount(await Account.validate(result._embedded[`/accounts/${this.data.route.account.id}`]));
     return result;
   }
   async exportItem(item, volume, price) {
@@ -4758,7 +4756,7 @@ var Transport3 = class {
     }
     const expectedBalance = this.player.storehouse.items[item].balance;
     const result = await this.town.sell(item, expectedBalance, `route/${this.id}`, volume, price);
-    this.player.storehouse.updateAccount(await Account.validate(result.embedded[`/accounts/${this.data.route.account.id}`]));
+    this.player.storehouse.updateAccount(await Account.validate(result._embedded[`/accounts/${this.data.route.account.id}`]));
     return result;
   }
   async setManager(item, manager) {
@@ -4951,7 +4949,7 @@ var Storehouse = class {
   async buy(item, volume, price) {
     try {
       const result = await this.player.town.buy(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-      const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+      const validatedAccount = await Account.validate(result._embedded[`/accounts/${this.data.inventory.account.id}`]);
       this.updateAccount(validatedAccount);
       return result;
     } catch (error) {
@@ -4964,7 +4962,7 @@ var Storehouse = class {
   async sell(item, volume, price) {
     try {
       const result = await this.player.town.sell(item, this.items.get(item)?.balance, `storage/${this.data.id}`, volume, price);
-      const validatedAccount = await Account.validate(result.embedded[`/accounts/${this.data.inventory.account.id}`]);
+      const validatedAccount = await Account.validate(result._embedded[`/accounts/${this.data.inventory.account.id}`]);
       this.updateAccount(validatedAccount);
       return result;
     } catch (error) {
@@ -5153,8 +5151,7 @@ var Client = class {
    */
   async get(endpoint) {
     try {
-      const response = await this.session.get(endpoint);
-      return response.data;
+      return await this.session.get(endpoint);
     } catch (error) {
       throw new Error(`GET ${endpoint} failed: ${error.message}`);
     }
@@ -5180,8 +5177,7 @@ var Client = class {
    */
   async post(endpoint, data) {
     try {
-      const response = await this.session.post(endpoint, data);
-      return response.data;
+      return await this.session.post(endpoint, data);
     } catch (error) {
       throw new Error(`POST ${endpoint} failed: ${error.message}`);
     }

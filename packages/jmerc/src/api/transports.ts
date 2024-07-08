@@ -19,8 +19,8 @@ class TransportsAPI extends BaseAPI {
      */
     async get({ id }: { endpoint?: string, id?: number, item?: string } = {}): Promise<Transport> {
         try {
-            const response = await super.get({ id });
-            return Transport.validate(response);
+            const response: ResponseObject = await super.get({ id });
+            return Transport.validate(response.data);
         } catch (error) {
             throw new Error(`Failed to fetch town data for ID ${id}: ${(error as Error).message}`);
         }

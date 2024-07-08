@@ -37,7 +37,8 @@ export class ItemTradeResult extends BaseModel implements ItemTradeResultType {
 
     settlements: ItemTradeSettlement[] | null;
     order_id: number | null;
-    embedded: Record<string, any>;
+    _embedded: Record<string, any>;
+    _embedded_patch: Record<string, any>;
 
     /**
      * Creates an instance of ItemTradeResult.
@@ -49,7 +50,7 @@ export class ItemTradeResult extends BaseModel implements ItemTradeResultType {
 
     _initializeSubProperties() {
         super._initializeSubProperties();
-        if(this.settlements !== null) {
+        if(this.settlements) {
 
             // Ensure each item in `assets` is a proper instance of AccountAsset
             Object.keys(this.settlements).forEach((key: ItemEnumType) => {

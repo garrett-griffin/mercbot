@@ -19,8 +19,8 @@ class BuildingsAPI extends BaseAPI {
      */
     async get({ id }: { endpoint?: string, id?: number, item?: string } = {}): Promise<Building> {
         try {
-            const response = await super.get({ id });
-            return Building.validate(response);
+            const response: ResponseObject = await super.get({ id });
+            return Building.validate(response.data);
         } catch (error) {
             throw new Error(`Failed to fetch building with ID ${id}: ${(error as Error).message}`);
         }
@@ -36,7 +36,7 @@ class BuildingsAPI extends BaseAPI {
                     operations: null
                 });
             }
-            return BuildingOperation.validate(response);
+            return BuildingOperation.validate(response.data);
         } catch (error) {
             throw new Error(`Failed to fetch building with ID ${id}: ${(error as Error).message}`);
         }
