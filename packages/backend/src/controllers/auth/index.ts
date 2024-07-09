@@ -1,7 +1,5 @@
-import { register } from './register';
-import { login } from './login';
-import { updateUsername } from './updateUsername';
-import { updatePassword } from './updatePassword';
-import { getUser } from './getUser';
-
-export { register, login, updateUsername, updatePassword, getUser };
+export * from './getUser';
+export * from './login';
+export * from './register';
+export * from './updateEmail';
+export * from './updatePassword';

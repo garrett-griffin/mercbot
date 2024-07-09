@@ -32,27 +32,89 @@ model Season {
   site         Site          @relation(fields: [siteId], references: [pk])
   gameAccounts GameAccount[]
   turns        Turn[]
+  Region       Region[]
 }
 
 model GameAccount {
-  pk       Int       @id @default(autoincrement())
-  apiUser  String
-  apiToken String
-  userId   Int
-  user     User      @relation(fields: [userId], references: [pk])
-  seasonId Int
-  season   Season    @relation(fields: [seasonId], references: [pk])
-  players  Player[]
-  accounts Account[]
+  pk              Int               @id @default(autoincrement())
+  apiUser         String
+  apiToken        String
+  userId          Int
+  user            User              @relation(fields: [userId], references: [pk])
+  seasonId        Int
+  season          Season            @relation(fields: [seasonId], references: [pk])
+  players         Player[]
+  Action          Action[]
+  RecurringAction RecurringAction[]
 }
 
 model Turn {
-  pk       Int     @id @default(autoincrement())
-  turn     Float
-  month    String?
-  year     Float?
-  seasonId Int
-  season   Season  @relation(fields: [seasonId], references: [pk])
+  pk                         Int                          @id @default(autoincrement())
+  turn                       Float
+  month                      String?
+  year                       Float?
+  seasonId                   Int
+  season                     Season                       @relation(fields: [seasonId], references: [pk])
+  accounts                   Account[]
+  Building                   Building[]
+  BuildingConstructionEffort BuildingConstructionEffort[]
+  BuildingConstruction       BuildingConstruction[]
+  BuildingOperation          BuildingOperation[]
+  BuildingOperationFlow      BuildingOperationFlow[]
+  BuildingRequirement        BuildingRequirement[]
+  BuildingRequirements       BuildingRequirements[]
+  BuildingStorage            BuildingStorage[]
+  BuildingType               BuildingType[]
+  BuildingUpgrade            BuildingUpgrade[]
+  BusinessBuilding           BusinessBuilding[]
+  Business                   Business[]
+  Commoners                  Commoners[]
+  DeliveryCost               DeliveryCost[]
+  Flow                       Flow[]
+  Household                  Household[]
+  Ingredient                 Ingredient[]
+  Inventory                  Inventory[]
+  ItemOrder                  ItemOrder[]
+  ItemPrice                  ItemPrice[]
+  Item                       Item[]
+  ItemTradeResult            ItemTradeResult[]
+  ItemTradeSettlement        ItemTradeSettlement[]
+  Location                   Location[]
+  Manager                    Manager[]
+  MarketItemDetails          MarketItemDetails[]
+  MarketItem                 MarketItem[]
+  Market                     Market[]
+  MarketMapping              MarketMapping[]
+  Operation                  Operation[]
+  OperationFlow              OperationFlow[]
+  Path                       Path[]
+  PrestigeImpact             PrestigeImpact[]
+  Producer                   Producer[]
+  Recipe                     Recipe[]
+  Structure                  Structure[]
+  StructureTag               StructureTag[]
+  Sustenance                 Sustenance[]
+  Tile                       Tile[]
+  TownChurch                 TownChurch[]
+  TownCulture                TownCulture[]
+  Town                       Town[]
+  TownData                   TownData[]
+  TownDataDomain             TownDataDomain[]
+  TownDemandCategory         TownDemandCategory[]
+  TownDemand                 TownDemand[]
+  TownGovernment             TownGovernment[]
+  TownGovernmentTaxes        TownGovernmentTaxes[]
+  TradeRoute                 TradeRoute[]
+  TradeRouteManager          TradeRouteManager[]
+  TradeRouteFlow             TradeRouteFlow[]
+  TransportCargo             TransportCargo[]
+  TransportJourneyLeg        TransportJourneyLeg[]
+  TransportJourney           TransportJourney[]
+  Transport                  Transport[]
+  TransportType              TransportType[]
+  WorkerSkill                WorkerSkill[]
+  Action                     Action[]
+  RecurringAction            RecurringAction[]
 }
 
 model Player {
@@ -68,6 +130,39 @@ model Player {
   accounts      Account[]
   buildings     Building[]
   businesses    Business[]
+}
+
+model Action {
+  pk                Int             @id @default(autoincrement())
+  type              String
+  status            String          @default("scheduled") // use enum type if you have pre-defined statuses
+  schedule          DateTime
+  gameAccountId     Int
+  GameAccount       GameAccount     @relation(fields: [gameAccountId], references: [pk])
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  turnId            Int
+  turn              Turn            @relation(fields: [turnId], references: [pk])
+  when              String          @default("beginning")
+  recurringActionId Int
+  RecurringAction   RecurringAction @relation(fields: [recurringActionId], references: [pk])
+}
+
+model RecurringAction {
+  pk            Int         @id @default(autoincrement())
+  type          String
+  status        String      @default("scheduled") // use enum type if you have pre-defined statuses
+  schedule      DateTime
+  gameAccountId Int
+  GameAccount   GameAccount @relation(fields: [gameAccountId], references: [pk])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  startTurnId   Int
+  Turn          Turn        @relation(fields: [startTurnId], references: [pk])
+  when          String      @default("beginning")
+  numTurns      Int? // Null if it continues indefinitely
+  interval      Int // Number of turns between actions
+  Action        Action[]
 }
 
 model Settings {
@@ -99,20 +194,20 @@ model NotificationSettings {
 }
 
 model Account {
-  pk            Int            @id @default(autoincrement())
-  id            String         @unique
-  masterId      String?
-  name          String?
-  ownerId       Int
-  owner         Player         @relation(fields: [ownerId], references: [pk])
-  sponsorId     String?
-  gameAccountId Int
-  gameAccount   GameAccount    @relation(fields: [gameAccountId], references: [pk])
-  assets        AccountAsset[]
-  businesses    Business[]
-  commoners     Commoners[]
-  inventories   Inventory[]
-  tradeRoutes   TradeRoute[]
+  pk          Int            @id @default(autoincrement())
+  id          String         @unique
+  masterId    String?
+  name        String?
+  ownerId     Int
+  owner       Player         @relation(fields: [ownerId], references: [pk])
+  sponsorId   String?
+  assets      AccountAsset[]
+  businesses  Business[]
+  commoners   Commoners[]
+  inventories Inventory[]
+  tradeRoutes TradeRoute[]
+  turnId      Int
+  turn        Turn           @relation(fields: [turnId], references: [pk])
 }
 
 model AccountAsset {
@@ -161,6 +256,8 @@ model Building {
   business             Business?                    @relation(fields: [businessId], references: [pk])
   flows                Flow[]
   ops                  Operation[]
+  turnId               Int
+  turn                 Turn                         @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingConstructionEffort {
@@ -174,6 +271,8 @@ model BuildingConstructionEffort {
   upgradeType String?
   buildingId  Int
   building    Building  @relation(fields: [buildingId], references: [pk])
+  turnId      Int
+  turn        Turn      @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingConstruction {
@@ -187,6 +286,8 @@ model BuildingConstruction {
   building         Building          @relation(fields: [buildingId], references: [pk])
   buildingTypes    BuildingType[]
   buildingUpgrades BuildingUpgrade[]
+  turnId           Int
+  turn             Turn              @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingOperation {
@@ -195,6 +296,8 @@ model BuildingOperation {
   building   Building                @relation(fields: [buildingId], references: [pk])
   totalFlow  BuildingOperationFlow[]
   operations Operation[]
+  turnId     Int
+  turn       Turn                    @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingOperationFlow {
@@ -204,6 +307,8 @@ model BuildingOperationFlow {
   flowId              Int
   flow                Flow              @relation(fields: [flowId], references: [pk])
   key                 String
+  turnId              Int
+  turn                Turn              @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingRequirement {
@@ -214,6 +319,8 @@ model BuildingRequirement {
   resource   String?
   buildingId Int
   building   Building @relation(fields: [buildingId], references: [pk])
+  turnId     Int
+  turn       Turn     @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingRequirements {
@@ -226,6 +333,8 @@ model BuildingRequirements {
   buildingId    Int
   building      Building         @relation(fields: [buildingId], references: [pk])
   buildingTypes BuildingType[]
+  turnId        Int
+  turn          Turn             @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingStorage {
@@ -236,6 +345,8 @@ model BuildingStorage {
   reference   String
   buildingId  Int       @unique
   building    Building  @relation(fields: [buildingId], references: [pk])
+  turnId      Int
+  turn        Turn      @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingType {
@@ -248,6 +359,8 @@ model BuildingType {
   construction   BuildingConstruction? @relation(fields: [constructionId], references: [pk])
   upgrades       BuildingUpgrade[]
   buildings      Building[]
+  turnId         Int
+  turn           Turn                  @relation(fields: [turnId], references: [pk])
 }
 
 model BuildingUpgrade {
@@ -257,12 +370,16 @@ model BuildingUpgrade {
   construction   BuildingConstruction @relation(fields: [constructionId], references: [pk])
   buildingTypeId Int
   buildingType   BuildingType         @relation(fields: [buildingTypeId], references: [pk])
+  turnId         Int
+  turn           Turn                 @relation(fields: [turnId], references: [pk])
 }
 
 model BusinessBuilding {
-  pk   Int    @id @default(autoincrement())
-  id   Float
-  type String
+  pk     Int    @id @default(autoincrement())
+  id     Float
+  type   String
+  turnId Int
+  turn   Turn   @relation(fields: [turnId], references: [pk])
 }
 
 model Business {
@@ -278,6 +395,8 @@ model Business {
   ownerId      Int
   owner        Player     @relation(fields: [ownerId], references: [pk])
   transportIds Float[]
+  turnId       Int
+  turn         Turn       @relation(fields: [turnId], references: [pk])
 }
 
 model Commoners {
@@ -290,6 +409,8 @@ model Commoners {
   accountRefId Int
   accountRef   Account            @relation(fields: [accountRefId], references: [pk])
   townDatas    TownData[]
+  turnId       Int
+  turn         Turn               @relation(fields: [turnId], references: [pk])
 }
 
 model DeliveryCost {
@@ -299,6 +420,8 @@ model DeliveryCost {
   buildingId   Int         @unique
   building     Building    @relation(fields: [buildingId], references: [pk])
   operations   Operation[]
+  turnId       Int
+  turn         Turn        @relation(fields: [turnId], references: [pk])
 }
 
 model Flow {
@@ -320,6 +443,8 @@ model Flow {
   buildingOperationFlows BuildingOperationFlow[]
   operationFlows         OperationFlow[]
   tradeRouteFlows        TradeRouteFlow[]
+  turnId                 Int
+  turn                   Turn                    @relation(fields: [turnId], references: [pk])
 }
 
 model Household {
@@ -340,6 +465,8 @@ model Household {
   sustenance      Sustenance       @relation(fields: [sustenanceId], references: [pk])
   playerId        Int              @unique
   player          Player           @relation(fields: [playerId], references: [pk])
+  turnId          Int
+  turn            Turn             @relation(fields: [turnId], references: [pk])
 }
 
 model Ingredient {
@@ -348,6 +475,8 @@ model Ingredient {
   amount       Float
   inputRecipe  Recipe? @relation("RecipeInputs", fields: [pk], references: [pk], map: "inputRecipe_fk")
   outputRecipe Recipe? @relation("RecipeOutputs", fields: [pk], references: [pk], map: "outputRecipe_fk")
+  turnId       Int
+  turn         Turn    @relation(fields: [turnId], references: [pk])
 }
 
 model Inventory {
@@ -364,6 +493,8 @@ model Inventory {
   sustenances                 Sustenance[]
   transportCargos             TransportCargo[]
   transports                  Transport[]
+  turnId                      Int
+  turn                        Turn                         @relation(fields: [turnId], references: [pk])
 }
 
 model ItemOrder {
@@ -371,6 +502,8 @@ model ItemOrder {
   volume           Float
   price            Float
   itemTradeResults ItemTradeResult[]
+  turnId           Int
+  turn             Turn              @relation(fields: [turnId], references: [pk])
 }
 
 model ItemPrice {
@@ -379,6 +512,8 @@ model ItemPrice {
   typical Float
   high    Float?
   items   Item[]
+  turnId  Int
+  turn    Turn   @relation(fields: [turnId], references: [pk])
 }
 
 model Item {
@@ -391,6 +526,8 @@ model Item {
   classes Json?
   priceId Int
   price   ItemPrice @relation(fields: [priceId], references: [pk])
+  turnId  Int
+  turn    Turn      @relation(fields: [turnId], references: [pk])
 }
 
 model ItemTradeResult {
@@ -400,6 +537,8 @@ model ItemTradeResult {
   order                ItemOrder?            @relation(fields: [orderId], references: [pk])
   embedded             Json?
   itemTradeSettlements ItemTradeSettlement[]
+  turnId               Int
+  turn                 Turn                  @relation(fields: [turnId], references: [pk])
 }
 
 model ItemTradeSettlement {
@@ -408,6 +547,8 @@ model ItemTradeSettlement {
   price         Float
   tradeResultId Int
   tradeResult   ItemTradeResult @relation(fields: [tradeResultId], references: [pk])
+  turnId        Int
+  turn          Turn            @relation(fields: [turnId], references: [pk])
 }
 
 model Location {
@@ -420,6 +561,8 @@ model Location {
   towns               Town[]
   townDatas           TownData[]
   transports          Transport[]
+  turnId              Int
+  turn                Turn        @relation(fields: [turnId], references: [pk])
 }
 
 model Manager {
@@ -431,6 +574,8 @@ model Manager {
   sellPrice          Float?
   sellVolume         Float?
   tradeRouteManagers TradeRouteManager[]
+  turnId             Int
+  turn               Turn                @relation(fields: [turnId], references: [pk])
 }
 
 model MarketItemDetails {
@@ -443,6 +588,8 @@ model MarketItemDetails {
   asks     Json
   dataId   Int
   data     MarketItem @relation(fields: [dataId], references: [pk])
+  turnId   Int
+  turn     Turn       @relation(fields: [turnId], references: [pk])
 }
 
 model MarketItem {
@@ -459,12 +606,16 @@ model MarketItem {
   askVolume10       Float               @default(0)
   marketItemDetails MarketItemDetails[]
   marketMappings    MarketMapping[]
+  turnId            Int
+  turn              Turn                @relation(fields: [turnId], references: [pk])
 }
 
 model Market {
   pk      Int             @id @default(autoincrement())
   ts      Float
   markets MarketMapping[]
+  turnId  Int
+  turn    Turn            @relation(fields: [turnId], references: [pk])
 }
 
 model MarketMapping {
@@ -474,6 +625,8 @@ model MarketMapping {
   key      String
   itemId   Int
   item     MarketItem @relation(fields: [itemId], references: [pk])
+  turnId   Int
+  turn     Turn       @relation(fields: [turnId], references: [pk])
 }
 
 model Operation {
@@ -494,6 +647,8 @@ model Operation {
   buildingOperations BuildingOperation[]
   producers          Producer[]
   transports         Transport[]
+  turnId             Int
+  turn               Turn                @relation(fields: [turnId], references: [pk])
 }
 
 model OperationFlow {
@@ -503,15 +658,19 @@ model OperationFlow {
   key         String
   flowId      Int
   flow        Flow      @relation(fields: [flowId], references: [pk])
+  turnId      Int
+  turn        Turn      @relation(fields: [turnId], references: [pk])
 }
 
 model Path {
-  pk    Int                 @id @default(autoincrement())
-  x     Float
-  y     Float
-  c     Float
-  legId Int
-  leg   TransportJourneyLeg @relation(fields: [legId], references: [pk])
+  pk     Int                 @id @default(autoincrement())
+  x      Float
+  y      Float
+  c      Float
+  legId  Int
+  leg    TransportJourneyLeg @relation(fields: [legId], references: [pk])
+  turnId Int
+  turn   Turn                @relation(fields: [turnId], references: [pk])
 }
 
 model PrestigeImpact {
@@ -520,6 +679,8 @@ model PrestigeImpact {
   impact      Float
   householdId Int
   household   Household @relation(fields: [householdId], references: [pk])
+  turnId      Int
+  turn        Turn      @relation(fields: [turnId], references: [pk])
 }
 
 model Producer {
@@ -536,6 +697,8 @@ model Producer {
   target              Float?
   buildings           Building[]
   transports          Transport[]
+  turnId              Int
+  turn                Turn        @relation(fields: [turnId], references: [pk])
 }
 
 model Recipe {
@@ -548,24 +711,31 @@ model Recipe {
   points       Float?
   inputs       Ingredient[] @relation("RecipeInputs")
   outputs      Ingredient[] @relation("RecipeOutputs")
+  turnId       Int
+  turn         Turn         @relation(fields: [turnId], references: [pk])
 }
 
 model Region {
-  pk          Int       @id @default(autoincrement())
-  id          Float     @unique
+  pk          Int        @id @default(autoincrement())
+  id          Float      @unique
   name        String
   description String?
   centerId    Int?
-  center      Location? @relation(fields: [centerId], references: [pk])
+  center      Location?  @relation(fields: [centerId], references: [pk])
   size        Float?
+  seasonId    Int
+  season      Season     @relation(fields: [seasonId], references: [pk])
+  TownData    TownData[]
 }
 
 model Structure {
-  pk    Int            @id @default(autoincrement())
-  id    String         @unique
-  type  String
-  tags  StructureTag[]
-  tiles Tile[]
+  pk     Int            @id @default(autoincrement())
+  id     String         @unique
+  type   String
+  tags   StructureTag[]
+  tiles  Tile[]
+  turnId Int
+  turn   Turn           @relation(fields: [turnId], references: [pk])
 }
 
 model StructureTag {
@@ -574,6 +744,8 @@ model StructureTag {
   structure   Structure @relation(fields: [structureId], references: [pk])
   tagId       Int
   tag         Tag       @relation(fields: [tagId], references: [pk])
+  turnId      Int
+  turn        Turn      @relation(fields: [turnId], references: [pk])
 }
 
 model Tag {
@@ -589,6 +761,8 @@ model Sustenance {
   inventory   Inventory   @relation(fields: [inventoryId], references: [pk])
   providerId  String?
   households  Household[]
+  turnId      Int
+  turn        Turn        @relation(fields: [turnId], references: [pk])
 }
 
 model TileRequirement {
@@ -606,28 +780,37 @@ model Tile {
   structure       Structure?       @relation(fields: [structureId], references: [pk])
   askPrice        String?
   townDataDomains TownDataDomain[]
+  turnId          Int
+  turn            Turn             @relation(fields: [turnId], references: [pk])
 }
 
 model TownChurch {
   pk         Int        @id @default(autoincrement())
   projectIds String[]
   townDatas  TownData[]
+  turnId     Int
+  turn       Turn       @relation(fields: [turnId], references: [pk])
 }
 
 model TownCulture {
   pk                    Int        @id @default(autoincrement())
   specialMarketPressure Json?
   townDatas             TownData[]
+  turnId                Int
+  turn                  Turn       @relation(fields: [turnId], references: [pk])
 }
 
 model Town {
-  pk         Int      @id @default(autoincrement())
-  id         Float    @unique
+  pk         Int        @id @default(autoincrement())
+  id         Float      @unique
   name       String
   locationId Int
-  location   Location @relation(fields: [locationId], references: [pk])
+  location   Location   @relation(fields: [locationId], references: [pk])
   region     Float
-  capital    Boolean  @default(false)
+  capital    Boolean    @default(false)
+  turnId     Int
+  turn       Turn       @relation(fields: [turnId], references: [pk])
+  TownData   TownData[]
 }
 
 model TownData {
@@ -636,7 +819,7 @@ model TownData {
   name            String
   locationId      Int
   location        Location         @relation(fields: [locationId], references: [pk])
-  region          Float
+  region          Int
   centerIds       Float[]
   householdIds    String[]
   commonersId     Int
@@ -649,6 +832,11 @@ model TownData {
   cultureId       Int
   culture         TownCulture      @relation(fields: [cultureId], references: [pk])
   domain          TownDataDomain[]
+  turnId          Int
+  turn            Turn             @relation(fields: [turnId], references: [pk])
+  townId          Int
+  Town            Town             @relation(fields: [townId], references: [pk])
+  RegionRef       Region           @relation(fields: [region], references: [pk])
 }
 
 model TownDataDomain {
@@ -658,6 +846,8 @@ model TownDataDomain {
   key        String
   tileId     Int
   tile       Tile     @relation(fields: [tileId], references: [pk])
+  turnId     Int
+  turn       Turn     @relation(fields: [turnId], references: [pk])
 }
 
 model TownDemandCategory {
@@ -665,6 +855,8 @@ model TownDemandCategory {
   name      String
   products  TownDemand[]
   commoners Commoners[]
+  turnId    Int
+  turn      Turn         @relation(fields: [turnId], references: [pk])
 }
 
 model TownDemand {
@@ -676,6 +868,8 @@ model TownDemand {
   result               Float                @default(0.0)
   townDemandCategories TownDemandCategory[]
   townGovernments      TownGovernment[]
+  turnId               Int
+  turn                 Turn                 @relation(fields: [turnId], references: [pk])
 }
 
 model TownGovernment {
@@ -685,6 +879,8 @@ model TownGovernment {
   taxesCollectedId Int
   taxesCollected   TownGovernmentTaxes @relation(fields: [taxesCollectedId], references: [pk])
   townDatas        TownData[]
+  turnId           Int
+  turn             Turn                @relation(fields: [turnId], references: [pk])
 }
 
 model TownGovernmentTaxes {
@@ -693,6 +889,8 @@ model TownGovernmentTaxes {
   structureTax    Float            @default(0.0)
   ferryFees       Float            @default(0.0)
   townGovernments TownGovernment[]
+  turnId          Int
+  turn            Turn             @relation(fields: [turnId], references: [pk])
 }
 
 model TradeRoute {
@@ -715,6 +913,8 @@ model TradeRoute {
   previousFlows   TradeRouteFlow[]    @relation("PreviousTradeRouteFlows")
   tradeRouteFlows TradeRouteFlow[]
   transports      Transport[]
+  turnId          Int
+  turn            Turn                @relation(fields: [turnId], references: [pk])
 }
 
 model TradeRouteManager {
@@ -724,6 +924,8 @@ model TradeRouteManager {
   key          String
   managerId    Int
   manager      Manager    @relation(fields: [managerId], references: [pk])
+  turnId       Int
+  turn         Turn       @relation(fields: [turnId], references: [pk])
 }
 
 model TradeRouteFlow {
@@ -736,6 +938,8 @@ model TradeRouteFlow {
   flowType           FlowType
   tradeRouteCurrent  TradeRoute @relation(fields: [tradeRouteId], references: [pk], name: "CurrentTradeRouteFlows", map: "tradeRouteFlow_tradeRouteId_fkey_unique2")
   tradeRoutePrevious TradeRoute @relation(fields: [tradeRouteId], references: [pk], name: "PreviousTradeRouteFlows", map: "tradeRouteFlow_tradeRouteId_fkey_unique3")
+  turnId             Int
+  turn               Turn       @relation(fields: [turnId], references: [pk])
 }
 
 enum FlowType {
@@ -749,12 +953,16 @@ model TransportCargo {
   inventoryId Int?
   inventory   Inventory?  @relation(fields: [inventoryId], references: [pk])
   transports  Transport[]
+  turnId      Int
+  turn        Turn        @relation(fields: [turnId], references: [pk])
 }
 
 model TransportJourneyLeg {
   pk                Int                @id @default(autoincrement())
   paths             Path[]
   transportJourneys TransportJourney[]
+  turnId            Int
+  turn              Turn               @relation(fields: [turnId], references: [pk])
 }
 
 model TransportJourney {
@@ -765,6 +973,8 @@ model TransportJourney {
   moves       Float
   legs        TransportJourneyLeg[]
   transports  Transport[]
+  turnId      Int
+  turn        Turn                  @relation(fields: [turnId], references: [pk])
 }
 
 model Transport {
@@ -795,6 +1005,8 @@ model Transport {
   route                 TradeRoute?      @relation(fields: [routeId], references: [pk])
   journeyId             Int
   journey               TransportJourney @relation(fields: [journeyId], references: [pk])
+  turnId                Int
+  turn                  Turn             @relation(fields: [turnId], references: [pk])
 }
 
 model TransportType {
@@ -810,6 +1022,8 @@ model TransportType {
   catches         String?
   fishingRange    Float?
   transports      Transport[]
+  turnId          Int
+  turn            Turn        @relation(fields: [turnId], references: [pk])
 }
 
 model Worker {
@@ -828,4 +1042,6 @@ model WorkerSkill {
   worker   Worker @relation(fields: [workerId], references: [pk])
   skill    String
   value    Float
+  turnId   Int
+  turn     Turn   @relation(fields: [turnId], references: [pk])
 }

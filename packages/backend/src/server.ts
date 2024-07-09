@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
 import { Queue, Worker } from 'bullmq';
 import authRoutes from './routes/auth';
+import gameDataRoutes from './routes/gameData';
+import toolRoutes from './routes/tools';
 
 dotenv.config();
 
@@ -25,9 +27,8 @@ app.use(cors({
 
 
 app.use('/api/auth', authRoutes);
-
-// Use the user routes
-//app.use('/users', userRoutes);
+app.use('/api/gameData', gameDataRoutes);
+app.use('/api/tools', toolRoutes);
 
 // Example background job queue
 // const queue = new Queue('example-queue');

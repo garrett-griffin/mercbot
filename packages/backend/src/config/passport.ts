@@ -16,11 +16,11 @@ passport.use(
         {
             usernameField: 'email', // Use "email" field as the username
         },
-        async (username: string, password: string, done: (err: any, user: any, options: any) => void) => {
+        async (email: string, password: string, done: (err: any, user: any, options: any) => void) => {
             try {
-                const user = await prisma.user.findFirst({ where: { username } });
+                const user = await prisma.user.findFirst({ where: { email } });
                 if (!user) {
-                    return done(null, false, { message: 'Incorrect username.' });
+                    return done(null, false, { message: 'Incorrect email.' });
                 }
                 const isValidPassword = await bcrypt.compare(password, user.password);
                 if (!isValidPassword) {

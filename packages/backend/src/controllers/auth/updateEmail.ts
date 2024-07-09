@@ -4,12 +4,12 @@ import { User } from '../../models'; // Import your User model
 
 const prisma = new PrismaClient();
 
-const updateUsername = async (req: Request, res: Response) => {
-    const { newUsername } = req.body;
+const updateEmail = async (req: Request, res: Response) => {
+    const { newEmail } = req.body;
     const user = req.user as User | undefined; // Use your User model to define the type of req.user
 
     if (!user) {
-        return res.status(401).json({ error: 'You must be logged in to update your username' });
+        return res.status(401).json({ error: 'You must be logged in to update your email' });
     }
 
     try {
@@ -17,11 +17,11 @@ const updateUsername = async (req: Request, res: Response) => {
         const existingUser = await prisma.user.findUnique({ where: { id: userId } });
         if (!existingUser) return res.status(404).json({ error: 'User not found' });
 
-        await prisma.user.update({ where: { id: userId }, data: { username: newUsername, email: newUsername } });
-        res.status(200).json({ message: 'Username updated successfully' });
+        await prisma.user.update({ where: { id: userId }, data: { email: newEmail } });
+        res.status(200).json({ message: 'Email updated successfully' });
     } catch (error: any) {
-        res.status(500).json({ error: 'Failed to update username: ' + error.toString() });
+        res.status(500).json({ error: 'Failed to update email: ' + error.toString() });
     }
 };
 
-export { updateUsername };
+export { updateEmail };

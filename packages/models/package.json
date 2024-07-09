@@ -6,6 +6,7 @@
   "homepage": "https://github.com/garrett-griffin/mercbot#readme",
   "license": "ISC",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "directories": {
     "test": "tests",
     "lib": "dist"

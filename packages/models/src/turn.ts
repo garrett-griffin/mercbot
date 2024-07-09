@@ -1,0 +1,78 @@
+import { z } from 'zod';
+import { SeasonSchema } from "./season";
+import {TownSchema} from "./town";
+import {TownDataSchema} from "./townData";
+import {ActionSchema} from "./action";
+import {RecurringActionSchema} from "./recurringAction";
+import {LocationSchema} from "./location";
+
+export const TurnSchema = z.object({
+    pk: z.number().int(),
+    turn: z.number(),
+    month: z.string().optional(),
+    year: z.number().optional(),
+    seasonId: z.number().int(),
+    season: SeasonSchema, // Assuming you've imported the Season Zod Schema
+    accounts: z.array(z.unknown()),
+    Building: z.array(z.unknown()),
+    BuildingConstructionEffort: z.array(z.unknown()),
+    BuildingConstruction: z.array(z.unknown()),
+    BuildingOperation: z.array(z.unknown()),
+    BuildingOperationFlow: z.array(z.unknown()),
+    BuildingRequirement: z.array(z.unknown()),
+    BuildingRequirements: z.array(z.unknown()),
+    BuildingStorage: z.array(z.unknown()),
+    BuildingType: z.array(z.unknown()),
+    BuildingUpgrade: z.array(z.unknown()),
+    BusinessBuilding: z.array(z.unknown()),
+    Business: z.array(z.unknown()),
+    Commoners: z.array(z.unknown()),
+    DeliveryCost: z.array(z.unknown()),
+    Flow: z.array(z.unknown()),
+    Household: z.array(z.unknown()),
+    Ingredient: z.array(z.unknown()),
+    Inventory: z.array(z.unknown()),
+    ItemOrder: z.array(z.unknown()),
+    ItemPrice: z.array(z.unknown()),
+    Item: z.array(z.unknown()),
+    ItemTradeResult: z.array(z.unknown()),
+    ItemTradeSettlement: z.array(z.unknown()),
+    Location: z.array(LocationSchema),
+    Manager: z.array(z.unknown()),
+    MarketItemDetails: z.array(z.unknown()),
+    MarketItem: z.array(z.unknown()),
+    Market: z.array(z.unknown()),
+    MarketMapping: z.array(z.unknown()),
+    Operation: z.array(z.unknown()),
+    OperationFlow: z.array(z.unknown()),
+    Path: z.array(z.unknown()),
+    PrestigeImpact: z.array(z.unknown()),
+    Producer: z.array(z.unknown()),
+    Recipe: z.array(z.unknown()),
+    Structure: z.array(z.unknown()),
+    StructureTag: z.array(z.unknown()),
+    Sustenance: z.array(z.unknown()),
+    Tile: z.array(z.unknown()),
+    TownChurch: z.array(z.unknown()),
+    TownCulture: z.array(z.unknown()),
+    Town: z.array(TownSchema),
+    TownData: z.array(TownDataSchema),
+    TownDataDomain: z.array(z.unknown()),
+    TownDemandCategory: z.array(z.unknown()),
+    TownDemand: z.array(z.unknown()),
+    TownGovernment: z.array(z.unknown()),
+    TownGovernmentTaxes: z.array(z.unknown()),
+    TradeRoute: z.array(z.unknown()),
+    TradeRouteManager: z.array(z.unknown()),
+    TradeRouteFlow: z.array(z.unknown()),
+    TransportCargo: z.array(z.unknown()),
+    TransportJourneyLeg: z.array(z.unknown()),
+    TransportJourney: z.array(z.unknown()),
+    Transport: z.array(z.unknown()),
+    TransportType: z.array(z.unknown()),
+    WorkerSkill: z.array(z.unknown()),
+    Action: z.array(ActionSchema),
+    RecurringAction: z.array(RecurringActionSchema)
+});
+
+export type TurnType = z.infer<typeof TurnSchema>;
