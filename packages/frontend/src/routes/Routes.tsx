@@ -1,5 +1,5 @@
 import { Navigate, Route, RouteProps, Routes } from 'react-router-dom'
-import { allAdminRoutes, allBlankRoutes, allPublicRoutes } from './index'
+import { allProtectedRoutes, allAuthRoutes, allPublicRoutes } from './index'
 import Layout from '@/layout/Layout'
 import { useAuthContext } from '@/context'
 import DefaultLayout from '@/layout/DefaultLayout'
@@ -8,7 +8,7 @@ const AllRoutes = (props: RouteProps) => {
 	const { isAuthenticated } = useAuthContext()
 	return (
 		<Routes>
-			{allBlankRoutes.map((route, idx) => (
+			{allAuthRoutes.map((route, idx) => (
 				<Route
 					key={idx}
 					path={route.path}
@@ -26,7 +26,7 @@ const AllRoutes = (props: RouteProps) => {
 				/>
 			))}
 
-			{allAdminRoutes.map((route, idx) => (
+			{allProtectedRoutes.map((route, idx) => (
 				<Route
 					key={idx}
 					path={route.path}
